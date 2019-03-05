@@ -1,5 +1,5 @@
 ![Screenshot](/animation-tweaks@Selenium-H/eicon.png) 
-# **Animation-Tweaks** ( Version 1 )
+# **Animation Tweaks** ( Version 1 )
 GNOME Extension to Tweak animations of different items and Customize them.
 
 # Customizations

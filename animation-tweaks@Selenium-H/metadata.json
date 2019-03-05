@@ -1,0 +1,9 @@
+{
+"name": "Animation Tweaks", 
+"description": "Add aimations to different items and Customize them.", 
+"uuid": "animation-tweaks@Selenium-H", 
+"settings-schema": "org.gnome.shell.extensions.animation-tweaks", 
+"shell-version": ["3.30"],
+"version": 1
+
+}

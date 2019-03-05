@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schemalist gettext-domain="gnome-shell-extensions">
+	<schema path="/org/gnome/shell/extensions/animation-tweaks/" id="org.gnome.shell.extensions.animation-tweaks">
+    		<key name="dropdown-menu" type="as">
+      		<default>['T'	,'Scale Sown' 		,'350'	,'100'	,'50'	,'50'	,'0'   ,'0']	</default>
+      		<summary>Drop down Menu Settings</summary>
+      		<description>Animation settings for Drop down Menu</description>
+    		</key>
+    		<key name="popup-menu" type="as">
+      		<default>['T'	,'Scale In'          		,'250'   ,'50'   ,'50'    ,'50'   ,'0'   ,'0']	</default>
+      		<summary>Pop up Menu Settings</summary>
+      		<description>Animation settings for Pop Up Menu</description>
+    		</key>		
+    		<key name="combo" type="as">
+      		<default>['T',	'Scale Down'  		,'250'   ,'100'	,'50'	,'50'	,'0'	,'0']	</default>
+      		<summary>Drop down List Settings</summary>
+      		<description>Animation settings for Dropdown List</description>
+    		</key>
+    		<key name="splashscreen" type="as">
+      		<default>['T'	,'Zoom In'	     		,'250'	 ,'90'	,'90'	,'50'	,'0'	,'0']	</default>
+      		<summary>Splash Screen Settings</summary>
+      		<description>Animation settings for Splash Screen</description>
+    		</key>
+    		<key name="tooltip" type="as">
+      		<default>['T',	'Slide In From Top Right'	,'250'	 ,'100'	,'100'	,'50'	,'5'	,'20']</default>
+      		<summary>Tool tip Settings</summary>
+      		<description>Animation settings for Tool Tips</description>
+    		</key>
+		<key name="effects-list" type="as">
+      		<default>['Fade In'			,'250'	,'95'	,'95'	,'0'	,'0'	,'0'	,
+			  'Scale In'			,'250'	,'50'	,'50'	,'0'	,'0'	,'0'	,
+			  'Scale Right'			,'250'	,'50'	,'100'	,'50'	,'0'	,'0'	,
+			  'Scale Down'			,'250'	,'100'	,'50'	,'50'	,'0'	,'0'	,
+			  'Slide Up'			,'250'	,'100'	,'100'	,'0'	,'3'	,'20'	,
+			  'Slide Right '		,'250'	,'100'	,'100'	,'0'	,'4'	,'20'	,
+			  'Slide Left'			,'250'	,'100'	,'100'	,'0'	,'2'	,'20'	,
+			  'Slide Down'			,'250'	,'100'	,'100'	,'0'	,'1'	,'20'	,
+		          'Slide From Top Right'	,'250'	,'100'	,'100'	,'0'	,'5'	,'20'	,
+			  'Zoom In'			,'250'	,'50'	,'50'	,'0'	,'9'	,'0'	,
+			  'Zoom Out'			,'250'	,'150'	,'150'	,'0'	,'9'	,'0'
+			 ]
+		</default>
+      		<summary>List of Default Effects</summary>
+      		<description>List of Default Effects</description>
+    		</key>
+  	</schema>
+</schemalist>

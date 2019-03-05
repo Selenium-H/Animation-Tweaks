@@ -1,0 +1,105 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR Free Software Foundation, Inc.
+# This file is distributed under the same license as the GNU make package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: animation-tweaks\n"
+"POT-Creation-Date: 2016-06-10 19:03-0400\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team:\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+#: prefs.js:36
+msgid "Preferences"
+msgstr ""
+
+#: prefs.js:37
+msgid "About"
+msgstr ""
+
+#: prefs.js:54
+msgid "Drop Down Menu "
+msgstr ""
+
+#: prefs.js:55
+msgid "Pop up Menu \t"
+msgstr ""
+
+#: prefs.js:56
+msgid "Combo Box \t"
+msgstr ""
+
+#: prefs.js:57
+msgid "Splash Screen \t"
+msgstr ""
+
+#: prefs.js:58
+msgid "Tool tips \t"
+msgstr ""
+
+#: prefs.js:65
+msgid "Items"
+msgstr ""
+
+#: prefs.js:66
+msgid "Effect"
+msgstr ""
+
+#: prefs.js:67
+msgid "Time in miliseconds"
+msgstr ""
+
+#: prefs.js:68
+msgid "          Status"
+msgstr ""
+
+#: schemas/org.gnome.shell.extensions.animations.gschema.xml:6
+msgid "Drop down Menu Settings"
+msgstr ""
+
+#: schemas/org.gnome.shell.extensions.animations.gschema.xml:7
+msgid "Animation settings for Drop down Menu"
+msgstr ""
+
+#: schemas/org.gnome.shell.extensions.animations.gschema.xml:11
+msgid "Pop up Menu Settings"
+msgstr ""
+
+#: schemas/org.gnome.shell.extensions.animations.gschema.xml:12
+msgid "Animation settings for Pop Up Menu"
+msgstr ""
+
+#: schemas/org.gnome.shell.extensions.animations.gschema.xml:16
+msgid "Drop down List Settings"
+msgstr ""
+
+#: schemas/org.gnome.shell.extensions.animations.gschema.xml:17
+msgid "Animation settings for Dropdown List"
+msgstr ""
+
+#: schemas/org.gnome.shell.extensions.animations.gschema.xml:21
+msgid "Splash Screen Settings"
+msgstr ""
+
+#: schemas/org.gnome.shell.extensions.animations.gschema.xml:22
+msgid "Animation settings for Splash Screen"
+msgstr ""
+
+#: schemas/org.gnome.shell.extensions.animations.gschema.xml:26
+msgid "Tool tip Settings"
+msgstr ""
+
+#: schemas/org.gnome.shell.extensions.animations.gschema.xml:27
+msgid "Animation settings for Tool Tips"
+msgstr ""
+
+#: schemas/org.gnome.shell.extensions.animations.gschema.xml:43
+#: schemas/org.gnome.shell.extensions.animations.gschema.xml:44
+msgid "List of Default Effects"
+msgstr ""

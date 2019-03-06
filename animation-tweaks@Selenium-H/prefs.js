@@ -140,5 +140,5 @@ const	AboutPage = 	new GObject.Class({
 function initTranslations()
 {
     	let localeDir = Extension.dir.get_child("locale");
-	Gettext.bindtextdomain("notification-center", localeDir.query_exists(null)?localeDir.get_path():Config.LOCALEDIR);
+	Gettext.bindtextdomain("animation-tweaks", localeDir.query_exists(null)?localeDir.get_path():Config.LOCALEDIR);
 }

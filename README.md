@@ -1,5 +1,8 @@
-![Screenshot](/animation-tweaks@Selenium-H/eicon.png) 
-# **Animation Tweaks** ( Version 1 )
+<p align = "center">
+  <img src=/animation-tweaks@Selenium-H/eicon.png
+</p>
+
+# Animation Tweaks ( Version 1 )
 A GNOME Extension to Tweak animations of different items and Customize them.
 
 # Customizations
@@ -9,11 +12,11 @@ A GNOME Extension to Tweak animations of different items and Customize them.
 # Installation
 
 ## Manual
-Download or Clone the Repository and exract the Zip file.
++ Download or Clone the Repository and exract the Zip file.
 
-Copy the animation-tweaks@Selenium-H folder to ~/.local/share/gnome-shell/extensions folder.
++ Copy the animation-tweaks@Selenium-H folder to ~/.local/share/gnome-shell/extensions folder.
 
-Restart Gnome Shell ( Alt + F2 , Press r , Press Enter )
++ Restart Gnome Shell ( Alt + F2 , Press r , Press Enter )
 
-Enable it using GNOME Tweak Tool.
++ Enable it using GNOME Tweak Tool.
 

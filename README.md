@@ -1,8 +1,7 @@
-<p align = "center">
-  <img src=/animation-tweaks@Selenium-H/eicon.png
-</p>
+![logo](/animation-tweaks@Selenium-H/eicon.png)
 
 # Animation Tweaks ( Version 1 )
+
 A GNOME Extension to Tweak animations of different items and Customize them.
 
 # Customizations

@@ -8,7 +8,7 @@ Version 2
 </p>
 
 <p align="center">
-A GNOME Shell Extension to Tweak animations of different items and Customize them.
+A GNOME Shell Extension to Tweak animations of different items and Customize them. This Extension does not work properly on wayland.
 </p>
 
 # &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Customizations

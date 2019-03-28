@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schemalist gettext-domain="gnome-shell-extensions">
+	<schema path="/org/gnome/shell/extensions/animation-tweaks/" id="org.gnome.shell.extensions.animation-tweaks">
+    		<key name="normal" 		type="as">
+      		<default>['F'  ,'Scale Down'  		,'O'  ,'250'    ,'100'  ,'100'    ,'10'   ,'100'    ,'0'    ,'100'   ,'0'    ,'0'     ,'0'   ,'0'  ,
+			  'F'  ,'Fold In  Sideways'   	,'C'  ,'250'    ,'100'  ,'0'      ,'100'  ,'100'    ,'100'  ,'0'     ,'50'   ,'50'    ,'0'   ,'0'  ]	</default>
+      		<summary>Normal window effects</summary>
+      		<description>Animation settings for Normal Windows</description>
+    		</key>
+    		<key name="dialog" 		type="as">
+      		<default>['F'  ,'Fold Out Sideways'  	,'O'  ,'250'    ,'0'    ,'100'    ,'100'  ,'100'    ,'100'  ,'100'   ,'50'   ,'50'    ,'0'   ,'0'  ,
+			  'F'  ,'Fold In  Sideways'   	,'C'  ,'250'    ,'100'  ,'0'      ,'100'  ,'100'    ,'100'  ,'0'     ,'50'   ,'50'    ,'0'   ,'0'  ]	</default>
+      		<summary>Dailog window effects</summary>
+      		<description>Animation settings for Dailog window</description>
+    		</key>
+    		<key name="modal-dialog" 		type="as">
+      		<default>['F'  ,'Fold Out Vertically'  	,'O'  ,'250'    ,'100'  ,'100'    ,'0'    ,'100'    ,'100'  ,'100'   ,'50'   ,'50'    ,'0'   ,'0'  ,
+			  'F'  ,'Fold In  Vertically'   ,'C'  ,'250'    ,'100'  ,'100'    ,'100'  ,'0'      ,'100'  ,'0'     ,'50'   ,'50'    ,'0'   ,'0'  ]	</default>
+      		<summary>Modal dialog Effects</summary>
+      		<description>Animation settings for Modal dialogs</description>
+    		</key>
+    		<key name="dropdown-menu" 		type="as">
+      		<default>['T'  ,'Scale Down'  		,'O'  ,'250'    ,'100'  ,'100'    ,'10'   ,'100'    ,'0'    ,'100'   ,'0'    ,'0'     ,'0'   ,'0'  ]	</default>
+      		<summary>Drop down Menu Effects</summary>
+      		<description>Animation settings for Drop down Menus</description>
+    		</key>
+    		<key name="popup-menu" 		type="as">
+      		<default>['T'  ,'Scale Down'  		,'O'  ,'250'    ,'100'  ,'100'    ,'10'   ,'100'    ,'0'    ,'100'   ,'0'    ,'0'     ,'0'   ,'0' ]	</default>
+      		<summary>Pop up  Menu Effects</summary>
+      		<description>Animation settings for Pop up menus</description>
+    		</key>
+    		<key name="combo" 		type="as">
+      		<default>['T'  ,'Scale Down'  		,'O'  ,'250'    ,'100'  ,'100'    ,'10'   ,'100'    ,'0'    ,'100'   ,'0'    ,'0'     ,'0'   ,'0' ]	</default>
+      		<summary>Combo Box Effects</summary>
+      		<description>Animation settings for Combo Box</description>
+    		</key>
+    		<key name="splashscreen" 		type="as">
+      		<default>['T'  ,'Zoom In'     		,'O'  ,'250'    ,'0'    ,'100'    ,'0'    ,'100'    ,'0'    ,'100'   ,'50'   ,'50'    ,'0'   ,'0'  ]	</default>
+      		<summary>Splash Screen Efects</summary>
+      		<description>Animation settings for Splash Screen</description>
+    		</key>
+    		<key name="tooltip" 		type="as">
+      		<default>['T'  ,'Slide Up'    		,'O'  ,'350'    ,'100'  ,'100'    ,'100'  ,'100'    ,'0'    ,'100'   ,'0'    ,'100'   ,'3'   ,'20' ]	</default>
+      		<summary>Tool tip Effects</summary>
+      		<description>Animation settings for Tool tips</description>
+    		</key>
+    		<key name="override-other" 		type="as">
+      		<default>['T'  ,'Scale Down'  		,'O'  ,'250'    ,'100'  ,'100'    ,'10'   ,'100'    ,'0'    ,'100'   ,'0'    ,'0'     ,'0'   ,'0' ]	</default>
+      		<summary>Overriding window Effects</summary>
+      		<description>Animation settings for Overriding window</description>
+    		</key>
+		<key name="open-effects-list" 	type="as">
+      		<default>[      'Fade In'     		,'O'  ,'250'    ,'100'  ,'100'    ,'100'  ,'100'    ,'0'    ,'100'   ,'0'    ,'0'     ,'0'   ,'0'  ,
+				'Fold Out Sideways'  	,'O'  ,'250'    ,'0'    ,'100'    ,'100'  ,'100'    ,'100'  ,'100'   ,'50'   ,'50'    ,'0'   ,'0'  ,
+				'Fold Out Vertically'  	,'O'  ,'250'    ,'100'  ,'100'    ,'0'    ,'100'    ,'100'  ,'100'   ,'50'   ,'50'    ,'0'   ,'0'  ,
+				'Scale Down'  		,'O'  ,'250'    ,'100'  ,'100'    ,'10'   ,'100'    ,'0'    ,'100'   ,'0'    ,'0'     ,'0'   ,'0'  ,
+				'Scale Left' 	        ,'O'  ,'250'    ,'10'   ,'100'    ,'100'  ,'100'    ,'0'    ,'100'   ,'100'  ,'0'     ,'0'   ,'0'  ,
+				'Scale Right'  		,'O'  ,'250'    ,'10'   ,'100'    ,'100'  ,'100'    ,'0'    ,'100'   ,'0'    ,'0'     ,'0'   ,'0'  ,
+				'Scale Up'  		,'O'  ,'250'    ,'100'  ,'100'    ,'10'   ,'100'    ,'0'    ,'100'   ,'100'  ,'100'   ,'0'   ,'0'  ,
+				'Slide Down'    	,'O'  ,'350'    ,'100'  ,'100'    ,'100'  ,'100'    ,'0'    ,'100'   ,'0'    ,'100'   ,'1'   ,'20' ,  
+				'Slide Down Left'    	,'O'  ,'350'    ,'100'  ,'100'    ,'100'  ,'100'    ,'0'    ,'100'   ,'0'    ,'100'   ,'5'   ,'20' ,
+				'Slide Down Right'    	,'O'  ,'350'    ,'100'  ,'100'    ,'100'  ,'100'    ,'0'    ,'100'   ,'0'    ,'100'   ,'8'   ,'20' , 
+				'Slide Left'    	,'O'  ,'350'    ,'100'  ,'100'    ,'100'  ,'100'    ,'0'    ,'100'   ,'0'    ,'100'   ,'2'   ,'20' ,
+				'Slide Right'    	,'O'  ,'350'    ,'100'  ,'100'    ,'100'  ,'100'    ,'0'    ,'100'   ,'0'    ,'100'   ,'4'   ,'20' ,
+				'Slide Up'    		,'O'  ,'350'    ,'100'  ,'100'    ,'100'  ,'100'    ,'0'    ,'100'   ,'0'    ,'100'   ,'3'   ,'20' ,
+				'Slide Up Left'    	,'O'  ,'350'    ,'100'  ,'100'    ,'100'  ,'100'    ,'0'    ,'100'   ,'0'    ,'100'   ,'6'   ,'20' ,  
+				'Slide Up Right'    	,'O'  ,'350'    ,'100'  ,'100'    ,'100'  ,'100'    ,'0'    ,'100'   ,'0'    ,'100'   ,'7'   ,'20' ,
+				'Unmagnify'     	,'O'  ,'250'    ,'150'  ,'100'    ,'200'  ,'100'    ,'0'    ,'100'   ,'50'   ,'50'    ,'0'   ,'0'  , 			
+				'Zoom In'     		,'O'  ,'250'    ,'0'    ,'100'    ,'0'    ,'100'    ,'0'    ,'100'   ,'50'   ,'50'    ,'0'   ,'0'  , 
+				'None'        		,'O'  ,'0'      ,'100'  ,'100'    ,'100'  ,'100'    ,'100'  ,'100'   ,'0'    ,'0'     ,'0'   ,'0'  ]	</default>
+      		<summary>Opening Effects</summary>
+      		<description>List of default opening Effects</description>
+    		</key>
+		<key name="close-effects-list" 	type="as">
+      		<default>[      'Fade Out'    		,'C'  ,'250'    ,'100'  ,'100'    ,'100'  ,'100'    ,'100'  ,'0'     ,'0'    ,'0'     ,'0'   ,'0'  ,
+				'Fold In  Sideways'   	,'C'  ,'250'    ,'100'  ,'0'      ,'100'  ,'100'    ,'100'  ,'0'     ,'50'   ,'50'    ,'0'   ,'0'  ,
+				'Fold In  Vertically'   ,'C'  ,'250'    ,'100'  ,'100'    ,'100'  ,'0'      ,'100'  ,'0'     ,'50'   ,'50'    ,'0'   ,'0'  ,
+				'Magnify'    		,'C'  ,'250'    ,'100'  ,'150'    ,'100'  ,'200'    ,'100'  ,'0'     ,'50'   ,'50'    ,'0'   ,'0'  ,
+				'Scale Down'  		,'C'  ,'250'    ,'100'  ,'100'    ,'100'  ,'10'     ,'100'  ,'0'     ,'0'    ,'100'   ,'0'   ,'0'  ,
+				'Scale Left'  		,'C'  ,'250'    ,'100'  ,'10'     ,'100'  ,'100'    ,'100'  ,'0'     ,'0'    ,'0'     ,'0'   ,'0'  ,
+				'Scale Right' 	        ,'C'  ,'250'    ,'100'  ,'10'     ,'100'  ,'100'    ,'100'  ,'0'     ,'100'  ,'0'     ,'0'   ,'0'  ,
+				'Scale Up'  		,'C'  ,'250'    ,'100'  ,'100'    ,'100'  ,'10'     ,'100'  ,'0'     ,'0'    ,'0'     ,'0'   ,'0'  ,
+				'Slide Down'    	,'C'  ,'350'    ,'100'  ,'100'    ,'100'  ,'100'    ,'100'  ,'0'     ,'0'    ,'100'   ,'11'  ,'50' ,  
+				'Slide Down Left'    	,'C'  ,'350'    ,'100'  ,'100'    ,'100'  ,'100'    ,'100'  ,'0'     ,'0'    ,'100'   ,'15'  ,'50' ,  
+				'Slide Down Right'    	,'C'  ,'350'    ,'100'  ,'100'    ,'100'  ,'100'    ,'100'  ,'0'     ,'0'    ,'100'   ,'14'  ,'50' ,
+				'Slide Left'    	,'C'  ,'350'    ,'100'  ,'100'    ,'100'  ,'100'    ,'100'  ,'0'     ,'0'    ,'100'   ,'12'  ,'50' ,
+				'Slide Right'    	,'C'  ,'350'    ,'100'  ,'100'    ,'100'  ,'100'    ,'100'  ,'0'     ,'0'    ,'100'   ,'10'  ,'50' ,
+				'Slide Up'    		,'C'  ,'350'    ,'100'  ,'100'    ,'100'  ,'100'    ,'100'  ,'0'     ,'0'    ,'100'   ,'9'   ,'50' , 
+				'Slide Up Left'    	,'C'  ,'350'    ,'100'  ,'100'    ,'100'  ,'100'    ,'100'  ,'0'     ,'0'    ,'100'   ,'16'  ,'50' ,
+				'Slide Up Right'    	,'C'  ,'350'    ,'100'  ,'100'    ,'100'  ,'100'    ,'100'  ,'0'     ,'0'    ,'100'   ,'13'   ,'50' , 
+				'Zoom Out'    		,'C'  ,'250'    ,'100'  ,'0'      ,'100'  ,'0'      ,'100'  ,'0'     ,'50'   ,'50'    ,'0'   ,'0'  ,
+				'None'        		,'C'  ,'0'      ,'100'  ,'100'    ,'100'  ,'100'    ,'100'  ,'100'   ,'0'    ,'0'     ,'0'   ,'0'  ]	</default>
+      		<summary>Closing Effects</summary>
+      		<description>List of default closing Effects</description>
+    		</key>
+
+  	</schema>
+</schemalist>

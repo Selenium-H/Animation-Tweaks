@@ -3,7 +3,6 @@
 # This file is distributed under the same license as the GNU make package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: animation-tweaks\n"
@@ -15,91 +14,155 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
+
 #: prefs.js:36
-msgid "Preferences"
+msgid "Open"
 msgstr ""
 
 #: prefs.js:37
+msgid "Close"
+msgstr ""
+
+#: prefs.js:38
 msgid "About"
 msgstr ""
 
 #: prefs.js:54
-msgid "Drop Down Menu "
+msgid "Normal Windows        "
 msgstr ""
 
 #: prefs.js:55
-msgid "Pop up Menu \t"
-msgstr ""
-
-#: prefs.js:56
-msgid "Combo Box \t"
-msgstr ""
-
-#: prefs.js:57
-msgid "Splash Screen \t"
+msgid "Dialog Windows        "
 msgstr ""
 
 #: prefs.js:58
-msgid "Tool tips \t"
+msgid "Modal Dialog Windows  "
+msgstr ""
+
+#: prefs.js:61
+msgid "Drop Down Menu        "
+msgstr ""
+
+#: prefs.js:62
+msgid "Pop up Menu \t       "
+msgstr ""
+
+#: prefs.js:63
+msgid "Combo Box \t       "
+msgstr ""
+
+#: prefs.js:64
+msgid "Splash Screen \t       "
 msgstr ""
 
 #: prefs.js:65
-msgid "Items"
+msgid "Tool tips \t       "
 msgstr ""
 
 #: prefs.js:66
+msgid "Override Others       "
+msgstr ""
+
+#: prefs.js:73
+msgid "Items"
+msgstr ""
+
+#: prefs.js:74
 msgid "Effect"
 msgstr ""
 
-#: prefs.js:67
+#: prefs.js:75
 msgid "Time in miliseconds"
 msgstr ""
 
-#: prefs.js:68
+#: prefs.js:76
 msgid "          Status"
 msgstr ""
 
-#: schemas/org.gnome.shell.extensions.animations.gschema.xml:6
-msgid "Drop down Menu Settings"
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:7
+msgid "Normal window effects"
 msgstr ""
 
-#: schemas/org.gnome.shell.extensions.animations.gschema.xml:7
-msgid "Animation settings for Drop down Menu"
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:8
+msgid "Animation settings for Normal Windows"
 msgstr ""
 
-#: schemas/org.gnome.shell.extensions.animations.gschema.xml:11
-msgid "Pop up Menu Settings"
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:13
+msgid "Dailog window effects"
 msgstr ""
 
-#: schemas/org.gnome.shell.extensions.animations.gschema.xml:12
-msgid "Animation settings for Pop Up Menu"
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:14
+msgid "Animation settings for Dailog window"
 msgstr ""
 
-#: schemas/org.gnome.shell.extensions.animations.gschema.xml:16
-msgid "Drop down List Settings"
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:19
+msgid "Modal dialog Effects"
 msgstr ""
 
-#: schemas/org.gnome.shell.extensions.animations.gschema.xml:17
-msgid "Animation settings for Dropdown List"
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:20
+msgid "Animation settings for Modal dialogs"
 msgstr ""
 
-#: schemas/org.gnome.shell.extensions.animations.gschema.xml:21
-msgid "Splash Screen Settings"
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:24
+msgid "Drop down Menu Effects"
 msgstr ""
 
-#: schemas/org.gnome.shell.extensions.animations.gschema.xml:22
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:25
+msgid "Animation settings for Drop down Menus"
+msgstr ""
+
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:29
+msgid "Pop up Menu Effects"
+msgstr ""
+
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:30
+msgid "Animation settings for Pop up menus"
+msgstr ""
+
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:34
+msgid "Combo Box Effects"
+msgstr ""
+
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:35
+msgid "Animation settings for Combo Box"
+msgstr ""
+
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:39
+msgid "Splash Screen Efects"
+msgstr ""
+
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:40
 msgid "Animation settings for Splash Screen"
 msgstr ""
 
-#: schemas/org.gnome.shell.extensions.animations.gschema.xml:26
-msgid "Tool tip Settings"
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:44
+msgid "Tool tip Effects"
 msgstr ""
 
-#: schemas/org.gnome.shell.extensions.animations.gschema.xml:27
-msgid "Animation settings for Tool Tips"
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:45
+msgid "Animation settings for Tool tips"
 msgstr ""
 
-#: schemas/org.gnome.shell.extensions.animations.gschema.xml:43
-#: schemas/org.gnome.shell.extensions.animations.gschema.xml:44
-msgid "List of Default Effects"
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:49
+msgid "Overriding window Effects"
+msgstr ""
+
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:50
+msgid "Animation settings for Overriding window"
+msgstr ""
+
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:67
+msgid "Opening Effects"
+msgstr ""
+
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:68
+msgid "List of default opening Effects"
+msgstr ""
+
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:81
+msgid "Closing Effects"
+msgstr ""
+
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:82
+msgid "List of default closing Effects"
 msgstr ""

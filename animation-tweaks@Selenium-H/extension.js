@@ -4,7 +4,8 @@ const Lang = imports.lang;
 const Me = ExtensionUtils.getCurrentExtension();
 const Meta = imports.gi.Meta;
 const Tweener = imports.ui.tweener;
-const Main=imports.ui.main;
+const Main = imports.ui.main;
+const Mainloop = imports.mainloop;
 
 function enable() 
 {
@@ -22,9 +23,9 @@ const 	EffectsManager = 	new Lang.Class({
 	{
 		this.prefs          =  new Gio.Settings({ settings_schema: Gio.SettingsSchemaSource.new_from_directory(Me.path + "/schemas", 
 							  Gio.SettingsSchemaSource.get_default(), false).lookup(Me.metadata["settings-schema"], true) });
-		this.onOpening0     =  global.display.connect       ('window-created' , (display ,window) => this.addEffects0 ( window.get_compositor_private() ,0  ));
-		this.onOpening1     =  global.window_manager.connect('map'            , (shellwm ,actor ) => this.addEffects1 ( actor                           ,0  ));
-		this.onClosing      =  global.window_manager.connect('destroy'        , (shellwm ,actor ) => this.addEffects1 ( actor                           ,14 ));
+		this.onOpening0     =  global.display.connect  ('window-created' , (display ,window) => this.addEffects0 ( window.get_compositor_private() ,0  ));
+		this.onOpening1     =  Main.wm._shellwm.connect('map'            , (shellwm ,actor ) => this.addEffects1 ( actor                           ,0  ));
+		this.onClosing      =  Main.wm._shellwm.connect('destroy'        , (shellwm ,actor ) => this.addEffects1 ( actor                           ,14 ));
     	},
 
 	addEffects0 : function (actor,prefStart)
@@ -67,17 +68,18 @@ const 	EffectsManager = 	new Lang.Class({
 
     	_animationDone : function (actor,prefStart)
 	{
-		Tweener.removeTweens(actor);
-		actor.hide();	
-		if(prefStart==14) return;
-		actor.show();
+		switch(prefStart)
+		{
+			case 0  : actor.set_scale(1,1);  actor.set_opacity(255);actor.hide(); actor.show(); break;
+			case 14 : actor.set_scale(0,0);  actor.set_opacity(0)  ;actor.hide();		    break;
+		}
     	},
 
     	baseEffect : function (actor,prefStart)
 	{   
             	[ IPX   ,IPY    ]  =  actor.get_position();
 		[ width ,height ]  =  actor.get_size();
-		[ FPX   ,FPY	]  =  [ IPX   ,IPY    ];
+		[ FPX   ,FPY	]  =  [ IPX   ,IPY   ];
 
 		switch(parseInt(this.eStr[prefStart+12]))
 	    	{
@@ -106,27 +108,28 @@ const 	EffectsManager = 	new Lang.Class({
 		actor.set_opacity ( parseInt(this.eStr[prefStart+8])*255/100 );
 		actor.set_pivot_point ( parseInt(this.eStr[prefStart+10])/100	,parseInt(this.eStr[prefStart+11])/100 );
 
-            	Tweener.addTween(actor,{
-                 	         	  opacity: 		parseInt(this.eStr[prefStart+9])*255/100,
+		Mainloop.timeout_add(20+parseInt(this.eStr[prefStart+3]), ()=>this._animationDone(actor,prefStart));
+
+            	Tweener.addTween(actor,{  opacity: 		parseInt(this.eStr[prefStart+9])*255/100,
                              	 	  x:	  	 	FPX,
                              	 	  y:	   		FPY,
                              	 	  scale_x: 		parseInt(this.eStr[prefStart+5])/100,
                                  	  scale_y: 		parseInt(this.eStr[prefStart+7])/100,
                              	 	  time:    		parseInt(this.eStr[prefStart+3])/1000,
                              	 	  transition: 		'easeOutQuad',
-                             	 	  onComplete:		(actor)=>this._animationDone(actor,prefStart),
+                             	 	  onComplete:		this._animationDone,
                              	 	  onCompleteScope: 	this,
-                             	 	  onCompleteParams:	[actor,IPX,IPY],
-                             	 	  onOverwrite: 		(actor)=>this._animationDone(actor,prefStart),
+                             	 	  onCompleteParams:	[actor,prefStart],
+                             	 	  onOverwrite: 		this._animationDone,
                              	 	  onOverwriteScope : 	this,
-                             	 	  onOverwriteParams: 	[actor,IPX,IPY]
+                             	 	  onOverwriteParams: 	[actor,prefStart]
   				       });
     	},
 
     	destroy: function ()
 	{        	
-		global.display.disconnect(this.onOpening0);
-		global.window_manager.disconnect(this.onOpening1);
-		global.window_manager.disconnect(this.onClosing);
+		global.display.disconnect  (this.onOpening0);
+		Main.wm._shellwm.disconnect(this.onOpening1);
+		Main.wm._shellwm.disconnect(this.onClosing );
     	},
 });

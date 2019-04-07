@@ -5,7 +5,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: animation-tweaks\n"
+"Project-Id-Version: notification-center-10.0\n"
 "POT-Creation-Date: 2016-06-10 19:03-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
@@ -15,154 +15,118 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: prefs.js:36
+#: prefs.js:35
 msgid "Open"
 msgstr ""
 
-#: prefs.js:37
+#: prefs.js:36
 msgid "Close"
 msgstr ""
 
-#: prefs.js:38
+#: prefs.js:37
 msgid "About"
 msgstr ""
 
-#: prefs.js:54
+#: prefs.js:51
 msgid "Normal Windows        "
 msgstr ""
 
-#: prefs.js:55
+#: prefs.js:52
 msgid "Dialog Windows        "
 msgstr ""
 
-#: prefs.js:58
+#: prefs.js:53
 msgid "Modal Dialog Windows  "
 msgstr ""
 
-#: prefs.js:61
+#: prefs.js:55
 msgid "Drop Down Menu        "
 msgstr ""
 
-#: prefs.js:62
+#: prefs.js:56
 msgid "Pop up Menu \t       "
 msgstr ""
 
-#: prefs.js:63
+#: prefs.js:57
 msgid "Combo Box \t       "
 msgstr ""
 
-#: prefs.js:64
+#: prefs.js:58
 msgid "Splash Screen \t       "
 msgstr ""
 
-#: prefs.js:65
+#: prefs.js:59
 msgid "Tool tips \t       "
 msgstr ""
 
-#: prefs.js:66
+#: prefs.js:60
 msgid "Override Others       "
 msgstr ""
 
-#: prefs.js:73
+#: prefs.js:66
 msgid "Items"
 msgstr ""
 
-#: prefs.js:74
+#: prefs.js:67
 msgid "Effect"
 msgstr ""
 
-#: prefs.js:75
+#: prefs.js:68
 msgid "Time in miliseconds"
 msgstr ""
 
-#: prefs.js:76
+#: prefs.js:69
 msgid "          Status"
 msgstr ""
 
-#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:7
-msgid "Normal window effects"
+#: prefs.js:86
+msgid "☰"
 msgstr ""
 
-#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:8
-msgid "Animation settings for Normal Windows"
+#: prefs.js:118
+msgid "Customize      Animation"
 msgstr ""
 
-#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:13
-msgid "Dailog window effects"
+#: prefs.js:144
+msgid "Any  Changes  done  here  are  Applied  immediately"
 msgstr ""
 
-#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:14
-msgid "Animation settings for Dailog window"
+#: prefs.js:145
+msgid "Time for which this animation last"
 msgstr ""
 
-#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:19
-msgid "Modal dialog Effects"
+#: prefs.js:146
+msgid "Initial width\t[  in Percentage  ]"
 msgstr ""
 
-#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:20
-msgid "Animation settings for Modal dialogs"
+#: prefs.js:147
+msgid "Final width  \t[  in Percentage  ]"
 msgstr ""
 
-#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:24
-msgid "Drop down Menu Effects"
+#: prefs.js:148
+msgid "Intial height\t[  in Percentage  ]"
 msgstr ""
 
-#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:25
-msgid "Animation settings for Drop down Menus"
+#: prefs.js:149
+msgid "Final height\t[  in Percentage  ]"
 msgstr ""
 
-#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:29
-msgid "Pop up Menu Effects"
+#: prefs.js:150
+msgid "Intial Opacity\t[    0  -  255    ]"
 msgstr ""
 
-#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:30
-msgid "Animation settings for Pop up menus"
+#: prefs.js:151
+msgid "Final Opacity\t[    0  -  255    ]"
 msgstr ""
 
-#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:34
-msgid "Combo Box Effects"
+#: prefs.js:152
+msgid "Pivot Point X\t[  in Percentage  ]"
 msgstr ""
 
-#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:35
-msgid "Animation settings for Combo Box"
+#: prefs.js:153
+msgid "Pivot Point Y\t[  in Percentage  ]"
 msgstr ""
 
-#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:39
-msgid "Splash Screen Efects"
-msgstr ""
-
-#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:40
-msgid "Animation settings for Splash Screen"
-msgstr ""
-
-#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:44
-msgid "Tool tip Effects"
-msgstr ""
-
-#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:45
-msgid "Animation settings for Tool tips"
-msgstr ""
-
-#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:49
-msgid "Overriding window Effects"
-msgstr ""
-
-#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:50
-msgid "Animation settings for Overriding window"
-msgstr ""
-
-#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:67
-msgid "Opening Effects"
-msgstr ""
-
-#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:68
-msgid "List of default opening Effects"
-msgstr ""
-
-#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:81
-msgid "Closing Effects"
-msgstr ""
-
-#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:82
-msgid "List of default closing Effects"
+#: prefs.js:186
+msgid "Reset Animation Tweaks Extension "
 msgstr ""

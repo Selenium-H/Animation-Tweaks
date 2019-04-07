@@ -5,7 +5,6 @@ const Me = ExtensionUtils.getCurrentExtension();
 const Meta = imports.gi.Meta;
 const Tweener = imports.ui.tweener;
 const Main = imports.ui.main;
-const Mainloop = imports.mainloop;
 
 function enable() 
 {
@@ -24,112 +23,126 @@ const 	EffectsManager = 	new Lang.Class({
 		this.prefs          =  new Gio.Settings({ settings_schema: Gio.SettingsSchemaSource.new_from_directory(Me.path + "/schemas", 
 							  Gio.SettingsSchemaSource.get_default(), false).lookup(Me.metadata["settings-schema"], true) });
 		this.onOpening0     =  global.display.connect  ('window-created' , (display ,window) => this.addEffects0 ( window.get_compositor_private() ,0  ));
-		this.onOpening1     =  Main.wm._shellwm.connect('map'            , (shellwm ,actor ) => this.addEffects1 ( actor                           ,0  ));
-		this.onClosing      =  Main.wm._shellwm.connect('destroy'        , (shellwm ,actor ) => this.addEffects1 ( actor                           ,14 ));
+		this.onOpening1     =  Main.wm._shellwm.connect('map'            , (shellwm ,actor ) => this.addEffects1 ( shellwm ,actor                  ,0  ));
+		this.onClosing      =  Main.wm._shellwm.connect('destroy'        , (shellwm ,actor ) => this.addEffects1 ( shellwm ,actor                  ,14 ));
     	},
 
-	addEffects0 : function (actor,prefStart)
+	addEffects0 : function (actor,sIndex)
 	{
 		switch(actor.meta_window.window_type)
 		{
-                        case Meta.WindowType.DROPDOWN_MENU  : this.eStr = this.prefs.get_strv('dropdown-menu'  ); break;
-			case Meta.WindowType.POPUP_MENU     : this.eStr = this.prefs.get_strv('popup-menu'     ); break;
-			case Meta.WindowType.COMBO    	    : this.eStr = this.prefs.get_strv('combo'          ); break;
-			case Meta.WindowType.SPLASHSCREEN   : this.eStr = this.prefs.get_strv('splashscreen'   ); break;
-			case Meta.WindowType.TOOLTIP  	    : this.eStr = this.prefs.get_strv('tooltip'        ); break;
-			case Meta.WindowType.OVERRIDE_OTHER : this.eStr = this.prefs.get_strv('override-other' ); break;
-             
 			default : return;
+                        case Meta.WindowType.DROPDOWN_MENU  : eStr = this.prefs.get_strv('dropdown-menu'  ); break;
+			case Meta.WindowType.POPUP_MENU     : eStr = this.prefs.get_strv('popup-menu'     ); break;
+			case Meta.WindowType.COMBO    	    : eStr = this.prefs.get_strv('combo'          ); break;
+			case Meta.WindowType.SPLASHSCREEN   : eStr = this.prefs.get_strv('splashscreen'   ); break;
+			case Meta.WindowType.TOOLTIP  	    : eStr = this.prefs.get_strv('tooltip'        ); break;
+			case Meta.WindowType.OVERRIDE_OTHER : eStr = this.prefs.get_strv('override-other' ); break;
+             	}
+		if(eStr[sIndex]=="T")
+		{
+			eParams=[sIndex];
+			for (i=2;i<14;i++) eParams[i]=parseInt(eStr[i+sIndex]);
+		 	this.baseEffect(actor,eParams,this.prefs.get_boolean('wayland'));
 		}
-		if(this.eStr[prefStart]=="T") this.baseEffect(actor,prefStart);
         },
 
-	addEffects1 : function (actor,prefStart)
+	addEffects1 : function (shellwm ,actor,sIndex)
 	{
+		this.shellwm 	= shellwm;
 		switch(actor.meta_window.window_type)
 		{
-			case Meta.WindowType.NORMAL  	    : this.eStr = this.prefs.get_strv('normal'         ); break;
-			case Meta.WindowType.DIALOG  	    : this.eStr = this.prefs.get_strv('dialog'         ); break;
-			case Meta.WindowType.MODAL_DIALOG   : this.eStr = this.prefs.get_strv('modal-dialog'   ); break;
-
 			default : return;
+			case Meta.WindowType.NORMAL  	    : eStr = this.prefs.get_strv('normal'         ); break;
+			case Meta.WindowType.DIALOG  	    : eStr = this.prefs.get_strv('dialog'         ); break;
+			case Meta.WindowType.MODAL_DIALOG   : eStr = this.prefs.get_strv('modal-dialog'   ); break;
 		}
-
-		if(this.eStr[prefStart]=="T")
-		switch(prefStart)
+		if(eStr[sIndex]=="T")
 		{
-			case 0  : this.baseEffect(actor,prefStart);  return;
-			case 14 : if ( actor.meta_window.is_attached_dialog() ) 
-				       actor._parentDestroyId = actor.meta_window.get_transient_for().connect('unmanaged',()=> {actor.hide();});
-				   Main.wm._removeEffect(Main.wm._destroying, actor); 
-				   this.baseEffect(actor,prefStart); return;
+			eParams=[sIndex];
+			for (i=2;i<14;i++) eParams[i]=parseInt(eStr[i+sIndex]);
+		 	this.baseEffect(actor,eParams,false);
 		}
         },
 
-    	_animationDone : function (actor,prefStart)
+    	animationDone : function (actor,sIndex)
 	{
-		switch(prefStart)
+		actor.hide();
+		switch(sIndex)
 		{
-			case 0  : actor.set_scale(1,1);  actor.set_opacity(255);actor.hide(); actor.show(); break;
-			case 14 : actor.set_scale(0,0);  actor.set_opacity(0)  ;actor.hide();		    break;
+			case 0  : Main.wm._mapping.push(actor);Main.wm._mapWindowDone(this.shellwm ,actor);		break;
+			case 14 : Main.wm._destroying.push(actor);Main.wm._destroyWindowDone(this.shellwm ,actor);  	return;
 		}
+		actor.show();
     	},
 
-    	baseEffect : function (actor,prefStart)
-	{   
-            	[ IPX   ,IPY    ]  =  actor.get_position();
-		[ width ,height ]  =  actor.get_size();
-		[ FPX   ,FPY	]  =  [ IPX   ,IPY   ];
+	baseEffect : function(actor,eParams,waylandWA) //estr = [ State ,name ,No ,time ,IW ,FW ,IH ,FH ,IO ,FO ,PPX ,PPY ,DIR ,OFFSET ] 
+	{
+		Tweener.removeTweens(actor); 
 
-		switch(parseInt(this.eStr[prefStart+12]))
+		actor.set_opacity 	( eParams[8 ]			      );
+		actor.set_pivot_point	( eParams[10]*0.01  ,eParams[11]*0.01 );
+		actor.set_scale 	( eParams[4 ]*0.01  ,eParams[6 ]*0.01 ); 
+		[ FPX   ,FPY    ] = actor.get_position();
+
+		switch(eParams[12])
 	    	{
-		    default : break;
+			default : break;
+	         	case 1  : actor.set_position( FPX				,FPY-actor.height*eParams[13]*0.01 );  break;
+		 	case 2  : actor.set_position( FPX+actor.width*eParams[13]*0.01  ,FPY	  			   );  break;
+	         	case 3  : actor.set_position( FPX 				,FPY+actor.height*eParams[13]*0.01 );  break;
+	   	 	case 4  : actor.set_position( FPX-actor.width*eParams[13]*0.01  ,FPY  	  		           );  break;
+               	 	case 5  : actor.set_position( FPX+actor.width*eParams[13]*0.01  ,FPY-actor.height*eParams[13]*0.01 );  break;
+		 	case 6  : actor.set_position( FPX+actor.width*eParams[13]*0.01  ,FPY+actor.height*eParams[13]*0.01 );  break;
+		 	case 7  : actor.set_position( FPX-actor.width*eParams[13]*0.01  ,FPY+actor.height*eParams[13]*0.01 );  break;
+		 	case 8  : actor.set_position( FPX-actor.width*eParams[13]*0.01  ,FPY-actor.height*eParams[13]*0.01 );  break;
+		 	case 9  : [ FPX ,FPY ] =    [ FPX			        ,FPY-actor.height*eParams[13]*0.01 ];  break;
+		 	case 10 : [ FPX ,FPY ] =    [ FPX+actor.width*eParams[13]*0.01  ,FPY	     	  	   	   ];  break;
+		 	case 11 : [ FPX ,FPY ] =    [ FPX				,FPY+actor.height*eParams[13]*0.01 ];  break;
+		 	case 12 : [ FPX ,FPY ] =    [ FPX-actor.width*eParams[13]*0.01  ,FPY		 	  	   ];  break;
+               	 	case 13 : [ FPX ,FPY ] =    [ FPX+actor.width*eParams[13]*0.01  ,FPY-actor.height*eParams[13]*0.01 ];  break;
+		 	case 14 : [ FPX ,FPY ] =    [ FPX+actor.width*eParams[13]*0.01  ,FPY+actor.height*eParams[13]*0.01 ];  break;
+		 	case 15 : [ FPX ,FPY ] =    [ FPX-actor.width*eParams[13]*0.01  ,FPY+actor.height*eParams[13]*0.01 ];  break;
+		 	case 16 : [ FPX ,FPY ] =    [ FPX-actor.width*eParams[13]*0.01  ,FPY-actor.height*eParams[13]*0.01 ];  break;
+		}
 
-		    case  1 :  actor.set_position(IPX						  ,IPY-height*parseInt(this.eStr[prefStart+13])/100 ); break;// From TOP
-		    case  2 :  actor.set_position(IPX+width*parseInt(this.eStr[prefStart+13])/100 ,IPY						    ); break;// From RIGHT
-		    case  3 :  actor.set_position(IPX						  ,IPY+height*parseInt(this.eStr[prefStart+13])/100 ); break;// From BOTTOM
-		    case  4 :  actor.set_position(IPX-width*parseInt(this.eStr[prefStart+13])/100 ,IPY						    ); break;// From LEFT
-               	    case  5 :  actor.set_position(IPX+width*parseInt(this.eStr[prefStart+13])/100 ,IPY-height*parseInt(this.eStr[prefStart+13])/100 ); break;// From TOP RIGHT
-		    case  6 :  actor.set_position(IPX+width*parseInt(this.eStr[prefStart+13])/100 ,IPY+height*parseInt(this.eStr[prefStart+13])/100 ); break;// From BOTTOM RIGHT
-		    case  7 :  actor.set_position(IPX-width*parseInt(this.eStr[prefStart+13])/100 ,IPY+height*parseInt(this.eStr[prefStart+13])/100 ); break;// From BOTTOM RIGHT
-		    case  8 :  actor.set_position(IPX-width*parseInt(this.eStr[prefStart+13])/100 ,IPY-height*parseInt(this.eStr[prefStart+13])/100 ); break; // From TOP LEFT
-
-		    case  9 :  [ FPX , FPY ] = [ IPX					 	  ,IPY-height*parseInt(this.eStr[prefStart+13])/100 ]; break;
-		    case  10 : [ FPX , FPY ] = [ IPX+width*parseInt(this.eStr[prefStart+13])/100  ,IPY						    ]; break;
-		    case  11 : [ FPX , FPY ] = [ IPX						  ,IPY+height*parseInt(this.eStr[prefStart+13])/100 ]; break;
-		    case  12 : [ FPX , FPY ] = [ IPX-width*parseInt(this.eStr[prefStart+13])/100  ,IPY						    ]; break;
-               	    case  13 : [ FPX , FPY ] = [ IPX+width*parseInt(this.eStr[prefStart+13])/100  ,IPY-height*parseInt(this.eStr[prefStart+13])/100 ]; break;
-		    case  14 : [ FPX , FPY ] = [ IPX+width*parseInt(this.eStr[prefStart+13])/100  ,IPY+height*parseInt(this.eStr[prefStart+13])/100 ]; break;
-		    case  15 : [ FPX , FPY ] = [ IPX-width*parseInt(this.eStr[prefStart+13])/100  ,IPY+height*parseInt(this.eStr[prefStart+13])/100 ]; break;
-		    case  16 : [ FPX , FPY ] = [ IPX-width*parseInt(this.eStr[prefStart+13])/100  ,IPY-height*parseInt(this.eStr[prefStart+13])/100 ]; break; 
-            	}
-
-		actor.set_scale ( parseInt(this.eStr[prefStart+4])/100 ,parseInt(this.eStr[prefStart+6])/100 );
-		actor.set_opacity ( parseInt(this.eStr[prefStart+8])*255/100 );
-		actor.set_pivot_point ( parseInt(this.eStr[prefStart+10])/100	,parseInt(this.eStr[prefStart+11])/100 );
-
-		Mainloop.timeout_add(20+parseInt(this.eStr[prefStart+3]), ()=>this._animationDone(actor,prefStart));
-
-            	Tweener.addTween(actor,{  opacity: 		parseInt(this.eStr[prefStart+9])*255/100,
-                             	 	  x:	  	 	FPX,
-                             	 	  y:	   		FPY,
-                             	 	  scale_x: 		parseInt(this.eStr[prefStart+5])/100,
-                                 	  scale_y: 		parseInt(this.eStr[prefStart+7])/100,
-                             	 	  time:    		parseInt(this.eStr[prefStart+3])/1000,
-                             	 	  transition: 		'easeOutQuad',
-                             	 	  onComplete:		this._animationDone,
-                             	 	  onCompleteScope: 	this,
-                             	 	  onCompleteParams:	[actor,prefStart],
-                             	 	  onOverwrite: 		this._animationDone,
-                             	 	  onOverwriteScope : 	this,
-                             	 	  onOverwriteParams: 	[actor,prefStart]
-  				       });
+		switch(eParams[0])
+		{
+			case 0  : if(waylandWA==true){
+				  Tweener.addTween(actor,{ 	opacity: 		eParams[9],
+					       			scale_x: 		eParams[5]*0.01,
+                        	       	       			scale_y: 		eParams[7]*0.01,
+                       		 	       			time:    		eParams[3]*0.001,
+                        	     	       			transition: 		'easeOutQuad',
+                        	     	       			onComplete:		this.animationDone,
+                        	     	       			onCompleteScope: 	this,
+								onCompleteParams:	[actor,eParams[0]],
+                        	     	       			onOverwrite: 		this.animationDone,
+                        	     	       			onOverwriteScope : 	this,
+								onOverwriteParams: 	[actor,eParams[0]]
+  					    	    	  }); return;	
+				  }
+			case 14 : Tweener.addTween(actor,{ 	opacity: 		eParams[9],
+                        	    	       	       		x:	  	 	FPX,
+                        	     	       			y:	   		FPY,
+					       			scale_x: 		eParams[5]*0.01,
+                        	       	       			scale_y: 		eParams[7]*0.01,
+                       		 	       			time:    		eParams[3]*0.001,
+                        	     	       			transition: 		'easeOutQuad',
+                        	     	       			onComplete:		this.animationDone,
+                        	     	       			onCompleteScope: 	this,
+								onCompleteParams:	[actor,eParams[0]],
+                        	     	       			onOverwrite: 		this.animationDone,
+                        	     	       			onOverwriteScope : 	this,
+								onOverwriteParams: 	[actor,eParams[0]]
+  					    	    	  }); return; 
+		}
     	},
 
     	destroy: function ()
 	{        	
-		global.display.disconnect  (this.onOpening0);
-		Main.wm._shellwm.disconnect(this.onOpening1);
-		Main.wm._shellwm.disconnect(this.onClosing );
+		global.display.disconnect  (this.onOpening0	);
+		Main.wm._shellwm.disconnect(this.onOpening1	);
+		Main.wm._shellwm.disconnect(this.onClosing 	);	
     	},
 });

@@ -22,12 +22,12 @@ const 	EffectsManager = 	new Lang.Class({
 	{
 		this.prefs          =  new Gio.Settings({ settings_schema: Gio.SettingsSchemaSource.new_from_directory(Me.path + "/schemas", 
 							  Gio.SettingsSchemaSource.get_default(), false).lookup(Me.metadata["settings-schema"], true) });
-		this.onOpening0     =  global.display.connect  ('window-created' , (display ,window) => this.addEffects0 ( window.get_compositor_private() ,0  ));
-		this.onOpening1     =  Main.wm._shellwm.connect('map'            , (shellwm ,actor ) => this.addEffects1 ( shellwm ,actor                  ,0  ));
-		this.onClosing      =  Main.wm._shellwm.connect('destroy'        , (shellwm ,actor ) => this.addEffects1 ( shellwm ,actor                  ,14 ));
+		this.onOpening0     =  global.display.connect  ('window-created' , (display ,window) => this.addEffectsO ( window.get_compositor_private() ,0  ));
+		this.onOpening1     =  Main.wm._shellwm.connect('map'            , (shellwm ,actor ) => this.addEffectsW ( shellwm ,actor                  ,0  ));
+		this.onClosing      =  Main.wm._shellwm.connect('destroy'        , (shellwm ,actor ) => this.addEffectsW ( shellwm ,actor                  ,14 ));
     	},
 
-	addEffects0 : function (actor,sIndex)
+	addEffectsO : function (actor,sIndex)
 	{
 		switch(actor.meta_window.window_type)
 		{
@@ -39,15 +39,41 @@ const 	EffectsManager = 	new Lang.Class({
 			case Meta.WindowType.TOOLTIP  	    : eStr = this.prefs.get_strv('tooltip'        ); break;
 			case Meta.WindowType.OVERRIDE_OTHER : eStr = this.prefs.get_strv('override-other' ); break;
              	}
-		if(eStr[sIndex]=="T")
-		{
-			eParams=[sIndex];
-			for (i=2;i<14;i++) eParams[i]=parseInt(eStr[i+sIndex]);
-		 	this.baseEffect(actor,eParams,this.prefs.get_boolean('wayland'));
+		if(eStr[sIndex]!="T") return;
+		
+		eParams=[sIndex]; for (i=2;i<14;i++) eParams[i]=parseInt(eStr[i+sIndex]);
+		this.baseEffect(actor,eParams);
+		if(this.prefs.get_boolean('wayland')==true){
+			Tweener.addTween(actor,{ 	opacity: 		eParams[9],
+					       		scale_x: 		eParams[5]*0.01,
+                       		       	       		scale_y: 		eParams[7]*0.01,
+                       					time:    		eParams[3]*0.001,
+                        	            		transition: 		'easeOutQuad',
+                        	    	       		onComplete:		this.animationDone,
+                       		    	       		onCompleteScope: 	this,
+							onCompleteParams:	[actor,-1],
+                       	     	       			onOverwrite: 		this.animationDone,
+                      		     	       		onOverwriteScope : 	this,
+							onOverwriteParams: 	[actor,-1]
+  					    	}); return;	
 		}
+			Tweener.addTween(actor,{ 	opacity: 		eParams[9],
+                            	       	       		x:	  	 	FPX,
+                      		     	       		y:	   		FPY,
+					       		scale_x: 		eParams[5]*0.01,
+                      		       	       		scale_y: 		eParams[7]*0.01,
+              			 	      		time:    		eParams[3]*0.001,
+                       		     	      		transition: 		'easeOutQuad',
+                        		    	       	onComplete:		this.animationDone,
+                        		    	       	onCompleteScope: 	this,
+							onCompleteParams:	[actor,-1],
+                        	            		onOverwrite: 		this.animationDone,
+                       		    	       		onOverwriteScope : 	this,
+							onOverwriteParams: 	[actor,-1]
+  					    	});
         },
 
-	addEffects1 : function (shellwm ,actor,sIndex)
+	addEffectsW : function (shellwm ,actor,sIndex)
 	{
 		this.shellwm 	= shellwm;
 		switch(actor.meta_window.window_type)
@@ -57,11 +83,27 @@ const 	EffectsManager = 	new Lang.Class({
 			case Meta.WindowType.DIALOG  	    : eStr = this.prefs.get_strv('dialog'         ); break;
 			case Meta.WindowType.MODAL_DIALOG   : eStr = this.prefs.get_strv('modal-dialog'   ); break;
 		}
-		if(eStr[sIndex]=="T")
+		if(eStr[sIndex]!="T") return;
+		
+		eParams=[sIndex];for (i=2;i<14;i++) eParams[i]=parseInt(eStr[i+sIndex]);
+		this.baseEffect(actor,eParams);
+		switch(eParams[0])
 		{
-			eParams=[sIndex];
-			for (i=2;i<14;i++) eParams[i]=parseInt(eStr[i+sIndex]);
-		 	this.baseEffect(actor,eParams,false);
+			case 0  : 
+			case 14 : Tweener.addTween(actor,{ 	opacity: 		eParams[9],
+               	        	    	       	       		x:	  	 	FPX,
+               	        	     	       			y:	   		FPY,
+						       		scale_x: 		eParams[5]*0.01,
+        	                	       	       		scale_y: 		eParams[7]*0.01,
+        	               		 	   		time:    		eParams[3]*0.001,
+        	                	     	       		transition: 		'easeOutQuad',
+        	                	     	       		onComplete:		this.animationDone,
+        	                	     	      		onCompleteScope: 	this,
+								onCompleteParams:	[actor,eParams[0]],
+        	                	            		onOverwrite: 		this.animationDone,
+        	                	    	       		onOverwriteScope : 	this,
+								onOverwriteParams: 	[actor,eParams[0]]
+  					    	    	  }); return; 
 		}
         },
 
@@ -70,21 +112,19 @@ const 	EffectsManager = 	new Lang.Class({
 		actor.hide();
 		switch(sIndex)
 		{
-			case 0  : Main.wm._mapping.push(actor);Main.wm._mapWindowDone(this.shellwm ,actor);		break;
-			case 14 : Main.wm._destroying.push(actor);Main.wm._destroyWindowDone(this.shellwm ,actor);  	return;
+			case 0  : Main.wm._mapping.push(actor);		Main.wm._mapWindowDone(this.shellwm ,actor);		break;
+			case 14 : Main.wm._destroying.push(actor);	Main.wm._destroyWindowDone(this.shellwm ,actor);  	return;
 		}
 		actor.show();
     	},
 
-	baseEffect : function(actor,eParams,waylandWA) //estr = [ State ,name ,No ,time ,IW ,FW ,IH ,FH ,IO ,FO ,PPX ,PPY ,DIR ,OFFSET ] 
+	baseEffect : function(actor,eParams) //estr = [ State ,name ,No ,time ,IW ,FW ,IH ,FH ,IO ,FO ,PPX ,PPY ,DIR ,OFFSET ] 
 	{
 		Tweener.removeTweens(actor); 
-
 		actor.set_opacity 	( eParams[8 ]			      );
 		actor.set_pivot_point	( eParams[10]*0.01  ,eParams[11]*0.01 );
 		actor.set_scale 	( eParams[4 ]*0.01  ,eParams[6 ]*0.01 ); 
 		[ FPX   ,FPY    ] = actor.get_position();
-
 		switch(eParams[12])
 	    	{
 			default : break;
@@ -104,38 +144,6 @@ const 	EffectsManager = 	new Lang.Class({
 		 	case 14 : [ FPX ,FPY ] =    [ FPX+actor.width*eParams[13]*0.01  ,FPY+actor.height*eParams[13]*0.01 ];  break;
 		 	case 15 : [ FPX ,FPY ] =    [ FPX-actor.width*eParams[13]*0.01  ,FPY+actor.height*eParams[13]*0.01 ];  break;
 		 	case 16 : [ FPX ,FPY ] =    [ FPX-actor.width*eParams[13]*0.01  ,FPY-actor.height*eParams[13]*0.01 ];  break;
-		}
-
-		switch(eParams[0])
-		{
-			case 0  : if(waylandWA==true){
-				  Tweener.addTween(actor,{ 	opacity: 		eParams[9],
-					       			scale_x: 		eParams[5]*0.01,
-                        	       	       			scale_y: 		eParams[7]*0.01,
-                       		 	       			time:    		eParams[3]*0.001,
-                        	     	       			transition: 		'easeOutQuad',
-                        	     	       			onComplete:		this.animationDone,
-                        	     	       			onCompleteScope: 	this,
-								onCompleteParams:	[actor,eParams[0]],
-                        	     	       			onOverwrite: 		this.animationDone,
-                        	     	       			onOverwriteScope : 	this,
-								onOverwriteParams: 	[actor,eParams[0]]
-  					    	    	  }); return;	
-				  }
-			case 14 : Tweener.addTween(actor,{ 	opacity: 		eParams[9],
-                        	    	       	       		x:	  	 	FPX,
-                        	     	       			y:	   		FPY,
-					       			scale_x: 		eParams[5]*0.01,
-                        	       	       			scale_y: 		eParams[7]*0.01,
-                       		 	       			time:    		eParams[3]*0.001,
-                        	     	       			transition: 		'easeOutQuad',
-                        	     	       			onComplete:		this.animationDone,
-                        	     	       			onCompleteScope: 	this,
-								onCompleteParams:	[actor,eParams[0]],
-                        	     	       			onOverwrite: 		this.animationDone,
-                        	     	       			onOverwriteScope : 	this,
-								onOverwriteParams: 	[actor,eParams[0]]
-  					    	    	  }); return; 
 		}
     	},
 

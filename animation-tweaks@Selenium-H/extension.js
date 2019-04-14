@@ -1,3 +1,5 @@
+//Version 5
+
 const ExtensionUtils = imports.misc.extensionUtils;
 const Gio = imports.gi.Gio;
 const Lang = imports.lang;
@@ -5,6 +7,8 @@ const Me = ExtensionUtils.getCurrentExtension();
 const Meta = imports.gi.Meta;
 const Tweener = imports.ui.tweener;
 const Main = imports.ui.main;
+
+let effects;
 
 function enable() 
 {

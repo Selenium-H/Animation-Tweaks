@@ -1,3 +1,5 @@
+//Version 5
+
 const Config = imports.misc.config;
 const ExtensionUtils = imports.misc.extensionUtils;
 const Extension = ExtensionUtils.getCurrentExtension();
@@ -45,19 +47,19 @@ const 	Prefs1 = 	new GObject.Class({
     	_init: function(items,sIndex) 
 	{
         	this.parent({ column_spacing: 20, halign: Gtk.Align.CENTER, margin: 20, row_spacing: 20 ,border_width:20});
-		settings	= new Gio.Settings({ 	settings_schema: Gio.SettingsSchemaSource.new_from_directory(Extension.path + "/schemas", 								Gio.SettingsSchemaSource.get_default(), false).lookup(Extension.metadata['settings-schema'], true) });
+		let settings	= new Gio.Settings({ 	settings_schema: Gio.SettingsSchemaSource.new_from_directory(Extension.path + "/schemas", 								Gio.SettingsSchemaSource.get_default(), false).lookup(Extension.metadata['settings-schema'], true) });
 		if(items<0) return;
                 	this.heading(0);
-			this.prefsFor(_('Normal Windows        ')  ,'normal'           ,1	,sIndex );
-			this.prefsFor(_('Dialog Windows        ')  ,'dialog'           ,2	,sIndex );
-			this.prefsFor(_('Modal Dialog Windows  ')  ,'modal-dialog'     ,3	,sIndex );
+			this.prefsFor(_('Normal Windows        ')  ,'normal'           ,1	,sIndex  ,settings);
+			this.prefsFor(_('Dialog Windows        ')  ,'dialog'           ,2	,sIndex  ,settings);
+			this.prefsFor(_('Modal Dialog Windows  ')  ,'modal-dialog'     ,3	,sIndex  ,settings);
                 if(items>3){
-			this.prefsFor(_('Drop Down Menu        ')  ,'dropdown-menu'    ,4	,sIndex );
-			this.prefsFor(_('Pop up Menu 	       ')  ,'popup-menu'       ,5	,sIndex );
-			this.prefsFor(_('Combo Box 	       ')  ,'combo'  	       ,6	,sIndex );
-			this.prefsFor(_('Splash Screen 	       ')  ,'splashscreen'     ,7	,sIndex );
-			this.prefsFor(_('Tool tips 	       ')  ,'tooltip'          ,8	,sIndex );
-			this.prefsFor(_('Override Others       ')  ,'override-other'   ,9	,sIndex );
+			this.prefsFor(_('Drop Down Menu        ')  ,'dropdown-menu'    ,4	,sIndex  ,settings);
+			this.prefsFor(_('Pop up Menu 	       ')  ,'popup-menu'       ,5	,sIndex  ,settings);
+			this.prefsFor(_('Combo Box 	       ')  ,'combo'  	       ,6	,sIndex  ,settings);
+			this.prefsFor(_('Splash Screen 	       ')  ,'splashscreen'     ,7	,sIndex  ,settings);
+			this.prefsFor(_('Tool tips 	       ')  ,'tooltip'          ,8	,sIndex  ,settings);
+			this.prefsFor(_('Override Others       ')  ,'override-other'   ,9	,sIndex  ,settings);
 		}
 	},
 
@@ -69,7 +71,7 @@ const 	Prefs1 = 	new GObject.Class({
 		this.attach(new Gtk.Label({ xalign: 1, label: _("          Status"),halign: Gtk.Align.CENTER })    ,25 ,pos ,5  ,1);
 	},
 
-	prefsFor: function(LABEL,KEY,pos,sIndex)
+	prefsFor: function(LABEL,KEY,pos,sIndex  ,settings)
 	{
 		let effectsList;
 		switch(sIndex)
@@ -98,7 +100,7 @@ const 	Prefs1 = 	new GObject.Class({
 											settings.set_strv(KEY,eStr);
 											timeSetting.set_value(parseInt(eStr[3+sIndex]));
 								 		   }));
-		tweakButton.connect('clicked', ()=> this.effectsTweaks(timeSetting,effectsCombo,effectsList,eStr,sIndex,KEY));
+		tweakButton.connect('clicked', ()=> this.effectsTweaks(timeSetting,effectsCombo,effectsList,eStr,sIndex,KEY  ,settings));
 
   		timeSetting.set_value(parseInt(eStr[3+sIndex]));
   		timeSetting.connect('notify::value', function(spin) {   eStr= settings.get_strv(KEY);
@@ -113,7 +115,7 @@ const 	Prefs1 = 	new GObject.Class({
                 this.attach(box			,25   ,pos  ,5   ,1);
 	},
 
-	effectsTweaks : function(timeSetting,effectsCombo,effectsList,eStr,sIndex,KEY)
+	effectsTweaks : function(timeSetting,effectsCombo,effectsList,eStr,sIndex,KEY  ,settings)
 	{    		
 		let dialog = new Gtk.Dialog({title:_("Customize      Animation"),transient_for:this.get_toplevel(),use_header_bar: true,modal:true});
     		dialog.get_content_area().pack_start(new EffectsTweaks(eStr,sIndex,KEY,settings), true, true, 0);
@@ -175,6 +177,7 @@ const	AboutPage = 	new GObject.Class({
     	_init: function(params) 
 	{
         	this.parent();
+		let settings	= new Gio.Settings({ 	settings_schema: Gio.SettingsSchemaSource.new_from_directory(Extension.path + "/schemas", 								Gio.SettingsSchemaSource.get_default(), false).lookup(Extension.metadata['settings-schema'], true) });
         
         	let vbox	= new Gtk.Box({ orientation: Gtk.Orientation.VERTICAL, margin: 30 });
         	let imageBox	= new Gtk.Box();
@@ -199,10 +202,10 @@ const	AboutPage = 	new GObject.Class({
 		vbox.pack_start(box,  false, false, 0);
 		vbox.pack_start(ResetExtensionButton,  false, false, 0);
 		this.add(vbox);
-		ResetExtensionButton.connect('clicked', ()=> this.resetExtension());
+		ResetExtensionButton.connect('clicked', ()=> this.resetExtension( settings));
     	},
 
-	resetExtension: function()
+	resetExtension: function( settings)
 	{
 		settings	= new Gio.Settings({ 	settings_schema: Gio.SettingsSchemaSource.new_from_directory(Extension.path + "/schemas", 								Gio.SettingsSchemaSource.get_default(), false).lookup(Extension.metadata['settings-schema'], true) });
 		settings.reset('dropdown-menu' );

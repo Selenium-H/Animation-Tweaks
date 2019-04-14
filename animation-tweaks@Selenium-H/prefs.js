@@ -207,7 +207,6 @@ const	AboutPage = 	new GObject.Class({
 
 	resetExtension: function( settings)
 	{
-		settings	= new Gio.Settings({ 	settings_schema: Gio.SettingsSchemaSource.new_from_directory(Extension.path + "/schemas", 								Gio.SettingsSchemaSource.get_default(), false).lookup(Extension.metadata['settings-schema'], true) });
 		settings.reset('dropdown-menu' );
 		settings.reset('popup-menu'    );
 		settings.reset('combo'         );

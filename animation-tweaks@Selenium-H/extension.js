@@ -1,9 +1,8 @@
 //Version 5
 
-const ExtensionUtils = imports.misc.extensionUtils;
 const Gio = imports.gi.Gio;
 const Lang = imports.lang;
-const Me = ExtensionUtils.getCurrentExtension();
+const Me = imports.misc.extensionUtils.getCurrentExtension();
 const Meta = imports.gi.Meta;
 const Tweener = imports.ui.tweener;
 const Main = imports.ui.main;
@@ -21,7 +20,7 @@ function disable()
 }
 
 const 	EffectsManager = 	new Lang.Class({
-				Name: "ManageEffects",
+				Name: "EffectsManager",
 	_init: function ()
 	{
 		this.prefs          =  new Gio.Settings({ settings_schema: Gio.SettingsSchemaSource.new_from_directory(Me.path + "/schemas", 
@@ -33,6 +32,7 @@ const 	EffectsManager = 	new Lang.Class({
 
 	addEffectsO : function (actor,sIndex)
 	{
+		let eStr = [];
 		switch(actor.meta_window.window_type)
 		{
 			default : return;
@@ -45,8 +45,8 @@ const 	EffectsManager = 	new Lang.Class({
              	}
 		if(eStr[sIndex]!="T") return;
 		
-		eParams=[sIndex]; for (i=2;i<14;i++) eParams[i]=parseInt(eStr[i+sIndex]);
-		this.baseEffect(actor,eParams);
+		let eParams=[sIndex]; for (let i=2;i<14;i++) eParams[i]=parseInt(eStr[i+sIndex]);
+		let [ FPX , FPY ] = this.baseEffect(actor,eParams);
 		if(this.prefs.get_boolean('wayland')==true){
 			Tweener.addTween(actor,{ 	opacity: 		eParams[9],
 					       		scale_x: 		eParams[5]*0.01,
@@ -55,10 +55,10 @@ const 	EffectsManager = 	new Lang.Class({
                         	            		transition: 		'easeOutQuad',
                         	    	       		onComplete:		this.animationDone,
                        		    	       		onCompleteScope: 	this,
-							onCompleteParams:	[actor,-1],
+							onCompleteParams:	[actor,100],
                        	     	       			onOverwrite: 		this.animationDone,
                       		     	       		onOverwriteScope : 	this,
-							onOverwriteParams: 	[actor,-1]
+							onOverwriteParams: 	[actor,100]
   					    	}); return;	
 		}
 			Tweener.addTween(actor,{ 	opacity: 		eParams[9],
@@ -70,16 +70,17 @@ const 	EffectsManager = 	new Lang.Class({
                        		     	      		transition: 		'easeOutQuad',
                         		    	       	onComplete:		this.animationDone,
                         		    	       	onCompleteScope: 	this,
-							onCompleteParams:	[actor,-1],
+							onCompleteParams:	[actor,100],
                         	            		onOverwrite: 		this.animationDone,
                        		    	       		onOverwriteScope : 	this,
-							onOverwriteParams: 	[actor,-1]
+							onOverwriteParams: 	[actor,100]
   					    	});
         },
 
 	addEffectsW : function (shellwm ,actor,sIndex)
 	{
 		this.shellwm 	= shellwm;
+		let eStr 	= [];
 		switch(actor.meta_window.window_type)
 		{
 			default : return;
@@ -89,8 +90,8 @@ const 	EffectsManager = 	new Lang.Class({
 		}
 		if(eStr[sIndex]!="T") return;
 		
-		eParams=[sIndex];for (i=2;i<14;i++) eParams[i]=parseInt(eStr[i+sIndex]);
-		this.baseEffect(actor,eParams);
+		let eParams=[sIndex]; for (let i=2;i<14;i++) eParams[i]=parseInt(eStr[i+sIndex]);
+		let [ FPX , FPY ] = this.baseEffect(actor,eParams);
 		switch(eParams[0])
 		{
 			case 0  : 
@@ -116,8 +117,9 @@ const 	EffectsManager = 	new Lang.Class({
 		actor.hide();
 		switch(sIndex)
 		{
-			case 0  : Main.wm._mapping.push(actor);		Main.wm._mapWindowDone(this.shellwm ,actor);		break;
-			case 14 : Main.wm._destroying.push(actor);	Main.wm._destroyWindowDone(this.shellwm ,actor);  	return;
+			case 0   : Main.wm._mapping.push(actor);	Main.wm._mapWindowDone(this.shellwm ,actor);		break;
+			case 14  : Main.wm._destroying.push(actor);	Main.wm._destroyWindowDone(this.shellwm ,actor);  	return;
+			case 100 : actor.set_scale(1,1); actor.set_opacity(255);						break;
 		}
 		actor.show();
     	},
@@ -128,7 +130,7 @@ const 	EffectsManager = 	new Lang.Class({
 		actor.set_opacity 	( eParams[8 ]			      );
 		actor.set_pivot_point	( eParams[10]*0.01  ,eParams[11]*0.01 );
 		actor.set_scale 	( eParams[4 ]*0.01  ,eParams[6 ]*0.01 ); 
-		[ FPX   ,FPY    ] = actor.get_position();
+		let [ FPX ,FPY ] = actor.get_position();
 		switch(eParams[12])
 	    	{
 			default : break;
@@ -149,12 +151,13 @@ const 	EffectsManager = 	new Lang.Class({
 		 	case 15 : [ FPX ,FPY ] =    [ FPX-actor.width*eParams[13]*0.01  ,FPY+actor.height*eParams[13]*0.01 ];  break;
 		 	case 16 : [ FPX ,FPY ] =    [ FPX-actor.width*eParams[13]*0.01  ,FPY-actor.height*eParams[13]*0.01 ];  break;
 		}
+		return [ FPX , FPY ];
     	},
 
     	destroy: function ()
 	{        	
-		global.display.disconnect  (this.onOpening0	);
-		Main.wm._shellwm.disconnect(this.onOpening1	);
-		Main.wm._shellwm.disconnect(this.onClosing 	);	
+		global.display.disconnect  ( this.onOpening0 );
+		Main.wm._shellwm.disconnect( this.onOpening1 );
+		Main.wm._shellwm.disconnect( this.onClosing  );	
     	},
 });

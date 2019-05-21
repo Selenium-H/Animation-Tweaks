@@ -5,7 +5,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: notification-center-10.0\n"
+"Project-Id-Version: animation-tweaks-6\n"
 "POT-Creation-Date: 2016-06-10 19:03-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
@@ -15,118 +15,146 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: prefs.js:35
+#: prefs.js:38
 msgid "Open"
 msgstr ""
 
-#: prefs.js:36
+#: prefs.js:39
 msgid "Close"
 msgstr ""
 
-#: prefs.js:37
+#: prefs.js:40
+msgid "Minimize"
+msgstr ""
+
+#: prefs.js:41
 msgid "About"
 msgstr ""
 
-#: prefs.js:51
-msgid "Normal Windows        "
-msgstr ""
-
-#: prefs.js:52
-msgid "Dialog Windows        "
-msgstr ""
-
-#: prefs.js:53
-msgid "Modal Dialog Windows  "
-msgstr ""
-
-#: prefs.js:55
-msgid "Drop Down Menu        "
-msgstr ""
-
-#: prefs.js:56
-msgid "Pop up Menu \t       "
-msgstr ""
-
-#: prefs.js:57
-msgid "Combo Box \t       "
-msgstr ""
-
-#: prefs.js:58
-msgid "Splash Screen \t       "
-msgstr ""
-
-#: prefs.js:59
-msgid "Tool tips \t       "
-msgstr ""
-
-#: prefs.js:60
-msgid "Override Others       "
-msgstr ""
-
-#: prefs.js:66
-msgid "Items"
-msgstr ""
-
-#: prefs.js:67
-msgid "Effect"
-msgstr ""
-
 #: prefs.js:68
-msgid "Time in miliseconds"
+msgid "Opening Effects  [ for windows ]"
 msgstr ""
 
-#: prefs.js:69
-msgid "          Status"
+#: prefs.js:71
+msgid "Closing Effects  "
+msgstr ""
+
+#: prefs.js:76 prefs.js:212 prefs.js:216
+msgid "Normal Windows"
+msgstr ""
+
+#: prefs.js:77 prefs.js:213
+msgid "Dialog Windows"
+msgstr ""
+
+#: prefs.js:78
+msgid "Modal Dialog Windows"
+msgstr ""
+
+#: prefs.js:81
+msgid "Opening Effects [ for other items ]"
+msgstr ""
+
+#: prefs.js:81
+msgid "Use the workaround for Wayland"
+msgstr ""
+
+#: prefs.js:82
+msgid "Drop Down Menu"
+msgstr ""
+
+#: prefs.js:83
+msgid "Pop up Menu"
+msgstr ""
+
+#: prefs.js:84
+msgid "Combo Box"
+msgstr ""
+
+#: prefs.js:85
+msgid "Splash Screen"
 msgstr ""
 
 #: prefs.js:86
-msgid "☰"
+msgid "Tool tips"
 msgstr ""
 
-#: prefs.js:118
+#: prefs.js:87
+msgid "Override Others"
+msgstr ""
+
+#: prefs.js:92
+msgid "Items"
+msgstr ""
+
+#: prefs.js:93
+msgid "Effect"
+msgstr ""
+
+#: prefs.js:94
+msgid "Time in miliseconds"
+msgstr ""
+
+#: prefs.js:95
+msgid "Status"
+msgstr ""
+
+#: prefs.js:179
 msgid "Customize      Animation"
 msgstr ""
 
-#: prefs.js:144
+#: prefs.js:210
+msgid "Minimizing Effects  "
+msgstr ""
+
+#: prefs.js:214
+msgid "Unminimizing Effects  "
+msgstr ""
+
+#: prefs.js:217
+msgid "Dialog Windows "
+msgstr ""
+
+#: prefs.js:227
 msgid "Any  Changes  done  here  are  Applied  immediately"
 msgstr ""
 
-#: prefs.js:145
+#: prefs.js:228
 msgid "Time for which this animation last"
 msgstr ""
 
-#: prefs.js:146
+#: prefs.js:229
 msgid "Initial width\t[  in Percentage  ]"
 msgstr ""
 
-#: prefs.js:147
+#: prefs.js:230
 msgid "Final width  \t[  in Percentage  ]"
 msgstr ""
 
-#: prefs.js:148
+#: prefs.js:231
 msgid "Intial height\t[  in Percentage  ]"
 msgstr ""
 
-#: prefs.js:149
+#: prefs.js:232
 msgid "Final height\t[  in Percentage  ]"
 msgstr ""
 
-#: prefs.js:150
+#: prefs.js:233
 msgid "Intial Opacity\t[    0  -  255    ]"
 msgstr ""
 
-#: prefs.js:151
+#: prefs.js:234
 msgid "Final Opacity\t[    0  -  255    ]"
 msgstr ""
 
-#: prefs.js:152
+#: prefs.js:235
 msgid "Pivot Point X\t[  in Percentage  ]"
 msgstr ""
 
-#: prefs.js:153
+#: prefs.js:236
 msgid "Pivot Point Y\t[  in Percentage  ]"
 msgstr ""
 
-#: prefs.js:186
-msgid "Reset Animation Tweaks Extension "
+#: prefs.js:266
+msgid "Reset Animation Tweaks Extension"
 msgstr ""

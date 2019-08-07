@@ -1,4 +1,4 @@
-//Version 6
+//Version 7
 
 const Config = imports.misc.config;
 const ExtensionUtils = imports.misc.extensionUtils;
@@ -16,6 +16,7 @@ const _ = Gettext.domain("animation-tweaks").gettext;
 let settings = null;
 
 function init() {
+
   initTranslations()
 }
 
@@ -30,24 +31,26 @@ function buildPrefsWidget() {
 }
 
 const AnimationTweaksPrefs = new GObject.Class({
+
   Name: 'AnimationTweaksPrefs',
   Extends: Gtk.Stack,
     
   _init: function() {
   
     this.parent({ transition_type: 0  ,transition_duration: 500 });
-    this.add_titled(new Prefs1(9 , 0 ), 'Open'    , _('Open'    ));
-    this.add_titled(new Prefs1(3 ,14 ), 'Close'   , _('Close'   ));
-    this.add_titled(new Prefs2(      ), 'Minimize', _('Minimize'));
-    this.add_titled(new AboutPage()   , 'About'   , _('About'   ));  
+    this.add_titled(new Prefs1(9 , "open"  ), 'Open'    , _('Open'    ));
+    this.add_titled(new Prefs1(3 , "close" ), 'Close'   , _('Close'   ));
+    this.add_titled(new Prefs2(            ), 'Minimize', _('Minimize'));
+    this.add_titled(new AboutPage(         ), 'About'   , _('About'   ));  
   }
 });
 
 const Prefs1 = new GObject.Class({
+
   Name: 'Prefs1',
   Extends: Gtk.Grid,
 
-  _init: function(items,sIndex) {
+  _init: function(items,action) {
   
     this.parent({ column_spacing: 0, halign: Gtk.Align.CENTER, margin: 0, row_spacing: 0 ,border_width:0});
     
@@ -60,33 +63,33 @@ const Prefs1 = new GObject.Class({
     this.attach(this.box1,0,1,1,1);
     this.attach(this.box2,0,2,1,1);
     this.attach(this.box3,0,3,1,1);
-      
+ 
     if(items<0) {
       return;
     }
     
-    switch(sIndex) {
-      case 0:
-        this.prefsWA(_("Opening Effects  [ for windows ]") ,"opening-effect-windows","","",0  ,settings, this.box0);          
+    switch(action) {
+      case "open":
+        this.prefsWA("opening-effect-windows","",0  , this.box0);          
         break;
-      case 14:
-        this.prefsWA(_("Closing Effects  ") ,"closing-effect", "" ,"",0  ,settings, this.box0);          
+      case "close":
+        this.prefsWA("closing-effect"        ,"",0  , this.box0);          
         break;
     }
 
     this.heading(1 , this.box1);
-    this.prefsFor(_('Normal Windows')        ,'normal'         ,2   ,sIndex  ,settings , this.box1 );
-    this.prefsFor(_('Dialog Windows')        ,'dialog'         ,3   ,sIndex  ,settings , this.box1 );
-    this.prefsFor(_('Modal Dialog Windows')  ,'modal-dialog'   ,4   ,sIndex  ,settings , this.box1 );
+    this.prefsFor("",       'normal'         ,2   ,action  , this.box1 );
+    this.prefsFor("",       'dialog'         ,3   ,action  , this.box1 );
+    this.prefsFor("",       'modal-dialog'   ,4   ,action  , this.box1 );
     
     if(items>3) {         
-      this.prefsWA(_("Opening Effects [ for other items ]"),"opening-effect-others",("     ")+_("Use the workaround for Wayland") ,"wayland",1  ,settings, this.box2);
-      this.prefsFor(_('Drop Down Menu')+('           ')  ,'dropdown-menu'  ,6   ,sIndex  ,settings , this.box3 );
-      this.prefsFor(_('Pop up Menu')                     ,'popup-menu'     ,7   ,sIndex  ,settings , this.box3 );
-      this.prefsFor(_('Combo Box')                       ,'combo'          ,8   ,sIndex  ,settings , this.box3 );
-      this.prefsFor(_('Splash Screen')                   ,'splashscreen'   ,9   ,sIndex  ,settings , this.box3 );
-      this.prefsFor(_('Tool tips')                       ,'tooltip'        ,10  ,sIndex  ,settings , this.box3 );
-      this.prefsFor(_('Override Others')                 ,'override-other' ,11  ,sIndex  ,settings , this.box3 );
+      this.prefsWA("opening-effect-others","wayland",1  , this.box2);
+      this.prefsFor("\t\t", 'dropdown-menu'  ,6   ,action  , this.box3 );
+      this.prefsFor("",     'popup-menu'     ,7   ,action  , this.box3 );
+      this.prefsFor("",     'combo'          ,8   ,action  , this.box3 );
+      this.prefsFor("",     'splashscreen'   ,9   ,action  , this.box3 );
+      this.prefsFor("",     'tooltip'        ,10  ,action  , this.box3 );
+      this.prefsFor("",     'override-other' ,11  ,action  , this.box3 );
     }
   },
 
@@ -98,24 +101,24 @@ const Prefs1 = new GObject.Class({
     sbox.attach(new Gtk.Label({ xalign: 1, label:  ("          ")+_("Status"),halign: Gtk.Align.CENTER }) ,25 ,pos ,5  ,1);
   },
   
-  prefsWA: function(LABEL0,KEY0,LABEL1,KEY1,pos,settings,sbox) {
+  prefsWA: function(KEY0,KEY1,pos,sbox) {
   
-    let SettingLabel0   = new Gtk.Label({ xalign:  1, label: LABEL0,halign: Gtk.Align.CENTER });
+    let SettingLabel0   = new Gtk.Label({ xalign:  1, label: _(settings.settings_schema.get_key(KEY0).get_summary()),halign: Gtk.Align.CENTER });
     let SettingSwitch0 = new Gtk.Switch({hexpand: false, active: settings.get_boolean(KEY0), halign: Gtk.Align.END});
         
     SettingSwitch0.connect("notify::active", Lang.bind(this, function(button) {
       settings.set_boolean(KEY0, button.active);
-      this.reloadExtension(settings);
+      this.reloadExtension();
     }));
     
     sbox.attach(SettingLabel0   ,0  ,pos  ,1   ,1);
     sbox.attach(SettingSwitch0  ,2  ,pos  ,3   ,1);
 
-    if(LABEL1.length<=0) {
+    if(KEY1.length<=0) {
       return;
     }
     
-    let SettingLabel1   = new Gtk.Label({ xalign:  1, label: LABEL1,halign: Gtk.Align.END });
+    let SettingLabel1   = new Gtk.Label({ xalign:  1, label:"\t\t\t"+ _(settings.settings_schema.get_key(KEY1).get_summary()),halign: Gtk.Align.END });
     let SettingSwitch1 = new Gtk.Switch({hexpand: false, active: settings.get_boolean(KEY1), halign: Gtk.Align.END});
     
     SettingSwitch1.connect("notify::active", Lang.bind(this, function(button) {
@@ -126,60 +129,43 @@ const Prefs1 = new GObject.Class({
     sbox.attach(SettingSwitch1  ,12  ,pos   ,13  ,1); 
   },
 
-  prefsFor: function(LABEL,KEY,pos,sIndex  ,settings , sbox) {
+  prefsFor: function(LABEL,KEY,pos,action, sbox) {
   
-    let effectsList = null;
-    switch(sIndex)
-    {
-       case 0  :  
-         effectsList=settings.get_strv('open-effects-list');       
-         break;
-       case 14 :  
-         effectsList=settings.get_strv('close-effects-list');      
-         break;
-       case 28 :  
-         effectsList=settings.get_strv('minimize-effects-list');   
-         break;
-       case 42 :  
-         effectsList=settings.get_strv('unminimize-effects-list'); 
-         break;
-    }
-    let eStr= settings.get_strv(KEY);
-
-    let SettingLabel = new Gtk.Label({ xalign:  1, label: LABEL,halign: Gtk.Align.START });
-    let SettingSwitch = new Gtk.Switch({hexpand: false,vexpand:false,active: (eStr[0+sIndex]=='T')? true:false,halign:Gtk.Align.END});
+    KEY = KEY+'-'+action;
+    let  effectsList=settings.get_strv(action+'-effects-list');       
+    let eStr = settings.get_strv(KEY);
+    
+    let SettingLabel = new Gtk.Label({ xalign:  1, label: _(settings.settings_schema.get_key(KEY).get_summary())+LABEL,halign: Gtk.Align.START });
+    let SettingSwitch = new Gtk.Switch({hexpand: false,vexpand:false,active: (eStr[0]=='T')? true:false,halign:Gtk.Align.END});
     let box  = new Gtk.Box({ orientation: Gtk.Orientation.VERTICAL, margin: 0 });
     let effectsCombo = new Gtk.ComboBoxText({hexpand: false,vexpand:false});
     let tweakButton = new Gtk.Button({label: _("☰"),halign:Gtk.Align.START});
     let timeSetting = Gtk.SpinButton.new_with_range(0,10000,10);
 
+
     SettingSwitch.connect('notify::active', function(button) { 
      
       eStr= settings.get_strv(KEY);
-      eStr[sIndex]=(eStr[sIndex]=='F')? 'T':'F';
+      eStr[0]=(eStr[0]=='F')? 'T':'F';
       settings.set_strv(KEY,eStr);  
     });
-    
-    for(let i=0;i<effectsList.length;i=i+13) {
-      effectsCombo.append(effectsList[i],effectsList[i]);
-    }
-    effectsCombo.set_active(effectsList.indexOf(eStr[1+sIndex])/13);
-    effectsCombo.connect('changed', Lang.bind (this, function(widget) {  
-      eStr= settings.get_strv(KEY);
-      for(let i=1;i<14;i++) {
-        eStr[i+sIndex]=effectsList[13*widget.get_active()+i-1];            
-      }
-      settings.set_strv(KEY,eStr);
-      timeSetting.set_value(parseInt(eStr[3+sIndex]));
-    }));
-    tweakButton.connect('clicked', ()=> this.effectsTweaks(timeSetting,effectsCombo,effectsList,eStr,sIndex,KEY  ,settings));
 
-    timeSetting.set_value(parseInt(eStr[3+sIndex]));
-    timeSetting.connect('notify::value', function(spin) {   
-      eStr= settings.get_strv(KEY);
-      eStr[3+sIndex]=spin.get_value_as_int().toString();
-      settings.set_strv(KEY,eStr);
-    });
+    
+    let cIndex = 0;
+
+   do {
+      effectsCombo.append(effectsList[cIndex+1],effectsList[cIndex+1]);
+      cIndex = effectsList.indexOf('|',cIndex+1);
+   } while(cIndex!=-1);
+
+ 
+    effectsCombo.set_active(this.getIndexOf(eStr[1],effectsList));
+
+    effectsCombo.connect('changed', (widget)=> {this.getNthEffect(widget.get_active(),effectsList,KEY);eStr = settings.get_strv(KEY);});
+    tweakButton.connect('clicked', ()=> this.effectsTweaks(timeSetting,effectsCombo,effectsList,eStr,KEY));
+
+    timeSetting.set_value(this.getTotalTimeOf(eStr));
+    timeSetting.connect('notify::value', (spin)=> this.setEffectTime(spin.get_value_as_int(),KEY));
     
     box.add(SettingSwitch);
     sbox.attach(SettingLabel  ,0   ,pos  ,1   ,1);
@@ -189,28 +175,100 @@ const Prefs1 = new GObject.Class({
     sbox.attach(box           ,25  ,pos  ,5   ,1);
   },
 
-  effectsTweaks : function(timeSetting,effectsCombo,effectsList,eStr,sIndex,KEY  ,settings) { 
+  setEffectTime: function(value,KEY) {
+
+   let eStr = settings.get_strv(KEY);
+   let cIndex = 0;
+   let totalTime = this.getTotalTimeOf(eStr); 
+
+   for (cIndex = 8;cIndex<eStr.length;cIndex=cIndex+8) {
+ 
+      eStr[cIndex]=( Math.floor(parseFloat(eStr[cIndex])/(totalTime*0.001)*value)*0.001).toString();
+      
+   }
+   settings.set_strv(KEY,eStr);
+
+  },
+
+
+
+  getIndexOf: function(effectName,effectsList) {
+
+    let cIndex = 0;
+    let kIndex = 0;
+
+    do {
+      if(effectName == effectsList[cIndex+1]) {
+        return kIndex;
+      }
+      kIndex++;
+      cIndex = effectsList.indexOf('|',cIndex+1);
+   } while(cIndex!=-1);
+
+  },
+
+  getTotalTimeOf: function(eStr) {
+
+   let cIndex = 0;
+   let totalTime = 0; 
+   for (cIndex = 8;cIndex<eStr.length;cIndex=cIndex+8) {
+     totalTime = totalTime + parseFloat(eStr[cIndex]);
+   }
+  
+   return totalTime*1000;
+
+  },
+
+  getNthEffect: function(nthEffect,effectsList,KEY) {
+   
+    let keyValue = settings.get_strv(KEY);
+   
+    let kIndex=keyValue[0];
+    keyValue=[];
+    keyValue[0] = kIndex;
+    kIndex=0; 
+
+   
+    let startIndex = 0;
+    for(kIndex = 0;kIndex<nthEffect;kIndex++) {
+      startIndex = effectsList.indexOf('|',startIndex+2);
+    }
+    
+   
+    let endIndex   = effectsList.indexOf('|',startIndex+2);
+    if(endIndex == -1) {
+      endIndex = effectsList.length;
+    }
+
+    kIndex=1; 
+    for(let i=startIndex+1;i<=endIndex-1;i++) {
+      keyValue[kIndex]=effectsList[i];
+      kIndex++;
+    }
+
+    settings.set_strv(KEY,keyValue);
+  },
+
+  effectsTweaks : function(timeSetting,effectsCombo,effectsList,eStr,KEY ) { 
          
-    let dialog = new Gtk.Dialog({title:_("Customize      Animation"),transient_for:this.get_toplevel(),use_header_bar: true,modal:true});
-        dialog.get_content_area().pack_start(new EffectsTweaks(eStr,sIndex,KEY,settings), true, true, 0);
+    let dialog = new Gtk.Dialog({title:_("Customize")+"   "+eStr[1]+"   "+_("Animation"),transient_for:this.get_toplevel(),use_header_bar: true,modal:true});
+    dialog.get_content_area().pack_start(new EffectsTweaks(KEY,settings), true, true, 0);
     dialog.set_default_response(Gtk.ResponseType.CANCEL);
-        dialog.add_button(Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL);
     let addButton     = dialog.add_button("Reset Default", Gtk.ResponseType.OK);
     dialog.connect('response', Lang.bind(this, function(dialog, id) { 
+      
       if (id == Gtk.ResponseType.OK) {
-        eStr= settings.get_strv(KEY);
-        for(let i=1;i<14;i++) {
-          eStr[i+sIndex]=effectsList[13*effectsCombo.get_active()+i-1];
-        }          
-        settings.set_strv(KEY,eStr);
-        timeSetting.set_value(parseInt(eStr[3+sIndex]));  
+        this.getNthEffect(effectsCombo.get_active(),effectsList,KEY);  
       }
+
+      eStr = settings.get_strv(KEY);
+      timeSetting.set_value(this.getTotalTimeOf(eStr)); 
       dialog.destroy();
     }));
     dialog.show_all();
   },
-  
-  reloadExtension: function(settings) {
+
+  reloadExtension: function() {
     (settings.get_boolean("reload-signal"))?settings.set_boolean("reload-signal", false):settings.set_boolean("reload-signal", true);
   },
 });
@@ -223,51 +281,92 @@ const Prefs2 =   new GObject.Class({
   
     this.parent(-1);
     
-    this.prefsWA(_("Minimizing Effects  ") ,"minimizing-effect","" ,"",0  ,settings,this.box0);
+    this.prefsWA("minimizing-effect","",0  ,this.box0);
     this.heading(1  , this.box1);
-    this.prefsFor(_('Normal Windows')   ,'normal'  ,3  ,28 ,settings , this.box1 );
-    this.prefsFor(_('Dialog Windows')   ,'dialog'  ,4  ,28 ,settings , this.box1 );
-    this.prefsWA(_("Unminimizing Effects  ") ,"unminimizing-effect","","",6  ,settings,this.box2);
+    this.prefsFor("",  'normal'  ,3  ,"minimize" , this.box1 );
+    this.prefsFor("",  'dialog'  ,4  ,"minimize" , this.box1 );
+    this.prefsWA("unminimizing-effect","",6  ,this.box2);
     this.heading(8 , this.box3  );
-    this.prefsFor(_('Normal Windows')   ,'normal'  ,9  ,42 ,settings,  this.box3);
-    this.prefsFor(_('Dialog Windows')   ,'dialog'  ,10 ,42 ,settings,  this.box3);
+    this.prefsFor("",  'normal'  ,9  ,"unminimize" ,  this.box3);
+    this.prefsFor("",  'dialog'  ,10 ,"unminimize" ,  this.box3);
   },
 });
+
 
 const  EffectsTweaks =  new GObject.Class({
   Name: 'EffectsTweaks',
-  Extends: Gtk.Grid,
+  Extends: Gtk.ScrolledWindow,
 
-  _init: function(eStr,sIndex,KEY,settings) {
-  
-    this.parent({ column_spacing: 20, halign: Gtk.Align.CENTER, margin: 20, row_spacing: 15 ,border_width:20});
-    this.attach(new Gtk.Label({xalign:1,use_markup:true,label:"<big><b>"+_("Any  Changes  done  here  are  Applied  immediately")+"</b></big>"}) ,0  ,0 ,1  ,1);
-    this.tweakParameter( 3  ,_("Time for which this animation last")  ,2  ,0 ,10000  ,eStr ,sIndex ,KEY ,settings);  
-    this.tweakParameter( 4  ,_("Initial width  [  in Percentage  ]")  ,3  ,0 ,100    ,eStr ,sIndex ,KEY ,settings);
-    this.tweakParameter( 5  ,_("Final width    [  in Percentage  ]")  ,4  ,0 ,100    ,eStr ,sIndex ,KEY ,settings);  
-    this.tweakParameter( 6  ,_("Intial height  [  in Percentage  ]")  ,5  ,0 ,100    ,eStr ,sIndex ,KEY ,settings);  
-    this.tweakParameter( 7  ,_("Final height  [  in Percentage  ]")   ,6  ,0 ,100    ,eStr ,sIndex ,KEY ,settings);
-    this.tweakParameter( 8  ,_("Intial Opacity  [    0  -  255    ]") ,7  ,0 ,255    ,eStr ,sIndex ,KEY ,settings);  
-    this.tweakParameter( 9  ,_("Final Opacity  [    0  -  255    ]")  ,8  ,0 ,255    ,eStr ,sIndex ,KEY ,settings);  
-    this.tweakParameter( 10 ,_("Pivot Point X  [  in Percentage  ]")  ,9  ,0 ,100    ,eStr ,sIndex ,KEY ,settings);
-    this.tweakParameter( 11 ,_("Pivot Point Y  [  in Percentage  ]")  ,10 ,0 ,100    ,eStr ,sIndex ,KEY ,settings);
+  _init: function(KEY,settings) {
+    this.parent({hscrollbar_policy:2});
+    this.set_min_content_height(500); 
+    this.gridWin = new Gtk.Grid({ column_spacing: 20, halign: Gtk.Align.CENTER, margin: 20, row_spacing: 15 ,border_width:20});
+    this.add(this.gridWin);
+    let eStr =  settings.get_strv(KEY);
+    this.gridWin.attach(new Gtk.Label({xalign:1,use_markup:true,label:"<big><b>"+_("Any  Changes  done  here  are  Applied  immediately")+"</b></big>"}) ,0  ,0 ,1  ,1);
+    this.gridWin.attach(new Gtk.Label({xalign:1,use_markup:true,label:" ",halign: Gtk.Align.CENTER }) ,0  ,1 ,1  ,1);
+    this.gridWin.attach(new Gtk.Label({xalign:1,use_markup:true,label:"<big><b>"+_("Initial Tween Parameters")+"</b></big>",halign: Gtk.Align.CENTER }) ,0  ,2 ,1  ,1);
+    this.tweakParameter      ( 3, _("Intial Opacity\t\t[\t0  -  255\t\t]"    ), 3, 0, 255,  eStr,   KEY,  1   );  
+    this.tweakParameterSymbol( 4, _("Initial Width\t\t[\tin Percentage\t]"   ), 4,          eStr,   KEY       );
+    this.tweakParameterSymbol( 5, _("Initial Height\t\t[\tin Percentage\t]"  ), 5,          eStr,   KEY       );
+    this.tweakParameterSymbol( 6, _("Initial Position\t\t[\tX  Coordinate\t]"), 6,          eStr,   KEY       );
+    this.tweakParameterSymbol( 7, _("Initial Position\t\t[\tY  Coordinate\t]"), 7,          eStr,   KEY       );
+
+    let pos=7;
+    let i=7;
+
+    while(i<8*eStr[2]) {
+
+      this.gridWin.attach(new Gtk.Label({xalign:1,use_markup:true,label:"<big><b>"+_("Next Tween Parameters")+"</b></big>",halign: Gtk.Align.CENTER }) ,0  ,++pos ,1  ,1);
+
+      this.tweakParameter      ( ++i, _("Time\t\t\t\t[\tin milliseconds\t]"   ), ++pos, 0, 10000,  eStr,   KEY,  1000);  
+      this.tweakParameter      ( ++i, _("Pivot Point X\t\t[\tin Percentage\t]"), ++pos, 0, 100,    eStr,   KEY,   100);
+      this.tweakParameter      ( ++i, _("Pivot Point Y\t\t[\tin Percentage\t]"), ++pos, 0, 100,    eStr,   KEY,   100);
+      this.tweakParameter      ( ++i, _("Ending Opacity\t\t[\t0  -  255\t\t]" ), ++pos, 0, 255,    eStr,   KEY,     1);
+      this.tweakParameterSymbol( ++i, _("Ending Width\t\t[\tin Percentage\t]" ), ++pos,            eStr,   KEY       );
+      this.tweakParameterSymbol( ++i, _("Ending Height\t\t[\tin Percentage\t]"), ++pos,            eStr,   KEY       );
+      this.tweakParameterSymbol( ++i, _("Ending Position\t[\tX  Coordinate\t]"), ++pos,            eStr,   KEY       );
+      this.tweakParameterSymbol( ++i, _("Ending Position\t[\tY  Coordinate\t]"), ++pos,            eStr,   KEY       );
+    }
   },
 
-  tweakParameter : function(pNo,INFO,pos,minPV,maxPV,eStr,sIndex,KEY,settings) {
+  tweakParameter : function(pNo,INFO,pos,minPV,maxPV,eStr,KEY,multiplier) {
   
     let SettingLabel   = new Gtk.Label({ xalign:  1, label: INFO,halign: Gtk.Align.START });  
     let effectParameter   = Gtk.SpinButton.new_with_range(minPV,maxPV,1);
-    eStr= settings.get_strv(KEY);
-     effectParameter.set_value(parseInt(eStr[pNo+sIndex]));
+    eStr = settings.get_strv(KEY);
+     effectParameter.set_value(parseFloat(eStr[pNo])*multiplier);
       effectParameter.connect('notify::value', function(spin) {     
         eStr= settings.get_strv(KEY);
-        eStr[pNo+sIndex]=spin.get_value_as_int().toString();
+        eStr[pNo]=(spin.get_value_as_int()/multiplier).toString();
         settings.set_strv(KEY,eStr);
       });
-    this.attach(SettingLabel    ,0    ,pos  ,1   ,1);
-    this.attach(effectParameter ,17   ,pos  ,1   ,1);
+    this.gridWin.attach(SettingLabel    ,0    ,pos  ,1   ,1);
+    this.gridWin.attach(effectParameter ,17   ,pos  ,1   ,1);
   },
+
+  tweakParameterSymbol : function(pNo,INFO,pos,eStr,KEY) {
+
+    let SettingLabel   = new Gtk.Label({ xalign:  1, label: INFO,halign: Gtk.Align.START });  
+    let effectParameter   = new Gtk.Entry({text:eStr[pNo]});
+
+    eStr = settings.get_strv(KEY);     
+
+     effectParameter.connect('changed', function() {     
+        eStr= settings.get_strv(KEY);
+        eStr[pNo] = effectParameter.text;
+        settings.set_strv(KEY,eStr);
+      });
+
+
+    this.gridWin.attach(SettingLabel    ,0    ,pos  ,1   ,1);
+    this.gridWin.attach(effectParameter ,17   ,pos  ,1   ,1);
+
+  },
+
+
 });
+
 
 const AboutPage =  new GObject.Class({
   Name: 'AboutPage',
@@ -295,16 +394,26 @@ const AboutPage =  new GObject.Class({
 
   resetExtension: function( settings) {
   
-    settings.reset('normal');
-    settings.reset('dialog');
-    settings.reset('modal-dialog');
+    settings.reset('normal-open');
+    settings.reset('normal-close');
+    settings.reset('normal-minimize');
+    settings.reset('normal-unminimize');
+
+
+    settings.reset('dialog-open');
+    settings.reset('dialog-close');
+    settings.reset('dialog-minimize');
+    settings.reset('dialog-unminimize');
+
+    settings.reset('modal-dialog-open');
+    settings.reset('modal-dialog-close');
     
-    settings.reset('dropdown-menu');
-    settings.reset('popup-menu');
-    settings.reset('combo');
-    settings.reset('splashscreen');
-    settings.reset('tooltip');
-    settings.reset('override-other');
+    settings.reset('dropdown-menu-open');
+    settings.reset('popup-menu-open');
+    settings.reset('combo-open');
+    settings.reset('splashscreen-open');
+    settings.reset('tooltip-open');
+    settings.reset('override-other-open');
     
     settings.reset('opening-effect-windows');
     settings.reset('opening-effect-others');

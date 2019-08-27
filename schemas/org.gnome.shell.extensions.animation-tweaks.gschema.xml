@@ -1,0 +1,344 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+Version 7 
+=========
+
+Effect String Format   [ Status   Name   Tweens  IO      IW     IH     IPX     IPY         T     PPx     PPY     FO      FW      FH     FPX     FPY  ... ]
+
+-->
+
+<schemalist gettext-domain="gnome-shell-extensions">
+
+  <schema path="/org/gnome/shell/extensions/animation-tweaks/" id="org.gnome.shell.extensions.animation-tweaks">
+  
+    <key name="opening-effect-windows" type="b">
+      <default>false</default>
+      <summary>Opening Effects  [ for windows ]</summary>
+      <description>Opening effect for windows animation switch</description>
+    </key>
+    
+    <key name="opening-effect-others" type="b">
+      <default>true</default>
+      <summary>Opening Effects [ for other items ]</summary>
+      <description>Opening effect for other items animation switch</description>
+    </key>
+    
+    <key name="closing-effect" type="b">
+      <default>false</default>
+      <summary>Closing Effects</summary>
+      <description>Closing effect animation switch</description>
+    </key>
+    
+    <key name="minimizing-effect" type="b">
+      <default>false</default>
+      <summary>Minimizing Effects</summary>
+      <description>Minimizing effect animation switch</description>
+    </key>
+    
+    <key name="unminimizing-effect" type="b">
+      <default>false</default>
+      <summary>Unminimizing Effects</summary>
+      <description>Unminimizing effect animation switch</description>
+    </key>
+    
+    <key name="normal-open" type="as">
+    <!--Status   Name                              Tweens  IO      IW     IH     IPX     IPY         T          PPx     PPY     FO      FW      FH     FPX     FPY -->
+      <default>[
+        'F',     'Scale Down',                     '1',    '200',  '1',   '0',   '1',    '1',        '0.250',   '0',    '0',    '255',  '1',    '1',   '1',    '1'
+      ]</default>
+      <summary>Normal Windows</summary>
+      <description>Animation settings for Normal Windows opening</description>
+    </key>
+    
+    <key name="normal-close" type="as">
+    <!--Status   Name                              Tweens  IO      IW     IH     IPX     IPY         T          PPx     PPY     FO      FW      FH     FPX     FPY -->
+      <default>[
+        'F',     'Fold In Sideways',               '1',    '255',  '1',   '1',   '1',    '1',        '0.250',   '0.5',  '0',    '100',  '0',    '1',   '1',    '1'
+      ]</default>
+      <summary>Normal Windows</summary>
+      <description>Animation settings for Normal Windows closing</description>
+    </key>
+    
+    <key name="normal-minimize" type="as">
+    <!--Status   Name                              Tweens  IO      IW     IH     IPX     IPY         T          PPx     PPY     FO      FW      FH     FPX     FPY -->
+      <default>[
+        'F',     'Slide Down',                     '1',    '255',  '1',   '1',   '1',    '1',        '0.350',   '0',    '0',    '0',    '1',    '1',   '1',    '1.2'
+      ]</default>
+      <summary>Normal Windows</summary>
+      <description>Animation settings for Normal Windows minimizing</description>
+    </key>
+    
+    <key name="normal-unminimize" type="as">
+    <!--Status   Name                              Tweens  IO      IW     IH     IPX     IPY         T          PPx     PPY     FO      FW      FH     FPX     FPY -->
+      <default>[
+        'F',     'Slide Up',                       '1',    '0',    '1',   '1',   '1',    '1.2',      '0.350',   '0',    '0',    '255',  '1',    '1',   '1',    '0.8'
+      ]</default>
+      <summary>Normal Windows</summary>
+      <description>Animation settings for Normal Windows unminimizing</description>
+    </key>
+    
+    <key name="dialog-open" type="as">
+    <!--Status   Name                              Tweens  IO      IW     IH     IPX     IPY         T          PPx     PPY     FO      FW      FH     FPX     FPY -->
+      <default>[
+        'F',     'Fold Out Sideways',              '1',    '255',  '0',   '1',   '1',    '1',        '0.250',   '0.5',  '0',    '255',  '1',    '1',   '1',    '1'
+      ]</default>
+      <summary>Dialog Windows</summary>
+      <description>Animation settings for Dialog Windows opening</description>
+    </key>
+    
+    <key name="dialog-close" type="as">
+    <!--Status   Name                              Tweens  IO      IW     IH     IPX     IPY         T          PPx     PPY     FO      FW      FH     FPX     FPY -->
+      <default>[
+        'F',     'Fold In Sideways',               '1',    '255',  '1',   '1',   '1',    '1',        '0.250',  '0.5',  '0',    '100',  '0',    '1',   '1',    '1' 
+      ]</default>
+      <summary>Dialog Windows</summary>
+      <description>Animation settings for Dialog Windows closing</description>
+    </key>
+    
+    <key name="dialog-minimize" type="as">
+    <!--Status   Name                              Tweens  IO      IW     IH     IPX     IPY         T          PPx     PPY     FO      FW      FH     FPX     FPY -->
+      <default>[
+        'F',     'Slide Down',                     '1',    '255',  '1',   '1',   '1',    '1',        '0.350',   '0',   '0',    '0',    '1',    '1',   '1',    '1.2'
+      ]</default>
+      <summary>Dialog Windows</summary>
+      <description>Animation settings for Dialog Windows minimizing</description>
+    </key>
+    
+    <key name="dialog-unminimize" type="as">
+    <!--Status   Name                              Tweens  IO      IW     IH     IPX     IPY         T          PPx     PPY     FO      FW      FH     FPX     FPY -->
+      <default>[
+        'F',     'Slide Up',                       '1',    '0',    '1',   '1',   '1',    '1.2',      '0.350',   '0',    '0',    '255',  '1',    '1',   '1',    '0.8'
+      ]</default>
+      <summary>Dialog Windows</summary>
+      <description>Animation settings for Dialog Windows unminimzing</description>
+    </key>
+    
+    <key name="modal-dialog-open" type="as">
+    <!--Status   Name                              Tweens  IO      IW     IH     IPX     IPY         T          PPx     PPY     FO      FW      FH     FPX     FPY -->
+      <default>[
+        'F',     'Fold Out Vertically',            '1',    '255',  '1',   '0',   '1',    '1',        '0.250',   '0',    '0.5',  '255',  '1',    '1',   '1',    '1'
+      ]</default>
+      <summary>Modal Dialog</summary>
+      <description>Animation settings for Modal Dialog Windows opening</description>
+    </key>
+    
+    <key name="modal-dialog-close" type="as">
+    <!--Status   Name                              Tweens  IO      IW     IH     IPX     IPY         T          PPx     PPY     FO      FW      FH     FPX     FPY -->
+      <default>[
+        'F',     'Fold In Vertically',             '1',    '255',  '1',   '1',   '1',    '1',        '0.250',   '0',    '0.5',  '100',  '1',    '0',   '1',    '1'
+      ]</default>
+      <summary>Modal Dialog</summary>
+      <description>Animation settings for Modal Dialog Windows closing</description>
+    </key>
+    
+    <key name="dropdown-menu-open" type="as">
+    <!--Status   Name                              Tweens  IO      IW     IH     IPX     IPY         T          PPx     PPY     FO      FW      FH     FPX     FPY -->
+      <default>[
+        'T',     'Scale Down',                     '1',    '200',  '1',   '0',   '1',    '1',        '0.250',   '0',    '0',    '255',  '1',    '1',   '1',    '1'
+      ]</default>
+      <summary>Dropdown Menu</summary>
+      <description>Animation settings for Dropdown Menu opening</description>
+    </key>
+    
+    <key name="popup-menu-open" type="as">
+    <!--Status   Name                              Tweens  IO      IW     IH     IPX     IPY         T          PPx     PPY     FO      FW      FH     FPX     FPY -->
+      <default>[
+        'T',     'Scale Down',                     '1',    '200',  '1',   '0',   '1',    '1',        '0.250',   '0',    '0',    '255',  '1',    '1',   '1',    '1'
+      ]</default>
+      <summary>Pop Up Menu</summary>
+      <description>Animation settings for Pop Up Menu opening</description>
+    </key>
+    
+    <key name="combo-open" type="as">
+    <!--Status   Name                              Tweens  IO      IW     IH     IPX     IPY         T          PPx     PPY     FO      FW      FH     FPX     FPY -->
+      <default>[
+        'T',     'Scale Down',                     '1',    '200',  '1',   '0',   '1',    '1',        '0.250',   '0',    '0',    '255',  '1',    '1',   '1',    '1'
+      ]</default>
+      <summary>Combo Box</summary>
+      <description>Animation settings for Combo Box opening</description>
+    </key>
+    
+    <key name="splashscreen-open" type="as">
+    <!--Status   Name                              Tweens  IO      IW     IH     IPX     IPY         T          PPx     PPY     FO      FW      FH     FPX     FPY -->
+      <default>[
+        'T',     'Zoom In',                        '1',    '100',  '0',   '0',   '1',    '1',        '0.250',   '0.5',  '0.5',  '255',  '1',    '1',   '1',    '1'
+      ]</default>
+      <summary>Splash Screen</summary>
+      <description>Animation settings for Splash Screen opening</description>
+    </key>
+    
+    <key name="tooltip-open" type="as">
+    <!--Status   Name                              Tweens  IO      IW     IH     IPX     IPY         T          PPx     PPY     FO      FW      FH     FPX     FPY -->
+      <default>[
+        'T',     'Slide Up',                       '1',    '0',    '1',   '1',   '1',    '1.2',      '0.350',   '0',    '0',    '255',  '1',    '1',   '1',    '0.8'
+      ]</default>
+      <summary>Tooltips</summary>
+      <description>Animation settings for Tooltips opening</description>
+    </key>
+    
+    <key name="override-other-open" type="as">
+    <!--Status   Name                              Tweens  IO      IW     IH     IPX     IPY         T          PPx     PPY     FO      FW      FH     FPX     FPY -->
+      <default>[
+        'T',     'Scale Down',                     '1',    '200',  '1',   '0',   '1',    '1',        '0.250',   '0',    '0',    '255',  '1',    '1',   '1',    '1'
+          ]</default>
+      <summary>Overrides Others</summary>
+      <description>Animation settings for Overrides Others opening</description>
+    </key>
+    
+    <key name="other-open-effects-list" type="as">
+    <!-- |   Name                              Tweens  IO      IW     IH     IPX     IPY         T          PPx     PPY     FO      FW      FH     FPX     FPY -->
+      <default>[
+        '|','Fade In',                         '1',    '0',    '1',   '1',   '1',    '1',        '0.350',   '0',    '0',    '255',  '1',    '1',   '1',    '1', 
+        '|','Fold Out Sideways',               '1',    '255',  '0',   '1',   '1',    '1',        '0.250',   '0.5',  '0',    '255',  '1',    '1',   '1',    '1', 
+        '|','Fold Out Vertically',             '1',    '255',  '1',   '0',   '1',    '1',        '0.250',   '0',    '0.5',  '255',  '1',    '1',   '1',    '1', 
+        '|','Scale Down',                      '1',    '200',  '1',   '0',   '1',    '1',        '0.250',   '0',    '0',    '255',  '1',    '1',   '1',    '1', 
+        '|','Scale Left',                      '1',    '200',  '0',   '1',   '1',    '1',        '0.250',   '1',    '0',    '255',  '1',    '1',   '1',    '1', 
+        '|','Scale Right',                     '1',    '200',  '0',   '1',   '1',    '1',        '0.250',   '0',    '0',    '255',  '1',    '1',   '1',    '1',
+        '|','Scale Up',                        '1',    '200',  '1',   '0',   '1',    '1',        '0.250',   '0',    '1',    '255',  '1',    '1',   '1',    '1', 
+        '|','Slide Down',                      '1',    '0',    '1',   '1',   '1',    '0.8',      '0.350',   '0',    '0',    '255',  '1',    '1',   '1',    '1.2',  
+        '|','Slide Left',                      '1',    '0',    '1',   '1',   '1.2',  '1',        '0.350',   '0',    '0',    '255',  '1',    '1',   '0.8',  '1',  
+        '|','Slide Right',                     '1',    '0',    '1',   '1',   '0.8',  '1',        '0.350',   '0',    '0',    '255',  '1',    '1',   '1.2',  '1',
+        '|','Slide Up',                        '1',    '0',    '1',   '1',   '1',    '1.2',      '0.350',   '0',    '0',    '255',  '1',    '1',   '1',    '0.8',
+        '|','Unmagnify',                       '1',    '100',  '1.5', '1.5', '1',    '1',        '0.250',   '0.5',  '0.5',  '255',  '1',    '1',   '1',    '1',
+        '|','Zoom In',                         '1',    '100',  '0',   '0',   '1',    '1',        '0.250',   '0.5',  '0.5',  '255',  '1',    '1',   '1',    '1',
+        '|','None',                            '1',    '255',  '1',   '1',   '1',    '1',        '0.0'  ,   '0',    '0',    '255',  '1',    '1',   '1',    '1'
+      ]</default>
+      <summary>Other Opening Effects</summary>
+      <description>List of default opening effects for other items</description>
+    </key>
+    
+    <key name="window-open-effects-list" type="as">
+    <!-- |   Name                              Tweens  IO      IW     IH     IPX     IPY         T          PPx     PPY     FO      FW      FH     FPX     FPY -->
+      <default>[
+        '|','Contracted Rise Horizontally',    '2',    '255',  'MW',  'MH',  'mX',   'MY',       '0.300',   '0',    '0',    '255',  'MW',   'MH',  'IX',   'MY', 
+                                                                                                 '0.200',   '0',    '0',    '255',  '1',    '1',   'IX',   'IY',
+        '|','Contracted Rise Vertically',      '2',    '255',  'MW',  'MH',  'MX',   'mY',       '0.300',   '0',    '0',    '255',  'MW',   'MH',  'MX',   'IY', 
+                                                                                                 '0.200',   '0',    '0',    '255',  '1',    '1',   'IX',   'IY',
+        '|','Fade In',                         '1',    '0',    '1',   '1',   '1',    '1',        '0.350',   '0',    '0',    '255',  '1',    '1',   '1',    '1', 
+        '|','Fold Out Sideways',               '1',    '255',  '0',   '1',   '1',    '1',        '0.250',   '0.5',  '0',    '255',  '1',    '1',   '1',    '1', 
+        '|','Fold Out Vertically',             '1',    '255',  '1',   '0',   '1',    '1',        '0.250',   '0',    '0.5',  '255',  '1',    '1',   '1',    '1', 
+        '|','Scale Down',                      '1',    '200',  '1',   '0',   '1',    '1',        '0.250',   '0',    '0',    '255',  '1',    '1',   '1',    '1', 
+        '|','Scale Left',                      '1',    '200',  '0',   '1',   '1',    '1',        '0.250',   '1',    '0',    '255',  '1',    '1',   '1',    '1', 
+        '|','Scale Right',                     '1',    '200',  '0',   '1',   '1',    '1',        '0.250',   '0',    '0',    '255',  '1',    '1',   '1',    '1',
+        '|','Scale Up',                        '1',    '200',  '1',   '0',   '1',    '1',        '0.250',   '0',    '1',    '255',  '1',    '1',   '1',    '1', 
+        '|','Slide Down',                      '1',    '0',    '1',   '1',   '1',    '0.8',      '0.350',   '0',    '0',    '255',  '1',    '1',   '1',    '1.2',  
+        '|','Slide Left',                      '1',    '0',    '1',   '1',   '1.2',  '1',        '0.350',   '0',    '0',    '255',  '1',    '1',   '0.8',  '1',  
+        '|','Slide Right',                     '1',    '0',    '1',   '1',   '0.8',  '1',        '0.350',   '0',    '0',    '255',  '1',    '1',   '1.2',  '1',
+        '|','Slide Up',                        '1',    '0',    '1',   '1',   '1',    '1.2',      '0.350',   '0',    '0',    '255',  '1',    '1',   '1',    '0.8',
+        '|','Squeezed Slide Horizontally',     '2',    '255',  '0.8', 'MH',  'mX',   'MY',       '0.300',   '0',    '0',    '255',  '1',    'MH',  'IX',   'MY', 
+                                                                                                 '0.200',   '0',    '0',    '255',  '1',    '1',   'IX',   'IY',
+        '|','Squeezed Slide Vertically',       '2',    '255',  'MW',  '0.8', 'MX',   'mY',       '0.300',   '0',    '0',    '255',  'MW',   '0.8', 'MX',   'IY', 
+                                                                                                 '0.200',   '0',    '0',    '255',  '1',    '1',   'IX',   'IY',
+        '|','Unmagnify',                       '1',    '100',  '1.5', '1.5', '1',    '1',        '0.250',   '0.5',  '0.5',  '255',  '1',    '1',   '1',    '1',
+        '|','Zoom In',                         '1',    '100',  '0',   '0',   '1',    '1',        '0.250',   '0.5',  '0.5',  '255',  '1',    '1',   '1',    '1',
+        '|','None',                            '1',    '255',  '1',   '1',   '1',    '1',        '0.0'  ,   '0',    '0',    '255',  '1',    '1',   '1',    '1'
+      ]</default>
+      <summary>Window Opening Effects</summary>
+      <description>List of default opening effects for windows</description>
+    </key>
+    
+    <key name="window-close-effects-list" type="as">
+    <!-- |   Name                              Tweens  IO      IW     IH     IPX     IPY         T          PPx     PPY     FO      FW      FH     FPX     FPY -->
+      <default>[
+        '|','Contracted Drop Horizontally',    '2',    '255',  '1',   '1',   'SX',   'SY',       '0.300',   '0',    '0',    '255',  'MW',   'MH',  '1',    'MY', 
+                                                                                                 '0.200',   '0',    '0',    '255',  'MW',   'MH',  'mX',   'MY',
+        '|','Contracted Drop Vertically',      '2',    '255',  '1',   '1',   'SX',   'SY',       '0.300',   '0',    '0',    '255',  'MW',   'MH',  'MX',   '1', 
+                                                                                                 '0.200',   '0',    '0',    '255',  'MW',   'MH',  'MX',   'mY',
+        '|','Fade Out',                        '1',    '255',  '1',   '1',   '1',    '1',        '0.350',   '0',    '0',    '0',    '1',    '1',   '1',    '1', 
+        '|','Fold In Sideways',                '1',    '255',  '1',   '1',   '1',    '1',        '0.250',   '0.5',  '0',    '100',  '0',    '1',   '1',    '1', 
+        '|','Fold In Vertically',              '1',    '255',  '1',   '1',   '1',    '1',        '0.250',   '0',    '0.5',  '100',  '1',    '0',   '1',    '1', 
+        '|','Magnify',                         '1',    '255',  '1',   '1',   '1',    '1',        '0.250',   '0.5',  '0.5',  '0',    '1.2',  '1.2', '1',    '1',
+        '|','Scale Down',                      '1',    '200',  '1',   '1',   '1',    '1',        '0.250',   '0',    '1',    '0',    '1',    '0',   '1',    '1', 
+        '|','Scale Left',                      '1',    '200',  '1',   '1',   '1',    '1',        '0.250',   '0',    '0',    '0',    '0',    '1',   '1',    '1', 
+        '|','Scale Right',                     '1',    '200',  '1',   '1',   '1',    '1',        '0.250',   '1',    '0',    '0',    '0',    '1',   '1',    '1',
+        '|','Scale Up',                        '1',    '200',  '1',   '1',   '1',    '1',        '0.250',   '0',    '0',    '0',    '1',    '0',   '1',    '1', 
+        '|','Slide Down',                      '1',    '255',  '1',   '1',   '1',    '1',        '0.350',   '0',    '0',    '0',    '1',    '1',   '1',    '1.2',  
+        '|','Slide Left',                      '1',    '255',  '1',   '1',   '1',    '1',        '0.350',   '0',    '0',    '0',    '1',    '1',   '0.8',  '1',  
+        '|','Slide Right',                     '1',    '255',  '1',   '1',   '1',    '1',        '0.350',   '0',    '0',    '0',    '1',    '1',   '1.2',  '1',
+        '|','Slide Up',                        '1',    '255',  '1',   '1',   '1',    '1',        '0.350',   '0',    '0',    '0',    '1',    '1',   '1',    '0.8',
+        '|','Squeezed Slide Horizontally',     '2',    '255',  '1',   '1',   'SX',   'SY',       '0.300',   '0',    '0',    '255',  '0.8',  'MH',  '1',    'MY', 
+                                                                                                 '0.200',   '0',    '0',    '255',  '0.8',  'MH',  'mX',   'MY',
+        '|','Squeezed Slide Vertically',       '2',    '255',  '1',   '1',   'SX',   'SY',       '0.300',   '0',    '0',    '255',  'MW',   '0.8', 'MX',   '1', 
+                                                                                                 '0.200',   '0',    '0',    '255',  'MW',   '0.8', 'MX',   'mY',
+        '|','Zoom Out',                        '1',    '255',  '1',   '1',   '1',    '1',        '0.250',   '0.5',  '0.5',  '0',    '0',    '0',   '1',    '1',
+        '|','None',                            '1',    '255',  '1',   '1',   '1',    '1',        '0.0'  ,   '0',    '0',    '0',    '1',    '1',   '1',    '1'
+      ]</default>
+      <summary>Window Closing Effects</summary>
+      <description>List of default closing effects for windows</description>
+    </key>
+   
+    <key name="window-minimize-effects-list" type="as">
+    <!-- |   Name                              Tweens  IO      IW     IH     IPX     IPY         T          PPx     PPY     FO      FW      FH     FPX     FPY -->
+      <default>[
+        '|','Contracted Drop Horizontally',    '2',    '255',  '1',   '1',   'SX',   'SY',       '0.300',   '0',    '0',    '255',  'MW',   'MH',  '1',    'MY', 
+                                                                                                 '0.200',   '0',    '0',    '255',  'MW',   'MH',  'mX',   'MY',
+        '|','Contracted Drop Vertically',      '2',    '255',  '1',   '1',   'SX',   'SY',       '0.300',   '0',    '0',    '255',  'MW',   'MH',  'MX',   '1', 
+                                                                                                 '0.200',   '0',    '0',    '255',  'MW',   'MH',  'MX',   'mY',
+        '|','Fade Out',                        '1',    '255',  '1',   '1',   '1',    '1',        '0.350',   '0',    '0',    '0',    '1',    '1',   '1',    '1', 
+        '|','Fold In Sideways',                '1',    '255',  '1',   '1',   '1',    '1',        '0.250',   '0.5',  '0',    '100',  '0',    '1',   '1',    '1', 
+        '|','Fold In Vertical',                '1',    '255',  '1',   '1',   '1',    '1',        '0.250',   '0',    '0.5',  '100',  '1',    '0',   '1',    '1', 
+        '|','Magnify',                         '1',    '255',  '1',   '1',   '1',    '1',        '0.250',   '0.5',  '0.5',  '0',    '1.2',  '1.2', '1',    '1',
+        '|','Scale Down',                      '1',    '255',  '1',   '1',   '1',    '1',        '0.250',   '0',    '1',    '0',    '1',    '0',   '1',    '1', 
+        '|','Scale Left',                      '1',    '255',  '1',   '1',   '1',    '1',        '0.250',   '0',    '0',    '0',    '0',    '1',   '1',    '1', 
+        '|','Scale Right',                     '1',    '255',  '1',   '1',   '1',    '1',        '0.250',   '1',    '0',    '0',    '0',    '1',   '1',    '1',
+        '|','Scale Up',                        '1',    '255',  '1',   '1',   '1',    '1',        '0.250',   '0',    '0',    '0',    '1',    '0',   '1',    '1', 
+        '|','Slide Down',                      '1',    '255',  '1',   '1',   '1',    '1',        '0.350',   '0',    '0',    '0',    '1',    '1',   '1',    '1.2',  
+        '|','Slide Left',                      '1',    '255',  '1',   '1',   '1',    '1',        '0.350',   '0',    '0',    '0',    '1',    '1',   '0.8',  '1',  
+        '|','Slide Right',                     '1',    '255',  '1',   '1',   '1',    '1',        '0.350',   '0',    '0',    '0',    '1',    '1',   '1.2',  '1',
+        '|','Slide Up',                        '1',    '255',  '1',   '1',   '1',    '1',        '0.350',   '0',    '0',    '0',    '1',    '1',   '1',    '0.8',
+        '|','Squeezed Slide Horizontally',     '2',    '255',  '1',   '1',   'SX',   'SY',       '0.300',   '0',    '0',    '255',  '0.8',  'MH',  '1',    'MY', 
+                                                                                                 '0.200',   '0',    '0',    '255',  '0.8',  'MH',  'mX',   'MY',
+        '|','Squeezed Slide Vertically',       '2',    '255',  '1',   '1',   'SX',   'SY',       '0.300',   '0',    '0',    '255',  'MW',   '0.8', 'MX',   '1', 
+                                                                                                 '0.200',   '0',    '0',    '255',  'MW',   '0.8', 'MX',   'mY',
+        '|','Zoom Out',                        '1',    '255',  '1',   '1',   '1',    '1',        '0.250',   '0.5',  '0.5',  '0',    '0',    '0',   '1',    '1',
+        '|','None',                            '1',    '255',  '1',   '1',   '1',    '1',        '0.0'  ,   '0',    '0',    '0',    '1',    '1',   '1',    '1'
+      ]</default>
+      <summary>Window Minimizing Effects</summary>
+      <description>List of default minimizing effects for windows</description>
+    </key>
+
+    <key name="window-unminimize-effects-list" type="as">
+    <!-- |   Name                              Tweens  IO      IW     IH     IPX     IPY         T          PPx     PPY     FO      FW      FH     FPX     FPY -->
+      <default>[
+        '|','Contracted Rise Horizontally',    '2',    '255',  'MW',  'MH',  'mX',   'MY',       '0.300',   '0',    '0',    '255',  'MW',   'MH',  'IX',   'MY', 
+                                                                                                 '0.200',   '0',    '0',    '255',  '1',    '1',   'IX',   'IY',
+        '|','Contracted Rise Vertically',      '2',    '255',  'MW',  'MH',  'MX',   'mY',       '0.300',   '0',    '0',    '255',  'MW',   'MH',  'MX',   'IY', 
+                                                                                                 '0.200',   '0',    '0',    '255',  '1',    '1',   'IX',   'IY',
+        '|','Fade In',                         '1',    '0',    '1',   '1',   '1',    '1',        '0.350',   '0',    '0',    '255',  '1',    '1',   '1',    '1', 
+        '|','Fold Out Sideways',               '1',    '255',  '0',   '1',   '1',    '1',        '0.250',   '0.5',  '0',    '255',  '1',    '1',   '1',    '1', 
+        '|','Fold Out Vertical',               '1',    '255',  '1',   '0',   '1',    '1',        '0.250',   '0',    '0.5',  '255',  '1',    '1',   '1',    '1', 
+        '|','Scale Down',                      '1',    '200',  '1',   '0',   '1',    '1',        '0.250',   '0',    '0',    '255',  '1',    '1',   '1',    '1', 
+        '|','Scale Left',                      '1',    '200',  '0',   '1',   '1',    '1',        '0.250',   '1',    '0',    '255',  '1',    '1',   '1',    '1', 
+        '|','Scale Right',                     '1',    '200',  '0',   '1',   '1',    '1',        '0.250',   '0',    '0',    '255',  '1',    '1',   '1',    '1',
+        '|','Scale Up',                        '1',    '200',  '1',   '0',   '1',    '1',        '0.250',   '0',    '1',    '255',  '1',    '1',   '1',    '1', 
+        '|','Slide Down',                      '1',    '0',    '1',   '1',   '1',    '0.8',      '0.350',   '0',    '0',    '255',  '1',    '1',   '1',    '1.2',  
+        '|','Slide Left',                      '1',    '0',    '1',   '1',   '1.2',  '1',        '0.350',   '0',    '0',    '255',  '1',    '1',   '0.8',  '1',  
+        '|','Slide Right',                     '1',    '0',    '1',   '1',   '0.8',  '1',        '0.350',   '0',    '0',    '255',  '1',    '1',   '1.2',  '1',
+        '|','Slide Up',                        '1',    '0',    '1',   '1',   '1',    '1.2',      '0.350',   '0',    '0',    '255',  '1',    '1',   '1',    '0.8',
+        '|','Squeezed Slide Horizontally',     '2',    '255',  '0.8', 'MH',  'mX',   'MY',       '0.300',   '0',    '0',    '255',  '1',    'MH',  'IX',   'MY', 
+                                                                                                 '0.200',   '0',    '0',    '255',  '1',    '1',   'IX',   'IY',
+        '|','Squeezed Slide Vertically',       '2',    '255',  'MW',  '0.8', 'MX',   'mY',       '0.300',   '0',    '0',    '255',  'MW',   '0.8', 'MX',   'IY', 
+                                                                                                 '0.200',   '0',    '0',    '255',  '1',    '1',   'IX',   'IY',
+        '|','Unmagnify',                       '1',    '100',  '1.5', '1.5', '1',    '1',        '0.250',   '0.5',  '0.5',  '255',  '1',    '1',   '1',    '1',
+        '|','Zoom In',                         '1',    '100',  '0',   '0',   '1',    '1',        '0.250',   '0.5',  '0.5',  '255',  '1',    '1',   '1',    '1',
+        '|','None',                            '1',    '255',  '1',   '1',   '1',    '1',        '0.0'  ,   '0',    '0',    '255',  '1',    '1',   '1',    '1'
+      ]</default>
+      <summary>Window Unminimizing Effects</summary>
+      <description>List of default Unminimizing effects for windows</description>
+    </key>
+    
+    <key name="wayland"   type="b">
+      <default>false</default>
+      <summary>Use the workaround for Wayland</summary>
+      <description>Settings If used under wayland</description>
+    </key>  
+    
+    <key name="reload-signal" type="b">
+      <default>false</default>
+      <summary>Signals the extension to reload </summary>
+      <description>Signals the extension to reload</description>
+    </key>
+    
+    </schema>
+    
+</schemalist>

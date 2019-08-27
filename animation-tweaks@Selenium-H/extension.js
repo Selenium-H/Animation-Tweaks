@@ -1,9 +1,15 @@
-//Version 7
-// Effect String Format   [ Status   Name   Tweens  IO      IW     IH     IPX     IPY         T     PPx     PPY     FO      FW      FH     FPX     FPY  ... ]
+/*
+Version 7
+=========
+
+Effect String Format   [ Status   Name   Tweens  IO      IW     IH     IPX     IPY         T     PPx     PPY     FO      FW      FH     FPX     FPY  ... ]
+
+*/
 
 const Gio = imports.gi.Gio;
 const Lang = imports.lang;
-const Me = imports.misc.extensionUtils.getCurrentExtension();
+const Extension = imports.misc.extensionUtils.getCurrentExtension();
+const Convenience = Extension.imports.convenience;
 const Meta = imports.gi.Meta;
 const Tweener = imports.ui.tweener;
 const Main = imports.ui.main;
@@ -36,27 +42,11 @@ function reloadExtensionOnPrefsChange() {
 
 const EffectsManager = new Lang.Class({
   Name: "EffectsManager",
+
   _init: function () {
 
-    this.prefs = new Gio.Settings({
-      settings_schema:Gio.SettingsSchemaSource.new_from_directory(Me.path+"/schemas",Gio.SettingsSchemaSource.get_default(),false).lookup(Me.metadata["settings-schema"], true)
-    });
-  },
-
-  loadPreferences : function() {
-
-    this.onOpening0      = null;
-    this.onOpening1      = null;
-    this.onClosing       = null;
-    this.onMinimizing    = null;
-    this.onUnminimizing  = null;
-
-    this.openingWindowEffectEnabled = this.prefs.get_boolean("opening-effect-windows");
-    this.openingOtherEffectEnabled  = this.prefs.get_boolean("opening-effect-others");
-    this.closingingEffectEnabled    = this.prefs.get_boolean("closing-effect");
-    this.minimizingEffectEnabled    = this.prefs.get_boolean("minimizing-effect");
-    this.unMinimizingEffectEnabled  = this.prefs.get_boolean("unminimizing-effect");
-
+    this.prefs = Convenience.getSettings("org.gnome.shell.extensions.animation-tweaks");
+    
   },
 
   addOtherEffects : function (actor, action) {
@@ -91,6 +81,7 @@ const EffectsManager = new Lang.Class({
       this.initParametersOther(actor, eParams);
       this.driveOtherAnimation(actor, eParams, 0, action);
     }
+    
     return;
 
   },
@@ -230,6 +221,7 @@ const EffectsManager = new Lang.Class({
           onOverwriteParams: [actor,action]
       });
       return;
+      
    },
 
   initParametersOther: function(actor, eParams) {
@@ -243,6 +235,7 @@ const EffectsManager = new Lang.Class({
     actor.set_scale ( eParams[4] ,eParams[5] );
 
     return posChanged;
+    
   },
 
   initParametersWindow: function(actor, eParams,success,geom) {
@@ -256,6 +249,22 @@ const EffectsManager = new Lang.Class({
 
     eParams[6] = PX;
     eParams[7] = PY;
+
+  },
+  
+  loadPreferences : function() {
+
+    this.onOpening0      = null;
+    this.onOpening1      = null;
+    this.onClosing       = null;
+    this.onMinimizing    = null;
+    this.onUnminimizing  = null;
+
+    this.openingWindowEffectEnabled = this.prefs.get_boolean("opening-effect-windows");
+    this.openingOtherEffectEnabled  = this.prefs.get_boolean("opening-effect-others");
+    this.closingingEffectEnabled    = this.prefs.get_boolean("closing-effect");
+    this.minimizingEffectEnabled    = this.prefs.get_boolean("minimizing-effect");
+    this.unMinimizingEffectEnabled  = this.prefs.get_boolean("unminimizing-effect");
 
   },
 
@@ -381,6 +390,7 @@ const EffectsManager = new Lang.Class({
     if(this.unMinimizingEffectEnabled) {
       global.window_manager.disconnect(this.onUnminimizing);
     }
+    
   },
 
 });

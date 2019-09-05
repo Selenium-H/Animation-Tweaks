@@ -2,9 +2,12 @@
 Version 7
 =========
 
-Effect String Format   [ Status   Name   Tweens  IO      IW     IH     IPX     IPY         T     PPx     PPY     FO      FW      FH     FPX     FPY  ... ]
+Effect String Format   [ Status   Name   Tweens  IO      IW     IH     IPX     IPY         T     PPx     PPY     NO      NW      NH     NPX     NPY  ... ]
+
+Read the effectParameters.txt File for details.
 
 */
+
 
 const Gio = imports.gi.Gio;
 const Lang = imports.lang;
@@ -110,6 +113,7 @@ const EffectsManager = new Lang.Class({
       Tweener.removeTweens(actor);
       if(action == "unminimize") {
         if(Main.overview._shown) {
+          this.animationDone(actor,"unminimize");
           return;
         }
         Main.wm._unminimizeWindowDone(this.shellwm ,actor);    	 
@@ -166,7 +170,7 @@ const EffectsManager = new Lang.Class({
           y:                 eParams[subEffectNo*8+ 15],
           scale_x:           eParams[subEffectNo*8+ 12],
           scale_y:           eParams[subEffectNo*8+ 13],
-          time:              eParams[subEffectNo*8+ 8],
+          time:              eParams[subEffectNo*8+  8],
           transition:        'easeOutQuad',
           onComplete:        this.driveOtherAnimation,
           onCompleteScope:   this,
@@ -182,7 +186,7 @@ const EffectsManager = new Lang.Class({
           opacity:           eParams[subEffectNo*8+ 11],
           scale_x:           eParams[subEffectNo*8+ 12],
           scale_y:           eParams[subEffectNo*8+ 13],
-          time:              eParams[subEffectNo*8+ 8],
+          time:              eParams[subEffectNo*8+  8],
           transition:        'easeOutQuad',
           onComplete:        this.driveOtherAnimation,
           onCompleteScope:   this,
@@ -211,7 +215,7 @@ const EffectsManager = new Lang.Class({
           y:                 eParams[subEffectNo*8+ 15],
           scale_x:           eParams[subEffectNo*8+ 12],
           scale_y:           eParams[subEffectNo*8+ 13],
-          time:              eParams[subEffectNo*8+ 8],
+          time:              eParams[subEffectNo*8+  8],
           transition:        'easeOutQuad',
           onComplete:        this.driveWindowAnimation,
           onCompleteScope:   this,

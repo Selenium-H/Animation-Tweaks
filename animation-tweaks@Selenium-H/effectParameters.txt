@@ -1,0 +1,94 @@
+Version 7
+=========
+
+Effect String Format   [ Status   Name   Tweens  IO      IW     IH     IPX     IPY         T     PPx     PPY     NO      NW      NH     NPX     NPY  ... ]
+
+======================================================================================================================================================================
+Parameters                 |  Values it can take                                     |  Values displayed in preferences                                              |
+======================================================================================================================================================================
+                           |                                                         |                                                                               |
+Initial Parameters         |                                                         |                                                                               |
+==================         |                                                         |                                                                               |
+                           |                                                         |                                                                               |
+Status                     |  T if enabled else F                                    |  Displayed as switch                                                          |
+                           |                                                         |                                                                               |
+Name                       |  Effect name                                            |  Displayed in dropdown list                                                   |
+                           |                                                         |                                                                               |
+Tweens                     |  Number of effcts cascaded                              |  -                                                                            |
+                           |                                                         |                                                                               |
+IO  -  Initial Opacity     |  can take values 0 - 255                                |  can be changed from  0 - 200.  Displayed same in preferences.                |
+                           |                                                         |                                                                               |
+IW  -  Initial Width       |  can take values 0 - 2, MW                              |  can be changed from  0 - 200 , MW. Displayed as percentage in preferences.   |
+                           |                                                         |                                                                               |
+IH  -  Initial Height      |  can take values 0 - 2, MH                              |  can be changed from  0 - 200 , MH. Displayed as percentage in preferences.   |
+                           |                                                         |                                                                               |
+IPX -  Initial Position X  |  can take values 0 - 2,  MX , mX , SX , IX .            |  can be changed from 0 - 200 ,MX , mX , SX , IX.                              |
+                           |  It is defined as 1 ± ( x * width ) along X.            |  It is displayed as 100 ± ( x % width ) along X.                              |
+                           |  Example - 1.3 means default position (1) + 0.3*width   |  Example - 130 means default position (100) + 30 % width.                     |
+                           |            Moves window by 0.3*width right from         |            Moves window by 30 % its width right from current position.        |
+                           |            current position.                            |  Displayed as a percentage in preferences.                                    |
+                           |                                                         |                                                                               |
+IPY -  Initial Position Y  |  can take values 0 - 2, MY , mY , SY , IY.              |  can be changed from 0 - 200 ,MY , mY , SY , IY.                              |
+                           |  It is defined as 1 ± ( y * width ) along Y.            |  It is displayed as 100 ± ( y % width ) along Y.                              |
+                           |  Example - 0.7 means default position (1) - 0.3*height. |  Example - 70 means default position (100) - 30 % height.                     |
+                           |            Moves window by 0.3*height upward from       |            Moves window by 30 % its height upward from current position.      | 
+                           |            current position                             |  Displayed as a percentage in preferences.                                    |
+                           |                                                         |                                                                               |
+Next Parameters            |                                                         |                                                                               |
+===============            |                                                         |                                                                               |
+                           |                                                         |                                                                               |
+T   -  Time                |  can take values 0 - 10 in seconds                      |  can be changed from 0 - 10000. Displayed as miliseconds in preferences.      |
+                           |                                                         |                                                                               |
+PPX -  Pivot point X       |  can take values 0 - 1                                  |  can be changed from 0 - 100.   Displayed as percentage in preferences.       |
+                           |                                                         |                                                                               |
+PPY -  Pivot Point Y       |  can take values 0 - 1                                  |  can be changed from 0 - 100    Displayed as percentage in preferences.       |
+                           |                                                         |                                                                               |
+NO  -  Next Opacity        |  can take values 0 - 255                                |  Same for preferences.                                                        |
+                           |                                                         |                                                                               |
+NW  -  Next Width          |  can take values 0 - 2  , MW                            |  can be changed from  0 - 200  , MW. Displayed as percentage in preferences.  |
+                           |                                                         |                                                                               |
+NH  -  Next Height         |  can take values 0 - 2  , MH                            |  can be changed from  0 - 200  , MH. Displayed as percentage in preferences.  |
+                           |                                                         |                                                                               |
+NPX -  Next Position X     |  can take values 0 - 2,       MX , mX , SX , IX         |  can be changed from 0 - 200 ,MX , mX , SX , IX.                              |
+                           |  It is defined as 1 ± ( x * width ) along X.            |  It is displayed as 100 ± ( x % width ) along X.                              |
+                           |  Example - 0.8 means default position (1) - 0.2*width   |  Example - 80 means default position (100) - 20 % width.                      |
+                           |            Moves window by 0.2*width left from          |            Moves window by 20 % its width left from current position.         |
+                           |            current position.                            |  Displayed as a percentage in preferences                                     |
+                           |                                                         |                                                                               |     
+NPY -  Next Position Y     |  can take values 0 - 2,       MY , mY , SY , IY         |  can be changed from 0 - 200 ,MY , mY , SY , IY                               |
+                           |  It is defined as 1 ± ( y * width ) along Y.            |  It is displayed as 100 ± ( y % width ) along Y.                              |
+                           |  Example - 1.7 means default position (1) + 0.7*height  |  Example - 170 means default position (100) + 70 % height.                    | 
+                           |            Moves window by 0.7*height down from         |            Moves window by 70 % its height down from current position.        |
+                           |            current position                             |  Displayed as a percentage in preferences                                     |
+                           |                                                         |                                                                               |
+======================================================================================================================================================================
+
+Example of parameter stored and displayed in preferences -
+
+Effect Format                    Status   Name                Tweens  IO      IW     IH     IPX     IPY         T          PPx     PPY     NO      NW      NH     NPX     NPY 
+
+Values stored                    'F',     'Slide Up',         '1',    '0',    '1',   '1',   '1',    '1.2',      '0.350',   '0',    '0',    '255',  '1',    '1',   '1',    '0.8'
+
+Values displayed in preferences                                        0       100    100    100     120         250        0       0       255     100     100    100     80 
+ 
+
+Parameter Values - non-float ( window animations only ) 
+=======================================================
+
+MX  =  Default X coordinate of Minimized window
+MY  =  Default Y coordinate of Minimized window
+mX  =  X coordinate of Minimized window based on icon position on dash
+mY  =  Y coordinate of Minimized window based on icon position on dash
+MW  =  Width of Minimized window 
+MH  =  Height of Minimized window
+SX  =  Same X Coordinate as previous
+SY  =  Same Y Coordinate as previous 
+IX  =  Initial X Coordinate during start
+IY  =  Initial Y Coordinate during start
+
+All non float values are overridden by actual values during run time.
+
+
+
+
+

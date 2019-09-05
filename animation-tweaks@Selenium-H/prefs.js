@@ -2,7 +2,9 @@
 Version 7
 =========
 
-Effect String Format   [ Status   Name   Tweens  IO      IW     IH     IPX     IPY         T     PPx     PPY     FO      FW      FH     FPX     FPY  ... ]
+Effect String Format   [ Status   Name   Tweens  IO      IW     IH     IPX     IPY         T     PPx     PPY     NO      NW      NH     NPX     NPY  ... ]
+
+Read the effectParameters.txt File for details.
 
 */
 
@@ -151,24 +153,6 @@ const EffectsList = new GObject.Class({
     
   },
   
-  getIndexOf: function(effectName) {
-  
-    let listIndex = 0;
-    let effectIndex = 0;
-
-    while(listIndex!=-1) {
-
-      if(this.effectsList[listIndex+1] == effectName) {
-        return effectIndex;
-      }
-      effectIndex++;
-      listIndex = this.effectsList.indexOf('|',listIndex+1);
-    } 
-    
-    return -1;
-
-  },
-  
   getEffectAt: function(index) {
   
     let listIndex = 0;
@@ -201,7 +185,25 @@ const EffectsList = new GObject.Class({
     return [];
 
   },
+  
+  getIndexOf: function(effectName) {
+  
+    let listIndex = 0;
+    let effectIndex = 0;
 
+    while(listIndex!=-1) {
+
+      if(this.effectsList[listIndex+1] == effectName) {
+        return effectIndex;
+      }
+      effectIndex++;
+      listIndex = this.effectsList.indexOf('|',listIndex+1);
+    } 
+    
+    return -1;
+
+  },
+ 
   getTotalTimeOf: function(eStr) {
 
    let cIndex = 0;
@@ -252,15 +254,16 @@ const  EffectsTweaks =  new GObject.Class({
     
     this.gridWin.attach(new Gtk.Label({xalign:1,use_markup:true,label:"<big><b>"+_("Any  Changes  done  here  are  Applied  immediately")+"</b></big>",
                                        halign: Gtk.Align.CENTER}),0,0,3,1);
-    this.gridWin.attach(new Gtk.Label({xalign:1,use_markup:true,label:" ",halign: Gtk.Align.CENTER }) ,0  ,1 ,1  ,1);
+    this.gridWin.attach(new Gtk.Label({xalign:1,use_markup:true,label:"Details of parameter values are described in  <i>effectParameters.txt</i>  file  in  extension folder.",
+                                       halign: Gtk.Align.CENTER }) ,0  ,1 ,3  ,1);
     this.gridWin.attach(new Gtk.Label({xalign:1,use_markup:true,label:"<big><b><u>"+_("Initial Tween Parameters")+"</u></b></big>",
                                        halign: Gtk.Align.CENTER }) ,0  ,2 ,3  ,1);
     this.gridWin.attach(new Gtk.Label({xalign:1,use_markup:true,label:" ",halign: Gtk.Align.CENTER }) ,0  ,3 ,1  ,1);
-    this.tweakParameter      ( 3, _("Intial Opacity\t\t[\t0  -  255\t\t\t]"    ), 4, 0, 255,   1   );  
-    this.tweakParameterSymbol( 4, _("Initial Width\t\t[\tin Percentage\t\t]"   ), 5                );
-    this.tweakParameterSymbol( 5, _("Initial Height\t\t[\tin Percentage\t\t]"  ), 6                );
-    this.tweakParameterSymbol( 6, _("Initial Position\t\t[\tX  Coordinate\t\t]"), 7                );
-    this.tweakParameterSymbol( 7, _("Initial Position\t\t[\tY  Coordinate\t\t]"), 8                );
+    this.tweakParameter        ( 3, _("Intial Opacity\t\t    [\t    0  -  255\t\t\t]"),                         4, 0, 255,       1                       );  
+    this.tweakParameterDim     ( 4, _("Initial Width\t\t    [\t    0  -  200\t%\t\t]"),                         5, 0, 200,     100, ["MW"]               );
+    this.tweakParameterDim     ( 5, _("Initial Height\t\t    [\t    0  -  200\t%\t\t]"),                        6, 0, 200,     100, ["MH"]               );
+    this.tweakParameterPosition( 6, _("Initial Position  X\t    [\t    100 ± % width from default X→    \t]"),  7, 0, 200,     100, ["MX","mX","SX","IX"]);
+    this.tweakParameterPosition( 7, _("Initial Position  Y\t    [\t    100 ± % height from default Y↓    \t]"), 8, 0, 200,     100, ["MY","mY","SY","IY"]);
 
     let pos=8;
     let i=7;
@@ -272,15 +275,49 @@ const  EffectsTweaks =  new GObject.Class({
                                          halign: Gtk.Align.CENTER }) ,0  ,++pos ,3  ,1);
       this.gridWin.attach(new Gtk.Label({xalign:1,use_markup:true,label:" ",halign: Gtk.Align.CENTER }) ,0  ,++pos ,1  ,1);
      
-      this.tweakParameter      ( ++i, _("Time\t\t\t\t[\tin milliseconds\t]"     ), ++pos, 0, 10000,  1000);  
-      this.tweakParameter      ( ++i, _("Pivot Point X\t\t[\tin Percentage\t\t]"), ++pos, 0, 100,     100);
-      this.tweakParameter      ( ++i, _("Pivot Point Y\t\t[\tin Percentage\t\t]"), ++pos, 0, 100,     100);
-      this.tweakParameter      ( ++i, _("Ending Opacity\t[\t0  -  255\t\t\t]"   ), ++pos, 0, 255,       1);
-      this.tweakParameterSymbol( ++i, _("Ending Width\t\t[\tin Percentage\t\t]" ), ++pos                 );
-      this.tweakParameterSymbol( ++i, _("Ending Height\t\t[\tin Percentage\t\t]"), ++pos                 );
-      this.tweakParameterSymbol( ++i, _("Ending Position\t[\tX  Coordinate\t\t]"), ++pos                 );
-      this.tweakParameterSymbol( ++i, _("Ending Position\t[\tY  Coordinate\t\t]"), ++pos                 );
+      this.tweakParameter        ( ++i, _("Time\t\t\t\t    [\t    in milliseconds\t]"),                        ++pos, 0, 10000,  1000                       );  
+      this.tweakParameter        ( ++i, _("Pivot Point   X\t\t    [\t    0  -  100\t%\t\t]"),                  ++pos, 0, 100,     100                       );
+      this.tweakParameter        ( ++i, _("Pivot Point   Y\t\t    [\t    0  -  100\t%\t\t]"),                  ++pos, 0, 100,     100                       );
+      this.tweakParameter        ( ++i, _("Ending Opacity\t\t    [\t    0  -  255\t\t\t]"),                      ++pos, 0, 255,       1                       );
+      this.tweakParameterDim     ( ++i, _("Ending Width\t\t    [\t    0  -  200\t%\t\t]"),                     ++pos, 0, 200,     100, ["MW"]               );
+      this.tweakParameterDim     ( ++i, _("Ending Height\t\t    [\t    0  -  200\t%\t\t]"),                    ++pos, 0, 200,     100, ["MH"]               );
+      this.tweakParameterPosition( ++i, _("Ending Position  X\t    [\t    100 ± % width from current X→\t]"),  ++pos, 0, 200,     100, ["MX","mX","SX","IX"]);
+      this.tweakParameterPosition( ++i, _("Ending Position  Y\t    [\t    100 ± % height from current Y↓\t]"), ++pos, 0, 200,     100, ["MY","mY","SY","IY"]);
     }
+    
+  },
+  
+  filterInvalidValues: function(checkForThisValue,minPV,maxPV,acceptableValues,temp,multiplier) {
+
+    for(let i=0;i<acceptableValues.length;i++){
+      if(checkForThisValue==acceptableValues[i]){
+        return [checkForThisValue,checkForThisValue,true]; 
+      }
+    }
+    
+    if(checkForThisValue == ""){
+      return [(minPV/multiplier).toString(),minPV.toString(),false,false];  
+    }
+    
+    let value = parseFloat(checkForThisValue)*temp;
+    
+    if(isNaN(value)){
+      return [(minPV/multiplier).toString(),minPV.toString(),false,false];  
+    }
+    
+    if(value >= minPV && value <= maxPV) {
+      return [(value/multiplier).toString(),value.toString(),true,false];
+    }
+    
+    if(value > maxPV){
+      return [(maxPV/multiplier).toString(),maxPV.toString(),true,true];
+    }
+
+    if(value < minPV){
+      return [(minPV/multiplier).toString(),minPV.toString(),true,true];
+    }
+
+    return [(minPV/multiplier).toString(),minPV.toString(),false,false];
     
   },
 
@@ -301,23 +338,77 @@ const  EffectsTweaks =  new GObject.Class({
     
   },
 
-  tweakParameterSymbol : function(pNo,INFO,pos) {
+  tweakParameterDim : function(pNo,INFO,pos,minPV,maxPV,multiplier,acceptableValues) {
 
     let eStr = settings.get_strv(this.KEY);   
     let SettingLabel   = new Gtk.Label({ xalign:  1, label: INFO,halign: Gtk.Align.START });  
-    let effectParameter   = new Gtk.Entry({text:eStr[pNo]});
+    let effectParameter   = new Gtk.Entry({text: this.filterInvalidValues( eStr[pNo],minPV,maxPV,acceptableValues,multiplier,multiplier)[1] });
 
      effectParameter.connect('changed', ()=> {     
-        eStr= settings.get_strv(this.KEY);
-        eStr[pNo] = effectParameter.text;
-        settings.set_strv(this.KEY,eStr);
+     
+        let value="" ; 
+        let shouldCommit = false;
+        let shouldOverrideText = false;
+        
+        if(effectParameter.text.length > 3){
+          effectParameter.text = maxPV.toString();
+          eStr[pNo] = (maxPV/multiplier).toString();
+          shouldCommit = true;
+        }
+        else {
+          [eStr[pNo],value, shouldCommit, shouldOverrideText] = this.filterInvalidValues( effectParameter.text , minPV , maxPV,acceptableValues,1,multiplier);
+        }
+        
+        if(shouldOverrideText == true){
+          effectParameter.text = value;
+        }
+        
+        if(shouldCommit == true){
+          settings.set_strv(this.KEY,eStr);
+        }
+     
       });
-
 
     this.gridWin.attach(SettingLabel    ,0    ,pos  ,1   ,1);
     this.gridWin.attach(effectParameter ,2    ,pos  ,1   ,1);
 
-  },
+  }, 
+
+  tweakParameterPosition : function(pNo,INFO,pos,minPV,maxPV,multiplier,acceptableValues) {
+
+    let eStr = settings.get_strv(this.KEY);   
+    let SettingLabel   = new Gtk.Label({ xalign:  1, label: INFO,halign: Gtk.Align.START });  
+    let effectParameter   = new Gtk.Entry({text: this.filterInvalidValues( eStr[pNo],minPV,maxPV,acceptableValues,multiplier,multiplier)[1] });
+
+     effectParameter.connect('changed', ()=> {     
+     
+        let value="" ; 
+        let shouldCommit = false;
+        let shouldOverrideText = false;
+        
+        if(effectParameter.text.length > 3){
+          effectParameter.text = maxPV.toString();
+          eStr[pNo] = (maxPV/multiplier).toString();
+          shouldCommit = true;
+        }
+        else {
+          [eStr[pNo],value, shouldCommit, shouldOverrideText] = this.filterInvalidValues( effectParameter.text , minPV , maxPV,acceptableValues,1,multiplier);
+        }
+        
+        if(shouldOverrideText == true){
+          effectParameter.text = value;
+        }
+        
+        if(shouldCommit == true){
+          settings.set_strv(this.KEY,eStr);
+        }
+     
+      });
+
+    this.gridWin.attach(SettingLabel    ,0    ,pos  ,1   ,1);
+    this.gridWin.attach(effectParameter ,2    ,pos  ,1   ,1);
+
+  }, 
 
 });
 
@@ -356,7 +447,7 @@ const PrefsWindow = new GObject.Class({
     let dialog = new Gtk.Dialog({title:_("Customize")+"   "+eStr[1]+"   "+_("Animation"),transient_for:this.get_toplevel(),use_header_bar: true,modal:true});
     dialog.get_content_area().pack_start(new EffectsTweaks(KEY,settings), true, true, 0);
     dialog.set_default_response(Gtk.ResponseType.CANCEL);
-    let addButton     = dialog.add_button("Reset Default", Gtk.ResponseType.OK);
+    let addButton     = dialog.add_button("Restore Default", Gtk.ResponseType.OK);
     dialog.connect('response', Lang.bind(this, function(dialog, id) { 
       
       if (id == Gtk.ResponseType.OK) {

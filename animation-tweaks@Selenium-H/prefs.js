@@ -231,10 +231,19 @@ const EffectsList = new GObject.Class({
    let cIndex = 0;
    let totalTime = this.getTotalTimeOf(eStr); 
 
-   for (cIndex = 8;cIndex<eStr.length;cIndex=cIndex+8) {
-      eStr[cIndex]=( Math.floor(parseFloat(eStr[cIndex])/(totalTime*0.001)*value)*0.001).toString();
+   if(totalTime == 0) {
+     for (cIndex = 8;cIndex<eStr.length;cIndex=cIndex+8) {
+       eStr[cIndex]="0.001";
+     }
+     totalTime = parseInt(eStr[2]);
    }
+
+   for (cIndex = 8;cIndex<eStr.length;cIndex=cIndex+8) {
+     eStr[cIndex]= ((parseFloat(eStr[cIndex])*value)/totalTime).toPrecision(3).toString();
+   }  
+  
    return eStr;
+
   },
   
 });

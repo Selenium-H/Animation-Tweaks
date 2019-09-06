@@ -97,6 +97,8 @@ const AboutPage =  new GObject.Class({
 
     settings.reset('modal-dialog-open');
     settings.reset('modal-dialog-close');
+    settings.reset('modal-dialog-minimize');
+    settings.reset('modal-dialog-unminimize');
     
     settings.reset('dropdown-menu-open');
     settings.reset('popup-menu-open');

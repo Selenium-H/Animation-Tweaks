@@ -263,8 +263,7 @@ const  EffectsTweaks =  new GObject.Class({
     
     this.gridWin.attach(new Gtk.Label({xalign:1,use_markup:true,label:"<big><b>"+_("Any  Changes  done  here  are  Applied  immediately")+"</b></big>",
                                        halign: Gtk.Align.CENTER}),0,0,3,1);
-    this.gridWin.attach(new Gtk.Label({xalign:1,use_markup:true,label:"Details of parameter values are described in  <i>effectParameters.txt</i>  file  in  extension folder.",
-                                       halign: Gtk.Align.CENTER }) ,0  ,1 ,3  ,1);
+    this.gridWin.attach(new Gtk.Label({xalign:1,use_markup:true,label:_("Details of parameter values are described in")+"  <i>effectParameters.txt</i>  "+_("file  in  extension folder."),                             halign: Gtk.Align.CENTER }) ,0  ,1 ,3  ,1);
     this.gridWin.attach(new Gtk.Label({xalign:1,use_markup:true,label:"<big><b><u>"+_("Initial Tween Parameters")+"</u></b></big>",
                                        halign: Gtk.Align.CENTER }) ,0  ,2 ,3  ,1);
     this.gridWin.attach(new Gtk.Label({xalign:1,use_markup:true,label:" ",halign: Gtk.Align.CENTER }) ,0  ,3 ,1  ,1);
@@ -287,7 +286,7 @@ const  EffectsTweaks =  new GObject.Class({
       this.tweakParameter        ( ++i, _("Time\t\t\t\t    [\t    in milliseconds\t]"),                        ++pos, 0, 10000,  1000                       );  
       this.tweakParameter        ( ++i, _("Pivot Point   X\t\t    [\t    0  -  100\t%\t\t]"),                  ++pos, 0, 100,     100                       );
       this.tweakParameter        ( ++i, _("Pivot Point   Y\t\t    [\t    0  -  100\t%\t\t]"),                  ++pos, 0, 100,     100                       );
-      this.tweakParameter        ( ++i, _("Ending Opacity\t\t    [\t    0  -  255\t\t\t]"),                      ++pos, 0, 255,       1                       );
+      this.tweakParameter        ( ++i, _("Ending Opacity\t    [\t    0  -  255\t\t\t]"),                      ++pos, 0, 255,       1                       );
       this.tweakParameterDim     ( ++i, _("Ending Width\t\t    [\t    0  -  200\t%\t\t]"),                     ++pos, 0, 200,     100, ["MW"]               );
       this.tweakParameterDim     ( ++i, _("Ending Height\t\t    [\t    0  -  200\t%\t\t]"),                    ++pos, 0, 200,     100, ["MH"]               );
       this.tweakParameterPosition( ++i, _("Ending Position  X\t    [\t    100 ± % width from current X→\t]"),  ++pos, 0, 200,     100, ["MX","mX","SX","IX"]);

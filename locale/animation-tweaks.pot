@@ -16,6 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
+
 #: prefs.js:72
 msgid "Reset Animation Tweaks Extension"
 msgstr ""
@@ -125,7 +126,7 @@ msgid "Effect"
 msgstr ""
 
 #: prefs.js:477
-msgid "Time in miliseconds"
+msgid "Time in milliseconds"
 msgstr ""
 
 #: prefs.js:478

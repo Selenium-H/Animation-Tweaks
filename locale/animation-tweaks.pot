@@ -16,7 +16,6 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-
 #: prefs.js:72
 msgid "Reset Animation Tweaks Extension"
 msgstr ""
@@ -221,6 +220,8 @@ msgstr ""
 
 #: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:123
 #: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:132
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:141
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:150
 msgid "Modal Dialog"
 msgstr ""
 
@@ -232,103 +233,112 @@ msgstr ""
 msgid "Animation settings for Modal Dialog Windows closing"
 msgstr ""
 
-#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:141
-msgid "Dropdown Menu"
-msgstr ""
-
 #: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:142
-msgid "Animation settings for Dropdown Menu opening"
-msgstr ""
-
-#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:150
-msgid "Pop Up Menu"
+msgid "Only provided so that shell does not crash if for any reason Modal Dialog Windows is minimzing"
 msgstr ""
 
 #: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:151
-msgid "Animation settings for Pop Up Menu opening"
+msgid "Only provided so that shell does not crash if for any reason Modal Dialog Windows is unminimzing"
 msgstr ""
 
 #: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:159
-msgid "Combo Box"
+msgid "Dropdown Menu"
 msgstr ""
 
 #: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:160
-msgid "Animation settings for Combo Box opening"
+msgid "Animation settings for Dropdown Menu opening"
 msgstr ""
 
 #: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:168
-msgid "Splash Screen"
+msgid "Pop Up Menu"
 msgstr ""
 
 #: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:169
-msgid "Animation settings for Splash Screen opening"
+msgid "Animation settings for Pop Up Menu opening"
 msgstr ""
 
 #: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:177
-msgid "Tooltips"
+msgid "Combo Box"
 msgstr ""
 
 #: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:178
-msgid "Animation settings for Tooltips opening"
+msgid "Animation settings for Combo Box opening"
 msgstr ""
 
 #: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:186
-msgid "Overrides Others"
+msgid "Splash Screen"
 msgstr ""
 
 #: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:187
+msgid "Animation settings for Splash Screen opening"
+msgstr ""
+
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:195
+msgid "Tooltips"
+msgstr ""
+
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:196
+msgid "Animation settings for Tooltips opening"
+msgstr ""
+
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:204
+msgid "Overrides Others"
+msgstr ""
+
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:205
 msgid "Animation settings for Overrides Others opening"
 msgstr ""
 
-#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:208
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:226
 msgid "Other Opening Effects"
 msgstr ""
 
-#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:209
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:227
 msgid "List of default opening effects for other items"
 msgstr ""
 
-#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:238
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:256
 msgid "Window Opening Effects"
 msgstr ""
 
-#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:239
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:257
 msgid "List of default opening effects for windows"
 msgstr ""
 
-#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:268
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:286
 msgid "Window Closing Effects"
 msgstr ""
 
-#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:269
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:287
 msgid "List of default closing effects for windows"
 msgstr ""
 
-#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:298
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:316
 msgid "Window Minimizing Effects"
 msgstr ""
 
-#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:299
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:317
 msgid "List of default minimizing effects for windows"
 msgstr ""
 
-#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:328
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:346
 msgid "Window Unminimizing Effects"
 msgstr ""
 
-#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:329
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:347
 msgid "List of default Unminimizing effects for windows"
 msgstr ""
 
-#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:334
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:352
 msgid "Use the workaround for Wayland"
 msgstr ""
 
-#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:335
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:353
 msgid "Settings If used under wayland"
 msgstr ""
 
-#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:340
-#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:341
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:358
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:359
 msgid "Signals the extension to reload"
 msgstr ""
+

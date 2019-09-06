@@ -474,7 +474,7 @@ const PrefsWindow = new GObject.Class({
   
     this.attach(new Gtk.Label({ xalign: 1, label: _("Items") ,halign: Gtk.Align.CENTER })                 ,0  ,posY ,1  ,1);
     this.attach(new Gtk.Label({ xalign: 1, label: _("Effect"),halign: Gtk.Align.CENTER })                 ,1  ,posY ,1  ,1);
-    this.attach(new Gtk.Label({ xalign: 1, label: _("Time in miliseconds"),halign: Gtk.Align.CENTER })    ,3  ,posY ,1  ,1);
+    this.attach(new Gtk.Label({ xalign: 1, label: _("Time in milliseconds"),halign: Gtk.Align.CENTER })   ,3  ,posY ,1  ,1);
     this.attach(new Gtk.Label({ xalign: 1, label: _("Status"),     halign: Gtk.Align.CENTER })            ,4  ,posY ,1  ,1);
     
   },

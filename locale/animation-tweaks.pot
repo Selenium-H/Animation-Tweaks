@@ -6,7 +6,7 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: animation-tweaks-7\n"
+"Project-Id-Version: animation-tweaks-8\n"
 "POT-Creation-Date: 2016-06-10 19:03-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
@@ -16,120 +16,152 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: prefs.js:72
+#: prefs.js:81
 msgid "Reset Animation Tweaks Extension"
 msgstr ""
 
-#: prefs.js:133
+#: prefs.js:148
 msgid "Open"
 msgstr ""
 
-#: prefs.js:134
+#: prefs.js:149
 msgid "Close"
 msgstr ""
 
-#: prefs.js:135
+#: prefs.js:150
 msgid "Minimize"
 msgstr ""
 
-#: prefs.js:136
+#: prefs.js:151
+msgid "Profiles"
+msgstr ""
+
+#: prefs.js:152
 msgid "About"
 msgstr ""
 
-#: prefs.js:264
+#: prefs.js:381
 msgid "Any  Changes  done  here  are  Applied  immediately"
 msgstr ""
 
-#: prefs.js:266
+#: prefs.js:383
 msgid "Details of parameter values are described in"
 msgstr ""
 
-#: prefs.js:266
+#: prefs.js:383
 msgid "file  in  extension folder."
 msgstr ""
 
-#: prefs.js:267
+#: prefs.js:384
 msgid "Initial Tween Parameters"
 msgstr ""
 
-#: prefs.js:270
+#: prefs.js:387
 msgid "Intial Opacity\t\t    [\t    0  -  255\t\t\t]"
 msgstr ""
 
-#: prefs.js:271
+#: prefs.js:388
 msgid "Initial Width\t\t    [\t    0  -  200\t%\t\t]"
 msgstr ""
 
-#: prefs.js:272
+#: prefs.js:389
 msgid "Initial Height\t\t    [\t    0  -  200\t%\t\t]"
 msgstr ""
 
-#: prefs.js:273
+#: prefs.js:390
 msgid "Initial Position  X\t    [\t    100 ± % width from default X→    \t]"
 msgstr ""
 
-#: prefs.js:274
+#: prefs.js:391
 msgid "Initial Position  Y\t    [\t    100 ± % height from default Y↓    \t]"
 msgstr ""
 
-#: prefs.js:282
+#: prefs.js:399
 msgid "Next Tween Parameters"
 msgstr ""
 
-#: prefs.js:286
+#: prefs.js:403
 msgid "Time\t\t\t\t    [\t    in milliseconds\t]"
 msgstr ""
 
-#: prefs.js:287
+#: prefs.js:404
 msgid "Pivot Point   X\t\t    [\t    0  -  100\t%\t\t]"
 msgstr ""
 
-#: prefs.js:288
+#: prefs.js:405
 msgid "Pivot Point   Y\t\t    [\t    0  -  100\t%\t\t]"
 msgstr ""
 
-#: prefs.js:289
+#: prefs.js:406
 msgid "Ending Opacity\t    [\t    0  -  255\t\t\t]"
 msgstr ""
 
-#: prefs.js:290
+#: prefs.js:407
 msgid "Ending Width\t\t    [\t    0  -  200\t%\t\t]"
 msgstr ""
 
-#: prefs.js:291
+#: prefs.js:408
 msgid "Ending Height\t\t    [\t    0  -  200\t%\t\t]"
 msgstr ""
 
-#: prefs.js:292
+#: prefs.js:409
 msgid "Ending Position  X\t    [\t    100 ± % width from current X→\t]"
 msgstr ""
 
-#: prefs.js:293
+#: prefs.js:410
 msgid "Ending Position  Y\t    [\t    100 ± % height from current Y↓\t]"
 msgstr ""
 
-#: prefs.js:455
-msgid "Customize"
-msgstr ""
-
-#: prefs.js:455
-msgid "Animation"
-msgstr ""
-
-#: prefs.js:475
+#: prefs.js:564
 msgid "Items"
 msgstr ""
 
-#: prefs.js:476
+#: prefs.js:565 prefs.js:819
 msgid "Effect"
 msgstr ""
 
-#: prefs.js:477
-msgid "Time in milliseconds"
+#: prefs.js:566 prefs.js:820
+msgid "Time ( in ms )"
 msgstr ""
 
-#: prefs.js:478
+#: prefs.js:567 prefs.js:821
 msgid "Status"
+msgstr ""
+
+#: prefs.js:699
+msgid "Choose an application"
+msgstr ""
+
+#: prefs.js:780 prefs.js:785 prefs.js:938
+msgid "Window Preferences"
+msgstr ""
+
+#: prefs.js:785 prefs.js:938
+msgid "No Application Selected"
+msgstr ""
+
+#: prefs.js:818
+msgid "Action"
+msgstr ""
+
+#: prefs.js:833
+msgid "Application List"
+msgstr ""
+
+#: prefs.js:846
+msgid "Add"
+msgstr ""
+
+#: prefs.js:849
+msgid "Remove"
+msgstr ""
+
+#: prefs.js:1049
+msgid "Customize"
+msgstr ""
+
+#: prefs.js:1049
+msgid "Animation"
 msgstr ""
 
 #: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:18
@@ -330,15 +362,37 @@ msgid "List of default Unminimizing effects for windows"
 msgstr ""
 
 #: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:352
-msgid "Use the workaround for Wayland"
+msgid "Application Profiles"
 msgstr ""
 
 #: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:353
+msgid "Application profiles status switch"
+msgstr ""
+
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:359
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:360
+msgid "List of Applicaions for custom profiles"
+msgstr ""
+
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:366
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:367
+msgid "List of Applicaions names for custom profiles"
+msgstr ""
+
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:372
+msgid "Use the workaround for Wayland"
+msgstr ""
+
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:373
 msgid "Settings If used under wayland"
 msgstr ""
 
-#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:358
-#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:359
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:378
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:379
 msgid "Signals the extension to reload"
 msgstr ""
 
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:384
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:385
+msgid "Signals the extension to reload Application Profiles"
+msgstr ""

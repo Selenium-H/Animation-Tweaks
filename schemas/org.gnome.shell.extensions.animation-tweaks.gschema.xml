@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- 
-Version 7
+Version 8
 =========
 
 Effect String Format   [ Status   Name   Tweens  IO      IW     IH     IPX     IPY         T     PPx     PPY     NO      NW      NH     NPX     NPY  ... ]
@@ -44,162 +44,162 @@ Read the effectParameters.txt File for details.
     </key>
     
     <key name="normal-open" type="as">
-    <!--Status   Name                              Tweens  IO      IW     IH     IPX     IPY         T          PPx     PPY     NO      NW      NH     NPX     NPY -->
+    <!-- |   Name                              Tweens  IO      IW     IH     IPX     IPY         T          PPx     PPY     NO      NW      NH     NPX     NPY -->
       <default>[
-        'F',     'Scale Down',                     '1',    '200',  '1',   '0',   '1',    '1',        '0.250',   '0',    '0',    '255',  '1',    '1',   '1',    '1'
+        '|','F',     'Scale Down',             '1',    '200',  '1',   '0',   '1',    '1',        '0.250',   '0',    '0',    '255',  '1',    '1',   '1',    '1'
       ]</default>
       <summary>Normal Windows</summary>
       <description>Animation settings for Normal Windows opening</description>
     </key>
     
     <key name="normal-close" type="as">
-    <!--Status   Name                              Tweens  IO      IW     IH     IPX     IPY         T          PPx     PPY     NO      NW      NH     NPX     NPY -->
+    <!-- |   Name                              Tweens  IO      IW     IH     IPX     IPY         T          PPx     PPY     NO      NW      NH     NPX     NPY -->
       <default>[
-        'F',     'Fold In Sideways',               '1',    '255',  '1',   '1',   '1',    '1',        '0.250',   '0.5',  '0',    '100',  '0',    '1',   '1',    '1'
+        '|','F',     'Fold In Sideways',       '1',    '255',  '1',   '1',   '1',    '1',        '0.250',   '0.5',  '0',    '100',  '0',    '1',   '1',    '1'
       ]</default>
       <summary>Normal Windows</summary>
       <description>Animation settings for Normal Windows closing</description>
     </key>
     
     <key name="normal-minimize" type="as">
-    <!--Status   Name                              Tweens  IO      IW     IH     IPX     IPY         T          PPx     PPY     NO      NW      NH     NPX     NPY -->
+    <!-- |   Name                              Tweens  IO      IW     IH     IPX     IPY         T          PPx     PPY     NO      NW      NH     NPX     NPY -->
       <default>[
-        'F',     'Slide Down',                     '1',    '255',  '1',   '1',   '1',    '1',        '0.350',   '0',    '0',    '0',    '1',    '1',   '1',    '1.2'
+        '|','F',     'Slide Down',             '1',    '255',  '1',   '1',   '1',    '1',        '0.350',   '0',    '0',    '0',    '1',    '1',   '1',    '1.2'
       ]</default>
       <summary>Normal Windows</summary>
       <description>Animation settings for Normal Windows minimizing</description>
     </key>
     
     <key name="normal-unminimize" type="as">
-    <!--Status   Name                              Tweens  IO      IW     IH     IPX     IPY         T          PPx     PPY     NO      NW      NH     NPX     NPY -->
+    <!-- |   Name                              Tweens  IO      IW     IH     IPX     IPY         T          PPx     PPY     NO      NW      NH     NPX     NPY -->
       <default>[
-        'F',     'Slide Up',                       '1',    '0',    '1',   '1',   '1',    '1.2',      '0.350',   '0',    '0',    '255',  '1',    '1',   '1',    '0.8'
+        '|','F',     'Slide Up',               '1',    '0',    '1',   '1',   '1',    '1.2',      '0.350',   '0',    '0',    '255',  '1',    '1',   '1',    '0.8'
       ]</default>
       <summary>Normal Windows</summary>
       <description>Animation settings for Normal Windows unminimizing</description>
     </key>
     
     <key name="dialog-open" type="as">
-    <!--Status   Name                              Tweens  IO      IW     IH     IPX     IPY         T          PPx     PPY     NO      NW      NH     NPX     NPY -->
+    <!-- |   Name                              Tweens  IO      IW     IH     IPX     IPY         T          PPx     PPY     NO      NW      NH     NPX     NPY -->
       <default>[
-        'F',     'Fold Out Sideways',              '1',    '255',  '0',   '1',   '1',    '1',        '0.250',   '0.5',  '0',    '255',  '1',    '1',   '1',    '1'
+         '|','F',     'Fold Out Sideways',     '1',    '255',  '0',   '1',   '1',    '1',        '0.250',   '0.5',  '0',    '255',  '1',    '1',   '1',    '1'
       ]</default>
       <summary>Dialog Windows</summary>
       <description>Animation settings for Dialog Windows opening</description>
     </key>
     
     <key name="dialog-close" type="as">
-    <!--Status   Name                              Tweens  IO      IW     IH     IPX     IPY         T          PPx     PPY     NO      NW      NH     NPX     NPY -->
+    <!-- |   Name                              Tweens  IO      IW     IH     IPX     IPY         T          PPx     PPY     NO      NW      NH     NPX     NPY -->
       <default>[
-        'F',     'Fold In Sideways',               '1',    '255',  '1',   '1',   '1',    '1',        '0.250',  '0.5',  '0',    '100',  '0',    '1',   '1',    '1' 
+        '|','F',     'Fold In Sideways',       '1',    '255',  '1',   '1',   '1',    '1',        '0.250',  '0.5',  '0',    '100',  '0',    '1',   '1',    '1' 
       ]</default>
       <summary>Dialog Windows</summary>
       <description>Animation settings for Dialog Windows closing</description>
     </key>
     
     <key name="dialog-minimize" type="as">
-    <!--Status   Name                              Tweens  IO      IW     IH     IPX     IPY         T          PPx     PPY     NO      NW      NH     NPX     NPY -->
+    <!-- |   Name                              Tweens  IO      IW     IH     IPX     IPY         T          PPx     PPY     NO      NW      NH     NPX     NPY -->
       <default>[
-        'F',     'Slide Down',                     '1',    '255',  '1',   '1',   '1',    '1',        '0.350',   '0',   '0',    '0',    '1',    '1',   '1',    '1.2'
+        '|','F',     'Slide Down',             '1',    '255',  '1',   '1',   '1',    '1',        '0.350',   '0',   '0',    '0',    '1',    '1',   '1',    '1.2'
       ]</default>
       <summary>Dialog Windows</summary>
       <description>Animation settings for Dialog Windows minimizing</description>
     </key>
     
     <key name="dialog-unminimize" type="as">
-    <!--Status   Name                              Tweens  IO      IW     IH     IPX     IPY         T          PPx     PPY     NO      NW      NH     NPX     NPY -->
+    <!-- |   Name                              Tweens  IO      IW     IH     IPX     IPY         T          PPx     PPY     NO      NW      NH     NPX     NPY -->
       <default>[
-        'F',     'Slide Up',                       '1',    '0',    '1',   '1',   '1',    '1.2',      '0.350',   '0',    '0',    '255',  '1',    '1',   '1',    '0.8'
+        '|','F',     'Slide Up',               '1',    '0',    '1',   '1',   '1',    '1.2',      '0.350',   '0',    '0',    '255',  '1',    '1',   '1',    '0.8'
       ]</default>
       <summary>Dialog Windows</summary>
       <description>Animation settings for Dialog Windows unminimzing</description>
     </key>
     
-    <key name="modal-dialog-open" type="as">
-    <!--Status   Name                              Tweens  IO      IW     IH     IPX     IPY         T          PPx     PPY     NO      NW      NH     NPX     NPY -->
+    <key name="modaldialog-open" type="as">
+    <!-- |   Name                              Tweens  IO      IW     IH     IPX     IPY         T          PPx     PPY     NO      NW      NH     NPX     NPY -->
       <default>[
-        'F',     'Fold Out Vertically',            '1',    '255',  '1',   '0',   '1',    '1',        '0.250',   '0',    '0.5',  '255',  '1',    '1',   '1',    '1'
+        '|','F',     'Fold Out Vertically',    '1',    '255',  '1',   '0',   '1',    '1',        '0.250',   '0',    '0.5',  '255',  '1',    '1',   '1',    '1'
       ]</default>
       <summary>Modal Dialog</summary>
       <description>Animation settings for Modal Dialog Windows opening</description>
     </key>
     
-    <key name="modal-dialog-close" type="as">
-    <!--Status   Name                              Tweens  IO      IW     IH     IPX     IPY         T          PPx     PPY     NO      NW      NH     NPX     NPY -->
+    <key name="modaldialog-close" type="as">
+    <!-- |   Name                              Tweens  IO      IW     IH     IPX     IPY         T          PPx     PPY     NO      NW      NH     NPX     NPY -->
       <default>[
-        'F',     'Fold In Vertically',             '1',    '255',  '1',   '1',   '1',    '1',        '0.250',   '0',    '0.5',  '100',  '1',    '0',   '1',    '1'
+        '|','F',     'Fold In Vertically',     '1',    '255',  '1',   '1',   '1',    '1',        '0.250',   '0',    '0.5',  '100',  '1',    '0',   '1',    '1'
       ]</default>
       <summary>Modal Dialog</summary>
       <description>Animation settings for Modal Dialog Windows closing</description>
     </key>
     
-    <key name="modal-dialog-minimize" type="as">
-    <!--Status   Name                              Tweens  IO      IW     IH     IPX     IPY         T          PPx     PPY     NO      NW      NH     NPX     NPY -->
+    <key name="modaldialog-minimize" type="as">
+    <!-- |   Name                              Tweens  IO      IW     IH     IPX     IPY         T          PPx     PPY     NO      NW      NH     NPX     NPY -->
       <default>[
-        'F',     'Fold In Vertically',             '1',    '255',  '1',   '1',   '1',    '1',        '0.250',   '0',    '0.5',  '100',  '1',    '0',   '1',    '1'
+        '|','F',     'Fold In Vertically',     '1',    '255',  '1',   '1',   '1',    '1',        '0.250',   '0',    '0.5',  '100',  '1',    '0',   '1',    '1'
       ]</default>
       <summary>Modal Dialog</summary>
       <description>Only provided so that shell does not crash if for any reason Modal Dialog Windows is minimzing</description>
     </key>
 
-    <key name="modal-dialog-unminimize" type="as">
-    <!--Status   Name                              Tweens  IO      IW     IH     IPX     IPY         T          PPx     PPY     NO      NW      NH     NPX     NPY -->
+    <key name="modaldialog-unminimize" type="as">
+    <!-- |   Name                              Tweens  IO      IW     IH     IPX     IPY         T          PPx     PPY     NO      NW      NH     NPX     NPY -->
       <default>[
-        'T',     'Scale Down',                     '1',    '200',  '1',   '0',   '1',    '1',        '0.250',   '0',    '0',    '255',  '1',    '1',   '1',    '1'  
+        '|','F',     'Scale Down',             '1',    '200',  '1',   '0',   '1',    '1',        '0.250',   '0',    '0',    '255',  '1',    '1',   '1',    '1'  
       ]</default>
       <summary>Modal Dialog</summary>
       <description>Only provided so that shell does not crash if for any reason Modal Dialog Windows is unminimzing</description>
     </key>
 
-    <key name="dropdown-menu-open" type="as">
-    <!--Status   Name                              Tweens  IO      IW     IH     IPX     IPY         T          PPx     PPY     NO      NW      NH     NPX     NPY -->
+    <key name="dropdownmenu-open" type="as">
+    <!-- |   Name                              Tweens  IO      IW     IH     IPX     IPY         T          PPx     PPY     NO      NW      NH     NPX     NPY -->
       <default>[
-        'T',     'Scale Down',                     '1',    '200',  '1',   '0',   '1',    '1',        '0.250',   '0',    '0',    '255',  '1',    '1',   '1',    '1'
+        '|','T',     'Scale Down',             '1',    '200',  '1',   '0',   '1',    '1',        '0.250',   '0',    '0',    '255',  '1',    '1',   '1',    '1'
       ]</default>
       <summary>Dropdown Menu</summary>
       <description>Animation settings for Dropdown Menu opening</description>
     </key>
     
-    <key name="popup-menu-open" type="as">
-    <!--Status   Name                              Tweens  IO      IW     IH     IPX     IPY         T          PPx     PPY     NO      NW      NH     NPX     NPY -->
+    <key name="popupmenu-open" type="as">
+    <!-- |   Name                              Tweens  IO      IW     IH     IPX     IPY         T          PPx     PPY     NO      NW      NH     NPX     NPY -->
       <default>[
-        'T',     'Scale Down',                     '1',    '200',  '1',   '0',   '1',    '1',        '0.250',   '0',    '0',    '255',  '1',    '1',   '1',    '1'
+        '|','T',     'Scale Down',             '1',    '200',  '1',   '0',   '1',    '1',        '0.250',   '0',    '0',    '255',  '1',    '1',   '1',    '1'
       ]</default>
       <summary>Pop Up Menu</summary>
       <description>Animation settings for Pop Up Menu opening</description>
     </key>
     
     <key name="combo-open" type="as">
-    <!--Status   Name                              Tweens  IO      IW     IH     IPX     IPY         T          PPx     PPY     NO      NW      NH     NPX     NPY -->
+    <!-- |   Name                              Tweens  IO      IW     IH     IPX     IPY         T          PPx     PPY     NO      NW      NH     NPX     NPY -->
       <default>[
-        'T',     'Scale Down',                     '1',    '200',  '1',   '0',   '1',    '1',        '0.250',   '0',    '0',    '255',  '1',    '1',   '1',    '1'
+        '|','T',     'Scale Down',             '1',    '200',  '1',   '0',   '1',    '1',        '0.250',   '0',    '0',    '255',  '1',    '1',   '1',    '1'
       ]</default>
       <summary>Combo Box</summary>
       <description>Animation settings for Combo Box opening</description>
     </key>
     
     <key name="splashscreen-open" type="as">
-    <!--Status   Name                              Tweens  IO      IW     IH     IPX     IPY         T          PPx     PPY     NO      NW      NH     NPX     NPY -->
+    <!-- |   Name                              Tweens  IO      IW     IH     IPX     IPY         T          PPx     PPY     NO      NW      NH     NPX     NPY -->
       <default>[
-        'T',     'Zoom In',                        '1',    '100',  '0',   '0',   '1',    '1',        '0.250',   '0.5',  '0.5',  '255',  '1',    '1',   '1',    '1'
+        '|','T',     'Zoom In',                '1',    '100',  '0',   '0',   '1',    '1',        '0.250',   '0.5',  '0.5',  '255',  '1',    '1',   '1',    '1'
       ]</default>
       <summary>Splash Screen</summary>
       <description>Animation settings for Splash Screen opening</description>
     </key>
     
     <key name="tooltip-open" type="as">
-    <!--Status   Name                              Tweens  IO      IW     IH     IPX     IPY         T          PPx     PPY     NO      NW      NH     NPX     NPY -->
+    <!-- |   Name                              Tweens  IO      IW     IH     IPX     IPY         T          PPx     PPY     NO      NW      NH     NPX     NPY -->
       <default>[
-        'T',     'Slide Up',                       '1',    '0',    '1',   '1',   '1',    '1.2',      '0.350',   '0',    '0',    '255',  '1',    '1',   '1',    '0.8'
+        '|','T',     'Slide Up',               '1',    '0',    '1',   '1',   '1',    '1.2',      '0.350',   '0',    '0',    '255',  '1',    '1',   '1',    '0.8'
       ]</default>
       <summary>Tooltips</summary>
       <description>Animation settings for Tooltips opening</description>
     </key>
     
-    <key name="override-other-open" type="as">
-    <!--Status   Name                              Tweens  IO      IW     IH     IPX     IPY         T          PPx     PPY     NO      NW      NH     NPX     NPY -->
+    <key name="overrideother-open" type="as">
+    <!-- |   Name                              Tweens  IO      IW     IH     IPX     IPY         T          PPx     PPY     NO      NW      NH     NPX     NPY -->
       <default>[
-        'T',     'Scale Down',                     '1',    '200',  '1',   '0',   '1',    '1',        '0.250',   '0',    '0',    '255',  '1',    '1',   '1',    '1'
+        '|','T',     'Scale Down',             '1',    '200',  '1',   '0',   '1',    '1',        '0.250',   '0',    '0',    '255',  '1',    '1',   '1',    '1'
       ]</default>
       <summary>Overrides Others</summary>
       <description>Animation settings for Overrides Others opening</description>
@@ -346,7 +346,27 @@ Read the effectParameters.txt File for details.
       <summary>Window Unminimizing Effects</summary>
       <description>List of default Unminimizing effects for windows</description>
     </key>
+
+    <key name="use-application-profiles" type="b">
+      <default>false</default>
+      <summary>Application Profiles</summary>
+      <description>Application profiles status switch</description>
+    </key>
+
+    <key name="application-list" type="as">
+      <default>[
+      ]</default>
+      <summary>List of Applicaions for custom profiles</summary>
+      <description>List of Applicaions for custom profiles</description>
+    </key>
     
+    <key name="name-list" type="as">
+      <default>[
+      ]</default>
+      <summary>List of Applicaions names for custom profiles</summary>
+      <description>List of Applicaions names for custom profiles</description>
+    </key>
+
     <key name="wayland"   type="b">
       <default>false</default>
       <summary>Use the workaround for Wayland</summary>
@@ -358,6 +378,12 @@ Read the effectParameters.txt File for details.
       <summary>Signals the extension to reload </summary>
       <description>Signals the extension to reload</description>
     </key>
+    
+    <key name="reload-profiles-signal" type="b">
+      <default>false</default>
+      <summary>Signals the extension to reload Application Profiles</summary>
+      <description>Signals the extension to reload Application Profiles</description>
+    </key>    
     
     </schema>
     

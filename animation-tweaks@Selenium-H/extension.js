@@ -13,7 +13,6 @@ const Gio = imports.gi.Gio;
 const Lang = imports.lang;
 const Extension = imports.misc.extensionUtils.getCurrentExtension();
 const Convenience = Extension.imports.convenience;
-const Prefs = Extension.imports.prefs;
 const Meta = imports.gi.Meta;
 const Tweener = imports.ui.tweener;
 const Main = imports.ui.main;

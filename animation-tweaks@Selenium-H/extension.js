@@ -72,22 +72,22 @@ const EffectsManager = new Lang.Class({
       default :
         return;
       case Meta.WindowType.DROPDOWN_MENU :
-        eParams = this.getEffectFor("1","dropdownmenu",action);
+        eParams = this.getEffectFor("","dropdownmenu",action);
         break;
       case Meta.WindowType.POPUP_MENU :
-        eParams = this.getEffectFor("1","popupmenu",action);
+        eParams = this.getEffectFor("","popupmenu",action);
         break;
       case Meta.WindowType.COMBO :
-        eParams = this.getEffectFor("1","combo",action);
+        eParams = this.getEffectFor("","combo",action);
         break;
       case Meta.WindowType.SPLASHSCREEN :
-        eParams = this.getEffectFor("1","splashscreen",action);
+        eParams = this.getEffectFor("","splashscreen",action);
         break;
       case Meta.WindowType.TOOLTIP :
-        eParams = this.getEffectFor("1","tooltip",action);
+        eParams = this.getEffectFor("","tooltip",action);
         break;
       case Meta.WindowType.OVERRIDE_OTHER :
-        eParams = this.getEffectFor("1","overrideother",action);
+        eParams = this.getEffectFor("","overrideother",action);
         break;
     }
 
@@ -203,39 +203,39 @@ const EffectsManager = new Lang.Class({
     }
 
     let posChanged = this.setNextParametersOther(actor,eParams,subEffectNo*8+ 12);
-    actor.set_pivot_point( eParams[subEffectNo*8+ 9] ,eParams[subEffectNo*8+ 10] );
+    actor.set_pivot_point( eParams[subEffectNo*8+ 9] ,eParams[subEffectNo*8+ 10]);
 
     if(posChanged == true) {
       Tweener.addTween(actor, {
-          opacity:           eParams[subEffectNo*8+ 11],
-          x:                 eParams[subEffectNo*8+ 14],
-          y:                 eParams[subEffectNo*8+ 15],
-          scale_x:           eParams[subEffectNo*8+ 12],
-          scale_y:           eParams[subEffectNo*8+ 13],
-          time:              eParams[subEffectNo*8+  8],
-          transition:        'easeOutQuad',
-          onComplete:        this.driveOtherAnimation,
-          onCompleteScope:   this,
-          onCompleteParams:  [actor,eParams,++subEffectNo,"other"],
-          onOverwrite:       this.animationDone,
-          onOverwriteScope : this,
-          onOverwriteParams: [actor,action]
+        opacity:           eParams[subEffectNo*8+ 11],
+        x:                 eParams[subEffectNo*8+ 14],
+        y:                 eParams[subEffectNo*8+ 15],
+        scale_x:           eParams[subEffectNo*8+ 12],
+        scale_y:           eParams[subEffectNo*8+ 13],
+        time:              eParams[subEffectNo*8+  8],
+        transition:        'easeOutQuad',
+        onComplete:        this.driveOtherAnimation,
+        onCompleteScope:   this,
+        onCompleteParams:  [actor,eParams,++subEffectNo,"other"],
+        onOverwrite:       this.animationDone,
+        onOverwriteScope : this,
+        onOverwriteParams: [actor,action]
       });
       return;
     }
 
     Tweener.addTween(actor, {
-          opacity:           eParams[subEffectNo*8+ 11],
-          scale_x:           eParams[subEffectNo*8+ 12],
-          scale_y:           eParams[subEffectNo*8+ 13],
-          time:              eParams[subEffectNo*8+  8],
-          transition:        'easeOutQuad',
-          onComplete:        this.driveOtherAnimation,
-          onCompleteScope:   this,
-          onCompleteParams:  [actor,eParams,++subEffectNo,"other"],
-          onOverwrite:       this.animationDone,
-          onOverwriteScope : this,
-          onOverwriteParams: [actor,action]
+      opacity:             eParams[subEffectNo*8+ 11],
+      scale_x:             eParams[subEffectNo*8+ 12],
+      scale_y:             eParams[subEffectNo*8+ 13],
+      time:                eParams[subEffectNo*8+  8],
+      transition:          'easeOutQuad',
+      onComplete:          this.driveOtherAnimation,
+      onCompleteScope:     this,
+      onCompleteParams:    [actor,eParams,++subEffectNo,"other"],
+      onOverwrite:         this.animationDone,
+      onOverwriteScope :   this,
+      onOverwriteParams:   [actor,action]
     });
     return;
 
@@ -252,19 +252,19 @@ const EffectsManager = new Lang.Class({
     actor.set_pivot_point( eParams[subEffectNo*8+ 9] ,eParams[subEffectNo*8+ 10] );
 
     Tweener.addTween(actor, {
-          opacity:           eParams[subEffectNo*8+ 11],
-          x:                 eParams[subEffectNo*8+ 14],
-          y:                 eParams[subEffectNo*8+ 15],
-          scale_x:           eParams[subEffectNo*8+ 12],
-          scale_y:           eParams[subEffectNo*8+ 13],
-          time:              eParams[subEffectNo*8+  8],
-          transition:        'easeOutQuad',
-          onComplete:        this.driveWindowAnimation,
-          onCompleteScope:   this,
-          onCompleteParams:  [actor,eParams,++subEffectNo,action,success,geom],
-          onOverwrite:       this.animationDone,
-          onOverwriteScope : this,
-          onOverwriteParams: [actor,action]
+      opacity:           eParams[subEffectNo*8+ 11],
+      x:                 eParams[subEffectNo*8+ 14],
+      y:                 eParams[subEffectNo*8+ 15],
+      scale_x:           eParams[subEffectNo*8+ 12],
+      scale_y:           eParams[subEffectNo*8+ 13],
+      time:              eParams[subEffectNo*8+  8],
+      transition:        'easeOutQuad',
+      onComplete:        this.driveWindowAnimation,
+      onCompleteScope:   this,
+      onCompleteParams:  [actor,eParams,++subEffectNo,action,success,geom],
+      onOverwrite:       this.animationDone,
+      onOverwriteScope : this,
+      onOverwriteParams: [actor,action]
     });
 
     return;
@@ -289,14 +289,19 @@ const EffectsManager = new Lang.Class({
     let appIndex = (this.nameList.indexOf(appName)+1)*this.useApplicationProfiles;        
     let effectIndex = 0;
     let startIndex = 0;
-    
     let endIndex = this.getEndIndex(this[windowType+"Window"+action+"Profile"],startIndex);
-   
+    
+    let eStr = this.extractEffect(this[windowType+"Window"+action+"Profile"],1,endIndex);
+    
     while(startIndex!=-1) {
     
       if(effectIndex == appIndex) {
         startIndex++;
         return this.extractEffect(this[windowType+"Window"+action+"Profile"],startIndex,endIndex);
+      }
+      
+      if(endIndex == this[windowType+"Window"+action+"Profile"].length-1) {
+        return eStr;
       }
       
       effectIndex++;
@@ -371,27 +376,27 @@ const EffectsManager = new Lang.Class({
     
     this.nameList = this.prefs.get_strv("name-list");
     
-    this.normalWindowopenProfile       = this.prefs.get_strv("normal-open");
-    this.normalWindowcloseProfile      = this.prefs.get_strv("normal-close");
-    this.normalWindowminimizeProfile   = this.prefs.get_strv("normal-minimize");
-    this.normalWindowunminimizeProfile = this.prefs.get_strv("normal-unminimize");    
+    this.normalWindowopenProfile             =  this.prefs.get_strv("normal-open");
+    this.normalWindowcloseProfile            =  this.prefs.get_strv("normal-close");
+    this.normalWindowminimizeProfile         =  this.prefs.get_strv("normal-minimize");
+    this.normalWindowunminimizeProfile       =  this.prefs.get_strv("normal-unminimize");    
     
-    this.dialogWindowopenProfile       = this.prefs.get_strv("dialog-open");
-    this.dialogWindowcloseProfile      = this.prefs.get_strv("dialog-close");
-    this.dialogWindowminimizeProfile   = this.prefs.get_strv("dialog-minimize");
-    this.dialogWindowunminimizeProfile = this.prefs.get_strv("dialog-unminimize");    
+    this.dialogWindowopenProfile             =  this.prefs.get_strv("dialog-open");
+    this.dialogWindowcloseProfile            =  this.prefs.get_strv("dialog-close");
+    this.dialogWindowminimizeProfile         =  this.prefs.get_strv("dialog-minimize");
+    this.dialogWindowunminimizeProfile       =  this.prefs.get_strv("dialog-unminimize");    
 
-    this.modaldialogWindowopenProfile       = this.prefs.get_strv("modaldialog-open");
-    this.modaldialogWindowcloseProfile      = this.prefs.get_strv("modaldialog-close");
-    this.modaldialogWindowminimizeProfile   = this.prefs.get_strv("modaldialog-minimize");
-    this.modaldialogWindowunminimizeProfile = this.prefs.get_strv("modaldialog-unminimize");    
+    this.modaldialogWindowopenProfile        =  this.prefs.get_strv("modaldialog-open");
+    this.modaldialogWindowcloseProfile       =  this.prefs.get_strv("modaldialog-close");
+    this.modaldialogWindowminimizeProfile    =  this.prefs.get_strv("modaldialog-minimize");
+    this.modaldialogWindowunminimizeProfile  =  this.prefs.get_strv("modaldialog-unminimize");    
 
-    this.dropdownmenuWindowopenProfile       = this.prefs.get_strv("dropdownmenu-open");
-    this.popupmenuWindowopenProfile          = this.prefs.get_strv("popupmenu-open");
-    this.comboWindowopenProfile              = this.prefs.get_strv("combo-open");
-    this.splashscreenWindowopenProfile       = this.prefs.get_strv("splashscreen-open");
-    this.tooltipWindowopenProfile            = this.prefs.get_strv("tooltip-open");
-    this.overrideotherWindowopenProfile      = this.prefs.get_strv("overrideother-open");
+    this.dropdownmenuWindowopenProfile       =  this.prefs.get_strv("dropdownmenu-open");
+    this.popupmenuWindowopenProfile          =  this.prefs.get_strv("popupmenu-open");
+    this.comboWindowopenProfile              =  this.prefs.get_strv("combo-open");
+    this.splashscreenWindowopenProfile       =  this.prefs.get_strv("splashscreen-open");
+    this.tooltipWindowopenProfile            =  this.prefs.get_strv("tooltip-open");
+    this.overrideotherWindowopenProfile      =  this.prefs.get_strv("overrideother-open");
     
   },
 

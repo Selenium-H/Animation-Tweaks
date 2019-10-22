@@ -257,14 +257,14 @@ const EffectsList = new GObject.Class({
 
   getTotalTimeOf: function(eStr) {
 
-   let cIndex = 0;
-   let totalTime = 0; 
+    let cIndex = 0;
+    let totalTime = 0; 
    
-   for (cIndex = 8;cIndex<eStr.length;cIndex=cIndex+8) {
-     totalTime = totalTime + parseFloat(eStr[cIndex]);
-   }
+    for (cIndex = 8;cIndex<eStr.length;cIndex=cIndex+8) {
+      totalTime = totalTime + parseFloat(eStr[cIndex]);
+    }
   
-   return totalTime*1000;
+    return totalTime*1000;
 
   },  
   
@@ -469,31 +469,31 @@ const  EffectsTweaks =  new GObject.Class({
     let SettingLabel   = new Gtk.Label({ xalign:  1, label: INFO,halign: Gtk.Align.START });  
     let effectParameter   = new Gtk.Entry({text: this.filterInvalidValues( this.eStr[pNo],minPV,maxPV,acceptableValues,multiplier,multiplier)[1] });
 
-     effectParameter.connect('changed', ()=> {     
+    effectParameter.connect('changed', ()=> {     
      
-        let value="" ; 
-        let shouldCommit = false;
-        let shouldOverrideText = false;
+      let value="" ; 
+      let shouldCommit = false;
+      let shouldOverrideText = false;
         
-        if(effectParameter.text.length > 3){
-          effectParameter.text = maxPV.toString();
-          this.eStr[pNo] = (maxPV/multiplier).toString();
-          shouldCommit = true;
-        }
-        else {
-          [this.eStr[pNo],value, shouldCommit, shouldOverrideText] = this.filterInvalidValues( effectParameter.text , minPV , maxPV,acceptableValues,1,multiplier);
-        }
+      if(effectParameter.text.length > 3){
+        effectParameter.text = maxPV.toString();
+        this.eStr[pNo] = (maxPV/multiplier).toString();
+        shouldCommit = true;
+      }
+      else {
+        [this.eStr[pNo],value, shouldCommit, shouldOverrideText] = this.filterInvalidValues( effectParameter.text , minPV , maxPV,acceptableValues,1,multiplier);
+      }
         
-        if(shouldOverrideText == true){
-          effectParameter.text = value;
-        }
+      if(shouldOverrideText == true){
+        effectParameter.text = value;
+      }
         
-        if(shouldCommit == true){
-          this.appProfile.modifyEffectForWindowAction(this.appIndex,this.eStr);
-          reloadApplicationProfiles();
-        }
+      if(shouldCommit == true){
+        this.appProfile.modifyEffectForWindowAction(this.appIndex,this.eStr);
+        reloadApplicationProfiles();
+      }
      
-      });
+    });
 
     this.gridWin.attach(SettingLabel    ,0    ,pos  ,1   ,1);
     this.gridWin.attach(effectParameter ,2    ,pos  ,1   ,1);
@@ -505,31 +505,31 @@ const  EffectsTweaks =  new GObject.Class({
     let SettingLabel   = new Gtk.Label({ xalign:  1, label: INFO,halign: Gtk.Align.START });  
     let effectParameter   = new Gtk.Entry({text: this.filterInvalidValues( this.eStr[pNo],minPV,maxPV,acceptableValues,multiplier,multiplier)[1] });
 
-     effectParameter.connect('changed', ()=> {     
+    effectParameter.connect('changed', ()=> {     
      
-        let value="" ; 
-        let shouldCommit = false;
-        let shouldOverrideText = false;
+      let value="" ; 
+      let shouldCommit = false;
+      let shouldOverrideText = false;
         
-        if(effectParameter.text.length > 3){
-          effectParameter.text = maxPV.toString();
-          this.eStr[pNo] = (maxPV/multiplier).toString();
-          shouldCommit = true;
-        }
-        else {
-          [this.eStr[pNo],value, shouldCommit, shouldOverrideText] = this.filterInvalidValues( effectParameter.text , minPV , maxPV,acceptableValues,1,multiplier);
-        }
+      if(effectParameter.text.length > 3){
+        effectParameter.text = maxPV.toString();
+        this.eStr[pNo] = (maxPV/multiplier).toString();
+        shouldCommit = true;
+      }
+      else {
+        [this.eStr[pNo],value, shouldCommit, shouldOverrideText] = this.filterInvalidValues( effectParameter.text , minPV , maxPV,acceptableValues,1,multiplier);
+      }
         
-        if(shouldOverrideText == true){
-          effectParameter.text = value;
-        }
+      if(shouldOverrideText == true){
+        effectParameter.text = value;
+      }
         
-        if(shouldCommit == true){
-          this.appProfile.modifyEffectForWindowAction(this.appIndex,this.eStr);
-          reloadApplicationProfiles();
-        }
+      if(shouldCommit == true){
+        this.appProfile.modifyEffectForWindowAction(this.appIndex,this.eStr);
+        reloadApplicationProfiles();
+      }
      
-      });
+    });
 
     this.gridWin.attach(SettingLabel    ,0    ,pos  ,1   ,1);
     this.gridWin.attach(effectParameter ,2    ,pos  ,1   ,1);
@@ -995,6 +995,7 @@ const AnimationSettingsForItem = new GObject.Class({
     this.prefsSwitch.connect('notify::active', ()=> this.toggleItemStatus(this.prefsSwitch.active));  
     this.tweakButton.connect('clicked', ()=> this.effectsTweaks(topLevel));  
     
+    settings.connect("changed::"+this.KEY,()=>this.updateValues(this.appIndex));
     this.updateValues(this.appIndex);
 
   },
@@ -1009,6 +1010,24 @@ const AnimationSettingsForItem = new GObject.Class({
     this.appProfile.modifyEffectForWindowAction(this.appIndex,this.allEffectsList.setEffectTime(value,this.eStr));
     reloadApplicationProfiles();
 
+  },
+  
+  effectsTweaks : function(topLevel) { 
+   
+    let dialog = new Gtk.Dialog({title:_("Customize")+"   "+this.eStr[1]+"   "+_("Animation"),transient_for: topLevel.get_toplevel(),use_header_bar: true,modal:true});
+    dialog.get_content_area().pack_start(new EffectsTweaks(this.appProfile,this.appIndex), true, true, 0);
+    dialog.set_default_response(Gtk.ResponseType.CANCEL);
+    let addButton     = dialog.add_button("Restore Default", Gtk.ResponseType.OK);
+    dialog.connect('response', Lang.bind(this, function(dialog, id) { 
+      
+      if (id == Gtk.ResponseType.OK) {
+        this.selectEffectFromList(this.prefsCombo.get_active());
+      }
+
+      dialog.destroy();
+    }));
+    dialog.show_all();
+    
   },
     
   selectEffectFromList: function(selectedIndex) {
@@ -1032,7 +1051,6 @@ const AnimationSettingsForItem = new GObject.Class({
     }
 
     this.appProfile.modifyEffectForWindowAction(this.appIndex,this.eStr);
-    this.timeSetting.set_value(this.allEffectsList.getTotalTimeOf(this.eStr)); 
     reloadApplicationProfiles();
     
   },
@@ -1048,26 +1066,6 @@ const AnimationSettingsForItem = new GObject.Class({
     this.appProfile.modifyEffectForWindowAction(this.appIndex,this.eStr);
     reloadApplicationProfiles();
  
-  },
-
-  effectsTweaks : function(topLevel) { 
-   
-    let dialog = new Gtk.Dialog({title:_("Customize")+"   "+this.eStr[1]+"   "+_("Animation"),transient_for: topLevel.get_toplevel(),use_header_bar: true,modal:true});
-    dialog.get_content_area().pack_start(new EffectsTweaks(this.appProfile,this.appIndex), true, true, 0);
-    dialog.set_default_response(Gtk.ResponseType.CANCEL);
-    let addButton     = dialog.add_button("Restore Default", Gtk.ResponseType.OK);
-    dialog.connect('response', Lang.bind(this, function(dialog, id) { 
-      
-      if (id == Gtk.ResponseType.OK) {
-        this.selectEffectFromList(this.prefsCombo.get_active());
-      }
-      
-      this.eStr = this.appProfile.getEffectAt(this.appIndex);
-      this.timeSetting.set_value(this.allEffectsList.getTotalTimeOf(this.eStr)); 
-      dialog.destroy();
-    }));
-    dialog.show_all();
-    
   },
 
   updateValues: function(appIndex) {

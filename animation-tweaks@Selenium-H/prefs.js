@@ -43,7 +43,7 @@ function buildPrefsWidget() {
 
 function reloadExtension () {
 
-    (settings.get_boolean("reload-signal")) ? settings.set_boolean("reload-signal", false) : settings.set_boolean("reload-signal", true);
+  (settings.get_boolean("reload-signal")) ? settings.set_boolean("reload-signal", false) : settings.set_boolean("reload-signal", true);
     
 }
 
@@ -52,7 +52,6 @@ function reloadApplicationProfiles() {
   (settings.get_boolean("reload-profiles-signal")) ? settings.set_boolean("reload-profiles-signal", false) : settings.set_boolean("reload-profiles-signal", true);
     
 }
-
 
 const AboutPage =  new GObject.Class({
 
@@ -122,8 +121,6 @@ const AboutPage =  new GObject.Class({
     settings.reset("unminimizing-effect");
         
     settings.reset("use-application-profiles");
-    settings.reset("application-list");
-    settings.reset("name-list");
     settings.reset('wayland');
     
     reloadExtension();
@@ -276,6 +273,7 @@ const EffectsList = new GObject.Class({
        effectsCombo.append(this.effectsList[cIndex+1],this.effectsList[cIndex+1]);
        cIndex = this.effectsList.indexOf('|',cIndex+1);
      } 
+     
   },
 
   modifyEffectForWindowAction: function(appIndex,eStr) {
@@ -343,21 +341,21 @@ const EffectsList = new GObject.Class({
   
   setEffectTime: function(value,eStr) {
 
-   let cIndex = 0;
-   let totalTime = this.getTotalTimeOf(eStr); 
+    let cIndex = 0;
+    let totalTime = this.getTotalTimeOf(eStr); 
 
-   if(totalTime == 0) {
-     for (cIndex = 8;cIndex<eStr.length;cIndex=cIndex+8) {
-       eStr[cIndex]="0.001";
-     }
-     totalTime = parseInt(eStr[2]);
-   }
+    if(totalTime == 0) {
+      for (cIndex = 8;cIndex<eStr.length;cIndex=cIndex+8) {
+        eStr[cIndex]="0.001";
+      }
+      totalTime = parseInt(eStr[2]);
+    }
 
-   for (cIndex = 8;cIndex<eStr.length;cIndex=cIndex+8) {
-     eStr[cIndex]= ((parseFloat(eStr[cIndex])*value)/totalTime).toPrecision(3).toString();
-   }  
+    for (cIndex = 8;cIndex<eStr.length;cIndex=cIndex+8) {
+      eStr[cIndex]= ((parseFloat(eStr[cIndex])*value)/totalTime).toPrecision(3).toString();
+    }  
   
-   return eStr;
+    return eStr;
 
   },
   
@@ -377,8 +375,7 @@ const  EffectsTweaks =  new GObject.Class({
     
     this.appIndex = appIndex;
     this.appProfile = appProfile;
-    this.eStr = this.appProfile.getEffectAt(this.appIndex);
-    
+    this.eStr = (this.appIndex == -1)? this.appProfile.getEffectAt(0):this.appProfile.getEffectAt(this.appIndex);
     
     this.gridWin.attach(new Gtk.Label({xalign:1,use_markup:true,label:"<big><b>"+_("Any  Changes  done  here  are  Applied  immediately")+"</b></big>",
                                        halign: Gtk.Align.CENTER}),0,0,3,1);
@@ -760,6 +757,10 @@ const PrefsWindowForProfiles = new GObject.Class({
       (settings.get_boolean("reload-profiles-signal")) ? settings.set_boolean("reload-profiles-signal", false) : settings.set_boolean("reload-profiles-signal", true);
     });
     
+    settings.connect("changed::"+KEY, () => {
+      settingSwitch.set_active(settings.get_boolean(KEY));
+    });
+
     this.attachLabel(KEY,0,this.profilesOptionTopGrid);
     this.profilesOptionTopGrid.attach(box  ,2   ,0    ,1   ,1);
      
@@ -854,7 +855,6 @@ const PrefsWindowForProfiles = new GObject.Class({
     this.profilesOptionTopGrid = new Gtk.Grid({ column_spacing: 40, halign: Gtk.Align.CENTER, margin: 10, row_spacing: 10 ,border_width: 10});
     this.gridWin    = new Gtk.Grid({ column_spacing: 20, halign: Gtk.Align.CENTER, margin: 10, row_spacing: 20 ,border_width: 10});
 
-
     this.profilesOptionTopGrid.attach(addButton,0,0,1,1);
     this.profilesOptionTopGrid.attach(delButton,3,0,1,1);
     
@@ -883,8 +883,8 @@ const PrefsWindowForProfiles = new GObject.Class({
   refreshList: function()  {
   
     this._store.clear();
-    let appsList = settings.get_strv('application-list');
-    let nameList = settings.get_strv('name-list');
+    let appsList = settings.get_strv("application-list");
+    let nameList = settings.get_strv("name-list");
 
     for (let i = 0; i < nameList.length; i++) {
       let appInfo = Gio.DesktopAppInfo.new(appsList[i]);
@@ -898,24 +898,24 @@ const PrefsWindowForProfiles = new GObject.Class({
       }
     }
     
-    settings.set_strv('application-list',appsList);
-    settings.set_strv('name-list', nameList);
+    settings.set_strv("application-list",appsList);
+    settings.set_strv("name-list", nameList);
     
   },
 
   removeApp: function() {
   
     let [any, model, iter] = this.treeView.get_selection().get_selected();
-    let appsList = settings.get_strv('application-list');
-    let nameList = settings.get_strv('name-list');
+    let appsList = settings.get_strv("application-list");
+    let nameList = settings.get_strv("name-list");
 
     if (any) {
       let indx,appInfo = this._store.get_value(iter, 0); 
       appsList.splice((indx=appsList.indexOf(appInfo.get_id())),1);
       nameList.splice(indx,1);
       this.removeAppEffectsAt(indx);
-      settings.set_strv('application-list',appsList);
-      settings.set_strv('name-list', nameList);
+      settings.set_strv("application-list",appsList);
+      settings.set_strv("name-list", nameList);
       this._store.remove(iter);
     }
 
@@ -926,6 +926,11 @@ const PrefsWindowForProfiles = new GObject.Class({
     if(index >= 0 )  {
       index++;
     }
+    
+    this.appNormalOpenPrefs.appIndex--;
+    this.appNormalClosePrefs.appIndex--;
+    this.appNormalMinimizePrefs.appIndex--;
+    this.appNormalUnminimizePrefs.appIndex--;
     
     this.appNormalOpenPrefs.appProfile.removeEffectForWindowAction(index);  
     this.appNormalClosePrefs.appProfile.removeEffectForWindowAction(index);  
@@ -963,6 +968,7 @@ const AnimationSettingsForItem = new GObject.Class({
   Name: 'AnimationSettingsForItem',
 
   _init(itemType,windowType,action,grid,posY,topLevel) {
+  
     
     this.action          =  action;
     this.itemType        =  itemType;
@@ -1075,9 +1081,9 @@ const AnimationSettingsForItem = new GObject.Class({
     this.appProfile.reloadList(this.windowType+"-"+this.action);
     this.appIndex = appIndex;
     
-    this.eStr = this.appProfile.getEffectAt(this.appIndex);
-    
-    this.prefsSwitch.active = (this.eStr[0]=='T')? true:false;
+    this.eStr = (this.appIndex == -1)? this.appProfile.getEffectAt(0) : this.appProfile.getEffectAt(this.appIndex);
+
+    this.prefsSwitch.active = (this.eStr[0]=="T")? true:false;
     this.prefsCombo.set_active(this.allEffectsList.getIndexOf(this.eStr[1]));
     this.timeSetting.set_value(this.allEffectsList.getTotalTimeOf(this.eStr));
     
@@ -1095,7 +1101,6 @@ const AnimationSettingsForItemProfile = new GObject.Class({
   _init(itemType,windowType,action,grid,posY,topLevel) {
   
     this.parent(itemType,windowType,action,grid,posY,topLevel);
-    
     this.prefsLabel.label = this.action.charAt(0).toUpperCase()+this.action.slice(1)
     this.updateValues(-1);
   

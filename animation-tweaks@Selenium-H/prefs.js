@@ -3,23 +3,21 @@
 Version 8
 =========
 
-Effect String Format   [ Status   Name   Tweens  IO      IW     IH     IPX     IPY         T     PPx     PPY     NO      NW      NH     NPX     NPY  ... ]
+Effect String Format     [ |  Status   Name   Tweens  IO      IW     IH     IPX     IPY         T     PPx     PPY     NO      NW      NH     NPX     NPY  ... ]
 
 Read the effectParameters.txt File for details.
 
 */
 
-const Config = imports.misc.config;
 const Extension = imports.misc.extensionUtils.getCurrentExtension();
 const Convenience = Extension.imports.convenience;
+const Metadata = Extension.metadata;
 const Gettext = imports.gettext;
 const Gio = imports.gi.Gio;
-const GLib = imports.gi.GLib;
 const GObject = imports.gi.GObject;
 const Gtk = imports.gi.Gtk;
 const Lang = imports.lang;
 const Mainloop = imports.mainloop;
-const Metadata = Extension.metadata;
 const _ = Gettext.domain("animation-tweaks").gettext;
 
 let settings = null;
@@ -61,6 +59,7 @@ const AboutPage =  new GObject.Class({
   _init: function(params) {
   
     this.parent();
+    
   },
   
   showInfo: function(){
@@ -74,8 +73,8 @@ const AboutPage =  new GObject.Class({
                                use_markup: true,
                                label: "<big><b>" + Metadata.name + "</b></big>" + "\n" +"<small>Version  "+ Metadata.version +"</small>\n\n" +(Metadata.description)+
                                       "\n\n\n\n\n<span size=\"small\">This program comes with ABSOLUTELY NO WARRANTY."+
-                                      "\nSee the <a href=\"https://www.gnu.org/licenses/old-licenses/gpl-2.0.html\">GNU General Public License, version 2 or later</a>for"+
-                                      " details.</span>"+"\n"
+                                      "\nSee the <a href=\"https://www.gnu.org/licenses/old-licenses/gpl-2.0.html\">GNU General Public License, version 2 or later</a>"+
+                                      "for details.</span>"+"\n"
                              });
     let ResetExtensionButton = new Gtk.Button({label: _("Reset Animation Tweaks Extension"),halign:Gtk.Align.CENTER});
 
@@ -278,7 +277,7 @@ const EffectsList = new GObject.Class({
 
   modifyEffectForWindowAction: function(appIndex,eStr) {
     
-    let windowOpenEffect       =  eStr;
+    let windowOpenEffect = eStr;
     
     let effectIndex = 0;
     let startIndex = 0;

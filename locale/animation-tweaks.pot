@@ -16,151 +16,151 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: prefs.js:81
+#: prefs.js:79
 msgid "Reset Animation Tweaks Extension"
 msgstr ""
 
-#: prefs.js:148
+#: prefs.js:146
 msgid "Open"
 msgstr ""
 
-#: prefs.js:149
+#: prefs.js:147
 msgid "Close"
 msgstr ""
 
-#: prefs.js:150
+#: prefs.js:148
 msgid "Minimize"
 msgstr ""
 
-#: prefs.js:151
+#: prefs.js:149
 msgid "Profiles"
 msgstr ""
 
-#: prefs.js:152
+#: prefs.js:150
 msgid "About"
 msgstr ""
 
-#: prefs.js:381
+#: prefs.js:379
 msgid "Any  Changes  done  here  are  Applied  immediately"
 msgstr ""
 
-#: prefs.js:383
+#: prefs.js:381
 msgid "Details of parameter values are described in"
 msgstr ""
 
-#: prefs.js:383
+#: prefs.js:381
 msgid "file  in  extension folder."
 msgstr ""
 
-#: prefs.js:384
+#: prefs.js:382
 msgid "Initial Tween Parameters"
 msgstr ""
 
-#: prefs.js:387
+#: prefs.js:385
 msgid "Intial Opacity\t\t    [\t    0  -  255\t\t\t]"
 msgstr ""
 
-#: prefs.js:388
+#: prefs.js:386
 msgid "Initial Width\t\t    [\t    0  -  200\t%\t\t]"
 msgstr ""
 
-#: prefs.js:389
+#: prefs.js:387
 msgid "Initial Height\t\t    [\t    0  -  200\t%\t\t]"
 msgstr ""
 
-#: prefs.js:390
+#: prefs.js:388
 msgid "Initial Position  X\t    [\t    100 ± % width from default X→    \t]"
 msgstr ""
 
-#: prefs.js:391
+#: prefs.js:389
 msgid "Initial Position  Y\t    [\t    100 ± % height from default Y↓    \t]"
 msgstr ""
 
-#: prefs.js:399
+#: prefs.js:397
 msgid "Next Tween Parameters"
 msgstr ""
 
-#: prefs.js:403
+#: prefs.js:401
 msgid "Time\t\t\t\t    [\t    in milliseconds\t]"
 msgstr ""
 
-#: prefs.js:404
+#: prefs.js:402
 msgid "Pivot Point   X\t\t    [\t    0  -  100\t%\t\t]"
 msgstr ""
 
-#: prefs.js:405
+#: prefs.js:403
 msgid "Pivot Point   Y\t\t    [\t    0  -  100\t%\t\t]"
 msgstr ""
 
-#: prefs.js:406
+#: prefs.js:404
 msgid "Ending Opacity\t    [\t    0  -  255\t\t\t]"
 msgstr ""
 
-#: prefs.js:407
+#: prefs.js:405
 msgid "Ending Width\t\t    [\t    0  -  200\t%\t\t]"
 msgstr ""
 
-#: prefs.js:408
+#: prefs.js:406
 msgid "Ending Height\t\t    [\t    0  -  200\t%\t\t]"
 msgstr ""
 
-#: prefs.js:409
+#: prefs.js:407
 msgid "Ending Position  X\t    [\t    100 ± % width from current X→\t]"
 msgstr ""
 
-#: prefs.js:410
+#: prefs.js:408
 msgid "Ending Position  Y\t    [\t    100 ± % height from current Y↓\t]"
 msgstr ""
 
-#: prefs.js:564
+#: prefs.js:562
 msgid "Items"
 msgstr ""
 
-#: prefs.js:565 prefs.js:819
+#: prefs.js:563 prefs.js:821
 msgid "Effect"
 msgstr ""
 
-#: prefs.js:566 prefs.js:820
+#: prefs.js:564 prefs.js:822
 msgid "Time ( in ms )"
 msgstr ""
 
-#: prefs.js:567 prefs.js:821
+#: prefs.js:565 prefs.js:823
 msgid "Status"
 msgstr ""
 
-#: prefs.js:699
+#: prefs.js:697
 msgid "Choose an application"
 msgstr ""
 
-#: prefs.js:780 prefs.js:785 prefs.js:938
+#: prefs.js:782 prefs.js:787 prefs.js:948
 msgid "Window Preferences"
 msgstr ""
 
-#: prefs.js:785 prefs.js:938
+#: prefs.js:787 prefs.js:948
 msgid "No Application Selected"
 msgstr ""
 
-#: prefs.js:818
+#: prefs.js:820
 msgid "Action"
 msgstr ""
 
-#: prefs.js:833
+#: prefs.js:835
 msgid "Application List"
 msgstr ""
 
-#: prefs.js:846
+#: prefs.js:848
 msgid "Add"
 msgstr ""
 
-#: prefs.js:849
+#: prefs.js:851
 msgid "Remove"
 msgstr ""
 
-#: prefs.js:1049
+#: prefs.js:1022
 msgid "Customize"
 msgstr ""
 
-#: prefs.js:1049
+#: prefs.js:1022
 msgid "Animation"
 msgstr ""
 

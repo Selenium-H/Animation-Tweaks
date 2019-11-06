@@ -3,13 +3,12 @@
 Version 8
 =========
 
-Effect String Format   [ Status   Name   Tweens  IO      IW     IH     IPX     IPY         T     PPx     PPY     NO      NW      NH     NPX     NPY  ... ]
+Effect String Format     [ |  Status   Name   Tweens  IO      IW     IH     IPX     IPY         T     PPx     PPY     NO      NW      NH     NPX     NPY  ... ]
 
 Read the effectParameters.txt File for details.
 
 */
 
-const Gio = imports.gi.Gio;
 const Lang = imports.lang;
 const Extension = imports.misc.extensionUtils.getCurrentExtension();
 const Convenience = Extension.imports.convenience;

@@ -1,7 +1,7 @@
-Version 7
+Version 8
 =========
 
-Effect String Format   [ Status   Name   Tweens  IO      IW     IH     IPX     IPY         T     PPx     PPY     NO      NW      NH     NPX     NPY  ... ]
+Effect String Format     [ |  Status   Name   Tweens  IO      IW     IH     IPX     IPY         T     PPx     PPY     NO      NW      NH     NPX     NPY  ... ]
 
 ======================================================================================================================================================================
 Parameters                 |  Values it can take                                     |  Values displayed in preferences                                              |
@@ -86,9 +86,7 @@ SY  =  Same Y Coordinate as previous
 IX  =  Initial X Coordinate during start
 IY  =  Initial Y Coordinate during start
 
-All non float values are overridden by actual values during run time.
-
-
+All non float values are overridden by actual values at run time.
 
 
 

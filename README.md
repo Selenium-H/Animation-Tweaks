@@ -4,13 +4,13 @@
 
 # &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Animation Tweaks
 <p align="center">
-Version 8
+Version 9
 </p>
 
 <p align="center">
 A GNOME Shell Extension to Tweak animations of different items and Customize them.
-This version is incompatible with its previous versions. Please reset the extension after updating. Reset button is present in preferences -> About Tab.
-This extension doesn't work properly on wayland, however a workaround is added to make some effects work. 
+Please reset the extension after updating. Reset button is present in preferences -> About Tab.
+Some effects might not work properly on wayland, for which a workaround is provided. However, some animations might not work properly.
 </p>
 
 # &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Customizations

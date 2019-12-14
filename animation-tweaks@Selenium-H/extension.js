@@ -1,6 +1,6 @@
 /*
 
-Version 8
+Version 9
 =========
 
 Effect String Format     [ |  Status   Name   Tweens  IO      IW     IH     IPX     IPY         T     PPx     PPY     NO      NW      NH     NPX     NPY  ... ]
@@ -9,9 +9,10 @@ Read the effectParameters.txt File for details.
 
 */
 
-const Lang = imports.lang;
+const Config = imports.misc.config;
 const Extension = imports.misc.extensionUtils.getCurrentExtension();
 const Convenience = Extension.imports.convenience;
+const Lang = imports.lang;
 const Meta = imports.gi.Meta;
 const Tweener = imports.ui.tweener;
 const Main = imports.ui.main;
@@ -91,13 +92,11 @@ const EffectsManager = new Lang.Class({
     }
 
     if(eParams[0] == "T") {
-      Tweener.removeTweens(actor);
+      (Config.PACKAGE_VERSION < "3.34.2") ? Tweener.removeTweens(actor) : actor.remove_all_transitions();
       this.initParametersOther(actor, eParams);
       this.driveOtherAnimation(actor, eParams, 0, action);
     }
-    
-    return;
-
+  
   },
 
   addWindowEffects : function (shellwm, actor, action) {
@@ -120,47 +119,86 @@ const EffectsManager = new Lang.Class({
     }
 
     if(eParams[0] == "T") {
-   
-      switch(action) {
+    
+      if(Config.PACKAGE_VERSION < "3.34.2") {
+ 
+        switch(action) {
       
-        case "open": 
-          Main.wm._removeEffect(Main.wm._mapping, actor);
-          break;
+          case "open": 
+            Main.wm._removeEffect(Main.wm._mapping, actor);
+            break;
           
-        case "close":
-          Main.wm._removeEffect(Main.wm._destroying, actor); 
+          case "close":
+            Main.wm._removeEffect(Main.wm._destroying, actor); 
           
-          let window = actor.meta_window;
-          if (window.is_attached_dialog()) {
-            let parent = window.get_transient_for();
-            actor._parentDestroyId = parent.connect('unmanaged', () => {
+            let window = actor.meta_window;
+            if(window.is_attached_dialog()) {
+              let parent = window.get_transient_for();
+              actor._parentDestroyId = parent.connect('unmanaged', () => {
               Tweener.removeTweens(actor);
               this.animationDone(actor,action);
-            });
-          }
-          break;
+              });
+            }
+            break;
           
-        case "minimize":
-          Main.wm._removeEffect(Main.wm._minimizing, actor);
-          break;
+          case "minimize":
+            Main.wm._removeEffect(Main.wm._minimizing, actor);
+            break;
           
-        case "unminimize":
-          if(Main.overview._shown) {
-            this.animationDone(actor,"unminimize");
-            return;
-          }
-          Main.wm._unminimizeWindowDone(this.shellwm ,actor);
-          break;
+          case "unminimize":
+            if(Main.overview._shown) {
+              this.animationDone(actor,"unminimize");
+              return;
+            }
+            Main.wm._unminimizeWindowDone(this.shellwm ,actor);
+            break;
+               
+        }
+      }
+      else {
+   
+        switch(action) {
+      
+          case "open": 
+            Main.wm._mapping.delete(actor);
+            actor.remove_all_transitions();
+            break;
           
+          case "close":
+            Main.wm._destroying.delete(actor);
+            actor.remove_all_transitions();
+          
+            let window = actor.meta_window;
+            if (window.is_attached_dialog()) {
+              let parent = window.get_transient_for();
+              actor._parentDestroyId = parent.connect('unmanaged', () => {
+                actor.remove_all_transitions();
+                this.animationDone(actor,action);
+              });
+            }
+            break;
+     
+          case "minimize":
+            Main.wm._minimizing.delete(actor);
+            actor.remove_all_transitions();
+            break;
+         
+          case "unminimize":
+            if(Main.overview._shown) {
+              this.animationDone(actor,"unminimize");
+              return;
+            }
+            Main.wm._unminimizeWindowDone(this.shellwm ,actor);
+            break;
+         
+        }    
       }
 
       let [success, geom] = actor.meta_window.get_icon_geometry();
       this.initParametersWindow(actor, eParams,success,geom);
       this.driveWindowAnimation( actor, eParams, 0, action,success,geom);
-      
+        
     }
-
-    return;
 
   },
 
@@ -170,14 +208,14 @@ const EffectsManager = new Lang.Class({
 
     switch(action) {
       case "open" :
-        Main.wm._mapping.push(actor);
+        (Config.PACKAGE_VERSION < "3.34.2") ? Main.wm._mapping.push(actor) : Main.wm._mapping.add(actor);
         Main.wm._mapWindowDone(this.shellwm ,actor);
         break;
       case "close" :
         Main.wm._destroyWindowDone(this.shellwm ,actor);
         return;
       case "minimize" :
-        Main.wm._minimizing.push(actor);
+        (Config.PACKAGE_VERSION < "3.34.2") ? Main.wm._minimizing.push(actor) : Main.wm._minimizing.add(actor);
         Main.wm._minimizeWindowDone(this.shellwm ,actor);
         return;
       case "unminimize" :
@@ -236,8 +274,7 @@ const EffectsManager = new Lang.Class({
       onOverwriteScope :   this,
       onOverwriteParams:   [actor,action]
     });
-    return;
-
+   
   },
 
   driveWindowAnimation: function( actor, eParams, subEffectNo, action,success,geom) {
@@ -265,9 +302,7 @@ const EffectsManager = new Lang.Class({
       onOverwriteScope : this,
       onOverwriteParams: [actor,action]
     });
-
-    return;
-      
+  
   },
    
   extractEffect: function(effectList,startIndex,endIndex) {

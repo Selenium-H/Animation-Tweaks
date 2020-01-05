@@ -1,5 +1,5 @@
-Version 8
-=========
+Version 9.1
+===========
 
 Effect String Format     [ |  Status   Name   Tweens  IO      IW     IH     IPX     IPY         T     PPx     PPY     NO      NW      NH     NPX     NPY  ... ]
 
@@ -22,13 +22,13 @@ IW  -  Initial Width       |  can take values 0 - 2, MW                         
                            |                                                         |                                                                               |
 IH  -  Initial Height      |  can take values 0 - 2, MH                              |  can be changed from  0 - 200 , MH. Displayed as percentage in preferences.   |
                            |                                                         |                                                                               |
-IPX -  Initial Position X  |  can take values 0 - 2,  MX , mX , SX , IX .            |  can be changed from 0 - 200 ,MX , mX , SX , IX.                              |
+IPX -  Initial Position X  |  can take values 0 - 2, MX, LX, RX, SX, IX.             |  can be changed from 0 - 200, MX, LX, RX, SX, IX.                             |
                            |  It is defined as 1 ± ( x * width ) along X.            |  It is displayed as 100 ± ( x % width ) along X.                              |
                            |  Example - 1.3 means default position (1) + 0.3*width   |  Example - 130 means default position (100) + 30 % width.                     |
                            |            Moves window by 0.3*width right from         |            Moves window by 30 % its width right from current position.        |
                            |            current position.                            |  Displayed as a percentage in preferences.                                    |
                            |                                                         |                                                                               |
-IPY -  Initial Position Y  |  can take values 0 - 2, MY , mY , SY , IY.              |  can be changed from 0 - 200 ,MY , mY , SY , IY.                              |
+IPY -  Initial Position Y  |  can take values 0 - 2, MY, UY, DY, SY, IY.             |  can be changed from 0 - 200, MY, UY, DY, SY, IY.                             |
                            |  It is defined as 1 ± ( y * width ) along Y.            |  It is displayed as 100 ± ( y % width ) along Y.                              |
                            |  Example - 0.7 means default position (1) - 0.3*height. |  Example - 70 means default position (100) - 30 % height.                     |
                            |            Moves window by 0.3*height upward from       |            Moves window by 30 % its height upward from current position.      | 
@@ -49,17 +49,17 @@ NW  -  Next Width          |  can take values 0 - 2  , MW                       
                            |                                                         |                                                                               |
 NH  -  Next Height         |  can take values 0 - 2  , MH                            |  can be changed from  0 - 200  , MH. Displayed as percentage in preferences.  |
                            |                                                         |                                                                               |
-NPX -  Next Position X     |  can take values 0 - 2,       MX , mX , SX , IX         |  can be changed from 0 - 200 ,MX , mX , SX , IX.                              |
+NPX -  Next Position X     |  can take values 0 - 2, MX, LX, RX, SX, IX              |  can be changed from 0 - 200, MX, LX, RX, SX, IX.                             |
                            |  It is defined as 1 ± ( x * width ) along X.            |  It is displayed as 100 ± ( x % width ) along X.                              |
                            |  Example - 0.8 means default position (1) - 0.2*width   |  Example - 80 means default position (100) - 20 % width.                      |
                            |            Moves window by 0.2*width left from          |            Moves window by 20 % its width left from current position.         |
-                           |            current position.                            |  Displayed as a percentage in preferences                                     |
+                           |            current position.                            |  Displayed as a percentage in preferences.                                    |
                            |                                                         |                                                                               |     
-NPY -  Next Position Y     |  can take values 0 - 2,       MY , mY , SY , IY         |  can be changed from 0 - 200 ,MY , mY , SY , IY                               |
+NPY -  Next Position Y     |  can take values 0 - 2, MY, UY, DY, SY, IY              |  can be changed from 0 - 200, MY, UY, DY, SY, IY                              |
                            |  It is defined as 1 ± ( y * width ) along Y.            |  It is displayed as 100 ± ( y % width ) along Y.                              |
                            |  Example - 1.7 means default position (1) + 0.7*height  |  Example - 170 means default position (100) + 70 % height.                    | 
                            |            Moves window by 0.7*height down from         |            Moves window by 70 % its height down from current position.        |
-                           |            current position                             |  Displayed as a percentage in preferences                                     |
+                           |            current position.                            |  Displayed as a percentage in preferences.                                    |
                            |                                                         |                                                                               |
 ======================================================================================================================================================================
 
@@ -77,8 +77,10 @@ Parameter Values - non-float ( window animations only )
 
 MX  =  Default X coordinate of Minimized window
 MY  =  Default Y coordinate of Minimized window
-mX  =  X coordinate of Minimized window based on icon position on dash
-mY  =  Y coordinate of Minimized window based on icon position on dash
+LX  =  X Coordinate of window docked to left
+RX  =  X Coordinate of window docked to Right
+UY  =  Y Coordinate of window docked at Up 
+DY  =  Y Coordinate of window docked at bottom
 MW  =  Width of Minimized window 
 MH  =  Height of Minimized window
 SX  =  Same X Coordinate as previous
@@ -86,7 +88,12 @@ SY  =  Same Y Coordinate as previous
 IX  =  Initial X Coordinate during start
 IY  =  Initial Y Coordinate during start
 
+
 All non float values are overridden by actual values at run time.
+
+
+
+
 
 
 

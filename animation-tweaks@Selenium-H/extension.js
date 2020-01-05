@@ -1,7 +1,7 @@
 /*
 
-Version 9
-=========
+Version 9.1
+===========
 
 Effect String Format     [ |  Status   Name   Tweens  IO      IW     IH     IPX     IPY         T     PPx     PPY     NO      NW      NH     NPX     NPY  ... ]
 
@@ -465,25 +465,28 @@ const EffectsManager = new Lang.Class({
     }
 
     switch(eParams[++pIndex]) {
-    
+
+      case "LX" :
+        eParams[pIndex] = 0-actor.width;
+        break;
+
+      case "RX" :
+        eParams[pIndex] = Main.layoutManager.monitors[global.display.get_current_monitor()].width;
+        break;
+
       case "MX" :
         eParams[pIndex] = (success) ? geom.x:Main.layoutManager.monitors[global.display.get_current_monitor()].width/2;
         break;
-      case "mX" :
-        if(success) {
-          eParams[pIndex] = (PX >= geom.x-geom.width) ? 0-actor.width   : geom.x;
-        }
-        else {
-          eParams[pIndex] = 0-actor.width;
-        }
-        break;
+
       case "SX" :
         eParams[pIndex] = PX;
         posChanged = false;
         break;
+
       case "IX" :
         eParams[pIndex] = eParams[6];
         break; 
+
       default:
         eParams[pIndex] = PX + parseFloat(eParams[pIndex]-1)*actor.width;
         
@@ -491,21 +494,23 @@ const EffectsManager = new Lang.Class({
 
     switch(eParams[++pIndex]) {
     
+      case "UY" :
+        eParams[pIndex] = 0-actor.height;
+        break;
+
+      case "DY" :
+        eParams[pIndex] = (success)? geom.y:Main.layoutManager.monitors[global.display.get_current_monitor()].height ;
+        break;
+
       case "MY" :
         eParams[pIndex] = (success)? geom.y:Main.layoutManager.monitors[global.display.get_current_monitor()].height/2 ;
         break;
-      case "mY" :
-        if(success) {
-          eParams[pIndex] = (PY >= geom.y-geom.height) ? 0-actor.height : geom.y;
-        }
-        else {
-          eParams[pIndex] = Main.layoutManager.monitors[global.display.get_current_monitor()].height;
-        }
-        break;
+
       case "SY" :
         eParams[pIndex] = PY;
         posChanged = false;
         break;
+
       case "IY" :
         eParams[pIndex] = eParams[7];
         break; 

@@ -1,7 +1,7 @@
 /*
 
-Version 8
-=========
+Version 9.1
+===========
 
 Effect String Format     [ |  Status   Name   Tweens  IO      IW     IH     IPX     IPY         T     PPx     PPY     NO      NW      NH     NPX     NPY  ... ]
 
@@ -253,10 +253,10 @@ const EffectsList = new GObject.Class({
 
   getTotalTimeOf: function(eStr) {
 
-    let cIndex = 0;
+    let cIndex = (eStr[2] > 2)? 16:8;
     let totalTime = 0; 
-   
-    for (cIndex = 8;cIndex<eStr.length;cIndex=cIndex+8) {
+
+    for (cIndex;cIndex<eStr.length;cIndex=cIndex+8) {
       totalTime = totalTime + parseFloat(eStr[cIndex]);
     }
   
@@ -340,18 +340,18 @@ const EffectsList = new GObject.Class({
   
   setEffectTime: function(value,eStr) {
 
-    let cIndex = 0;
+    let cIndex = (eStr[2] > 2)? 16:8;
     let totalTime = this.getTotalTimeOf(eStr); 
 
     if(totalTime == 0) {
-      for (cIndex = 8;cIndex<eStr.length;cIndex=cIndex+8) {
-        eStr[cIndex]="0.001";
+      for (let pIndex = cIndex;pIndex<eStr.length;pIndex=pIndex+8) {
+        eStr[pIndex]="0.001";
       }
       totalTime = parseInt(eStr[2]);
     }
 
-    for (cIndex = 8;cIndex<eStr.length;cIndex=cIndex+8) {
-      eStr[cIndex]= ((parseFloat(eStr[cIndex])*value)/totalTime).toPrecision(3).toString();
+    for (let pIndex = cIndex;pIndex <eStr.length;pIndex=pIndex+8) {
+      eStr[pIndex]= ((parseFloat(eStr[pIndex])*value)/totalTime).toPrecision(3).toString();
     }  
   
     return eStr;
@@ -382,11 +382,11 @@ const  EffectsTweaks =  new GObject.Class({
     this.gridWin.attach(new Gtk.Label({xalign:1,use_markup:true,label:"<big><b><u>"+_("Initial Tween Parameters")+"</u></b></big>",
                                        halign: Gtk.Align.CENTER }) ,0  ,2 ,3  ,1);
     this.gridWin.attach(new Gtk.Label({xalign:1,use_markup:true,label:" ",halign: Gtk.Align.CENTER }) ,0  ,3 ,1  ,1);
-    this.tweakParameter        ( 3, _("Intial Opacity\t\t    [\t    0  -  255\t\t\t]"),                         4, 0, 255,       1                       );  
-    this.tweakParameterDim     ( 4, _("Initial Width\t\t    [\t    0  -  200\t%\t\t]"),                         5, 0, 200,     100, ["MW"]               );
-    this.tweakParameterDim     ( 5, _("Initial Height\t\t    [\t    0  -  200\t%\t\t]"),                        6, 0, 200,     100, ["MH"]               );
-    this.tweakParameterPosition( 6, _("Initial Position  X\t    [\t    100 ± % width from default X→    \t]"),  7, 0, 200,     100, ["MX","mX","SX","IX"]);
-    this.tweakParameterPosition( 7, _("Initial Position  Y\t    [\t    100 ± % height from default Y↓    \t]"), 8, 0, 200,     100, ["MY","mY","SY","IY"]);
+    this.tweakParameter        ( 3, _("Intial Opacity\t\t    [\t    0  -  255\t\t\t]"),                         4, 0, 255,       1                            );  
+    this.tweakParameterDim     ( 4, _("Initial Width\t\t    [\t    0  -  200\t%\t\t]"),                         5, 0, 200,     100, ["MW"]                    );
+    this.tweakParameterDim     ( 5, _("Initial Height\t\t    [\t    0  -  200\t%\t\t]"),                        6, 0, 200,     100, ["MH"]                    );
+    this.tweakParameterPosition( 6, _("Initial Position  X\t    [\t    100 ± % width from default X→    \t]"),  7, 0, 200,     100, ["MX","LX","RX","SX","IX"]);
+    this.tweakParameterPosition( 7, _("Initial Position  Y\t    [\t    100 ± % height from default Y↓    \t]"), 8, 0, 200,     100, ["MY","DY","UY","SY","IY"]);
 
     let pos=8;
     let i=7;
@@ -398,14 +398,14 @@ const  EffectsTweaks =  new GObject.Class({
                                          halign: Gtk.Align.CENTER }) ,0  ,++pos ,3  ,1);
       this.gridWin.attach(new Gtk.Label({xalign:1,use_markup:true,label:" ",halign: Gtk.Align.CENTER }) ,0  ,++pos ,1  ,1);
      
-      this.tweakParameter        ( ++i, _("Time\t\t\t\t    [\t    in milliseconds\t]"),                        ++pos, 0, 10000,  1000                       );  
-      this.tweakParameter        ( ++i, _("Pivot Point   X\t\t    [\t    0  -  100\t%\t\t]"),                  ++pos, 0, 100,     100                       );
-      this.tweakParameter        ( ++i, _("Pivot Point   Y\t\t    [\t    0  -  100\t%\t\t]"),                  ++pos, 0, 100,     100                       );
-      this.tweakParameter        ( ++i, _("Ending Opacity\t    [\t    0  -  255\t\t\t]"),                      ++pos, 0, 255,       1                       );
-      this.tweakParameterDim     ( ++i, _("Ending Width\t\t    [\t    0  -  200\t%\t\t]"),                     ++pos, 0, 200,     100, ["MW"]               );
-      this.tweakParameterDim     ( ++i, _("Ending Height\t\t    [\t    0  -  200\t%\t\t]"),                    ++pos, 0, 200,     100, ["MH"]               );
-      this.tweakParameterPosition( ++i, _("Ending Position  X\t    [\t    100 ± % width from current X→\t]"),  ++pos, 0, 200,     100, ["MX","mX","SX","IX"]);
-      this.tweakParameterPosition( ++i, _("Ending Position  Y\t    [\t    100 ± % height from current Y↓\t]"), ++pos, 0, 200,     100, ["MY","mY","SY","IY"]);
+      this.tweakParameter        ( ++i, _("Time\t\t\t\t    [\t    in milliseconds\t]"),                        ++pos, 1, 10000,  1000                            );  
+      this.tweakParameter        ( ++i, _("Pivot Point   X\t\t    [\t    0  -  100\t%\t\t]"),                  ++pos, 0, 100,     100                            );
+      this.tweakParameter        ( ++i, _("Pivot Point   Y\t\t    [\t    0  -  100\t%\t\t]"),                  ++pos, 0, 100,     100                            );
+      this.tweakParameter        ( ++i, _("Ending Opacity\t    [\t    0  -  255\t\t\t]"),                      ++pos, 0, 255,       1                            );
+      this.tweakParameterDim     ( ++i, _("Ending Width\t\t    [\t    0  -  200\t%\t\t]"),                     ++pos, 0, 200,     100, ["MW"]                    );
+      this.tweakParameterDim     ( ++i, _("Ending Height\t\t    [\t    0  -  200\t%\t\t]"),                    ++pos, 0, 200,     100, ["MH"]                    );
+      this.tweakParameterPosition( ++i, _("Ending Position  X\t    [\t    100 ± % width from current X→\t]"),  ++pos, 0, 200,     100, ["MX","LX","RX","SX","IX"]);
+      this.tweakParameterPosition( ++i, _("Ending Position  Y\t    [\t    100 ± % height from current Y↓\t]"), ++pos, 0, 200,     100, ["MY","DY","UY","SY","IY"]);
     }
     
   },
@@ -981,7 +981,7 @@ const AnimationSettingsForItem = new GObject.Class({
     this.prefsLabel      =  new Gtk.Label({xalign: 1, label:_(settings.settings_schema.get_key(this.KEY).get_summary()), halign: Gtk.Align.START});
     this.prefsCombo      =  new Gtk.ComboBoxText({hexpand: false,vexpand:false});
     this.tweakButton     =  new Gtk.Button({label: "☰",halign:Gtk.Align.START});
-    this.timeSetting     =      Gtk.SpinButton.new_with_range(0,10000,10);
+    this.timeSetting     =      Gtk.SpinButton.new_with_range(10,10000,10);
     this.prefsSwitch     =  new Gtk.Switch({hexpand: false,vexpand:false,active: (this.eStr[0]=='T')? true:false,halign:Gtk.Align.CENTER});
     let box              =  new Gtk.Box({ orientation: Gtk.Orientation.VERTICAL, margin: 0,hexpand:true});
     

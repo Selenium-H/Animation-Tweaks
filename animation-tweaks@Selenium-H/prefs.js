@@ -1,6 +1,6 @@
 /*
 
-Version 9.1
+Version 9.2
 ===========
 
 Effect String Format     [ |  Status   Name   Tweens  IO      IW     IH     IPX     IPY         T     PPx     PPY     NO      NW      NH     NPX     NPY  ... ]
@@ -113,6 +113,12 @@ const AboutPage =  new GObject.Class({
     settings.reset('tooltip-open');
     settings.reset('overrideother-open');
     
+    settings.reset("notificationbanner-open");
+    settings.reset("notificationbanner-close");
+    
+    settings.reset("padosd-open");
+    settings.reset("padosd-close");
+    
     settings.reset('opening-effect-windows');
     settings.reset('opening-effect-others');
     settings.reset('closing-effect');
@@ -135,19 +141,24 @@ const AnimationTweaksPrefs = new GObject.Class({
     
   _init: function() {
   
+
     this.openingPrefs = new PrefsWindowForOpening("open");
     this.closingPrefs = new PrefsWindowForClosing("close");
     this.mixMaxPrefs  = new PrefsWindowForMinMax("minimize");
     this.profilePrefs = new PrefsWindowForProfiles();
     this.aboutPage    = new AboutPage();
+
+    this.prefsWindowOpening   = new Gtk.ScrolledWindow({hexpand: true,shadow_type: Gtk.ShadowType.IN});
+    this.prefsWindowOpening.add(this.openingPrefs);
+    this.prefsWindowOpening.set_min_content_height(700);
   
     this.parent({ transition_type: 6  ,transition_duration: 300 });
     
-    this.add_titled(this.openingPrefs, "Open"    , _("Open"    ));
-    this.add_titled(this.closingPrefs, "Close"   , _("Close"   ));
-    this.add_titled(this.mixMaxPrefs,  "Minimize", _("Minimize"));
-    this.add_titled(this.profilePrefs, "Profiles", _("Profiles"));
-    this.add_titled(this.aboutPage,    "About"   , _("About"   ));  
+    this.add_titled(this.prefsWindowOpening, "Open"    , _("Open"    ));
+    this.add_titled(this.closingPrefs,       "Close"   , _("Close"   ));
+    this.add_titled(this.mixMaxPrefs,        "Minimize", _("Minimize"));
+    this.add_titled(this.profilePrefs,       "Profiles", _("Profiles"));
+    this.add_titled(this.aboutPage,          "About"   , _("About"   ));  
 
     this.openingPrefs.displayPrefs();
     this.closingPrefs.displayPrefs();
@@ -540,10 +551,12 @@ const PrefsWindow = new GObject.Class({
   Extends: Gtk.Grid,
 
   _init: function(action) {
-  
+      
     this.parent({ column_spacing: 20, halign: Gtk.Align.CENTER, margin: 20,margin_top:0, row_spacing: 20 ,border_width:20});
     this.addGrids();
     this.action = action;
+    
+    
    
   },
 
@@ -563,6 +576,12 @@ const PrefsWindow = new GObject.Class({
     this.attach(new Gtk.Label({ xalign: 1, label: _("Effect"),halign: Gtk.Align.CENTER })           ,1  ,posY ,1  ,1);
     this.attach(new Gtk.Label({ xalign: 1, label: _("Time ( in ms )"),halign: Gtk.Align.CENTER })   ,3  ,posY ,1  ,1);
     this.attach(new Gtk.Label({ xalign: 1, label: _("Status"),     halign: Gtk.Align.CENTER })      ,4  ,posY ,1  ,1);
+    
+  },
+  
+  emptyLine: function(posY) {
+  
+    this.attach(new Gtk.Label({ xalign: 1, label: "" ,halign: Gtk.Align.CENTER }) ,0  ,posY ,1  ,1);
     
   },
 
@@ -611,9 +630,12 @@ const PrefsWindowForClosing = new GObject.Class({
     this.prefsWA("closing-effect",        0,  0,  this.switchBox0    );
     this.heading(1);
     let pos = 2;
-    new AnimationSettingsForItem("window","normal",      "close", this, pos++,this);
-    new AnimationSettingsForItem("window","dialog",      "close", this, pos++,this);
-    new AnimationSettingsForItem("window","modaldialog", "close", this, pos++,this);
+    new AnimationSettingsForItem("window",            "normal",             "close", this, pos++,this);
+    new AnimationSettingsForItem("window",            "dialog",             "close", this, pos++,this);
+    new AnimationSettingsForItem("window",            "modaldialog",        "close", this, pos++,this);
+    this.emptyLine(pos++);
+    new AnimationSettingsForItem("notificationbanner","notificationbanner", "close", this, pos++,this);
+    new AnimationSettingsForItem("padosd",            "padosd",             "close", this, pos++,this);
     
   },
   
@@ -670,12 +692,15 @@ const PrefsWindowForOpening = new GObject.Class({
     this.insertSpace("",                   2,  pos,   this.switchBox1);
     this.prefsWA("wayland",                7,  pos,   this.switchBox1);
     pos=pos+7;
-    new AnimationSettingsForItem("other","dropdownmenu",  "open", this, pos++,this);
-    new AnimationSettingsForItem("other","popupmenu",     "open", this, pos++,this);    
-    new AnimationSettingsForItem("other","combo",         "open", this, pos++,this);    
-    new AnimationSettingsForItem("other","tooltip",       "open", this, pos++,this);    
-    new AnimationSettingsForItem("other","splashscreen",  "open", this, pos++,this);    
-    new AnimationSettingsForItem("other","overrideother", "open", this, pos++,this);    
+    new AnimationSettingsForItem("other",             "dropdownmenu",       "open", this, pos++,this);
+    new AnimationSettingsForItem("other",             "popupmenu",          "open", this, pos++,this);    
+    new AnimationSettingsForItem("other",             "combo",              "open", this, pos++,this);    
+    new AnimationSettingsForItem("other",             "tooltip",            "open", this, pos++,this);    
+    new AnimationSettingsForItem("other",             "splashscreen",       "open", this, pos++,this);    
+    new AnimationSettingsForItem("other",             "overrideother",      "open", this, pos++,this);    
+    this.emptyLine(pos++);
+    new AnimationSettingsForItem("notificationbanner","notificationbanner", "open", this, pos++,this); 
+    new AnimationSettingsForItem("padosd",            "padosd",             "open", this, pos++,this);   
     
   },
 

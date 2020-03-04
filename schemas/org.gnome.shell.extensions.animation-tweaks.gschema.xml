@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- 
-Version 9.1
+Version 9.2
 ===========
 
 Effect String Format     [ |  Status   Name   Tweens  IO      IW     IH     IPX     IPY         T     PPx     PPY     NO      NW      NH     NPX     NPY  ... ]
@@ -27,8 +27,8 @@ Read the effectParameters.txt File for details.
     
     <key name="closing-effect" type="b">
       <default>false</default>
-      <summary>Closing Effects</summary>
-      <description>Closing effect animation switch</description>
+      <summary>Closing Effects [ for windows ]</summary>
+      <description>Closing effect for windows animation switch</description>
     </key>
     
     <key name="minimizing-effect" type="b">
@@ -199,10 +199,48 @@ Read the effectParameters.txt File for details.
     <key name="overrideother-open" type="as">
     <!-- |   Status  Name                      Tweens  IO      IW     IH     IPX     IPY         T          PPx     PPY     NO      NW      NH     NPX     NPY -->
       <default>[
-        '|', 'T',    'Scale Down',             '1',    '200',  '1',   '0',   '1',    '1',        '0.250',   '0',    '0',    '255',  '1',    '1',   '1',    '1'
+        '|', 'T',    'Slide Up',               '1',    '0',    '1',   '1',   '1',    '1.2',      '0.350',   '0',    '0',    '255',  '1',    '1',   '1',    '0.8'
       ]</default>
       <summary>Overrides Others</summary>
       <description>Animation settings for Overrides Others opening</description>
+    </key>
+    
+    <key name="notificationbanner-open" type="as">
+    <!-- |   Status  Name                      Tweens  IO      IW     IH     IPX     IPY         T          PPx     PPY     NO      NW      NH     NPX     NPY -->
+      <default>[
+        '|', 'F',    'Fade In',                '2',    '0',    '0',   '1',   '1',    '1',        '0.001',   '0',    '0',    '0',    '1',    '1',   '1',    '1',
+                                                                                                 '0.350',   '0',    '0',    '255',  '1',    '1',   '1',    '1'
+      ]</default>
+      <summary>Notification Banner</summary>
+      <description>Animation settings for Notification Banner opening</description>
+    </key>
+
+    <key name="notificationbanner-close" type="as">
+    <!-- |   Status  Name                      Tweens  IO      IW     IH     IPX     IPY         T          PPx     PPY     NO      NW      NH     NPX     NPY -->
+      <default>[
+        '|', 'F',    'Fade Out',               '2',    '0',    '0',   '1',   '1',    '1',        '0.001',   '0',    '0',    '255',  '1',    '1',   '1',    '1',
+                                                                                                 '0.350',   '0',    '0',    '0',    '1',    '1',   '1',    '1'
+      ]</default>
+      <summary>Notification Banner</summary>
+      <description>Animation settings for Notification Banner closing</description>
+    </key>
+    
+    <key name="padosd-open" type="as">
+    <!-- |   Status  Name                      Tweens  IO      IW     IH     IPX     IPY         T          PPx     PPY     NO      NW      NH     NPX     NPY -->
+      <default>[
+        '|', 'F',    'Fade In',                '1',    '0',    '1',   '1',   '1',    '1',        '0.350',   '0',    '0',    '255',  '1',    '1',   '1',    '1'
+      ]</default>
+      <summary>Pad OSD</summary>
+      <description>Animation settings for Pad OSD opening</description>
+    </key>
+
+    <key name="padosd-close" type="as">
+    <!-- |   Status  Name                      Tweens  IO      IW     IH     IPX     IPY         T          PPx     PPY     NO      NW      NH     NPX     NPY -->
+      <default>[
+        '|', 'F',    'Scale Up',               '1',    '200',  '1',   '1',   '1',    '1',        '0.250',   '0',    '1',    '0',    '1',    '0',   '1',    '1'
+      ]</default>
+      <summary>Pad OSD</summary>
+      <description>Animation settings for Pad OSD closing</description>
     </key>
     
     <key name="other-open-effects-list" type="as">
@@ -221,7 +259,7 @@ Read the effectParameters.txt File for details.
         '|','Slide Up',                        '1',    '0',    '1',   '1',   '1',    '1.2',      '0.350',   '0',    '0',    '255',  '1',    '1',   '1',    '0.8',
         '|','Unmagnify',                       '1',    '100',  '1.5', '1.5', '1',    '1',        '0.250',   '0.5',  '0.5',  '255',  '1',    '1',   '1',    '1',
         '|','Zoom In',                         '1',    '100',  '0',   '0',   '1',    '1',        '0.250',   '0.5',  '0.5',  '255',  '1',    '1',   '1',    '1',
-        '|','None',                            '1',    '255',  '1',   '1',   '1',    '1',        '0.0'  ,   '0',    '0',    '255',  '1',    '1',   '1',    '1'
+        '|','None',                            '1',    '255',  '1',   '1',   '1',    '1',        '0.001',   '0',    '0',    '255',  '1',    '1',   '1',    '1'
       ]</default>
       <summary>Other Opening Effects</summary>
       <description>List of default opening effects for other items</description>
@@ -267,7 +305,7 @@ Read the effectParameters.txt File for details.
                                                                                                  '0.200',   '0',    '0',    '255',  '1',    '1',   'IX',   'IY',
         '|','Unmagnify',                       '1',    '100',  '1.5', '1.5', '1',    '1',        '0.250',   '0.5',  '0.5',  '255',  '1',    '1',   '1',    '1',
         '|','Zoom In',                         '1',    '100',  '0',   '0',   '1',    '1',        '0.250',   '0.5',  '0.5',  '255',  '1',    '1',   '1',    '1',
-        '|','None',                            '1',    '255',  '1',   '1',   '1',    '1',        '0.0'  ,   '0',    '0',    '255',  '1',    '1',   '1',    '1'
+        '|','None',                            '1',    '255',  '1',   '1',   '1',    '1',        '0.001',   '0',    '0',    '255',  '1',    '1',   '1',    '1'
       ]</default>
       <summary>Window Opening Effects</summary>
       <description>List of default opening effects for windows</description>
@@ -305,7 +343,7 @@ Read the effectParameters.txt File for details.
         '|','Squeezed Slide Up',               '2',    '255',  '1',   '1',   'SX',   'SY',       '0.300',   '0',    '0',    '255',  'MW',   '0.8', 'MX',   '1', 
                                                                                                  '0.200',   '0',    '0',    '255',  'MW',   '0.8', 'MX',   'UY',
         '|','Zoom Out',                        '1',    '255',  '1',   '1',   '1',    '1',        '0.250',   '0.5',  '0.5',  '0',    '0',    '0',   '1',    '1',
-        '|','None',                            '1',    '255',  '1',   '1',   '1',    '1',        '0.0'  ,   '0',    '0',    '0',    '1',    '1',   '1',    '1'
+        '|','None',                            '1',    '255',  '1',   '1',   '1',    '1',        '0.001',   '0',    '0',    '0',    '1',    '1',   '1',    '1'
       ]</default>
       <summary>Window Closing Effects</summary>
       <description>List of default closing effects for windows</description>
@@ -343,7 +381,7 @@ Read the effectParameters.txt File for details.
         '|','Squeezed Slide Up',               '2',    '255',  '1',   '1',   'SX',   'SY',       '0.300',   '0',    '0',    '255',  'MW',   '0.8', 'MX',   '1', 
                                                                                                  '0.200',   '0',    '0',    '255',  'MW',   '0.8', 'MX',   'UY',
         '|','Zoom Out',                        '1',    '255',  '1',   '1',   '1',    '1',        '0.250',   '0.5',  '0.5',  '0',    '0',    '0',   '1',    '1',
-        '|','None',                            '1',    '255',  '1',   '1',   '1',    '1',        '0.0'  ,   '0',    '0',    '0',    '1',    '1',   '1',    '1'
+        '|','None',                            '1',    '255',  '1',   '1',   '1',    '1',        '0.001',   '0',    '0',    '0',    '1',    '1',   '1',    '1'
       ]</default>
       <summary>Window Minimizing Effects</summary>
       <description>List of default minimizing effects for windows</description>
@@ -389,10 +427,80 @@ Read the effectParameters.txt File for details.
                                                                                                  '0.200',   '0',    '0',    '255',  '1',    '1',   'IX',   'IY',
         '|','Unmagnify',                       '1',    '100',  '1.5', '1.5', '1',    '1',        '0.250',   '0.5',  '0.5',  '255',  '1',    '1',   '1',    '1',
         '|','Zoom In',                         '1',    '100',  '0',   '0',   '1',    '1',        '0.250',   '0.5',  '0.5',  '255',  '1',    '1',   '1',    '1',
-        '|','None',                            '1',    '255',  '1',   '1',   '1',    '1',        '0.0'  ,   '0',    '0',    '255',  '1',    '1',   '1',    '1'
+        '|','None',                            '1',    '255',  '1',   '1',   '1',    '1',        '0.001',   '0',    '0',    '255',  '1',    '1',   '1',    '1'
       ]</default>
       <summary>Window Unminimizing Effects</summary>
       <description>List of default Unminimizing effects for windows</description>
+    </key>
+    
+    <key name="notificationbanner-open-effects-list" type="as">
+    <!-- |   Name                              Tweens  IO      IW     IH     IPX     IPY         T          PPx     PPY     NO      NW      NH     NPX     NPY -->
+      <default>[
+        '|', 'Fade In',                        '2',    '0',    '0',   '1',   '1',    '1',        '0.001',   '0',    '0',    '0',    '1',    '1',   '1',    '1',
+                                                                                                 '0.350',   '0',    '0',    '255',  '1',    '1',   '1',    '1',
+        '|', 'Scale Down',                     '2',    '0',    '0',   '1',   '1',    '1',        '0.001',   '0',    '0',    '0',    '1',    '0',   '1',    '1',
+                                                                                                 '0.350',   '0',    '0',    '255',  '1',    '1',   '1',    '1',
+        '|', 'Scale Left',                     '2',    '0',    '0',   '1',   '1',    '1',        '0.001',   '0',    '0',    '0',    '0',    '1',   '1',    '1',
+                                                                                                 '0.350',   '1',    '0',    '255',  '1',    '1',   '1',    '1',
+        '|', 'Scale Right',                    '2',    '0',    '0',   '1',   '1',    '1',        '0.001',   '0',    '0',    '0',    '0',    '1',   '1',    '1',
+                                                                                                 '0.350',   '0',    '0',    '255',  '1',    '1',   '1',    '1',
+        '|', 'Scale Up',                       '2',    '0',    '0',   '1',   '1',    '1',        '0.001',   '0',    '0',    '0',    '1',    '0',   '1',    '1',
+                                                                                                 '0.350',   '0',    '1',    '255',  '1',    '1',   '1',    '1',
+        '|','None',                            '1',    '255',  '1',   '1',   '1',    '1',        '0.001',   '0',    '0',    '255',  '1',    '1',   '1',    '1'
+      ]</default>
+      <summary>Notification Banner Opening Effects</summary>
+      <description>List of default opening effects for notification banner</description>
+    </key>
+
+    <key name="notificationbanner-close-effects-list" type="as">
+    <!-- |   Name                              Tweens  IO      IW     IH     IPX     IPY         T          PPx     PPY     NO      NW      NH     NPX     NPY -->
+      <default>[
+        '|', 'Fade Out',                       '2',    '0',    '0',   '1',   '1',    '1',        '0.001',   '0',    '0',    '255',  '1',    '1',   '1',    '1',
+                                                                                                 '0.350',   '0',    '0',    '0',    '1',    '1',   '1',    '1',
+        '|', 'Scale Down',                     '2',    '0',    '0',   '1',   '1',    '1',        '0.001',   '0',    '0',    '255',  '1',    '1',   '1',    '1',
+                                                                                                 '0.350',   '0',    '1',    '0',    '1',    '0',   '1',    '1',
+        '|', 'Scale Left',                     '2',    '0',    '0',   '1',   '1',    '1',        '0.001',   '0',    '0',    '255',  '1',    '1',   '1',    '1',
+                                                                                                 '0.350',   '0',    '0',    '0',    '0',    '1',   '1',    '1',
+        '|', 'Scale Right',                    '2',    '0',    '0',   '1',   '1',    '1',        '0.001',   '0',    '0',    '255',  '1',    '1',   '1',    '1',
+                                                                                                 '0.350',   '1',    '0',    '0',    '0',    '1',   '1',    '1',
+        '|', 'Scale Up',                       '2',    '0',    '0',   '1',   '1',    '1',        '0.001',   '0',    '0',    '255',  '1',    '1',   '1',    '1',
+                                                                                                 '0.350',   '0',    '0',    '0',    '1',    '0',   '1',    '1',
+        '|','None',                            '1',    '255',  '1',   '1',   '1',    '1',        '0.001',   '0',    '0',    '255',  '1',    '1',   '1',    '1'
+      ]</default>
+      <summary>Notification Banner Closing Effects</summary>
+      <description>List of default closing effects for notification banner</description>
+    </key>
+
+    <key name="padosd-open-effects-list" type="as">
+    <!-- |   Name                              Tweens  IO      IW     IH     IPX     IPY         T          PPx     PPY     NO      NW      NH     NPX     NPY -->
+      <default>[
+        '|','Fade In',                         '1',    '0',    '1',   '1',   '1',    '1',        '0.350',   '0',    '0',    '255',  '1',    '1',   '1',    '1', 
+        '|','Fold Out Sideways',               '1',    '255',  '0',   '1',   '1',    '1',        '0.250',   '0.5',  '0',    '255',  '1',    '1',   '1',    '1', 
+        '|','Scale Left',                      '1',    '200',  '0',   '1',   '1',    '1',        '0.250',   '1',    '0',    '255',  '1',    '1',   '1',    '1', 
+        '|','Scale Right',                     '1',    '200',  '0',   '1',   '1',    '1',        '0.250',   '0',    '0',    '255',  '1',    '1',   '1',    '1',
+        '|','Scale Down',                      '1',    '200',  '1',   '0',   '1',    '1',        '0.250',   '0',    '1',    '255',  '1',    '1',   '1',    '1', 
+        '|','Unmagnify',                       '1',    '100',  '1.5', '1.5', '1',    '1',        '0.250',   '0.5',  '0.5',  '255',  '1',    '1',   '1',    '1',
+        '|','Zoom In',                         '1',    '100',  '0',   '0',   '1',    '1',        '0.250',   '0.5',  '0.5',  '255',  '1',    '1',   '1',    '1',
+        '|','None',                            '1',    '255',  '1',   '1',   '1',    '1',        '0.001'  , '0',    '0',    '255',  '1',    '1',   '1',    '1'
+      ]</default>
+      <summary>Pad OSD Opening Effects</summary>
+      <description>List of default opening effects for Pad OSD</description>
+    </key>
+
+    <key name="padosd-close-effects-list" type="as">
+    <!-- |   Name                              Tweens  IO      IW     IH     IPX     IPY         T          PPx     PPY     NO      NW      NH     NPX     NPY -->
+      <default>[
+        '|','Fade Out',                        '1',    '255',  '1',   '1',   '1',    '1',        '0.350',   '0',    '0',    '0',    '0.99', '0.99','1',    '1', 
+        '|','Fold In Sideways',                '1',    '255',  '1',   '1',   '1',    '1',        '0.250',   '0.5',  '0',    '100',  '0',    '1',   '1',    '1', 
+        '|','Magnify',                         '1',    '255',  '1',   '1',   '1',    '1',        '0.250',   '0.5',  '0.5',  '0',    '1.2',  '1.2', '1',    '1',
+        '|','Scale Left',                      '1',    '200',  '1',   '1',   '1',    '1',        '0.250',   '0',    '0',    '0',    '0',    '1',   '1',    '1', 
+        '|','Scale Right',                     '1',    '200',  '1',   '1',   '1',    '1',        '0.250',   '1',    '0',    '0',    '0',    '1',   '1',    '1', 
+        '|','Scale Up',                        '1',    '200',  '1',   '1',   '1',    '1',        '0.250',   '0',    '1',    '0',    '1',    '0',   '1',    '1', 
+        '|','Zoom Out',                        '1',    '255',  '1',   '1',   '1',    '1',        '0.250',   '0.5',  '0.5',  '0',    '0',    '0',   '1',    '1',
+        '|','None',                            '1',    '255',  '1',   '1',   '1',    '1',        '0.001'  , '0',    '0',    '0',    '1',    '1',   '1',    '1'
+      ]</default>
+      <summary>Pad OSD Closing Effects</summary>
+      <description>List of default closing effects for Pad OSD</description>
     </key>
 
     <key name="use-application-profiles" type="b">

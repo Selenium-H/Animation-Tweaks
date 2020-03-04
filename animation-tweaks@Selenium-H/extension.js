@@ -1,6 +1,6 @@
 /*
 
-Version 9.1
+Version 9.2
 ===========
 
 Effect String Format     [ |  Status   Name   Tweens  IO      IW     IH     IPX     IPY         T     PPx     PPY     NO      NW      NH     NPX     NPY  ... ]
@@ -12,11 +12,22 @@ Read the effectParameters.txt File for details.
 const Config = imports.misc.config;
 const Extension = imports.misc.extensionUtils.getCurrentExtension();
 const Convenience = Extension.imports.convenience;
+const GLib = imports.gi.GLib;
 const Lang = imports.lang;
+const Mainloop = imports.mainloop;
 const Meta = imports.gi.Meta;
 const Tweener = imports.ui.tweener;
 const Main = imports.ui.main;
 const Shell = imports.gi.Shell;
+
+const defaultNotificationBannerTweenFunction = Main.messageTray._tween;
+const defaultUpdateShowingNotification = Main.messageTray._updateShowingNotification;
+const defaultHideNotification = Main.messageTray._hideNotification;
+let defaultOnCompleteParams ;
+let defaultOnComplete;
+let defaultBannerAlignment;
+
+const defaultPadOSDShow = Main.osdWindowManager._showOsdWindow;
 
 let effectsManager = null;
 
@@ -64,6 +75,25 @@ const EffectsManager = new Lang.Class({
     
   },
 
+  addNotificationBannerEffects: function() {
+  
+    if(this.notificationbannerWindowopenProfile[1]=="T"||this.notificationbannerWindowcloseProfile[1]=="T") {
+
+      if(Config.PACKAGE_VERSION < "3.34.2") {
+        Main.messageTray._tween = this.driveNotificationBannerAnimation;
+      }
+      else {
+          Main.messageTray._updateShowingNotification = (this.notificationbannerWindowopenProfile[1]=="T")?this.overriddenUpdateShowingNotification:defaultUpdateShowingNotification;  
+          Main.messageTray._hideNotification = (this.notificationbannerWindowcloseProfile[1]=="T")?this.overriddenHideNotification:defaultHideNotification;
+      }
+
+      return;
+    }
+    
+    this.restoreDefaultNotificationBannerEffects();
+
+  },
+    
   addOtherEffects : function (actor, action) {
 
     let eParams=[];
@@ -99,6 +129,16 @@ const EffectsManager = new Lang.Class({
   
   },
 
+  addPadOSDEffects: function() {
+  
+    if(this.padosdWindowopenProfile[1]=="T"||this.padosdWindowcloseProfile[1]=="T"){
+      Main.osdWindowManager._showOsdWindow = this.driveOSDAnimation;
+      return;
+    }  
+    this.restoreDefaultPadOSDEffects();
+
+  },
+  
   addWindowEffects : function (shellwm, actor, action) {
         
     this.shellwm = shellwm;
@@ -201,41 +241,211 @@ const EffectsManager = new Lang.Class({
     }
 
   },
-
-  animationDone : function (actor, action) {
+   
+  animationDone : function (actor, action, itemType="other",itemObject=null) {
 
     actor.hide();
 
-    switch(action) {
-      case "open" :
-        (Config.PACKAGE_VERSION < "3.34.2") ? Main.wm._mapping.push(actor) : Main.wm._mapping.add(actor);
-        Main.wm._mapWindowDone(this.shellwm ,actor);
+    switch(itemType) {
+    
+      case "padosd" :
+        switch(action) {
+          case "open" :          
+            break;
+          case "close" :   
+            itemObject._hide();
+            actor.set_scale(1,1);
+            actor.set_opacity(255);
+            actor.set_pivot_point(0,0); 
+            return;
+        }
         break;
-      case "close" :
-        Main.wm._destroyWindowDone(this.shellwm ,actor);
-        return;
-      case "minimize" :
-        (Config.PACKAGE_VERSION < "3.34.2") ? Main.wm._minimizing.push(actor) : Main.wm._minimizing.add(actor);
-        Main.wm._minimizeWindowDone(this.shellwm ,actor);
-        return;
-      case "unminimize" :
-        Main.wm._unminimizeWindowDone(this.shellwm ,actor);
+      
+      case "window":
+        switch(action) {
+          case "open" :
+            (Config.PACKAGE_VERSION < "3.34.2") ? Main.wm._mapping.push(actor) : Main.wm._mapping.add(actor);
+            Main.wm._mapWindowDone(this.shellwm ,actor);
+            break;
+          case "close" :      
+            Main.wm._destroyWindowDone(this.shellwm ,actor);
+            return;
+          case "minimize" :
+            (Config.PACKAGE_VERSION < "3.34.2") ? Main.wm._minimizing.push(actor) : Main.wm._minimizing.add(actor);
+            Main.wm._minimizeWindowDone(this.shellwm ,actor);
+            return;
+          case "unminimize" :
+            Main.wm._unminimizeWindowDone(this.shellwm ,actor);
+            break;
+        }
         break;
-      case "other" :
-      default:
-    }
 
+      case "notificationbanner" :
+        actor.set_scale(1,1);
+        actor.set_pivot_point(0,0);
+        actor.show();
+        return;
+        
+      case "other" :
+      default :
+        switch(action) {
+          case "open" :
+            break;
+          default :
+            return;
+        }
+      
+    }
+    
     actor.set_scale(1,1);
     actor.set_opacity(255);
     actor.set_pivot_point(0,0);
     actor.show();
+ 
+  },
+  
+  doNothing: function() {
+  
+  // Do Nothing
+  
+  },
+  
+  driveNotificationBannerAnimation: function(actor, statevar, value, params,subEffectNo=0) {
 
+    let eParams = effectsManager.getEffectFor("","notificationbanner",(value==0)?"close":"open"); 
+    Tweener.removeTweens(actor);
+
+    if(subEffectNo == 0) {
+      defaultBannerAlignment = Main.messageTray.bannerAlignment;
+      defaultOnComplete = params.onComplete;
+      defaultOnCompleteParams = params.onCompleteParams;
+    }
+
+    switch(eParams[0]) {
+ 
+      case "F": 
+        params.onComplete = Main.messageTray._tweenComplete;
+        params.onCompleteParams = [statevar, value, defaultOnComplete, Main.messageTray, defaultOnCompleteParams];
+        actor.set_opacity(255);
+
+        break;
+     
+      default: 
+        if(value == 0 && actor.x != 0 ) {
+          Main.messageTray.bannerAlignment = 1;
+        }
+      
+        switch(subEffectNo) {
+     
+          case 0 :
+            [params.x,params.y] = [0,0];
+            params.onComplete = effectsManager.driveNotificationBannerAnimation;
+            params.onCompleteParams = [actor,statevar, value, params,subEffectNo+1,eParams];
+            break;
+        
+          default :
+            [params.x,params.y] = [actor.x + (parseFloat(eParams[subEffectNo*8+ 14])-1)*actor.width, actor.y + (parseFloat(eParams[subEffectNo*8+ 15])-1)*actor.height]; 
+            params.onComplete = effectsManager.driveNotificationBannerAnimation;
+            params.onCompleteParams = [actor,statevar, value, params,subEffectNo+1,eParams];
+                
+        }
+
+        if(eParams[2] == subEffectNo+1) {
+          params.onComplete = ()=> {
+            effectsManager.animationDone(Main.messageTray._bannerBin, "open", "notificationbanner");
+            (Config.PACKAGE_VERSION < "3.34.2") ? Main.messageTray._tweenComplete(statevar, value, defaultOnComplete , Main.messageTray, defaultOnCompleteParams):defaultOnComplete();
+          }
+          params.onCompleteParams = [statevar, value, defaultOnComplete , Main.messageTray, defaultOnCompleteParams];
+        }
+        actor.set_pivot_point( eParams[subEffectNo*8+ 9] ,eParams[subEffectNo*8+ 10]);  
+        params.opacity =           eParams[subEffectNo*8+ 11];
+        params.scale_x =           eParams[subEffectNo*8+ 12];
+        params.scale_y =           eParams[subEffectNo*8+ 13];
+        params.time =              eParams[subEffectNo*8+  8];
+        params.transition =        'easeOutQuad';
+        params.onUpdate =          effectsManager.doNothing;   
+    }
+     
+    Main.messageTray.bannerAlignment = defaultBannerAlignment;
+    Tweener.addTween(actor, params);
+     
+    if(Config.PACKAGE_VERSION < "3.34.2") {
+      let valuing = (value == 2  ) ? 1 : 3 ;
+      Main.messageTray[statevar] = valuing;
+    }
+  
+  },
+  
+  driveOSDAnimation: function(monitorIndex, icon, label, level, maxLevel, action="open",osdWindow=null) {
+    
+    let eParams = effectsManager.getEffectFor("","padosd",action);     
+
+    if(osdWindow==null){
+      osdWindow = this._osdWindows[monitorIndex];
+    }
+    
+    if(action == "open") {
+    
+      osdWindow.setIcon(icon);
+      osdWindow.setLabel(label);
+      osdWindow.setMaxLevel(maxLevel);
+      osdWindow.setLevel(level);
+       
+      if (!osdWindow._icon.gicon){
+        return;
+      }
+
+      if (!osdWindow.actor.visible) {
+    
+        Meta.disable_unredirect_for_display(global.display);
+        osdWindow.actor.show();
+        osdWindow.actor.opacity = 0;
+        osdWindow.actor.get_parent().set_child_above_sibling(osdWindow.actor, null);
+      
+        if(eParams[0]=="T"){
+          effectsManager.initParametersOther(osdWindow.actor, eParams);
+          effectsManager.driveOtherAnimation(osdWindow.actor, eParams, 0, action);
+        }
+        else {
+          Tweener.addTween(osdWindow.actor,{ 
+            opacity: 255,
+            time: 0.1,
+            transition: 'easeOutQuad' 
+          });
+        }
+       
+      }
+
+      if (this._hideTimeoutId){
+        Mainloop.source_remove( this._hideTimeoutId);
+      }
+      
+      this._hideTimeoutId = Mainloop.timeout_add(1500,()=> effectsManager.driveOSDAnimation(monitorIndex, icon, label, level, maxLevel, "close",osdWindow));
+      GLib.Source.set_name_by_id( this._hideTimeoutId, '[gnome-shell] this._hide');  
+      
+      return;
+    }
+    
+    
+    if(eParams[0]=="F"){
+      osdWindow._hide();
+      return;
+    }
+    
+     effectsManager.initParametersOther(osdWindow.actor, eParams);
+     effectsManager.driveOtherAnimation(osdWindow.actor, eParams, 0, action, "padosd", osdWindow);
+
+
+      if (this._hideTimeoutId){
+        Mainloop.source_remove( this._hideTimeoutId);
+      }
+      
   },
 
-  driveOtherAnimation: function( actor, eParams, subEffectNo, action) {
+  driveOtherAnimation: function( actor, eParams, subEffectNo, action, itemType="other", itemObject=null) {
 
     if(eParams[2] == subEffectNo) {
-      this.animationDone(actor,action);
+      this.animationDone(actor,action,itemType,itemObject);
       return;
     }
 
@@ -253,7 +463,7 @@ const EffectsManager = new Lang.Class({
         transition:        'easeOutQuad',
         onComplete:        this.driveOtherAnimation,
         onCompleteScope:   this,
-        onCompleteParams:  [actor,eParams,++subEffectNo,"other"],
+        onCompleteParams:  [actor,eParams,++subEffectNo,action,itemType,itemObject],
         onOverwrite:       this.animationDone,
         onOverwriteScope : this,
         onOverwriteParams: [actor,action]
@@ -269,7 +479,7 @@ const EffectsManager = new Lang.Class({
       transition:          'easeOutQuad',
       onComplete:          this.driveOtherAnimation,
       onCompleteScope:     this,
-      onCompleteParams:    [actor,eParams,++subEffectNo,"other"],
+      onCompleteParams:    [actor,eParams,++subEffectNo,action,itemType,itemObject],
       onOverwrite:         this.animationDone,
       onOverwriteScope :   this,
       onOverwriteParams:   [actor,action]
@@ -280,7 +490,7 @@ const EffectsManager = new Lang.Class({
   driveWindowAnimation: function( actor, eParams, subEffectNo, action,success,geom) {
 
     if(eParams[2] == subEffectNo) {
-      this.animationDone(actor,action);
+      this.animationDone(actor,action,"window");
       return;
     }
 
@@ -432,6 +642,118 @@ const EffectsManager = new Lang.Class({
     this.tooltipWindowopenProfile            =  this.prefs.get_strv("tooltip-open");
     this.overrideotherWindowopenProfile      =  this.prefs.get_strv("overrideother-open");
     
+    this.notificationbannerWindowopenProfile   =  this.prefs.get_strv("notificationbanner-open");
+    this.notificationbannerWindowcloseProfile  =  this.prefs.get_strv("notificationbanner-close");
+    this.addNotificationBannerEffects();  
+    
+    this.padosdWindowopenProfile   =  this.prefs.get_strv("padosd-open");
+    this.padosdWindowcloseProfile  =  this.prefs.get_strv("padosd-close");  
+    this.addPadOSDEffects();    
+
+  },
+
+  overriddenHideNotification: function(animate) {
+
+    Main.messageTray._notificationFocusGrabber.ungrabFocus();
+
+    if (Main.messageTray._bannerClickedId) {
+      Main.messageTray._banner.disconnect(Main.messageTray._bannerClickedId);
+      Main.messageTray._bannerClickedId = 0;
+    }
+    if (Main.messageTray._bannerUnfocusedId) {
+      Main.messageTray._banner.disconnect(Main.messageTray._bannerUnfocusedId);
+      Main.messageTray._bannerUnfocusedId = 0;
+    }
+
+    Main.messageTray._resetNotificationLeftTimeout();
+
+    if (animate) {
+      effectsManager.driveNotificationBannerAnimation(Main.messageTray._bannerBin, '_notificationState', 0,//State.HIDDEN,
+                        { y: -Main.messageTray._bannerBin.height,
+                          _opacity: 0,
+                          time: 0.200,//ANIMATION_TIME,
+                          transition: 'easeOutBack',
+                          onUpdate: Main.messageTray._clampOpacity,
+                          onUpdateScope: Main.messageTray,
+                          onComplete: () => {
+                            Main.messageTray._notificationState = 0;
+                            Main.messageTray._hideNotificationCompleted();
+                            Main.messageTray._updateState();
+                          },
+                          onCompleteScope: Main.messageTray
+                        });
+    } 
+    else {
+      Tweener.removeTweens(Main.messageTray._bannerBin);
+      Main.messageTray._bannerBin.y = -Main.messageTray._bannerBin.height;
+      Main.messageTray._bannerBin.opacity = 0;
+      Main.messageTray._notificationState = 0;//State.HIDDEN;
+      Main.messageTray._hideNotificationCompleted();
+    }
+  
+  },
+
+  overriddenUpdateShowingNotification: function() {
+  
+    Main.messageTray._notification.acknowledged = true;
+    Main.messageTray._notification.playSound();
+
+    // We auto-expand notifications with CRITICAL urgency, or for which the relevant setting
+    // is on in the control center.
+    if (Main.messageTray._notification.urgency == 3  ||  // Urgency.CRITICAL
+      Main.messageTray._notification.source.policy.forceExpanded)
+      Main.messageTray._expandBanner(true);
+
+      // We tween all notifications to full opacity. This ensures that both new notifications and
+      // notifications that might have been in the process of hiding get full opacity.
+      //
+      // We tween any notification showing in the banner mode to the appropriate height
+      // (which is banner height or expanded height, depending on the notification state)
+      // This ensures that both new notifications and notifications in the banner mode that might
+      // have been in the process of hiding are shown with the correct height.
+      //
+      // We use this._showNotificationCompleted() onComplete callback to extend the time the updated
+      // notification is being shown.
+
+      Main.messageTray._notificationState = 1;//State.SHOWING;
+      Main.messageTray._bannerBin.remove_all_transitions();
+      Main.messageTray._bannerBin.set_opacity(255);
+          
+      let tweenParams = { y: 0,
+                          _opacity: 255,
+                          time: 0.200, //ANIMATION_TIME,
+                          transition: 'easeOutBack',
+                          onUpdate: Main.messageTray._clampOpacity,
+                          onUpdateScope: Main.messageTray,
+                          onComplete: () => {
+                                        Main.messageTray._notificationState = 2;//State.SHOWN;
+                                        Main.messageTray._showNotificationCompleted();
+                                        Main.messageTray._updateState();
+                                      },
+
+                          onCompleteScope: Main.messageTray
+                        };      
+        
+      effectsManager.driveNotificationBannerAnimation(Main.messageTray._bannerBin,  '_notificationState', 2 , tweenParams,0)
+
+  },
+    
+  restoreDefaultNotificationBannerEffects: function() {
+
+    if(Config.PACKAGE_VERSION < "3.34.2") {
+      Main.messageTray._tween = defaultNotificationBannerTweenFunction;
+      return;
+    }
+      
+    Main.messageTray._updateShowingNotification = defaultUpdateShowingNotification; 
+    Main.messageTray._hideNotification = defaultHideNotification;
+    
+  },
+
+  restoreDefaultPadOSDEffects: function() {
+  
+    Main.osdWindowManager._showOsdWindow = defaultPadOSDShow; 
+    
   },
 
   setNextParametersOther: function(actor,eParams,pIndex) {
@@ -563,6 +885,9 @@ const EffectsManager = new Lang.Class({
     if(this.unMinimizingEffectEnabled) {
       global.window_manager.disconnect(this.onUnminimizing);
     }
+    
+    this.restoreDefaultNotificationBannerEffects();
+    this.restoreDefaultPadOSDEffects();
     
   },
 

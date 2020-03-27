@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- 
-Version 9.2
+Version 9.3
 ===========
 
-Effect String Format     [ |  Status   Name   Tweens  IO      IW     IH     IPX     IPY         T     PPx     PPY     NO      NW      NH     NPX     NPY  ... ]
+Effect String Format [ |  S    Name      C    PPX    PPY    CX     CY     CZ     T        OP     SX     SY     PX     PY      TZ     RX     RY     RZ     TRN  ]
 
 Read the effectParameters.txt File for details.
 
@@ -11,20 +11,21 @@ Read the effectParameters.txt File for details.
 
 <schemalist gettext-domain="gnome-shell-extensions">
 
+  <enum id="org.gnome.shell.extensions.animation-tweaks.notificationbanner-pos">
+    <value nick="auto" value="0"/>
+    <value nick="left" value="1"/>
+    <value nick="center" value="2"/>
+    <value nick="right" value="3"/>
+  </enum>
+
   <schema path="/org/gnome/shell/extensions/animation-tweaks/" id="org.gnome.shell.extensions.animation-tweaks">
   
-    <key name="opening-effect-windows" type="b">
-      <default>false</default>
-      <summary>Opening Effects  [ for windows ]</summary>
-      <description>Opening effect for windows animation switch</description>
-    </key>
-    
-    <key name="opening-effect-others" type="b">
+    <key name="opening-effect" type="b">
       <default>true</default>
-      <summary>Opening Effects [ for other items ]</summary>
-      <description>Opening effect for other items animation switch</description>
+      <summary>Opening Effects [ for windows ]</summary>
+      <description>Opening effect animation switch</description>
     </key>
-    
+
     <key name="closing-effect" type="b">
       <default>false</default>
       <summary>Closing Effects [ for windows ]</summary>
@@ -44,460 +45,660 @@ Read the effectParameters.txt File for details.
     </key>
     
     <key name="normal-open" type="as">
-    <!-- |   Status  Name                      Tweens  IO      IW     IH     IPX     IPY         T          PPx     PPY     NO      NW      NH     NPX     NPY -->
-      <default>[
-        '|', 'F',    'Scale Down',             '1',    '200',  '1',   '0',   '1',    '1',        '0.250',   '0',    '0',    '255',  '1',    '1',   '1',    '1'
+    <!-- |  S    Name                    C    PPX    PPY    CX     CY     CZ     T        OP     SX     SY     PX     PY      TZ     RX     RY     RZ     TRN -->
+      <default>[                         
+        '|','F', 'Scale Down',           '2', '0.0', '0.0', '0.0', '0.0', '0.0', '0.001', '0',   '1.0', '0.5', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',
+                                              '0.0', '0.0', '0.0', '0.0', '0.0', '0.300', '255', '1.0', '1.0', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic'  
       ]</default>
       <summary>Normal Windows</summary>
       <description>Animation settings for Normal Windows opening</description>
     </key>
     
-    <key name="normal-close" type="as">
-    <!-- |   Status  Name                      Tweens  IO      IW     IH     IPX     IPY         T          PPx     PPY     NO      NW      NH     NPX     NPY -->
+    <key name="dialog-open" type="as">
+    <!-- |  S    Name                    C    PPX    PPY    CX     CY     CZ     T        OP     SX     SY     PX     PY      TZ     RX     RY     RZ     TRN -->
       <default>[
-        '|', 'F',    'Fold In Sideways',       '1',    '255',  '1',   '1',   '1',    '1',        '0.250',   '0.5',  '0',    '100',  '0',    '1',   '1',    '1'
+        '|','F', 'Fold Out Sideways',    '2', '0.5', '0.0', '0.0', '0.0', '0.0', '0.001', '255', '0.0', '1.0', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',
+                                              '0.5', '0.0', '0.0', '0.0', '0.0', '0.300', '255', '1.0', '1.0', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic'  
+      ]</default>
+      <summary>Dialog Windows</summary>
+      <description>Animation settings for Dialog Windows opening</description>
+    </key>
+
+    <key name="modaldialog-open" type="as">
+    <!-- |  S    Name                    C    PPX    PPY    CX     CY     CZ     T        OP     SX     SY     PX     PY      TZ     RX     RY     RZ     TRN -->
+      <default>[
+        '|','F', 'Slide Down',           '2', '0.0', '0.0', '0.0', '0.0', '0.0', '0.001', '0',   '1.0', '1.0', '0.0', '-0.2', '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',
+                                              '0.0', '0.0', '0.0', '0.0', '0.0', '0.300', '255', '1.0', '1.0', '0.0', '0.2',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic' 
+      ]</default>
+      <summary>Modal Dialog</summary>
+      <description>Animation settings for Modal Dialog Windows opening</description>
+    </key>
+
+    <key name="window-open-effects-list" type="as">
+    <!-- |       Name                    C    PPX    PPY    CX     CY     CZ     T        OP     SX     SY     PX     PY      TZ     RX     RY     RZ     TRN -->
+      <default>[
+        '|','Fade In',                   '2', '0.0', '0.0', '0.0', '0.0', '0.0', '0.001', '0',   '1.0', '1.0', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',
+                                              '0.0', '0.0', '0.0', '0.0', '0.0', '0.300', '255', '1.0', '1.0', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',  
+
+        '|','Fold Out Sideways',         '2', '0.5', '0.0', '0.0', '0.0', '0.0', '0.001', '255', '0.0', '1.0', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',
+                                              '0.5', '0.0', '0.0', '0.0', '0.0', '0.300', '255', '1.0', '1.0', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',  
+
+        '|','Fold Out Vertically',       '2', '0.0', '0.5', '0.0', '0.0', '0.0', '0.001', '255', '1.0', '0.0', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',
+                                              '0.0', '0.5', '0.0', '0.0', '0.0', '0.300', '255', '1.0', '1.0', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',  
+
+        '|','Scale Down',                '2', '0.0', '0.0', '0.0', '0.0', '0.0', '0.001', '0',   '1.0', '0.5', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',
+                                              '0.0', '0.0', '0.0', '0.0', '0.0', '0.300', '255', '1.0', '1.0', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',  
+
+        '|','Scale Left',                '2', '0.0', '0.0', '0.0', '0.0', '0.0', '0.001', '0',   '0.5', '1.0', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',
+                                              '1.0', '0.0', '0.0', '0.0', '0.0', '0.300', '255', '1.0', '1.0', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',  
+
+        '|','Scale Right',               '2', '0.0', '0.0', '0.0', '0.0', '0.0', '0.001', '0',   '0.5', '1.0', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',
+                                              '0.0', '0.0', '0.0', '0.0', '0.0', '0.300', '255', '1.0', '1.0', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',  
+
+        '|','Scale Up',                  '2', '0.0', '0.0', '0.0', '0.0', '0.0', '0.001', '0',   '1.0', '0.5', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',
+                                              '0.0', '1.0', '0.0', '0.0', '0.0', '0.300', '255', '1.0', '1.0', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',  
+
+        '|','Slide Down',                '2', '0.0', '0.0', '0.0', '0.0', '0.0', '0.001', '0',   '1.0', '1.0', '0.0', '-0.2', '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',
+                                              '0.0', '0.0', '0.0', '0.0', '0.0', '0.300', '255', '1.0', '1.0', '0.0', '0.2',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',  
+
+        '|','Slide Left',                '2', '0.0', '0.0', '0.0', '0.0', '0.0', '0.001', '0',   '1.0', '1.0', '-0.2','0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',
+                                              '0.0', '0.0', '0.0', '0.0', '0.0', '0.300', '255', '1.0', '1.0', '0.2', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',  
+
+        '|','Slide Right',               '2', '0.0', '0.0', '0.0', '0.0', '0.0', '0.001', '0',   '1.0', '1.0', '0.2', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',
+                                              '0.0', '0.0', '0.0', '0.0', '0.0', '0.300', '255', '1.0', '1.0', '-0.2','0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',  
+
+        '|','Slide Up',                  '2', '0.0', '0.0', '0.0', '0.0', '0.0', '0.001', '0',   '1.0', '1.0', '0.0', '0.2',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',
+                                              '0.0', '0.0', '0.0', '0.0', '0.0', '0.300', '255', '1.0', '1.0', '0.0', '-0.2', '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',  
+
+        '|','Squeezed Slide Down',       '3', '0.0', '0.0', '0.0', '0.0', '0.0', '0.001', '255', 'MW',  '0.8', 'MX',  'UY',   '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',
+                                              '0.0', '0.0', '0.0', '0.0', '0.0', '0.250', '255', 'MW',  '1.0', 'MX',  'IY',   '0.0', '0.0', '0.0', '0.0', 'easeOutCubic', 
+                                              '0.0', '0.0', '0.0', '0.0', '0.0', '0.250', '255', '1.0', '1.0', 'IX',  'IY',   '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',
+
+        '|','Squeezed Slide Left',       '3', '0.0', '0.0', '0.0', '0.0', '0.0', '0.001', '255', '0.8', 'MH',  'RX',  'MY',   '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',
+                                              '1.0', '0.0', '0.0', '0.0', '0.0', '0.250', '255', '1.0', 'MH',  'IX',  'MY',   '0.0', '0.0', '0.0', '0.0', 'easeOutCubic', 
+                                              '0.0', '0.0', '0.0', '0.0', '0.0', '0.250', '255', '1.0', '1.0', 'IX',  'IY',   '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',
+                                               
+        '|','Squeezed Slide Right',      '3', '0.0', '0.0', '0.0', '0.0', '0.0', '0.001', '255', '0.8', 'MH',  'LX',  'MY',   '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',
+                                              '0.0', '0.0', '0.0', '0.0', '0.0', '0.250', '255', '1.0', 'MH',  'IX',  'MY',   '0.0', '0.0', '0.0', '0.0', 'easeOutCubic', 
+                                              '0.0', '0.0', '0.0', '0.0', '0.0', '0.250', '255', '1.0', '1.0', 'IX',  'IY',   '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',
+
+        '|','Squeezed Slide Up',         '3', '0.0', '0.0', '0.0', '0.0', '0.0', '0.001', '255', 'MW',  '0.8', 'MX',  'DY',   '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',
+                                              '0.0', '1.0', '0.0', '0.0', '0.0', '0.250', '255', 'MW',  '1.0', 'MX',  'IY',   '0.0', '0.0', '0.0', '0.0', 'easeOutCubic', 
+                                              '0.0', '0.0', '0.0', '0.0', '0.0', '0.250', '255', '1.0', '1.0', 'IX',  'IY',   '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',
+                                               
+        '|','Unmagnify',                 '2', '0.5', '0.5', '0.0', '0.0', '0.0', '0.001', '0',   '1.0', '1.0', '0.0', '0.0',  '0.2', '0.0', '0.0', '0.0', 'easeOutCubic',
+                                              '0.5', '0.5', '0.0', '0.0', '0.0', '0.300', '255', '1.0', '1.0', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',  
+
+        '|','Zoom In',                   '2', '0.5', '0.5', '0.0', '0.0', '0.0', '0.001', '128', '1.0', '1.0', '0.0', '0.0',  '-0.4','0.0', '0.0', '0.0', 'easeOutCubic',
+                                              '0.5', '0.5', '0.0', '0.0', '0.0', '0.300', '255', '1.0', '1.0', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',  
+                                               
+        '|','None',                      '1', '0.0', '0.0', '0.0', '0.0', '0.0', '0.001', '255', '1.0', '1.0', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic'
+      ]</default>
+      <summary>Window Opening Effects</summary>
+      <description>List of default opening effects for windows</description>
+    </key>
+ 
+    <key name="normal-close" type="as">
+    <!-- |  S    Name                    C    PPX    PPY    CX     CY     CZ     T        OP     SX     SY     PX     PY      TZ     RX     RY     RZ     TRN -->
+      <default>[
+        '|','F', 'Scale Up',             '1', '0.0', '0.0', '0.0', '0.0', '0.0', '0.300', '0',   '1.0', '0.5', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeInCubic'
       ]</default>
       <summary>Normal Windows</summary>
       <description>Animation settings for Normal Windows closing</description>
     </key>
     
-    <key name="normal-minimize" type="as">
-    <!-- |   Status  Name                      Tweens  IO      IW     IH     IPX     IPY         T          PPx     PPY     NO      NW      NH     NPX     NPY -->
-      <default>[
-        '|', 'F',    'Slide Down',             '1',    '255',  '1',   '1',   '1',    '1',        '0.350',   '0',    '0',    '0',    '1',    '1',   '1',    '1.2'
-      ]</default>
-      <summary>Normal Windows</summary>
-      <description>Animation settings for Normal Windows minimizing</description>
-    </key>
-    
-    <key name="normal-unminimize" type="as">
-    <!-- |   Status  Name                      Tweens  IO      IW     IH     IPX     IPY         T          PPx     PPY     NO      NW      NH     NPX     NPY -->
-      <default>[
-        '|', 'F',    'Slide Up',               '1',    '0',    '1',   '1',   '1',    '1.2',      '0.350',   '0',    '0',    '255',  '1',    '1',   '1',    '0.8'
-      ]</default>
-      <summary>Normal Windows</summary>
-      <description>Animation settings for Normal Windows unminimizing</description>
-    </key>
-    
-    <key name="dialog-open" type="as">
-    <!-- |   Status  Name                      Tweens  IO      IW     IH     IPX     IPY         T          PPx     PPY     NO      NW      NH     NPX     NPY -->
-      <default>[
-         '|', 'F',    'Fold Out Sideways',     '1',    '255',  '0',   '1',   '1',    '1',        '0.250',   '0.5',  '0',    '255',  '1',    '1',   '1',    '1'
-      ]</default>
-      <summary>Dialog Windows</summary>
-      <description>Animation settings for Dialog Windows opening</description>
-    </key>
-    
     <key name="dialog-close" type="as">
-    <!-- |   Status  Name                      Tweens  IO      IW     IH     IPX     IPY         T          PPx     PPY     NO      NW      NH     NPX     NPY -->
+    <!-- |  S    Name                    C    PPX    PPY    CX     CY     CZ     T        OP     SX     SY     PX     PY      TZ     RX     RY     RZ     TRN -->
       <default>[
-        '|', 'F',    'Fold In Sideways',       '1',    '255',  '1',   '1',   '1',    '1',        '0.250',  '0.5',  '0',    '100',  '0',    '1',   '1',    '1' 
+        '|','F', 'Fold In Sideways',     '1', '0.5', '0.0', '0.0', '0.0', '0.0', '0.300', '255', '0.0', '1.0', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic'
       ]</default>
       <summary>Dialog Windows</summary>
       <description>Animation settings for Dialog Windows closing</description>
     </key>
     
-    <key name="dialog-minimize" type="as">
-    <!-- |   Status  Name                      Tweens  IO      IW     IH     IPX     IPY         T          PPx     PPY     NO      NW      NH     NPX     NPY -->
-      <default>[
-        '|', 'F',    'Slide Down',             '1',    '255',  '1',   '1',   '1',    '1',        '0.350',   '0',   '0',    '0',    '1',    '1',   '1',    '1.2'
-      ]</default>
-      <summary>Dialog Windows</summary>
-      <description>Animation settings for Dialog Windows minimizing</description>
-    </key>
-    
-    <key name="dialog-unminimize" type="as">
-    <!-- |   Status  Name                      Tweens  IO      IW     IH     IPX     IPY         T          PPx     PPY     NO      NW      NH     NPX     NPY -->
-      <default>[
-        '|', 'F',    'Slide Up',               '1',    '0',    '1',   '1',   '1',    '1.2',      '0.350',   '0',    '0',    '255',  '1',    '1',   '1',    '0.8'
-      ]</default>
-      <summary>Dialog Windows</summary>
-      <description>Animation settings for Dialog Windows unminimzing</description>
-    </key>
-    
-    <key name="modaldialog-open" type="as">
-    <!-- |   Status  Name                      Tweens  IO      IW     IH     IPX     IPY         T          PPx     PPY     NO      NW      NH     NPX     NPY -->
-      <default>[
-        '|', 'F',    'Fold Out Vertically',    '1',    '255',  '1',   '0',   '1',    '1',        '0.250',   '0',    '0.5',  '255',  '1',    '1',   '1',    '1'
-      ]</default>
-      <summary>Modal Dialog</summary>
-      <description>Animation settings for Modal Dialog Windows opening</description>
-    </key>
-    
     <key name="modaldialog-close" type="as">
-    <!-- |   Status  Name                      Tweens  IO      IW     IH     IPX     IPY         T          PPx     PPY     NO      NW      NH     NPX     NPY -->
+    <!-- |  S    Name                    C    PPX    PPY    CX     CY     CZ     T        OP     SX     SY     PX     PY      TZ     RX     RY     RZ     TRN -->
       <default>[
-        '|', 'F',    'Fold In Vertically',     '1',    '255',  '1',   '1',   '1',    '1',        '0.250',   '0',    '0.5',  '100',  '1',    '0',   '1',    '1'
+        '|','F', 'Slide Up',             '1', '0.0', '0.0', '0.0', '0.0', '0.0', '0.300', '0',   '1.0', '1.0', '0.0', '-0.2', '0.0', '0.0', '0.0', '0.0', 'easeInCubic'
       ]</default>
       <summary>Modal Dialog</summary>
       <description>Animation settings for Modal Dialog Windows closing</description>
     </key>
     
-    <key name="modaldialog-minimize" type="as">
-    <!-- |   Status  Name                      Tweens  IO      IW     IH     IPX     IPY         T          PPx     PPY     NO      NW      NH     NPX     NPY -->
+    <key name="window-close-effects-list" type="as">
+    <!-- |       Name                    C    PPX    PPY    CX     CY     CZ     T        OP     SX     SY     PX     PY      TZ     RX     RY     RZ     TRN -->
       <default>[
-        '|', 'F',    'Fold In Vertically',     '1',    '255',  '1',   '1',   '1',    '1',        '0.250',   '0',    '0.5',  '100',  '1',    '0',   '1',    '1'
+        '|','Fade Out',                  '1', '0.0', '0.0', '0.0', '0.0', '0.0', '0.300', '0',   '1.0', '1.0', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',
+
+        '|','Fold In Sideways',          '1', '0.5', '0.0', '0.0', '0.0', '0.0', '0.300', '255', '0.0', '1.0', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',
+
+        '|','Fold In Vertically',        '1', '0.0', '0.5', '0.0', '0.0', '0.0', '0.300', '255', '1.0', '0.0', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',
+        
+        '|','Magnify',                   '1', '0.5', '0.5', '0.0', '0.0', '0.0', '0.300', '0',   '1.0', '1.0', '0.0', '0.0',  '0.1', '0.0', '0.0', '0.0', 'easeOutCubic',
+
+        '|','Scale Down',                '1', '0.0', '1.0', '0.0', '0.0', '0.0', '0.300', '0',   '1.0', '0.5', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeInCubic',
+        
+        '|','Scale Left',                '1', '0.0', '0.0', '0.0', '0.0', '0.0', '0.300', '0',   '0.5', '1.0', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeInCubic',
+        
+        '|','Scale Right',               '1', '1.0', '0.0', '0.0', '0.0', '0.0', '0.300', '0',   '0.5', '1.0', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeInCubic',
+        
+        '|','Scale Up',                  '1', '0.0', '0.0', '0.0', '0.0', '0.0', '0.300', '0',   '1.0', '0.5', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeInCubic',
+
+        '|','Slide Down',                '1', '0.0', '0.0', '0.0', '0.0', '0.0', '0.300', '0',   '1.0', '1.0', '0.0', '0.2',  '0.0', '0.0', '0.0', '0.0', 'easeInCubic',
+
+        '|','Slide Left',                '1', '0.0', '0.0', '0.0', '0.0', '0.0', '0.300', '0',   '1.0', '1.0', '-0.1','0.0',  '0.0', '0.0', '0.0', '0.0', 'easeInCubic',
+
+        '|','Slide Right',               '1', '0.0', '0.0', '0.0', '0.0', '0.0', '0.300', '0',   '1.0', '1.0', '0.1', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeInCubic',
+
+        '|','Slide Up',                  '1', '0.0', '0.0', '0.0', '0.0', '0.0', '0.300', '0',   '1.0', '1.0', '0.0', '-0.2', '0.0', '0.0', '0.0', '0.0', 'easeInCubic',
+
+        '|','Squeezed Slide Down',       '2', '0.0', '0.0', '0.0', '0.0', '0.0', '0.300', '255', 'MW',  '0.8', 'MX',  'SY',   '0.0', '0.0', '0.0', '0.0', 'easeOutQuad',
+                                              '0.0', '0.0', '0.0', '0.0', '0.0', '0.200', '255', 'MW',  '0.8', 'MX',  'DY',   '0.0', '0.0', '0.0', '0.0', 'easeOutQuad', 
+                                               
+        '|','Squeezed Slide Left',       '2', '1.0', '0.0', '0.0', '0.0', '0.0', '0.300', '255', '0.8', 'MH',  'SX',  'MY',   '0.0', '0.0', '0.0', '0.0', 'easeOutQuad', 
+                                              '0.0', '0.0', '0.0', '0.0', '0.0', '0.200', '255', '0.8', 'MH',  'LX',  'MY',   '0.0', '0.0', '0.0', '0.0', 'easeOutQuad', 
+
+        '|','Squeezed Slide Right',      '2', '0.0', '0.0', '0.0', '0.0', '0.0', '0.300', '255', '0.8', 'MH',  'SX',  'MY',   '0.0', '0.0', '0.0', '0.0', 'easeOutQuad', 
+                                              '0.0', '0.0', '0.0', '0.0', '0.0', '0.200', '255', '0.8', 'MH',  'RX',  'MY',   '0.0', '0.0', '0.0', '0.0', 'easeOutQuad', 
+
+        '|','Squeezed Slide Up',         '2', '0.0', '1.0', '0.0', '0.0', '0.0', '0.300', '255', 'MW',  '0.8', 'MX',  'SY',   '0.0', '0.0', '0.0', '0.0', 'easeOutQuad', 
+                                              '0.0', '0.0', '0.0', '0.0', '0.0', '0.200', '255', 'MW',  '0.8', 'MX',  'UY',   '0.0', '0.0', '0.0', '0.0', 'easeOutQuad', 
+
+        '|','Zoom Out',                  '1', '0.5', '0.5', '0.0', '0.0', '0.0', '0.300', '0',   '0.0', '0.0', '0.0', '0.0',  '-0.1','0.0', '0.0', '0.0', 'easeOutCubic',
+                                               
+        '|','None',                      '1', '0.0', '0.0', '0.0', '0.0', '0.0', '0.001', '255', '1.0', '1.0', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic'
+      ]</default>
+      <summary>Window Closing Effects</summary>
+      <description>List of default closing effects for windows</description>
+    </key>
+    
+    <key name="normal-minimize" type="as">
+    <!-- |  S    Name                    C    PPX    PPY    CX     CY     CZ     T        OP     SX     SY     PX     PY      TZ     RX     RY     RZ     TRN -->
+      <default>[
+        '|','F', 'Slide Down',           '1', '0.0', '0.0', '0.0', '0.0', '0.0', '0.300', '0',   '1.0', '1.0', '0.0', '0.2',  '0.0', '0.0', '0.0', '0.0', 'easeInCubic'
+      ]</default>
+      <summary>Normal Windows</summary>
+      <description>Animation settings for Normal Windows minimizing</description>
+    </key>
+    
+    <key name="dialog-minimize" type="as">
+    <!-- |  S    Name                    C    PPX    PPY    CX     CY     CZ     T        OP     SX     SY     PX     PY      TZ     RX     RY     RZ     TRN -->
+      <default>[
+        '|','F', 'Slide Down',           '1', '0.0', '0.0', '0.0', '0.0', '0.0', '0.300', '0',   '1.0', '1.0', '0.0', '0.2',  '0.0', '0.0', '0.0', '0.0', 'easeInCubic'
+      ]</default>
+      <summary>Dialog Windows</summary>
+      <description>Animation settings for Dialog Windows minimizing</description>
+    </key>
+
+    <key name="modaldialog-minimize" type="as">
+    <!-- |  S    Name                    C    PPX    PPY    CX     CY     CZ     T        OP     SX     SY     PX     PY      TZ     RX     RY     RZ     TRN -->
+      <default>[
+        '|','F', 'Slide Down',           '1', '0.0', '0.0', '0.0', '0.0', '0.0', '0.300', '0',   '1.0', '1.0', '0.0', '0.2',  '0.0', '0.0', '0.0', '0.0', 'easeInCubic'
       ]</default>
       <summary>Modal Dialog</summary>
       <description>Only provided so that shell does not crash if for any reason Modal Dialog Windows is minimzing</description>
     </key>
 
-    <key name="modaldialog-unminimize" type="as">
-    <!-- |   Status  Name                      Tweens  IO      IW     IH     IPX     IPY         T          PPx     PPY     NO      NW      NH     NPX     NPY -->
+    <key name="window-minimize-effects-list" type="as">
+    <!-- |       Name                    C    PPX    PPY    CX     CY     CZ     T        OP     SX     SY     PX     PY      TZ     RX     RY     RZ     TRN -->
       <default>[
-        '|', 'F',    'Scale Down',             '1',    '200',  '1',   '0',   '1',    '1',        '0.250',   '0',    '0',    '255',  '1',    '1',   '1',    '1'  
+        '|','Fade Out',                  '1', '0.0', '0.0', '0.0', '0.0', '0.0', '0.300', '0',   '1.0', '1.0', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',
+
+        '|','Fold In Sideways',          '1', '0.5', '0.0', '0.0', '0.0', '0.0', '0.300', '255', '0.0', '1.0', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',
+
+        '|','Fold In Vertically',        '1', '0.0', '0.5', '0.0', '0.0', '0.0', '0.300', '255', '1.0', '0.0', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',
+        
+        '|','Magnify',                   '1', '0.5', '0.5', '0.0', '0.0', '0.0', '0.300', '0',   '1.0', '1.0', '0.0', '0.0',  '0.1', '0.0', '0.0', '0.0', 'easeOutCubic',
+
+        '|','Scale Down',                '1', '0.0', '1.0', '0.0', '0.0', '0.0', '0.300', '0',   '1.0', '0.5', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeInCubic',
+        
+        '|','Scale Left',                '1', '0.0', '0.0', '0.0', '0.0', '0.0', '0.300', '0',   '0.5', '1.0', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeInCubic',
+        
+        '|','Scale Right',               '1', '1.0', '0.0', '0.0', '0.0', '0.0', '0.300', '0',   '0.5', '1.0', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeInCubic',
+        
+        '|','Scale Up',                  '1', '0.0', '0.0', '0.0', '0.0', '0.0', '0.300', '0',   '1.0', '0.5', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeInCubic',
+
+        '|','Slide Down',                '1', '0.0', '0.0', '0.0', '0.0', '0.0', '0.300', '0',   '1.0', '1.0', '0.0', '0.2',  '0.0', '0.0', '0.0', '0.0', 'easeInCubic',
+
+        '|','Slide Left',                '1', '0.0', '0.0', '0.0', '0.0', '0.0', '0.300', '0',   '1.0', '1.0', '-0.1','0.0',  '0.0', '0.0', '0.0', '0.0', 'easeInCubic',
+
+        '|','Slide Right',               '1', '0.0', '0.0', '0.0', '0.0', '0.0', '0.300', '0',   '1.0', '1.0', '0.1', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeInCubic',
+
+        '|','Slide Up',                  '1', '0.0', '0.0', '0.0', '0.0', '0.0', '0.300', '0',   '1.0', '1.0', '0.0', '-0.2', '0.0', '0.0', '0.0', '0.0', 'easeInCubic',
+
+        '|','Squeezed Slide Down',       '2', '0.0', '0.0', '0.0', '0.0', '0.0', '0.300', '255', 'MW',  '0.8', 'MX',  'SY',   '0.0', '0.0', '0.0', '0.0', 'easeOutQuad',
+                                              '0.0', '0.0', '0.0', '0.0', '0.0', '0.200', '255', 'MW',  '0.8', 'MX',  'DY',   '0.0', '0.0', '0.0', '0.0', 'easeOutQuad', 
+                                               
+        '|','Squeezed Slide Left',       '2', '1.0', '0.0', '0.0', '0.0', '0.0', '0.300', '255', '0.8', 'MH',  'SX',  'MY',   '0.0', '0.0', '0.0', '0.0', 'easeOutQuad', 
+                                              '0.0', '0.0', '0.0', '0.0', '0.0', '0.200', '255', '0.8', 'MH',  'LX',  'MY',   '0.0', '0.0', '0.0', '0.0', 'easeOutQuad', 
+
+        '|','Squeezed Slide Right',      '2', '0.0', '0.0', '0.0', '0.0', '0.0', '0.300', '255', '0.8', 'MH',  'SX',  'MY',   '0.0', '0.0', '0.0', '0.0', 'easeOutQuad', 
+                                              '0.0', '0.0', '0.0', '0.0', '0.0', '0.200', '255', '0.8', 'MH',  'RX',  'MY',   '0.0', '0.0', '0.0', '0.0', 'easeOutQuad', 
+
+        '|','Squeezed Slide Up',         '2', '0.0', '1.0', '0.0', '0.0', '0.0', '0.300', '255', 'MW',  '0.8', 'MX',  'SY',   '0.0', '0.0', '0.0', '0.0', 'easeOutQuad', 
+                                              '0.0', '0.0', '0.0', '0.0', '0.0', '0.200', '255', 'MW',  '0.8', 'MX',  'UY',   '0.0', '0.0', '0.0', '0.0', 'easeOutQuad', 
+
+        '|','Zoom Out',                  '1', '0.5', '0.5', '0.0', '0.0', '0.0', '0.300', '0',   '0.0', '0.0', '0.0', '0.0',  '-0.1','0.0', '0.0', '0.0', 'easeOutCubic',
+                                               
+        '|','None',                      '1', '0.0', '0.0', '0.0', '0.0', '0.0', '0.001', '255', '1.0', '1.0', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic'
+      ]</default>
+      <summary>Window Minimizing Effects</summary>
+      <description>List of default minimizing effects for windows</description>
+    </key>
+
+    <key name="normal-unminimize" type="as">
+    <!-- |  S    Name                    C    PPX    PPY    CX     CY     CZ     T        OP     SX     SY     PX     PY      TZ     RX     RY     RZ     TRN -->
+      <default>[
+        '|','F', 'Slide Up',             '2', '0.0', '0.0', '0.0', '0.0', '0.0', '0.001', '0',   '1.0', '1.0', '0.0', '0.2',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',
+                                              '0.0', '0.0', '0.0', '0.0', '0.0', '0.300', '255', '1.0', '1.0', '0.0', '-0.2', '0.0', '0.0', '0.0', '0.0', 'easeOutCubic'  
+      ]</default>
+      <summary>Normal Windows</summary>
+      <description>Animation settings for Normal Windows unminimizing</description>
+    </key>
+
+    <key name="dialog-unminimize" type="as">
+    <!-- |  S    Name                    C    PPX    PPY    CX     CY     CZ     T        OP     SX     SY     PX     PY      TZ     RX     RY     RZ     TRN -->
+      <default>[
+        '|','F', 'Slide Up',             '2', '0.0', '0.0', '0.0', '0.0', '0.0', '0.001', '0',   '1.0', '1.0', '0.0', '0.2',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',
+                                              '0.0', '0.0', '0.0', '0.0', '0.0', '0.300', '255', '1.0', '1.0', '0.0', '-0.2', '0.0', '0.0', '0.0', '0.0', 'easeOutCubic'  
+      ]</default>
+      <summary>Dialog Windows</summary>
+      <description>Animation settings for Dialog Windows unminimzing</description>
+    </key>
+    
+    <key name="modaldialog-unminimize" type="as">
+    <!-- |  S    Name                    C    PPX    PPY    CX     CY     CZ     T        OP     SX     SY     PX     PY      TZ     RX     RY     RZ     TRN -->
+      <default>[
+        '|','F', 'Slide Up',             '2', '0.0', '0.0', '0.0', '0.0', '0.0', '0.001', '0',   '1.0', '1.0', '0.0', '0.2',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',
+                                              '0.0', '0.0', '0.0', '0.0', '0.0', '0.300', '255', '1.0', '1.0', '0.0', '-0.2', '0.0', '0.0', '0.0', '0.0', 'easeOutCubic' 
       ]</default>
       <summary>Modal Dialog</summary>
       <description>Only provided so that shell does not crash if for any reason Modal Dialog Windows is unminimzing</description>
     </key>
+    
+    <key name="window-unminimize-effects-list" type="as">
+    <!-- |       Name                    C    PPX    PPY    CX     CY     CZ     T        OP     SX     SY     PX     PY      TZ     RX     RY     RZ     TRN -->
+      <default>[
+        '|','Fade In',                   '2', '0.0', '0.0', '0.0', '0.0', '0.0', '0.001', '0',   '1.0', '1.0', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',
+                                              '0.0', '0.0', '0.0', '0.0', '0.0', '0.300', '255', '1.0', '1.0', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',  
+
+        '|','Fold Out Sideways',         '2', '0.5', '0.0', '0.0', '0.0', '0.0', '0.001', '255', '0.0', '1.0', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',
+                                              '0.5', '0.0', '0.0', '0.0', '0.0', '0.300', '255', '1.0', '1.0', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',  
+
+        '|','Fold Out Vertically',       '2', '0.0', '0.5', '0.0', '0.0', '0.0', '0.001', '255', '1.0', '0.0', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',
+                                              '0.0', '0.5', '0.0', '0.0', '0.0', '0.300', '255', '1.0', '1.0', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',  
+
+        '|','Scale Down',                '2', '0.0', '0.0', '0.0', '0.0', '0.0', '0.001', '0',   '1.0', '0.5', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',
+                                              '0.0', '0.0', '0.0', '0.0', '0.0', '0.300', '255', '1.0', '1.0', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',  
+
+        '|','Scale Left',                '2', '0.0', '0.0', '0.0', '0.0', '0.0', '0.001', '0',   '0.5', '1.0', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',
+                                              '1.0', '0.0', '0.0', '0.0', '0.0', '0.300', '255', '1.0', '1.0', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',  
+
+        '|','Scale Right',               '2', '0.0', '0.0', '0.0', '0.0', '0.0', '0.001', '0',   '0.5', '1.0', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',
+                                              '0.0', '0.0', '0.0', '0.0', '0.0', '0.300', '255', '1.0', '1.0', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',  
+
+        '|','Scale Up',                  '2', '0.0', '0.0', '0.0', '0.0', '0.0', '0.001', '0',   '1.0', '0.5', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',
+                                              '0.0', '1.0', '0.0', '0.0', '0.0', '0.300', '255', '1.0', '1.0', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',  
+
+        '|','Slide Down',                '2', '0.0', '0.0', '0.0', '0.0', '0.0', '0.001', '0',   '1.0', '1.0', '0.0', '-0.2', '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',
+                                              '0.0', '0.0', '0.0', '0.0', '0.0', '0.300', '255', '1.0', '1.0', '0.0', '0.2',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',  
+
+        '|','Slide Left',                '2', '0.0', '0.0', '0.0', '0.0', '0.0', '0.001', '0',   '1.0', '1.0', '-0.2','0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',
+                                              '0.0', '0.0', '0.0', '0.0', '0.0', '0.300', '255', '1.0', '1.0', '0.2', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',  
+
+        '|','Slide Right',               '2', '0.0', '0.0', '0.0', '0.0', '0.0', '0.001', '0',   '1.0', '1.0', '0.2', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',
+                                              '0.0', '0.0', '0.0', '0.0', '0.0', '0.300', '255', '1.0', '1.0', '-0.2','0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',  
+
+        '|','Slide Up',                  '2', '0.0', '0.0', '0.0', '0.0', '0.0', '0.001', '0',   '1.0', '1.0', '0.0', '0.2',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',
+                                              '0.0', '0.0', '0.0', '0.0', '0.0', '0.300', '255', '1.0', '1.0', '0.0', '-0.2', '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',  
+
+        '|','Squeezed Slide Down',       '3', '0.0', '0.0', '0.0', '0.0', '0.0', '0.001', '255', 'MW',  '0.8', 'MX',  'UY',   '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',
+                                              '0.0', '0.0', '0.0', '0.0', '0.0', '0.250', '255', 'MW',  '1.0', 'MX',  'IY',   '0.0', '0.0', '0.0', '0.0', 'easeOutCubic', 
+                                              '0.0', '0.0', '0.0', '0.0', '0.0', '0.250', '255', '1.0', '1.0', 'IX',  'IY',   '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',
+
+        '|','Squeezed Slide Left',       '3', '0.0', '0.0', '0.0', '0.0', '0.0', '0.001', '255', '0.8', 'MH',  'RX',  'MY',   '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',
+                                              '1.0', '0.0', '0.0', '0.0', '0.0', '0.250', '255', '1.0', 'MH',  'IX',  'MY',   '0.0', '0.0', '0.0', '0.0', 'easeOutCubic', 
+                                              '0.0', '0.0', '0.0', '0.0', '0.0', '0.250', '255', '1.0', '1.0', 'IX',  'IY',   '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',
+                                               
+        '|','Squeezed Slide Right',      '3', '0.0', '0.0', '0.0', '0.0', '0.0', '0.001', '255', '0.8', 'MH',  'LX',  'MY',   '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',
+                                              '0.0', '0.0', '0.0', '0.0', '0.0', '0.250', '255', '1.0', 'MH',  'IX',  'MY',   '0.0', '0.0', '0.0', '0.0', 'easeOutCubic', 
+                                              '0.0', '0.0', '0.0', '0.0', '0.0', '0.250', '255', '1.0', '1.0', 'IX',  'IY',   '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',
+
+        '|','Squeezed Slide Up',         '3', '0.0', '0.0', '0.0', '0.0', '0.0', '0.001', '255', 'MW',  '0.8', 'MX',  'DY',   '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',
+                                              '0.0', '1.0', '0.0', '0.0', '0.0', '0.250', '255', 'MW',  '1.0', 'MX',  'IY',   '0.0', '0.0', '0.0', '0.0', 'easeOutCubic', 
+                                              '0.0', '0.0', '0.0', '0.0', '0.0', '0.250', '255', '1.0', '1.0', 'IX',  'IY',   '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',
+                                               
+        '|','Unmagnify',                 '2', '0.5', '0.5', '0.0', '0.0', '0.0', '0.001', '0',   '1.0', '1.0', '0.0', '0.0',  '0.2', '0.0', '0.0', '0.0', 'easeOutCubic',
+                                              '0.5', '0.5', '0.0', '0.0', '0.0', '0.300', '255', '1.0', '1.0', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',  
+
+        '|','Zoom In',                   '2', '0.5', '0.5', '0.0', '0.0', '0.0', '0.001', '128', '1.0', '1.0', '0.0', '0.0',  '-0.4','0.0', '0.0', '0.0', 'easeOutCubic',
+                                              '0.5', '0.5', '0.0', '0.0', '0.0', '0.300', '255', '1.0', '1.0', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',  
+                                               
+        '|','None',                      '1', '0.0', '0.0', '0.0', '0.0', '0.0', '0.001', '255', '1.0', '1.0', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic'
+      ]</default>
+      <summary>Window Unminimizing Effects</summary>
+      <description>List of default unminimizing effects for windows</description>
+    </key>
 
     <key name="dropdownmenu-open" type="as">
-    <!-- |   Status  Name                      Tweens  IO      IW     IH     IPX     IPY         T          PPx     PPY     NO      NW      NH     NPX     NPY -->
+    <!-- |  S    Name                    C    PPX    PPY    CX     CY     CZ     T        OP     SX     SY     PX     PY      TZ     RX     RY     RZ     TRN -->
       <default>[
-        '|', 'T',    'Scale Down',             '1',    '200',  '1',   '0',   '1',    '1',        '0.250',   '0',    '0',    '255',  '1',    '1',   '1',    '1'
+        '|','T', 'Scale Down',           '2', '0.0', '0.0', '0.0', '0.0', '0.0', '0.001', '0',   '1.0', '0.5', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',
+                                              '0.0', '0.0', '0.0', '0.0', '0.0', '0.250', '255', '1.0', '1.0', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic'  
       ]</default>
       <summary>Dropdown Menu</summary>
       <description>Animation settings for Dropdown Menu opening</description>
     </key>
     
     <key name="popupmenu-open" type="as">
-    <!-- |   Status  Name                      Tweens  IO      IW     IH     IPX     IPY         T          PPx     PPY     NO      NW      NH     NPX     NPY -->
+    <!-- |  S    Name                    C    PPX    PPY    CX     CY     CZ     T        OP     SX     SY     PX     PY      TZ     RX     RY     RZ     TRN -->
       <default>[
-        '|', 'T',    'Scale Down',             '1',    '200',  '1',   '0',   '1',    '1',        '0.250',   '0',    '0',    '255',  '1',    '1',   '1',    '1'
+       '|','T',  'Scale Down',           '2', '0.0', '0.0', '0.0', '0.0', '0.0', '0.001', '0',   '1.0', '0.5', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',
+                                              '0.0', '0.0', '0.0', '0.0', '0.0', '0.250', '255', '1.0', '1.0', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic'  
       ]</default>
       <summary>Pop Up Menu</summary>
       <description>Animation settings for Pop Up Menu opening</description>
     </key>
     
     <key name="combo-open" type="as">
-    <!-- |   Status  Name                      Tweens  IO      IW     IH     IPX     IPY         T          PPx     PPY     NO      NW      NH     NPX     NPY -->
+    <!-- |  S    Name                    C    PPX    PPY    CX     CY     CZ     T        OP     SX     SY     PX     PY      TZ     RX     RY     RZ     TRN -->
       <default>[
-        '|', 'T',    'Scale Down',             '1',    '200',  '1',   '0',   '1',    '1',        '0.250',   '0',    '0',    '255',  '1',    '1',   '1',    '1'
+       '|','T', 'Scale Down',            '2', '0.0', '0.0', '0.0', '0.0', '0.0', '0.001', '0',   '1.0', '0.5', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',
+                                              '0.0', '0.0', '0.0', '0.0', '0.0', '0.250', '255', '1.0', '1.0', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic'  
       ]</default>
       <summary>Combo Box</summary>
       <description>Animation settings for Combo Box opening</description>
     </key>
     
     <key name="splashscreen-open" type="as">
-    <!-- |   Status  Name                      Tweens  IO      IW     IH     IPX     IPY         T          PPx     PPY     NO      NW      NH     NPX     NPY -->
+    <!-- |  S    Name                    C    PPX    PPY    CX     CY     CZ     T        OP     SX     SY     PX     PY      TZ     RX     RY     RZ     TRN -->
       <default>[
-        '|', 'T',    'Zoom In',                '1',    '100',  '0',   '0',   '1',    '1',        '0.250',   '0.5',  '0.5',  '255',  '1',    '1',   '1',    '1'
+        '|','T', 'Zoom In',              '2', '0.5', '0.5', '0.0', '0.0', '0.0', '0.001', '0',   '0.8', '0.8', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',
+                                              '0.5', '0.5', '0.0', '0.0', '0.0', '0.300', '255', '1.0', '1.0', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic' 
       ]</default>
       <summary>Splash Screen</summary>
       <description>Animation settings for Splash Screen opening</description>
     </key>
-    
+
     <key name="tooltip-open" type="as">
-    <!-- |   Status  Name                      Tweens  IO      IW     IH     IPX     IPY         T          PPx     PPY     NO      NW      NH     NPX     NPY -->
+    <!-- |  S    Name                    C    PPX    PPY    CX     CY     CZ     T        OP     SX     SY     PX     PY      TZ     RX     RY     RZ     TRN -->
       <default>[
-        '|', 'T',    'Slide Up',               '1',    '0',    '1',   '1',   '1',    '1.2',      '0.350',   '0',    '0',    '255',  '1',    '1',   '1',    '0.8'
+        '|','T', 'Slide Up',             '2', '0.0', '0.0', '0.0', '0.0', '0.0', '0.001', '0',   '1.0', '1.0', '0.0', '0.1',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',
+                                              '0.0', '0.0', '0.0', '0.0', '0.0', '0.300', '255', '1.0', '1.0', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic'  
       ]</default>
       <summary>Tooltips</summary>
       <description>Animation settings for Tooltips opening</description>
     </key>
     
     <key name="overrideother-open" type="as">
-    <!-- |   Status  Name                      Tweens  IO      IW     IH     IPX     IPY         T          PPx     PPY     NO      NW      NH     NPX     NPY -->
+    <!-- |  S    Name                    C    PPX    PPY    CX     CY     CZ     T        OP     SX     SY     PX     PY      TZ     RX     RY     RZ     TRN -->
       <default>[
-        '|', 'T',    'Slide Up',               '1',    '0',    '1',   '1',   '1',    '1.2',      '0.350',   '0',    '0',    '255',  '1',    '1',   '1',    '0.8'
+       '|','T', 'Scale Down',            '2', '0.0', '0.0', '0.0', '0.0', '0.0', '0.001', '0',   '1.0', '0.5', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',
+                                              '0.0', '0.0', '0.0', '0.0', '0.0', '0.250', '255', '1.0', '1.0', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic'  
       ]</default>
       <summary>Overrides Others</summary>
       <description>Animation settings for Overrides Others opening</description>
     </key>
     
-    <key name="notificationbanner-open" type="as">
-    <!-- |   Status  Name                      Tweens  IO      IW     IH     IPX     IPY         T          PPx     PPY     NO      NW      NH     NPX     NPY -->
-      <default>[
-        '|', 'F',    'Fade In',                '2',    '0',    '0',   '1',   '1',    '1',        '0.001',   '0',    '0',    '0',    '1',    '1',   '1',    '1',
-                                                                                                 '0.350',   '0',    '0',    '255',  '1',    '1',   '1',    '1'
-      ]</default>
-      <summary>Notification Banner</summary>
-      <description>Animation settings for Notification Banner opening</description>
-    </key>
-
-    <key name="notificationbanner-close" type="as">
-    <!-- |   Status  Name                      Tweens  IO      IW     IH     IPX     IPY         T          PPx     PPY     NO      NW      NH     NPX     NPY -->
-      <default>[
-        '|', 'F',    'Fade Out',               '2',    '0',    '0',   '1',   '1',    '1',        '0.001',   '0',    '0',    '255',  '1',    '1',   '1',    '1',
-                                                                                                 '0.350',   '0',    '0',    '0',    '1',    '1',   '1',    '1'
-      ]</default>
-      <summary>Notification Banner</summary>
-      <description>Animation settings for Notification Banner closing</description>
-    </key>
-    
-    <key name="padosd-open" type="as">
-    <!-- |   Status  Name                      Tweens  IO      IW     IH     IPX     IPY         T          PPx     PPY     NO      NW      NH     NPX     NPY -->
-      <default>[
-        '|', 'F',    'Fade In',                '1',    '0',    '1',   '1',   '1',    '1',        '0.350',   '0',    '0',    '255',  '1',    '1',   '1',    '1'
-      ]</default>
-      <summary>Pad OSD</summary>
-      <description>Animation settings for Pad OSD opening</description>
-    </key>
-
-    <key name="padosd-close" type="as">
-    <!-- |   Status  Name                      Tweens  IO      IW     IH     IPX     IPY         T          PPx     PPY     NO      NW      NH     NPX     NPY -->
-      <default>[
-        '|', 'F',    'Scale Up',               '1',    '200',  '1',   '1',   '1',    '1',        '0.250',   '0',    '1',    '0',    '1',    '0',   '1',    '1'
-      ]</default>
-      <summary>Pad OSD</summary>
-      <description>Animation settings for Pad OSD closing</description>
-    </key>
-    
     <key name="other-open-effects-list" type="as">
-    <!-- |   Name                              Tweens  IO      IW     IH     IPX     IPY         T          PPx     PPY     NO      NW      NH     NPX     NPY -->
+    <!-- |       Name                    C    PPX    PPY    CX     CY     CZ     T        OP     SX     SY     PX     PY      TZ     RX     RY     RZ     TRN -->
       <default>[
-        '|','Fade In',                         '1',    '0',    '1',   '1',   '1',    '1',        '0.350',   '0',    '0',    '255',  '1',    '1',   '1',    '1', 
-        '|','Fold Out Sideways',               '1',    '255',  '0',   '1',   '1',    '1',        '0.250',   '0.5',  '0',    '255',  '1',    '1',   '1',    '1', 
-        '|','Fold Out Vertically',             '1',    '255',  '1',   '0',   '1',    '1',        '0.250',   '0',    '0.5',  '255',  '1',    '1',   '1',    '1', 
-        '|','Scale Down',                      '1',    '200',  '1',   '0',   '1',    '1',        '0.250',   '0',    '0',    '255',  '1',    '1',   '1',    '1', 
-        '|','Scale Left',                      '1',    '200',  '0',   '1',   '1',    '1',        '0.250',   '1',    '0',    '255',  '1',    '1',   '1',    '1', 
-        '|','Scale Right',                     '1',    '200',  '0',   '1',   '1',    '1',        '0.250',   '0',    '0',    '255',  '1',    '1',   '1',    '1',
-        '|','Scale Up',                        '1',    '200',  '1',   '0',   '1',    '1',        '0.250',   '0',    '1',    '255',  '1',    '1',   '1',    '1', 
-        '|','Slide Down',                      '1',    '0',    '1',   '1',   '1',    '0.8',      '0.350',   '0',    '0',    '255',  '1',    '1',   '1',    '1.2',  
-        '|','Slide Left',                      '1',    '0',    '1',   '1',   '1.2',  '1',        '0.350',   '0',    '0',    '255',  '1',    '1',   '0.8',  '1',  
-        '|','Slide Right',                     '1',    '0',    '1',   '1',   '0.8',  '1',        '0.350',   '0',    '0',    '255',  '1',    '1',   '1.2',  '1',
-        '|','Slide Up',                        '1',    '0',    '1',   '1',   '1',    '1.2',      '0.350',   '0',    '0',    '255',  '1',    '1',   '1',    '0.8',
-        '|','Unmagnify',                       '1',    '100',  '1.5', '1.5', '1',    '1',        '0.250',   '0.5',  '0.5',  '255',  '1',    '1',   '1',    '1',
-        '|','Zoom In',                         '1',    '100',  '0',   '0',   '1',    '1',        '0.250',   '0.5',  '0.5',  '255',  '1',    '1',   '1',    '1',
-        '|','None',                            '1',    '255',  '1',   '1',   '1',    '1',        '0.001',   '0',    '0',    '255',  '1',    '1',   '1',    '1'
+        '|','Fade In',                   '2', '0.0', '0.0', '0.0', '0.0', '0.0', '0.001', '0',   '1.0', '1.0', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',
+                                              '0.0', '0.0', '0.0', '0.0', '0.0', '0.300', '255', '1.0', '1.0', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',  
+
+        '|','Fold Out Sideways',         '2', '0.5', '0.0', '0.0', '0.0', '0.0', '0.001', '255', '0.0', '1.0', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',
+                                              '0.5', '0.0', '0.0', '0.0', '0.0', '0.300', '255', '1.0', '1.0', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',  
+
+        '|','Fold Out Vertically',       '2', '0.0', '0.5', '0.0', '0.0', '0.0', '0.001', '255', '1.0', '0.0', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',
+                                              '0.0', '0.5', '0.0', '0.0', '0.0', '0.300', '255', '1.0', '1.0', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',  
+
+        '|','Scale Down',                '2', '0.0', '0.0', '0.0', '0.0', '0.0', '0.001', '0',   '1.0', '0.5', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',
+                                              '0.0', '0.0', '0.0', '0.0', '0.0', '0.250', '255', '1.0', '1.0', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',  
+
+        '|','Scale Left',                '2', '0.0', '0.0', '0.0', '0.0', '0.0', '0.001', '0',   '0.5', '1.0', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',
+                                              '1.0', '0.0', '0.0', '0.0', '0.0', '0.250', '255', '1.0', '1.0', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',  
+
+        '|','Scale Right',               '2', '0.0', '0.0', '0.0', '0.0', '0.0', '0.001', '0',   '0.5', '1.0', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',
+                                              '0.0', '0.0', '0.0', '0.0', '0.0', '0.250', '255', '1.0', '1.0', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',  
+
+        '|','Scale Up',                  '2', '0.0', '0.0', '0.0', '0.0', '0.0', '0.001', '0',   '1.0', '0.5', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',
+                                              '0.0', '1.0', '0.0', '0.0', '0.0', '0.250', '255', '1.0', '1.0', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',  
+
+        '|','Slide Down',                '2', '0.0', '0.0', '0.0', '0.0', '0.0', '0.001', '0',   '1.0', '1.0', '0.0', '-0.1', '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',
+                                              '0.0', '0.0', '0.0', '0.0', '0.0', '0.300', '255', '1.0', '1.0', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',  
+
+        '|','Slide Left',                '2', '0.0', '0.0', '0.0', '0.0', '0.0', '0.001', '0',   '1.0', '1.0', '-0.1','0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',
+                                              '0.0', '0.0', '0.0', '0.0', '0.0', '0.300', '255', '1.0', '1.0', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',  
+
+        '|','Slide Right',               '2', '0.0', '0.0', '0.0', '0.0', '0.0', '0.001', '0',   '1.0', '1.0', '0.1', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',
+                                              '0.0', '0.0', '0.0', '0.0', '0.0', '0.300', '255', '1.0', '1.0', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',  
+
+        '|','Slide Up',                  '2', '0.0', '0.0', '0.0', '0.0', '0.0', '0.001', '0',   '1.0', '1.0', '0.0', '0.1',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',
+                                              '0.0', '0.0', '0.0', '0.0', '0.0', '0.300', '255', '1.0', '1.0', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',  
+
+        '|','Unmagnify',                 '2', '0.5', '0.5', '0.0', '0.0', '0.0', '0.001', '0',   '1.2', '1.2', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',
+                                              '0.5', '0.5', '0.0', '0.0', '0.0', '0.300', '255', '1.0', '1.0', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',  
+
+        '|','Zoom In',                   '2', '0.5', '0.5', '0.0', '0.0', '0.0', '0.001', '0',   '0.8', '0.8', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',
+                                              '0.5', '0.5', '0.0', '0.0', '0.0', '0.300', '255', '1.0', '1.0', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',  
+                                               
+        '|','None',                      '1', '0.0', '0.0', '0.0', '0.0', '0.0', '0.001', '255', '1.0', '1.0', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic'
       ]</default>
       <summary>Other Opening Effects</summary>
       <description>List of default opening effects for other items</description>
     </key>
     
-    <key name="window-open-effects-list" type="as">
-    <!-- |   Name                              Tweens  IO      IW     IH     IPX     IPY         T          PPx     PPY     NO      NW      NH     NPX     NPY -->
+    <key name="notificationbanner-open" type="as">
+    <!-- |  S    Name                    C    PPX    PPY    CX     CY     CZ     T        OP     SX     SY     PX     PY      TZ     RX     RY     RZ     TRN -->
       <default>[
-        '|','Contracted Rise Left',            '3',    '255',  'MW',  'MH',  '1',    '1',        '0.001',   '0',    '0',    '0',    '0.8',  'MH',  'RX',   'MY', 
-                                                                                                 '0.300',   '0',    '0',    '255',  'MW',   'MH',  'IX',   'MY', 
-                                                                                                 '0.200',   '0',    '0',    '255',  '1',    '1',   'IX',   'IY',
-        '|','Contracted Rise Right',           '3',    '255',  'MW',  'MH',  '1',    '1',        '0.001',   '0',    '0',    '0',    '0.8',  'MH',  'LX',   'MY', 
-                                                                                                 '0.300',   '0',    '0',    '255',  'MW',   'MH',  'IX',   'MY', 
-                                                                                                 '0.200',   '0',    '0',    '255',  '1',    '1',   'IX',   'IY',
-        '|','Contracted Rise Down',            '3',    '255',  'MW',  'MH',  'MX',   'MY',       '0.001',   '0',    '0',    '0',    'MW',   '0.8', 'MX',   'UY', 
-                                                                                                 '0.300',   '0',    '0',    '255',  'MW',   'MH',  'MX',   'IY', 
-                                                                                                 '0.200',   '0',    '0',    '255',  '1',    '1',   'IX',   'IY',
-        '|','Contracted Rise Up',              '3',    '255',  'MW',  'MH',  'MX',   'MY',       '0.001',   '0',    '0',    '0',    'MW',   '0.8', 'MX',   'DY', 
-                                                                                                 '0.300',   '0',    '0',    '255',  'MW',   'MH',  'MX',   'IY', 
-                                                                                                 '0.200',   '0',    '0',    '255',  '1',    '1',   'IX',   'IY',
-        '|','Fade In',                         '1',    '0',    '1',   '1',   '1',    '1',        '0.350',   '0',    '0',    '255',  '1',    '1',   '1',    '1', 
-        '|','Fold Out Sideways',               '1',    '255',  '0',   '1',   '1',    '1',        '0.250',   '0.5',  '0',    '255',  '1',    '1',   '1',    '1', 
-        '|','Fold Out Vertically',             '1',    '255',  '1',   '0',   '1',    '1',        '0.250',   '0',    '0.5',  '255',  '1',    '1',   '1',    '1', 
-        '|','Scale Down',                      '1',    '200',  '1',   '0',   '1',    '1',        '0.250',   '0',    '0',    '255',  '1',    '1',   '1',    '1', 
-        '|','Scale Left',                      '1',    '200',  '0',   '1',   '1',    '1',        '0.250',   '1',    '0',    '255',  '1',    '1',   '1',    '1', 
-        '|','Scale Right',                     '1',    '200',  '0',   '1',   '1',    '1',        '0.250',   '0',    '0',    '255',  '1',    '1',   '1',    '1',
-        '|','Scale Up',                        '1',    '200',  '1',   '0',   '1',    '1',        '0.250',   '0',    '1',    '255',  '1',    '1',   '1',    '1', 
-        '|','Slide Down',                      '1',    '0',    '1',   '1',   '1',    '0.8',      '0.350',   '0',    '0',    '255',  '1',    '1',   '1',    '1.2',  
-        '|','Slide Left',                      '1',    '0',    '1',   '1',   '1.2',  '1',        '0.350',   '0',    '0',    '255',  '1',    '1',   '0.8',  '1',  
-        '|','Slide Right',                     '1',    '0',    '1',   '1',   '0.8',  '1',        '0.350',   '0',    '0',    '255',  '1',    '1',   '1.2',  '1',
-        '|','Slide Up',                        '1',    '0',    '1',   '1',   '1',    '1.2',      '0.350',   '0',    '0',    '255',  '1',    '1',   '1',    '0.8',
-        '|','Squeezed Slide Down',             '3',    '0',    'MW',  '0.8', '1',    '1',        '0.001',   '0',    '0',    '0',    'MW',   '0.8', 'MX',   'UY', 
-                                                                                                 '0.300',   '0',    '0',    '255',  'MW',   '0.8', 'MX',   'IY', 
-                                                                                                 '0.200',   '0',    '0',    '255',  '1',    '1',   'IX',   'IY',
-        '|','Squeezed Slide Left',             '3',    '0',    '0.8', 'MH',  '1',    '1',        '0.001',   '0',    '0',    '0',    '0.8',  'MH',  'RX',   'MY', 
-                                                                                                 '0.300',   '0',    '0',    '255',  '1',    'MH',  'IX',   'MY', 
-                                                                                                 '0.200',   '0',    '0',    '255',  '1',    '1',   'IX',   'IY',
-        '|','Squeezed Slide Right',            '3',    '0',    '0.8', 'MH',  '1',    '1',        '0.001',   '0',    '0',    '0',    '0.8',  'MH',  'LX',   'MY', 
-                                                                                                 '0.300',   '0',    '0',    '255',  '1',    'MH',  'IX',   'MY', 
-                                                                                                 '0.200',   '0',    '0',    '255',  '1',    '1',   'IX',   'IY',
-        '|','Squeezed Slide Up',               '3',    '0',    'MW',  '0.8', '1',    '1',        '0.001',   '0',    '0',    '0',    'MW',   '0.8', 'MX',   'DY', 
-                                                                                                 '0.300',   '0',    '0',    '255',  'MW',   '0.8', 'MX',   'IY', 
-                                                                                                 '0.200',   '0',    '0',    '255',  '1',    '1',   'IX',   'IY',
-        '|','Unmagnify',                       '1',    '100',  '1.5', '1.5', '1',    '1',        '0.250',   '0.5',  '0.5',  '255',  '1',    '1',   '1',    '1',
-        '|','Zoom In',                         '1',    '100',  '0',   '0',   '1',    '1',        '0.250',   '0.5',  '0.5',  '255',  '1',    '1',   '1',    '1',
-        '|','None',                            '1',    '255',  '1',   '1',   '1',    '1',        '0.001',   '0',    '0',    '255',  '1',    '1',   '1',    '1'
+        '|','F', 'Fade In',              '2', '0.0', '0.0', '0.0', '0.0', '0.0', '0.001', '0',   '1.0', '1.0', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',
+                                              '0.0', '0.0', '0.0', '0.0', '0.0', '0.300', '255', '1.0', '1.0', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic'  
       ]</default>
-      <summary>Window Opening Effects</summary>
-      <description>List of default opening effects for windows</description>
-    </key>
-    
-    <key name="window-close-effects-list" type="as">
-    <!-- |   Name                              Tweens  IO      IW     IH     IPX     IPY         T          PPx     PPY     NO      NW      NH     NPX     NPY -->
-      <default>[
-        '|','Contracted Drop Down',            '2',    '255',  '1',   '1',   'SX',   'SY',       '0.300',   '0',    '0',    '255',  'MW',   'MH',  'MX',   '1.2', 
-                                                                                                 '0.200',   '0',    '0',    '255',  'MW',   'MH',  'MX',   'DY',
-        '|','Contracted Drop Left',            '2',    '255',  '1',   '1',   'SX',   'SY',       '0.300',   '0',    '0',    '255',  'MW',   'MH',  '1.8',  'MY', 
-                                                                                                 '0.200',   '0',    '0',    '255',  'MW',   'MH',  'LX',   'MY',
-        '|','Contracted Drop Right',           '2',    '255',  '1',   '1',   'SX',   'SY',       '0.300',   '0',    '0',    '255',  'MW',   'MH',  '1.2',  'MY', 
-                                                                                                 '0.200',   '0',    '0',    '255',  'MW',   'MH',  'RX',   'MY',
-        '|','Contracted Drop Up',              '2',    '255',  '1',   '1',   'SX',   'SY',       '0.300',   '0',    '0',    '255',  'MW',   'MH',  'MX',   '1.8', 
-                                                                                                 '0.200',   '0',    '0',    '255',  'MW',   'MH',  'MX',   'UY',
-        '|','Fade Out',                        '1',    '255',  '1',   '1',   '1',    '1',        '0.350',   '0',    '0',    '0',    '0.99', '0.99','1',    '1', 
-        '|','Fold In Sideways',                '1',    '255',  '1',   '1',   '1',    '1',        '0.250',   '0.5',  '0',    '100',  '0',    '1',   '1',    '1', 
-        '|','Fold In Vertically',              '1',    '255',  '1',   '1',   '1',    '1',        '0.250',   '0',    '0.5',  '100',  '1',    '0',   '1',    '1', 
-        '|','Magnify',                         '1',    '255',  '1',   '1',   '1',    '1',        '0.250',   '0.5',  '0.5',  '0',    '1.2',  '1.2', '1',    '1',
-        '|','Scale Down',                      '1',    '200',  '1',   '1',   '1',    '1',        '0.250',   '0',    '1',    '0',    '1',    '0',   '1',    '1', 
-        '|','Scale Left',                      '1',    '200',  '1',   '1',   '1',    '1',        '0.250',   '0',    '0',    '0',    '0',    '1',   '1',    '1', 
-        '|','Scale Right',                     '1',    '200',  '1',   '1',   '1',    '1',        '0.250',   '1',    '0',    '0',    '0',    '1',   '1',    '1',
-        '|','Scale Up',                        '1',    '200',  '1',   '1',   '1',    '1',        '0.250',   '0',    '0',    '0',    '1',    '0',   '1',    '1', 
-        '|','Slide Down',                      '1',    '255',  '1',   '1',   '1',    '1',        '0.350',   '0',    '0',    '0',    '1',    '1',   '1',    '1.2',  
-        '|','Slide Left',                      '1',    '255',  '1',   '1',   '1',    '1',        '0.350',   '0',    '0',    '0',    '1',    '1',   '0.8',  '1',  
-        '|','Slide Right',                     '1',    '255',  '1',   '1',   '1',    '1',        '0.350',   '0',    '0',    '0',    '1',    '1',   '1.2',  '1',
-        '|','Slide Up',                        '1',    '255',  '1',   '1',   '1',    '1',        '0.350',   '0',    '0',    '0',    '1',    '1',   '1',    '0.8',
-        '|','Squeezed Slide Down',             '2',    '255',  '1',   '1',   'SX',   'SY',       '0.300',   '0',    '0',    '255',  'MW',   '0.8', 'MX',   '1', 
-                                                                                                 '0.200',   '0',    '0',    '255',  'MW',   '0.8', 'MX',   'DY',
-        '|','Squeezed Slide Left',             '2',    '255',  '1',   '1',   'SX',   'SY',       '0.300',   '0',    '0',    '255',  '0.8',  'MH',  '1',    'MY', 
-                                                                                                 '0.200',   '0',    '0',    '255',  '0.8',  'MH',  'LX',   'MY',
-        '|','Squeezed Slide Right',            '2',    '255',  '1',   '1',   'SX',   'SY',       '0.300',   '0',    '0',    '255',  '0.8',  'MH',  '1',    'MY', 
-                                                                                                 '0.200',   '0',    '0',    '255',  '0.8',  'MH',  'RX',   'MY',
-        '|','Squeezed Slide Up',               '2',    '255',  '1',   '1',   'SX',   'SY',       '0.300',   '0',    '0',    '255',  'MW',   '0.8', 'MX',   '1', 
-                                                                                                 '0.200',   '0',    '0',    '255',  'MW',   '0.8', 'MX',   'UY',
-        '|','Zoom Out',                        '1',    '255',  '1',   '1',   '1',    '1',        '0.250',   '0.5',  '0.5',  '0',    '0',    '0',   '1',    '1',
-        '|','None',                            '1',    '255',  '1',   '1',   '1',    '1',        '0.001',   '0',    '0',    '0',    '1',    '1',   '1',    '1'
-      ]</default>
-      <summary>Window Closing Effects</summary>
-      <description>List of default closing effects for windows</description>
-    </key>
-   
-    <key name="window-minimize-effects-list" type="as">
-    <!-- |   Name                              Tweens  IO      IW     IH     IPX     IPY         T          PPx     PPY     NO      NW      NH     NPX     NPY -->
-      <default>[
-        '|','Contracted Drop Down',            '2',    '255',  '1',   '1',   'SX',   'SY',       '0.300',   '0',    '0',    '255',  'MW',   'MH',  'MX',   '1.2', 
-                                                                                                 '0.200',   '0',    '0',    '255',  'MW',   'MH',  'MX',   'DY',
-        '|','Contracted Drop Left',            '2',    '255',  '1',   '1',   'SX',   'SY',       '0.300',   '0',    '0',    '255',  'MW',   'MH',  '1.8',  'MY', 
-                                                                                                 '0.200',   '0',    '0',    '255',  'MW',   'MH',  'LX',   'MY',
-        '|','Contracted Drop Right',           '2',    '255',  '1',   '1',   'SX',   'SY',       '0.300',   '0',    '0',    '255',  'MW',   'MH',  '1.2',  'MY', 
-                                                                                                 '0.200',   '0',    '0',    '255',  'MW',   'MH',  'RX',   'MY',
-        '|','Contracted Drop Up',              '2',    '255',  '1',   '1',   'SX',   'SY',       '0.300',   '0',    '0',    '255',  'MW',   'MH',  'MX',   '1.8', 
-                                                                                                 '0.200',   '0',    '0',    '255',  'MW',   'MH',  'MX',   'UY',
-        '|','Fade Out',                        '1',    '255',  '1',   '1',   '1',    '1',        '0.350',   '0',    '0',    '0',    '0.99', '0.99','1',    '1', 
-        '|','Fold In Sideways',                '1',    '255',  '1',   '1',   '1',    '1',        '0.250',   '0.5',  '0',    '100',  '0',    '1',   '1',    '1', 
-        '|','Fold In Vertically',              '1',    '255',  '1',   '1',   '1',    '1',        '0.250',   '0',    '0.5',  '100',  '1',    '0',   '1',    '1', 
-        '|','Magnify',                         '1',    '255',  '1',   '1',   '1',    '1',        '0.250',   '0.5',  '0.5',  '0',    '1.2',  '1.2', '1',    '1',
-        '|','Scale Down',                      '1',    '255',  '1',   '1',   '1',    '1',        '0.250',   '0',    '1',    '0',    '1',    '0',   '1',    '1', 
-        '|','Scale Left',                      '1',    '255',  '1',   '1',   '1',    '1',        '0.250',   '0',    '0',    '0',    '0',    '1',   '1',    '1', 
-        '|','Scale Right',                     '1',    '255',  '1',   '1',   '1',    '1',        '0.250',   '1',    '0',    '0',    '0',    '1',   '1',    '1',
-        '|','Scale Up',                        '1',    '255',  '1',   '1',   '1',    '1',        '0.250',   '0',    '0',    '0',    '1',    '0',   '1',    '1', 
-        '|','Slide Down',                      '1',    '255',  '1',   '1',   '1',    '1',        '0.350',   '0',    '0',    '0',    '1',    '1',   '1',    '1.2',  
-        '|','Slide Left',                      '1',    '255',  '1',   '1',   '1',    '1',        '0.350',   '0',    '0',    '0',    '1',    '1',   '0.8',  '1',  
-        '|','Slide Right',                     '1',    '255',  '1',   '1',   '1',    '1',        '0.350',   '0',    '0',    '0',    '1',    '1',   '1.2',  '1',
-        '|','Slide Up',                        '1',    '255',  '1',   '1',   '1',    '1',        '0.350',   '0',    '0',    '0',    '1',    '1',   '1',    '0.8',
-        '|','Squeezed Slide Down',             '2',    '255',  '1',   '1',   'SX',   'SY',       '0.300',   '0',    '0',    '255',  'MW',   '0.8', 'MX',   '1', 
-                                                                                                 '0.200',   '0',    '0',    '255',  'MW',   '0.8', 'MX',   'DY',
-        '|','Squeezed Slide Left',             '2',    '255',  '1',   '1',   'SX',   'SY',       '0.300',   '0',    '0',    '255',  '0.8',  'MH',  '1',    'MY', 
-                                                                                                 '0.200',   '0',    '0',    '255',  '0.8',  'MH',  'LX',   'MY',
-        '|','Squeezed Slide Right',            '2',    '255',  '1',   '1',   'SX',   'SY',       '0.300',   '0',    '0',    '255',  '0.8',  'MH',  '1',    'MY', 
-                                                                                                 '0.200',   '0',    '0',    '255',  '0.8',  'MH',  'RX',   'MY',
-        '|','Squeezed Slide Up',               '2',    '255',  '1',   '1',   'SX',   'SY',       '0.300',   '0',    '0',    '255',  'MW',   '0.8', 'MX',   '1', 
-                                                                                                 '0.200',   '0',    '0',    '255',  'MW',   '0.8', 'MX',   'UY',
-        '|','Zoom Out',                        '1',    '255',  '1',   '1',   '1',    '1',        '0.250',   '0.5',  '0.5',  '0',    '0',    '0',   '1',    '1',
-        '|','None',                            '1',    '255',  '1',   '1',   '1',    '1',        '0.001',   '0',    '0',    '0',    '1',    '1',   '1',    '1'
-      ]</default>
-      <summary>Window Minimizing Effects</summary>
-      <description>List of default minimizing effects for windows</description>
+      <summary>Notification Banner</summary>
+      <description>Animation settings for Notification Banner opening</description>
     </key>
 
-    <key name="window-unminimize-effects-list" type="as">
-    <!-- |   Name                              Tweens  IO      IW     IH     IPX     IPY         T          PPx     PPY     NO      NW      NH     NPX     NPY -->
-      <default>[
-        '|','Contracted Rise Left',            '3',    '255',  'MW',  'MH',  '1',    '1',        '0.001',   '0',    '0',    '0',    '0.8',  'MH',  'RX',   'MY', 
-                                                                                                 '0.300',   '0',    '0',    '255',  'MW',   'MH',  'IX',   'MY', 
-                                                                                                 '0.200',   '0',    '0',    '255',  '1',    '1',   'IX',   'IY',
-        '|','Contracted Rise Right',           '3',    '255',  'MW',  'MH',  '1',    '1',        '0.001',   '0',    '0',    '0',    '0.8',  'MH',  'LX',   'MY', 
-                                                                                                 '0.300',   '0',    '0',    '255',  'MW',   'MH',  'IX',   'MY', 
-                                                                                                 '0.200',   '0',    '0',    '255',  '1',    '1',   'IX',   'IY',
-        '|','Contracted Rise Down',            '3',    '255',  'MW',  'MH',  'MX',   'MY',       '0.001',   '0',    '0',    '0',    'MW',   '0.8', 'MX',   'UY', 
-                                                                                                 '0.300',   '0',    '0',    '255',  'MW',   'MH',  'MX',   'IY', 
-                                                                                                 '0.200',   '0',    '0',    '255',  '1',    '1',   'IX',   'IY',
-        '|','Contracted Rise Up',              '3',    '255',  'MW',  'MH',  'MX',   'MY',       '0.001',   '0',    '0',    '0',    'MW',   '0.8', 'MX',   'DY', 
-                                                                                                 '0.300',   '0',    '0',    '255',  'MW',   'MH',  'MX',   'IY', 
-                                                                                                 '0.200',   '0',    '0',    '255',  '1',    '1',   'IX',   'IY',
-        '|','Fade In',                         '1',    '0',    '1',   '1',   '1',    '1',        '0.350',   '0',    '0',    '255',  '1',    '1',   '1',    '1', 
-        '|','Fold Out Sideways',               '1',    '255',  '0',   '1',   '1',    '1',        '0.250',   '0.5',  '0',    '255',  '1',    '1',   '1',    '1', 
-        '|','Fold Out Vertically',             '1',    '255',  '1',   '0',   '1',    '1',        '0.250',   '0',    '0.5',  '255',  '1',    '1',   '1',    '1', 
-        '|','Scale Down',                      '1',    '200',  '1',   '0',   '1',    '1',        '0.250',   '0',    '0',    '255',  '1',    '1',   '1',    '1', 
-        '|','Scale Left',                      '1',    '200',  '0',   '1',   '1',    '1',        '0.250',   '1',    '0',    '255',  '1',    '1',   '1',    '1', 
-        '|','Scale Right',                     '1',    '200',  '0',   '1',   '1',    '1',        '0.250',   '0',    '0',    '255',  '1',    '1',   '1',    '1',
-        '|','Scale Up',                        '1',    '200',  '1',   '0',   '1',    '1',        '0.250',   '0',    '1',    '255',  '1',    '1',   '1',    '1', 
-        '|','Slide Down',                      '1',    '0',    '1',   '1',   '1',    '0.8',      '0.350',   '0',    '0',    '255',  '1',    '1',   '1',    '1.2',  
-        '|','Slide Left',                      '1',    '0',    '1',   '1',   '1.2',  '1',        '0.350',   '0',    '0',    '255',  '1',    '1',   '0.8',  '1',  
-        '|','Slide Right',                     '1',    '0',    '1',   '1',   '0.8',  '1',        '0.350',   '0',    '0',    '255',  '1',    '1',   '1.2',  '1',
-        '|','Slide Up',                        '1',    '0',    '1',   '1',   '1',    '1.2',      '0.350',   '0',    '0',    '255',  '1',    '1',   '1',    '0.8',
-        '|','Squeezed Slide Down',             '3',    '0',    'MW',  '0.8', '1',    '1',        '0.001',   '0',    '0',    '0',    'MW',   '0.8', 'MX',   'UY', 
-                                                                                                 '0.300',   '0',    '0',    '255',  'MW',   '0.8', 'MX',   'IY', 
-                                                                                                 '0.200',   '0',    '0',    '255',  '1',    '1',   'IX',   'IY',
-        '|','Squeezed Slide Left',             '3',    '0',    '0.8', 'MH',  '1',    '1',        '0.001',   '0',    '0',    '0',    '0.8',  'MH',  'RX',   'MY', 
-                                                                                                 '0.300',   '0',    '0',    '255',  '1',    'MH',  'IX',   'MY', 
-                                                                                                 '0.200',   '0',    '0',    '255',  '1',    '1',   'IX',   'IY',
-        '|','Squeezed Slide Right',            '3',    '0',    '0.8', 'MH',  '1',    '1',        '0.001',   '0',    '0',    '0',    '0.8',  'MH',  'LX',   'MY', 
-                                                                                                 '0.300',   '0',    '0',    '255',  '1',    'MH',  'IX',   'MY', 
-                                                                                                 '0.200',   '0',    '0',    '255',  '1',    '1',   'IX',   'IY',
-        '|','Squeezed Slide Up',               '3',    '0',    'MW',  '0.8', '1',    '1',        '0.001',   '0',    '0',    '0',    'MW',   '0.8', 'MX',   'DY', 
-                                                                                                 '0.300',   '0',    '0',    '255',  'MW',   '0.8', 'MX',   'IY', 
-                                                                                                 '0.200',   '0',    '0',    '255',  '1',    '1',   'IX',   'IY',
-        '|','Unmagnify',                       '1',    '100',  '1.5', '1.5', '1',    '1',        '0.250',   '0.5',  '0.5',  '255',  '1',    '1',   '1',    '1',
-        '|','Zoom In',                         '1',    '100',  '0',   '0',   '1',    '1',        '0.250',   '0.5',  '0.5',  '255',  '1',    '1',   '1',    '1',
-        '|','None',                            '1',    '255',  '1',   '1',   '1',    '1',        '0.001',   '0',    '0',    '255',  '1',    '1',   '1',    '1'
-      ]</default>
-      <summary>Window Unminimizing Effects</summary>
-      <description>List of default Unminimizing effects for windows</description>
-    </key>
-    
     <key name="notificationbanner-open-effects-list" type="as">
-    <!-- |   Name                              Tweens  IO      IW     IH     IPX     IPY         T          PPx     PPY     NO      NW      NH     NPX     NPY -->
+    <!-- |       Name                    C    PPX    PPY    CX     CY     CZ     T        OP     SX     SY     PX     PY      TZ     RX     RY     RZ     TRN -->
       <default>[
-        '|', 'Fade In',                        '2',    '0',    '0',   '1',   '1',    '1',        '0.001',   '0',    '0',    '0',    '1',    '1',   '1',    '1',
-                                                                                                 '0.350',   '0',    '0',    '255',  '1',    '1',   '1',    '1',
-        '|', 'Scale Down',                     '2',    '0',    '0',   '1',   '1',    '1',        '0.001',   '0',    '0',    '0',    '1',    '0',   '1',    '1',
-                                                                                                 '0.350',   '0',    '0',    '255',  '1',    '1',   '1',    '1',
-        '|', 'Scale Left',                     '2',    '0',    '0',   '1',   '1',    '1',        '0.001',   '0',    '0',    '0',    '0',    '1',   '1',    '1',
-                                                                                                 '0.350',   '1',    '0',    '255',  '1',    '1',   '1',    '1',
-        '|', 'Scale Right',                    '2',    '0',    '0',   '1',   '1',    '1',        '0.001',   '0',    '0',    '0',    '0',    '1',   '1',    '1',
-                                                                                                 '0.350',   '0',    '0',    '255',  '1',    '1',   '1',    '1',
-        '|', 'Scale Up',                       '2',    '0',    '0',   '1',   '1',    '1',        '0.001',   '0',    '0',    '0',    '1',    '0',   '1',    '1',
-                                                                                                 '0.350',   '0',    '1',    '255',  '1',    '1',   '1',    '1',
-        '|','None',                            '1',    '255',  '1',   '1',   '1',    '1',        '0.001',   '0',    '0',    '255',  '1',    '1',   '1',    '1'
+        '|','Fade In',                   '2', '0.0', '0.0', '0.0', '0.0', '0.0', '0.001', '0',   '1.0', '1.0', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',
+                                              '0.0', '0.0', '0.0', '0.0', '0.0', '0.300', '255', '1.0', '1.0', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',  
+
+        '|','Fold Out Sideways',         '2', '0.5', '0.0', '0.0', '0.0', '0.0', '0.001', '255', '0.0', '1.0', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',
+                                              '0.5', '0.0', '0.0', '0.0', '0.0', '0.300', '255', '1.0', '1.0', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',  
+
+        '|','Fold Out Vertically',       '2', '0.0', '0.5', '0.0', '0.0', '0.0', '0.001', '255', '1.0', '0.0', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',
+                                              '0.0', '0.5', '0.0', '0.0', '0.0', '0.300', '255', '1.0', '1.0', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',  
+
+        '|','Scale Down',                '2', '0.0', '0.0', '0.0', '0.0', '0.0', '0.001', '0',   '1.0', '0.5', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',
+                                              '0.0', '0.0', '0.0', '0.0', '0.0', '0.300', '255', '1.0', '1.0', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',  
+
+        '|','Scale Left',                '2', '0.0', '0.0', '0.0', '0.0', '0.0', '0.001', '0',   '0.5', '1.0', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',
+                                              '1.0', '0.0', '0.0', '0.0', '0.0', '0.300', '255', '1.0', '1.0', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',  
+
+        '|','Scale Right',               '2', '0.0', '0.0', '0.0', '0.0', '0.0', '0.001', '0',   '0.5', '1.0', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',
+                                              '0.0', '0.0', '0.0', '0.0', '0.0', '0.300', '255', '1.0', '1.0', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',  
+
+        '|','Scale Up',                  '2', '0.0', '0.0', '0.0', '0.0', '0.0', '0.001', '0',   '1.0', '0.5', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',
+                                              '0.0', '1.0', '0.0', '0.0', '0.0', '0.300', '255', '1.0', '1.0', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',  
+
+        '|','Slide Down',                '2', '0.0', '0.0', '0.0', '0.0', '0.0', '0.001', '0',   '1.0', '1.0', '0.0', '-0.1', '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',
+                                              '0.0', '0.0', '0.0', '0.0', '0.0', '0.300', '255', '1.0', '1.0', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',  
+
+        '|','Slide Left',                '2', '0.0', '0.0', '0.0', '0.0', '0.0', '0.001', '0',   '1.0', '1.0', '0.1', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',
+                                              '0.0', '0.0', '0.0', '0.0', '0.0', '0.300', '255', '1.0', '1.0', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',  
+                                              
+        '|','Slide Right',               '2', '0.0', '0.0', '0.0', '0.0', '0.0', '0.001', '0',   '1.0', '1.0', '-0.1','0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',
+                                              '0.0', '0.0', '0.0', '0.0', '0.0', '0.300', '255', '1.0', '1.0', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',  
+
+        '|','Slide Up',                  '2', '0.0', '0.0', '0.0', '0.0', '0.0', '0.001', '0',   '1.0', '1.0', '0.0', '0.1',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',
+                                              '0.0', '0.0', '0.0', '0.0', '0.0', '0.300', '255', '1.0', '1.0', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',  
+
+        '|','Unmagnify',                 '2', '0.5', '0.5', '0.0', '0.0', '0.0', '0.001', '0',   '1.2', '1.2', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',
+                                              '0.5', '0.5', '0.0', '0.0', '0.0', '0.300', '255', '1.0', '1.0', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',  
+
+        '|','Zoom In',                   '2', '0.5', '0.5', '0.0', '0.0', '0.0', '0.001', '0',   '0.8', '0.8', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',
+                                              '0.5', '0.5', '0.0', '0.0', '0.0', '0.300', '255', '1.0', '1.0', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',  
+                                               
+        '|','None',                      '1', '0.0', '0.0', '0.0', '0.0', '0.0', '0.001', '255', '1.0', '1.0', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic'
       ]</default>
       <summary>Notification Banner Opening Effects</summary>
       <description>List of default opening effects for notification banner</description>
     </key>
 
-    <key name="notificationbanner-close-effects-list" type="as">
-    <!-- |   Name                              Tweens  IO      IW     IH     IPX     IPY         T          PPx     PPY     NO      NW      NH     NPX     NPY -->
+    <key name="notificationbanner-close" type="as">
+    <!-- |  S    Name                    C    PPX    PPY    CX     CY     CZ     T        OP     SX     SY     PX     PY      TZ     RX     RY     RZ     TRN -->
       <default>[
-        '|', 'Fade Out',                       '2',    '0',    '0',   '1',   '1',    '1',        '0.001',   '0',    '0',    '255',  '1',    '1',   '1',    '1',
-                                                                                                 '0.350',   '0',    '0',    '0',    '1',    '1',   '1',    '1',
-        '|', 'Scale Down',                     '2',    '0',    '0',   '1',   '1',    '1',        '0.001',   '0',    '0',    '255',  '1',    '1',   '1',    '1',
-                                                                                                 '0.350',   '0',    '1',    '0',    '1',    '0',   '1',    '1',
-        '|', 'Scale Left',                     '2',    '0',    '0',   '1',   '1',    '1',        '0.001',   '0',    '0',    '255',  '1',    '1',   '1',    '1',
-                                                                                                 '0.350',   '0',    '0',    '0',    '0',    '1',   '1',    '1',
-        '|', 'Scale Right',                    '2',    '0',    '0',   '1',   '1',    '1',        '0.001',   '0',    '0',    '255',  '1',    '1',   '1',    '1',
-                                                                                                 '0.350',   '1',    '0',    '0',    '0',    '1',   '1',    '1',
-        '|', 'Scale Up',                       '2',    '0',    '0',   '1',   '1',    '1',        '0.001',   '0',    '0',    '255',  '1',    '1',   '1',    '1',
-                                                                                                 '0.350',   '0',    '0',    '0',    '1',    '0',   '1',    '1',
-        '|','None',                            '1',    '255',  '1',   '1',   '1',    '1',        '0.001',   '0',    '0',    '255',  '1',    '1',   '1',    '1'
+        '|','F', 'Fade Out',             '1', '0.0', '0.0', '0.0', '0.0', '0.0', '0.300', '0',   '1.0', '1.0', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic'
+      ]</default>
+      <summary>Notification Banner</summary>
+      <description>Animation settings for Notification Banner closing</description>
+    </key>
+    
+    <key name="notificationbanner-close-effects-list" type="as">
+    <!-- |       Name                    C    PPX    PPY    CX     CY     CZ     T        OP     SX     SY     PX     PY      TZ     RX     RY     RZ     TRN -->
+      <default>[
+        '|','Fade Out',                  '1', '0.0', '0.0', '0.0', '0.0', '0.0', '0.300', '0',   '1.0', '1.0', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',
+
+        '|','Fold In Sideways',          '1', '0.5', '0.0', '0.0', '0.0', '0.0', '0.300', '255', '0.0', '1.0', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',
+
+        '|','Fold In Vertically',        '1', '0.0', '0.5', '0.0', '0.0', '0.0', '0.300', '255', '1.0', '0.0', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',
+        
+        '|','Magnify',                   '1', '0.5', '0.5', '0.0', '0.0', '0.0', '0.300', '0',   '1.3', '1.3', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',
+
+        '|','Scale Down',                '1', '0.0', '1.0', '0.0', '0.0', '0.0', '0.300', '0',   '1.0', '0.5', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeInCubic',
+        
+        '|','Scale Left',                '1', '0.0', '0.0', '0.0', '0.0', '0.0', '0.300', '0',   '0.5', '1.0', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeInCubic',
+        
+        '|','Scale Right',               '1', '1.0', '0.0', '0.0', '0.0', '0.0', '0.300', '0',   '0.5', '1.0', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeInCubic',
+        
+        '|','Scale Up',                  '1', '0.0', '0.0', '0.0', '0.0', '0.0', '0.300', '0',   '1.0', '0.5', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeInCubic',
+
+        '|','Slide Down',                '1', '0.0', '0.0', '0.0', '0.0', '0.0', '0.300', '0',   '1.0', '1.0', '0.0', '0.1',  '0.0', '0.0', '0.0', '0.0', 'easeInCubic',
+
+        '|','Slide Left',                '1', '0.0', '0.0', '0.0', '0.0', '0.0', '0.300', '0',   '1.0', '1.0', '-0.1','0.0',  '0.0', '0.0', '0.0', '0.0', 'easeInCubic',
+
+        '|','Slide Right',               '1', '0.0', '0.0', '0.0', '0.0', '0.0', '0.300', '0',   '1.0', '1.0', '0.1', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeInCubic',
+
+        '|','Slide Up',                  '1', '0.0', '0.0', '0.0', '0.0', '0.0', '0.300', '0',   '1.0', '1.0', '0.0', '-0.1', '0.0', '0.0', '0.0', '0.0', 'easeInCubic',
+
+        '|','Zoom Out',                  '1', '0.5', '0.5', '0.0', '0.0', '0.0', '0.300', '0',   '0.0', '0.0', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',
+                                               
+        '|','None',                      '1', '0.0', '0.0', '0.0', '0.0', '0.0', '0.001', '255', '1.0', '1.0', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic'
       ]</default>
       <summary>Notification Banner Closing Effects</summary>
       <description>List of default closing effects for notification banner</description>
     </key>
+    
+    <key enum="org.gnome.shell.extensions.animation-tweaks.notificationbanner-pos" name="notificationbanner-pos">
+      <default>'auto'</default>
+      <summary>Notification Banner position</summary>
+      <description>Notification Banner position</description>
+    </key>
+
+    <key name="padosd-open" type="as">
+    <!-- |  S    Name                    C    PPX    PPY    CX     CY     CZ     T        OP     SX     SY     PX     PY      TZ     RX     RY     RZ     TRN -->
+      <default>[
+        '|','F', 'Slide Up',             '2', '0.0', '0.0', '0.0', '0.0', '0.0', '0.001', '0',   '1.0', '1.0', '0.0', '0.2',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',
+                                              '0.0', '0.0', '0.0', '0.0', '0.0', '0.300', '255', '1.0', '1.0', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic'  
+      ]</default>
+      <summary>Pad OSD</summary>
+      <description>Animation settings for Pad OSD opening</description>
+    </key>
 
     <key name="padosd-open-effects-list" type="as">
-    <!-- |   Name                              Tweens  IO      IW     IH     IPX     IPY         T          PPx     PPY     NO      NW      NH     NPX     NPY -->
+    <!-- |       Name                    C    PPX    PPY    CX     CY     CZ     T        OP     SX     SY     PX     PY      TZ     RX     RY     RZ     TRN -->
       <default>[
-        '|','Fade In',                         '1',    '0',    '1',   '1',   '1',    '1',        '0.350',   '0',    '0',    '255',  '1',    '1',   '1',    '1', 
-        '|','Fold Out Sideways',               '1',    '255',  '0',   '1',   '1',    '1',        '0.250',   '0.5',  '0',    '255',  '1',    '1',   '1',    '1', 
-        '|','Scale Left',                      '1',    '200',  '0',   '1',   '1',    '1',        '0.250',   '1',    '0',    '255',  '1',    '1',   '1',    '1', 
-        '|','Scale Right',                     '1',    '200',  '0',   '1',   '1',    '1',        '0.250',   '0',    '0',    '255',  '1',    '1',   '1',    '1',
-        '|','Scale Down',                      '1',    '200',  '1',   '0',   '1',    '1',        '0.250',   '0',    '1',    '255',  '1',    '1',   '1',    '1', 
-        '|','Unmagnify',                       '1',    '100',  '1.5', '1.5', '1',    '1',        '0.250',   '0.5',  '0.5',  '255',  '1',    '1',   '1',    '1',
-        '|','Zoom In',                         '1',    '100',  '0',   '0',   '1',    '1',        '0.250',   '0.5',  '0.5',  '255',  '1',    '1',   '1',    '1',
-        '|','None',                            '1',    '255',  '1',   '1',   '1',    '1',        '0.001'  , '0',    '0',    '255',  '1',    '1',   '1',    '1'
+        '|','Fade In',                   '2', '0.0', '0.0', '0.0', '0.0', '0.0', '0.001', '0',   '1.0', '1.0', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',
+                                              '0.0', '0.0', '0.0', '0.0', '0.0', '0.300', '255', '1.0', '1.0', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',  
+
+        '|','Fold Out Sideways',         '2', '0.5', '0.0', '0.0', '0.0', '0.0', '0.001', '255', '0.0', '1.0', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',
+                                              '0.5', '0.0', '0.0', '0.0', '0.0', '0.300', '255', '1.0', '1.0', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',  
+
+        '|','Fold Out Vertically',       '2', '0.0', '0.5', '0.0', '0.0', '0.0', '0.001', '255', '1.0', '0.0', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',
+                                              '0.0', '1.5', '0.0', '0.0', '0.0', '0.300', '255', '1.0', '1.0', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',  
+
+        '|','Scale Down',                '2', '0.0', '0.0', '0.0', '0.0', '0.0', '0.001', '0',   '1.0', '0.5', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',
+                                              '0.0', '1.0', '0.0', '0.0', '0.0', '0.300', '255', '1.0', '1.0', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',  
+
+        '|','Scale Left',                '2', '0.0', '0.0', '0.0', '0.0', '0.0', '0.001', '0',   '0.5', '1.0', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',
+                                              '1.0', '0.0', '0.0', '0.0', '0.0', '0.300', '255', '1.0', '1.0', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',  
+
+        '|','Scale Right',               '2', '0.0', '0.0', '0.0', '0.0', '0.0', '0.001', '0',   '0.5', '1.0', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',
+                                              '0.0', '0.0', '0.0', '0.0', '0.0', '0.300', '255', '1.0', '1.0', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',  
+
+        '|','Scale Up',                  '2', '0.0', '0.0', '0.0', '0.0', '0.0', '0.001', '0',   '1.0', '0.5', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',
+                                              '0.0', '2.5', '0.0', '0.0', '0.0', '0.300', '255', '1.0', '1.0', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',  
+
+        '|','Slide Down',                '2', '0.0', '0.0', '0.0', '0.0', '0.0', '0.001', '0',   '1.0', '1.0', '0.0', '-0.2', '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',
+                                              '0.0', '0.0', '0.0', '0.0', '0.0', '0.300', '255', '1.0', '1.0', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',  
+
+        '|','Slide Left',                '2', '0.0', '0.0', '0.0', '0.0', '0.0', '0.001', '0',   '1.0', '1.0', '0.2', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',
+                                              '0.0', '0.0', '0.0', '0.0', '0.0', '0.300', '255', '1.0', '1.0', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',  
+                                              
+        '|','Slide Right',               '2', '0.0', '0.0', '0.0', '0.0', '0.0', '0.001', '0',   '1.0', '1.0', '-0.2','0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',
+                                              '0.0', '0.0', '0.0', '0.0', '0.0', '0.300', '255', '1.0', '1.0', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',  
+
+        '|','Slide Up',                  '2', '0.0', '0.0', '0.0', '0.0', '0.0', '0.001', '0',   '1.0', '1.0', '0.0', '0.2',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',
+                                              '0.0', '0.0', '0.0', '0.0', '0.0', '0.300', '255', '1.0', '1.0', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',  
+
+        '|','Unmagnify',                 '2', '0.5', '0.5', '0.0', '0.0', '0.0', '0.001', '0',   '1.2', '1.2', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',
+                                              '0.5', '0.5', '0.0', '0.0', '0.0', '0.300', '255', '1.0', '1.0', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',  
+
+        '|','Zoom In',                   '2', '0.5', '0.5', '0.0', '0.0', '0.0', '0.001', '0',   '0.8', '0.8', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',
+                                              '0.5', '0.5', '0.0', '0.0', '0.0', '0.300', '255', '1.0', '1.0', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',  
+                                               
+        '|','None',                      '1', '0.0', '0.0', '0.0', '0.0', '0.0', '0.001', '255', '1.0', '1.0', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic'
       ]</default>
       <summary>Pad OSD Opening Effects</summary>
       <description>List of default opening effects for Pad OSD</description>
     </key>
+    
+    <key name="padosd-hide-timeout" type="i">
+      <default>1500</default>
+      <summary>Pad OSD hide timeout [ in ms ] </summary>
+      <description>Time for which Pad OSD is Shown</description>
+    </key>    
+    
+    <key name="padosd-close" type="as">
+    <!-- |  S    Name                    C    PPX    PPY    CX     CY     CZ     T        OP     SX     SY     PX     PY      TZ     RX     RY     RZ     TRN -->
+      <default>[
+        '|','F', 'Scale Up',             '1', '0.0', '1.0', '0.0', '0.0', '0.0', '0.300', '255', '1.0', '0.0', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0','easeOutCubic'
+      ]</default>
+      <summary>Pad OSD</summary>
+      <description>Animation settings for Pad OSD closing</description>
+    </key>
 
     <key name="padosd-close-effects-list" type="as">
-    <!-- |   Name                              Tweens  IO      IW     IH     IPX     IPY         T          PPx     PPY     NO      NW      NH     NPX     NPY -->
+    <!-- |       Name                    C    PPX    PPY    CX     CY     CZ     T        OP     SX     SY     PX     PY      TZ     RX     RY     RZ     TRN -->
       <default>[
-        '|','Fade Out',                        '1',    '255',  '1',   '1',   '1',    '1',        '0.350',   '0',    '0',    '0',    '0.99', '0.99','1',    '1', 
-        '|','Fold In Sideways',                '1',    '255',  '1',   '1',   '1',    '1',        '0.250',   '0.5',  '0',    '100',  '0',    '1',   '1',    '1', 
-        '|','Magnify',                         '1',    '255',  '1',   '1',   '1',    '1',        '0.250',   '0.5',  '0.5',  '0',    '1.2',  '1.2', '1',    '1',
-        '|','Scale Left',                      '1',    '200',  '1',   '1',   '1',    '1',        '0.250',   '0',    '0',    '0',    '0',    '1',   '1',    '1', 
-        '|','Scale Right',                     '1',    '200',  '1',   '1',   '1',    '1',        '0.250',   '1',    '0',    '0',    '0',    '1',   '1',    '1', 
-        '|','Scale Up',                        '1',    '200',  '1',   '1',   '1',    '1',        '0.250',   '0',    '1',    '0',    '1',    '0',   '1',    '1', 
-        '|','Zoom Out',                        '1',    '255',  '1',   '1',   '1',    '1',        '0.250',   '0.5',  '0.5',  '0',    '0',    '0',   '1',    '1',
-        '|','None',                            '1',    '255',  '1',   '1',   '1',    '1',        '0.001'  , '0',    '0',    '0',    '1',    '1',   '1',    '1'
+        '|','Fade Out',                  '1', '0.0', '0.0', '0.0', '0.0', '0.0', '0.300', '0',   '1.0', '1.0', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',
+
+        '|','Fold In Sideways',          '1', '0.5', '0.0', '0.0', '0.0', '0.0', '0.300', '255', '0.0', '1.0', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',
+
+        '|','Fold In Vertically',        '1', '0.0', '1.5', '0.0', '0.0', '0.0', '0.300', '255', '1.0', '0.0', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',
+        
+        '|','Magnify',                   '1', '0.5', '0.5', '0.0', '0.0', '0.0', '0.300', '0',   '1.3', '1.3', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',
+
+        '|','Scale Down',                '1', '0.0', '2.5', '0.0', '0.0', '0.0', '0.300', '0',   '1.0', '0.5', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeInCubic',
+        
+        '|','Scale Left',                '1', '0.0', '0.0', '0.0', '0.0', '0.0', '0.300', '0',   '0.5', '1.0', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeInCubic',
+        
+        '|','Scale Right',               '1', '1.0', '0.0', '0.0', '0.0', '0.0', '0.300', '0',   '0.5', '1.0', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeInCubic',
+        
+        '|','Scale Up',                  '1', '1.0', '0.0', '0.0', '0.0', '0.0', '0.300', '0',   '1.0', '0.5', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeInCubic',
+
+        '|','Slide Down',                '1', '0.0', '0.0', '0.0', '0.0', '0.0', '0.300', '0',   '1.0', '1.0', '0.0', '0.1',  '0.0', '0.0', '0.0', '0.0', 'easeInCubic',
+
+        '|','Slide Left',                '1', '0.0', '0.0', '0.0', '0.0', '0.0', '0.300', '0',   '1.0', '1.0', '-0.1','0.0',  '0.0', '0.0', '0.0', '0.0', 'easeInCubic',
+
+        '|','Slide Right',               '1', '0.0', '0.0', '0.0', '0.0', '0.0', '0.300', '0',   '1.0', '1.0', '0.1', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeInCubic',
+
+        '|','Slide Up',                  '1', '0.0', '0.0', '0.0', '0.0', '0.0', '0.300', '0',   '1.0', '1.0', '0.0', '-0.1', '0.0', '0.0', '0.0', '0.0', 'easeInCubic',
+
+        '|','Zoom Out',                  '1', '0.5', '1.0', '0.0', '0.0', '0.0', '0.300', '0',   '0.0', '0.0', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',
+                                               
+        '|','None',                      '1', '0.0', '0.0', '0.0', '0.0', '0.0', '0.001', '255', '1.0', '1.0', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic'
       ]</default>
       <summary>Pad OSD Closing Effects</summary>
       <description>List of default closing effects for Pad OSD</description>

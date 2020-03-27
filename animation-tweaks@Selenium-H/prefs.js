@@ -1,9 +1,9 @@
 /*
 
-Version 9.2
+Version 9.3
 ===========
 
-Effect String Format     [ |  Status   Name   Tweens  IO      IW     IH     IPX     IPY         T     PPx     PPY     NO      NW      NH     NPX     NPY  ... ]
+Effect String Format [ |  S    Name      C    PPX    PPY    CX     CY     CZ     T        OP     SX     SY     PX     PY      TZ     RX     RY     RZ     TRN  ]
 
 Read the effectParameters.txt File for details.
 
@@ -19,6 +19,8 @@ const Gtk = imports.gi.Gtk;
 const Lang = imports.lang;
 const Mainloop = imports.mainloop;
 const _ = Gettext.domain("animation-tweaks").gettext;
+
+const TWEEN_PARAMETERS_LENGTH = 16;
 
 let settings = null;
 
@@ -119,14 +121,18 @@ const AboutPage =  new GObject.Class({
     settings.reset("padosd-open");
     settings.reset("padosd-close");
     
-    settings.reset('opening-effect-windows');
-    settings.reset('opening-effect-others');
+    settings.reset('opening-effect');
     settings.reset('closing-effect');
     settings.reset("minimizing-effect");
     settings.reset("unminimizing-effect");
         
     settings.reset("use-application-profiles");
+    settings.reset("application-list");
+    settings.reset("name-list");
+    
     settings.reset('wayland');
+    settings.reset("padosd-hide-timeout");
+    settings.reset("notificationbanner-pos");
     
     reloadExtension();
     
@@ -146,6 +152,7 @@ const AnimationTweaksPrefs = new GObject.Class({
     this.closingPrefs = new PrefsWindowForClosing("close");
     this.mixMaxPrefs  = new PrefsWindowForMinMax("minimize");
     this.profilePrefs = new PrefsWindowForProfiles();
+    this.extrasPrefs  = new PrefsWindowForExtras();
     this.aboutPage    = new AboutPage();
 
     this.prefsWindowOpening   = new Gtk.ScrolledWindow({hexpand: true,shadow_type: Gtk.ShadowType.IN});
@@ -158,12 +165,14 @@ const AnimationTweaksPrefs = new GObject.Class({
     this.add_titled(this.closingPrefs,       "Close"   , _("Close"   ));
     this.add_titled(this.mixMaxPrefs,        "Minimize", _("Minimize"));
     this.add_titled(this.profilePrefs,       "Profiles", _("Profiles"));
+    this.add_titled(this.extrasPrefs,        "Extras"  , _("Extras"  ));
     this.add_titled(this.aboutPage,          "About"   , _("About"   ));  
 
     this.openingPrefs.displayPrefs();
     this.closingPrefs.displayPrefs();
     this.mixMaxPrefs.displayPrefs();
     this.profilePrefs.displayPrefs();
+    this.extrasPrefs.displayPrefs();
     this.aboutPage.showInfo();
 
   },
@@ -264,11 +273,11 @@ const EffectsList = new GObject.Class({
 
   getTotalTimeOf: function(eStr) {
 
-    let cIndex = (eStr[2] > 2)? 16:8;
+    let cIndex = 8;
     let totalTime = 0; 
 
-    for (cIndex;cIndex<eStr.length;cIndex=cIndex+8) {
-      totalTime = totalTime + parseFloat(eStr[cIndex]);
+    for (cIndex;cIndex<eStr.length;cIndex=cIndex+TWEEN_PARAMETERS_LENGTH) {
+      totalTime += (eStr[cIndex]>"0.010") ? parseFloat(eStr[cIndex]) : 0;
     }
   
     return totalTime*1000;
@@ -351,18 +360,13 @@ const EffectsList = new GObject.Class({
   
   setEffectTime: function(value,eStr) {
 
-    let cIndex = (eStr[2] > 2)? 16:8;
+    let cIndex = 8;
     let totalTime = this.getTotalTimeOf(eStr); 
 
-    if(totalTime == 0) {
-      for (let pIndex = cIndex;pIndex<eStr.length;pIndex=pIndex+8) {
-        eStr[pIndex]="0.001";
+    for (let pIndex = cIndex;pIndex <eStr.length;pIndex=pIndex+TWEEN_PARAMETERS_LENGTH) {
+      if(eStr[pIndex] > "0.010"){
+        eStr[pIndex] = (((parseFloat(eStr[pIndex])*value)/totalTime).toPrecision(3)>="0.050") ? ((parseFloat(eStr[pIndex])*value)/totalTime).toPrecision(3).toString() : "0.050";
       }
-      totalTime = parseInt(eStr[2]);
-    }
-
-    for (let pIndex = cIndex;pIndex <eStr.length;pIndex=pIndex+8) {
-      eStr[pIndex]= ((parseFloat(eStr[pIndex])*value)/totalTime).toPrecision(3).toString();
     }  
   
     return eStr;
@@ -387,36 +391,35 @@ const  EffectsTweaks =  new GObject.Class({
     this.appProfile = appProfile;
     this.eStr = (this.appIndex == -1)? this.appProfile.getEffectAt(0):this.appProfile.getEffectAt(this.appIndex);
     
-    this.gridWin.attach(new Gtk.Label({xalign:1,use_markup:true,label:"<big><b>"+_("Any  Changes  done  here  are  Applied  immediately")+"</b></big>",
-                                       halign: Gtk.Align.CENTER}),0,0,3,1);
-    this.gridWin.attach(new Gtk.Label({xalign:1,use_markup:true,label:_("Details of parameter values are described in")+"  <i>effectParameters.txt</i>  "+_("file  in  extension folder."),                             halign: Gtk.Align.CENTER }) ,0  ,1 ,3  ,1);
-    this.gridWin.attach(new Gtk.Label({xalign:1,use_markup:true,label:"<big><b><u>"+_("Initial Tween Parameters")+"</u></b></big>",
-                                       halign: Gtk.Align.CENTER }) ,0  ,2 ,3  ,1);
-    this.gridWin.attach(new Gtk.Label({xalign:1,use_markup:true,label:" ",halign: Gtk.Align.CENTER }) ,0  ,3 ,1  ,1);
-    this.tweakParameter        ( 3, _("Intial Opacity\t\t    [\t    0  -  255\t\t\t]"),                         4, 0, 255,       1                            );  
-    this.tweakParameterDim     ( 4, _("Initial Width\t\t    [\t    0  -  200\t%\t\t]"),                         5, 0, 200,     100, ["MW"]                    );
-    this.tweakParameterDim     ( 5, _("Initial Height\t\t    [\t    0  -  200\t%\t\t]"),                        6, 0, 200,     100, ["MH"]                    );
-    this.tweakParameterPosition( 6, _("Initial Position  X\t    [\t    100 ± % width from default X→    \t]"),  7, 0, 200,     100, ["MX","LX","RX","SX","IX"]);
-    this.tweakParameterPosition( 7, _("Initial Position  Y\t    [\t    100 ± % height from default Y↓    \t]"), 8, 0, 200,     100, ["MY","DY","UY","SY","IY"]);
+    this.gridWin.attach(new Gtk.Label({xalign:1,use_markup:true,label:"<big><b>"+_("Any  Changes  done  here  are  Applied  immediately")+"</b></big>",halign: Gtk.Align.CENTER}),0,0,3,1);
+    this.gridWin.attach(new Gtk.Label({xalign:1,use_markup:true,label:_("Details of parameter values are described in")+"  <i>effectParameters.txt</i>  "+_("file  in  extension folder."),halign: Gtk.Align.CENTER }) ,0  ,1 ,3  ,1);
 
-    let pos=8;
-    let i=7;
+    let pos=3;
+    let i=2;
 
-    while(i<8*this.eStr[2]) {
+    while(i<TWEEN_PARAMETERS_LENGTH*this.eStr[2]) {
 
       this.gridWin.attach(new Gtk.Label({xalign:1,use_markup:true,label:" ",halign: Gtk.Align.CENTER }) ,0  ,++pos ,1  ,1);
-      this.gridWin.attach(new Gtk.Label({xalign:1,use_markup:true,label:"<big><b><u>"+_("Next Tween Parameters")+"</u></b></big>",
-                                         halign: Gtk.Align.CENTER }) ,0  ,++pos ,3  ,1);
+      this.gridWin.attach(new Gtk.Label({xalign:1,use_markup:true,label:"<big><b><u>"+_("Tween Parameters - "+((i-2)/TWEEN_PARAMETERS_LENGTH+1))+"</u></b></big>", halign: Gtk.Align.CENTER }) ,0  ,++pos ,3  ,1);
       this.gridWin.attach(new Gtk.Label({xalign:1,use_markup:true,label:" ",halign: Gtk.Align.CENTER }) ,0  ,++pos ,1  ,1);
-     
-      this.tweakParameter        ( ++i, _("Time\t\t\t\t    [\t    in milliseconds\t]"),                        ++pos, 1, 10000,  1000                            );  
-      this.tweakParameter        ( ++i, _("Pivot Point   X\t\t    [\t    0  -  100\t%\t\t]"),                  ++pos, 0, 100,     100                            );
-      this.tweakParameter        ( ++i, _("Pivot Point   Y\t\t    [\t    0  -  100\t%\t\t]"),                  ++pos, 0, 100,     100                            );
-      this.tweakParameter        ( ++i, _("Ending Opacity\t    [\t    0  -  255\t\t\t]"),                      ++pos, 0, 255,       1                            );
-      this.tweakParameterDim     ( ++i, _("Ending Width\t\t    [\t    0  -  200\t%\t\t]"),                     ++pos, 0, 200,     100, ["MW"]                    );
-      this.tweakParameterDim     ( ++i, _("Ending Height\t\t    [\t    0  -  200\t%\t\t]"),                    ++pos, 0, 200,     100, ["MH"]                    );
-      this.tweakParameterPosition( ++i, _("Ending Position  X\t    [\t    100 ± % width from current X→\t]"),  ++pos, 0, 200,     100, ["MX","LX","RX","SX","IX"]);
-      this.tweakParameterPosition( ++i, _("Ending Position  Y\t    [\t    100 ± % height from current Y↓\t]"), ++pos, 0, 200,     100, ["MY","DY","UY","SY","IY"]);
+       
+      this.tweakParameter        ( ++i, _("Pivot Point X\t\t\t[\t-500  -  500\t%\t\t]"),                   ++pos, -500,  500,     100                            );
+      this.tweakParameter        ( ++i, _("Pivot Point Y\t\t\t[\t-500  -  500\t%\t\t]"),                   ++pos, -500,  500,     100                            );
+      this.tweakParameter        ( ++i, _("Rotation Center X\t\t[\t0  -  100\t%\t\t]"),                    ++pos, 0,     100,     100                            );
+      this.tweakParameter        ( ++i, _("Rotation Center Y\t\t[\t0  -  100\t%\t\t]"),                    ++pos, 0,     100,     100                            );
+      this.tweakParameter        ( ++i, _("Rotation Center Z\t\t[\t0  -  100\t%\t\t]"),                    ++pos, 0,     100,     100                            );
+      this.tweakParameter        ( ++i, _("Time\t\t\t\t\t[\tin milliseconds\t]"),                          ++pos, 1,     10000,   1000                           ); 
+      this.tweakParameter        ( ++i, _("Ending Opacity\t\t[\t0  -  255\t\t\t]"),                        ++pos, 0,     255,     1                              );
+      this.tweakParameterDim     ( ++i, _("Ending Width\t\t\t[\t0  -  200\t%\t\t]"),                       ++pos, 0,     200,     100, ["MW"]                    );
+      this.tweakParameterDim     ( ++i, _("Ending Height\t\t\t[\t0  -  200\t%\t\t]"),                      ++pos, 0,     200,     100, ["MH"]                    );
+      this.tweakParameterPosition( ++i, _("Movement along X\t[\t0 ± % Screen width from current X→\t]"),   ++pos, -100,  100,     100, ["MX","LX","RX","SX","IX"]);
+      this.tweakParameterPosition( ++i, _("Movement along Y\t[\t0 ± % Screen height from current Y↓\t]"),  ++pos, -100,  100,     100, ["MY","DY","UY","SY","IY"]);
+      this.tweakParameter        ( ++i, _("Movement along Z\t[\t0 ± % Screen height from current Z\t\t]"), ++pos, -100,  100,     100,                           );
+      this.tweakParameter        ( ++i, _("Rotation about X\t\t[\tin Degree\t%\t\t]"),                     ++pos, -3600, 3600,    1                              );
+      this.tweakParameter        ( ++i, _("Rotation about Y\t\t[\tin Degree\t%\t\t]"),                     ++pos, -3600, 3600,    1                              );
+      this.tweakParameter        ( ++i, _("Rotation about Z\t\t[\tin Degree\t%\t\t]"),                     ++pos, -3600, 3600,    1                              );
+      this.tweakTransitionType   ( ++i, _("Transition Type\t\t"),                                          ++pos                                                 );
+
     }
     
   },
@@ -470,7 +473,33 @@ const  EffectsTweaks =  new GObject.Class({
     this.gridWin.attach(effectParameter ,2    ,pos  ,1   ,1);
     
   },
-
+  
+  tweakTransitionType: function(pNo,INFO,pos) {
+  
+    let options=["easeInSine","easeInCubic","easeInQuint","easeInCirc","easeInElastic","easeInQuad","easeInQuart","easeInExpo","easeInBack","easeInBounce",
+                 "easeOutSine","easeOutCubic","easeOutQuint","easeOutCirc","easeOutElastic","easeOutQuad","easeOutQuart","easeOutExpo","easeOutBack","easeOutBounce",
+                 "easeInOutSine","easeInOutCubic","easeInOutQuint","easeInOutCirc","easeInOutElastic","easeInOutQuad","easeInOutQuart","easeInOutExpo",
+                 "easeInOutBack","easeInOutBounce"];
+                 
+    let SettingLabel   = new Gtk.Label({ xalign:  1, label: INFO,halign: Gtk.Align.START });  
+    let effectParameter = new Gtk.ComboBoxText();
+    for (let i = 0; i < options.length; i++) {
+      effectParameter.append(options[i],  options[i]);
+    }
+    effectParameter.set_active(options.indexOf(this.eStr[pNo]));
+    effectParameter.connect('changed', Lang.bind(this, function(widget) {
+      
+      this.eStr[pNo]=options[widget.get_active()];
+      this.appProfile.modifyEffectForWindowAction(this.appIndex,this.eStr);
+      reloadApplicationProfiles();
+            
+    }));
+    
+    this.gridWin.attach(SettingLabel    ,0    ,pos  ,1   ,1);
+    this.gridWin.attach(effectParameter ,2    ,pos  ,1   ,1);
+    
+  },
+  
   tweakParameterDim : function(pNo,INFO,pos,minPV,maxPV,multiplier,acceptableValues) {
 
     let SettingLabel   = new Gtk.Label({ xalign:  1, label: INFO,halign: Gtk.Align.START });  
@@ -555,9 +584,7 @@ const PrefsWindow = new GObject.Class({
     this.parent({ column_spacing: 20, halign: Gtk.Align.CENTER, margin: 20,margin_top:0, row_spacing: 20 ,border_width:20});
     this.addGrids();
     this.action = action;
-    
-    
-   
+     
   },
 
   addGrids: function() {
@@ -591,7 +618,7 @@ const PrefsWindow = new GObject.Class({
     
   },
   
-  prefsWA: function(KEY,posX,posY,sbox) {
+  prefsWA: function(KEY,posX,posY,sbox,space=1) {
   
     let SettingLabel0   = new Gtk.Label({ xalign:  1, label:_(settings.settings_schema.get_key(KEY).get_summary()),halign: Gtk.Align.START });
     let SettingSwitch0 = new Gtk.Switch({hexpand: false, active: settings.get_boolean(KEY), halign: Gtk.Align.START});
@@ -607,8 +634,8 @@ const PrefsWindow = new GObject.Class({
 
     let box = new Gtk.Box({ orientation: Gtk.Orientation.HORIZONTAL, margin: 0,hexpand:true});
     
-    sbox.attach(SettingLabel0   ,posX    ,posY  ,1   ,1);
-    sbox.attach(SettingSwitch0  ,posX+1  ,posY  ,1   ,1);
+    sbox.attach(SettingLabel0   ,posX        ,posY  ,1   ,1);
+    sbox.attach(SettingSwitch0  ,posX+space  ,posY  ,1   ,1);
     
   },  
 
@@ -683,21 +710,18 @@ const PrefsWindowForOpening = new GObject.Class({
     
     let pos=0;
     
-    this.prefsWA("opening-effect-windows", 0,  pos++,   this.switchBox0   ); 
+    this.prefsWA("opening-effect",         0,  pos++,   this.switchBox0); 
+    
     this.heading(pos++);
     new AnimationSettingsForItem("window","normal",      "open", this, pos++,this);
     new AnimationSettingsForItem("window","dialog",      "open", this, pos++,this);
     new AnimationSettingsForItem("window","modaldialog", "open", this, pos++,this);
-    this.prefsWA("opening-effect-others",  0,  pos,   this.switchBox1);          
-    this.insertSpace("",                   2,  pos,   this.switchBox1);
-    this.prefsWA("wayland",                7,  pos,   this.switchBox1);
-    pos=pos+7;
     new AnimationSettingsForItem("other",             "dropdownmenu",       "open", this, pos++,this);
     new AnimationSettingsForItem("other",             "popupmenu",          "open", this, pos++,this);    
     new AnimationSettingsForItem("other",             "combo",              "open", this, pos++,this);    
     new AnimationSettingsForItem("other",             "tooltip",            "open", this, pos++,this);    
     new AnimationSettingsForItem("other",             "splashscreen",       "open", this, pos++,this);    
-    new AnimationSettingsForItem("other",             "overrideother",      "open", this, pos++,this);    
+    new AnimationSettingsForItem("other",             "overrideother",      "open", this, pos++,this);   
     this.emptyLine(pos++);
     new AnimationSettingsForItem("notificationbanner","notificationbanner", "open", this, pos++,this); 
     new AnimationSettingsForItem("padosd",            "padosd",             "open", this, pos++,this);   
@@ -805,6 +829,8 @@ const PrefsWindowForProfiles = new GObject.Class({
     
     if(index >= 0 ) {
       this.AppLabel.label = "<big><b>"+settings.get_strv('name-list')[index]+" - "+_("Window Preferences")+"</b></big>";
+      let appInfo = this._store.get_value(iter, 0); 
+      this.AppIcon.gicon = appInfo.get_icon();
       index++;
     }
     
@@ -970,8 +996,13 @@ const PrefsWindowForProfiles = new GObject.Class({
     let pos = 0;
     
     this.AppLabel = new Gtk.Label({ xalign:  1, use_markup: true, halign: Gtk.Align.CENTER });
+    this.AppIcon = new Gtk.Image({ gicon:null, pixel_size: 96 });
+    this.iconImageBox  = new Gtk.Box();
+    this.iconImageBox.set_center_widget(this.AppIcon);
+    
     this.AppLabel.label = "<big><b>"+_("No Application Selected")+" - "+_("Window Preferences")+"</b></big>";
     this.emptyLine(pos++);
+    this.gridWin.attach(this.iconImageBox ,0,pos++,7,1); 
     this.gridWin.attach(this.AppLabel,0,pos++,7,1);    
     this.emptyLine(pos++);
     this.heading(pos++);
@@ -987,13 +1018,68 @@ const PrefsWindowForProfiles = new GObject.Class({
 
 });
 
+const PrefsWindowForExtras = new GObject.Class({
+
+  Name: 'PrefsWindowForExtras',
+  Extends: PrefsWindow,
+
+  _init: function() {  
+  
+    this.parent();
+    
+  },
+  
+  displayPrefs: function() {
+  
+    let pos=0;
+    
+    this.prefsWA("wayland",                   10,  pos++, this                            , 7                                        );
+    this.prefInt("padosd-hide-timeout",       10,  pos++, 7                                                                          );
+    this.prefCombo("notificationbanner-pos",  10,  pos++, ["auto","left","center","right"], ["Autodetect","Left","Center","Right"], 7);
+    
+  },
+  
+  prefInt: function(KEY,posX,posY,space) {
+
+    let settingLabel = new Gtk.Label({xalign: 1, label: _(settings.settings_schema.get_key(KEY).get_summary()), halign: Gtk.Align.START});  
+    let timeSetting = Gtk.SpinButton.new_with_range(250,10000 , 1);
+    timeSetting.set_value(settings.get_int(KEY));
+    timeSetting.connect('notify::value', function(spin) {
+      settings.set_int(KEY,spin.get_value_as_int());
+    });
+
+    this.attach(settingLabel   ,posX        ,posY  ,space   ,1);
+    this.attach(timeSetting    ,posX+space  ,posY  ,1   ,1);
+    
+  },
+
+  prefCombo: function(KEY, posX, posY, options, items,space) {
+  
+    let settingLabel = new Gtk.Label({xalign: 1, label: _(settings.settings_schema.get_key(KEY).get_summary()), halign: Gtk.Align.START});  
+    let SettingCombo = new Gtk.ComboBoxText();
+    for (let i = 0; i < options.length; i++) {
+      SettingCombo.append(options[i],  items[i]);
+    }
+    SettingCombo.set_active(options.indexOf(settings.get_string(KEY)));
+    SettingCombo.connect('changed', Lang.bind(this, function(widget) {
+      settings.set_string(KEY, options[widget.get_active()]);
+      reloadApplicationProfiles();
+    }));
+    
+
+    this.attach(settingLabel   ,posX        ,posY  ,space   ,1);
+    this.attach(SettingCombo   ,posX+space  ,posY  ,1   ,1);
+    
+  },
+
+});
+
 const AnimationSettingsForItem = new GObject.Class({
 
   Name: 'AnimationSettingsForItem',
 
   _init(itemType,windowType,action,grid,posY,topLevel) {
-  
-    
+   
     this.action          =  action;
     this.itemType        =  itemType;
     this.windowType      =  windowType;

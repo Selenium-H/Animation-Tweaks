@@ -6,7 +6,7 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: animation-tweaks-9.3\n"
+"Project-Id-Version: animation-tweaks-9.4\n"
 "POT-Creation-Date: 2016-06-10 19:03-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
@@ -20,160 +20,184 @@ msgstr ""
 msgid "Reset Animation Tweaks Extension"
 msgstr ""
 
-#: prefs.js:164
-msgid "Open"
-msgstr ""
-
-#: prefs.js:165
-msgid "Close"
-msgstr ""
-
-#: prefs.js:166
-msgid "Minimize"
-msgstr ""
-
-#: prefs.js:167
-msgid "Profiles"
-msgstr ""
-
-#: prefs.js:168
-msgid "Extras"
-msgstr ""
-
-#: prefs.js:169
-msgid "About"
-msgstr ""
-
-#: prefs.js:394
-msgid "Any  Changes  done  here  are  Applied  immediately"
-msgstr ""
-
-#: prefs.js:395
-msgid "Details of parameter values are described in"
-msgstr ""
-
-#: prefs.js:395
-msgid "file  in  extension folder."
-msgstr ""
-
-#: prefs.js:403
-msgid "Tween Parameters - "
-msgstr ""
-
-#: prefs.js:406
-msgid "Pivot Point X\t\t\t[\t-500  -  500\t%\t\t]"
-msgstr ""
-
-#: prefs.js:407
-msgid "Pivot Point Y\t\t\t[\t-500  -  500\t%\t\t]"
-msgstr ""
-
-#: prefs.js:408
-msgid "Rotation Center X\t\t[\t0  -  100\t%\t\t]"
-msgstr ""
-
-#: prefs.js:409
-msgid "Rotation Center Y\t\t[\t0  -  100\t%\t\t]"
-msgstr ""
-
-#: prefs.js:410
-msgid "Rotation Center Z\t\t[\t0  -  100\t%\t\t]"
-msgstr ""
-
-#: prefs.js:411
-msgid "Time\t\t\t\t\t[\tin milliseconds\t]"
-msgstr ""
-
-#: prefs.js:412
-msgid "Ending Opacity\t\t[\t0  -  255\t\t\t]"
-msgstr ""
-
-#: prefs.js:413
-msgid "Ending Width\t\t\t[\t0  -  200\t%\t\t]"
-msgstr ""
-
-#: prefs.js:414
-msgid "Ending Height\t\t\t[\t0  -  200\t%\t\t]"
-msgstr ""
-
-#: prefs.js:415
-msgid "Movement along X\t[\t0 ± % Screen width from current X→\t]"
-msgstr ""
-
-#: prefs.js:416
-msgid "Movement along Y\t[\t0 ± % Screen height from current Y↓\t]"
-msgstr ""
-
-#: prefs.js:417
-msgid "Movement along Z\t[\t0 ± % Screen height from current Z\t\t]"
-msgstr ""
-
-#: prefs.js:418
-msgid "Rotation about X\t\t[\tin Degree\t%\t\t]"
-msgstr ""
-
-#: prefs.js:419
-msgid "Rotation about Y\t\t[\tin Degree\t%\t\t]"
-msgstr ""
-
-#: prefs.js:420
-msgid "Rotation about Z\t\t[\tin Degree\t%\t\t]"
-msgstr ""
-
-#: prefs.js:421
-msgid "Transition Type\t\t"
-msgstr ""
-
-#: prefs.js:602
-msgid "Items"
-msgstr ""
-
-#: prefs.js:603 prefs.js:872
-msgid "Effect"
-msgstr ""
-
-#: prefs.js:604 prefs.js:873
-msgid "Time ( in ms )"
-msgstr ""
-
-#: prefs.js:605 prefs.js:874
-msgid "Status"
-msgstr ""
-
-#: prefs.js:746
-msgid "Choose an application"
-msgstr ""
-
-#: prefs.js:831 prefs.js:838 prefs.js:1003
-msgid "Window Preferences"
-msgstr ""
-
-#: prefs.js:838 prefs.js:1003
-msgid "No Application Selected"
-msgstr ""
-
-#: prefs.js:871
-msgid "Action"
-msgstr ""
-
-#: prefs.js:886
-msgid "Application List"
-msgstr ""
-
-#: prefs.js:899
-msgid "Add"
-msgstr ""
-
-#: prefs.js:902
-msgid "Remove"
-msgstr ""
-
-#: prefs.js:1133
+#: prefs.js:208
 msgid "Customize"
 msgstr ""
 
-#: prefs.js:1133
+#: prefs.js:208
 msgid "Animation"
+msgstr ""
+
+#: prefs.js:348
+msgid "Open"
+msgstr ""
+
+#: prefs.js:349
+msgid "Close"
+msgstr ""
+
+#: prefs.js:350
+msgid "More"
+msgstr ""
+
+#: prefs.js:351
+msgid "Profiles"
+msgstr ""
+
+#: prefs.js:352
+msgid "Tweaks"
+msgstr ""
+
+#: prefs.js:353
+msgid "About"
+msgstr ""
+
+#: prefs.js:573
+msgid "Any  Changes  done  here  are  Applied  immediately"
+msgstr ""
+
+#: prefs.js:574
+msgid "Details of parameter values are described in"
+msgstr ""
+
+#: prefs.js:574
+msgid "file  in  extension folder."
+msgstr ""
+
+#: prefs.js:586
+msgid "Tween Parameters - "
+msgstr ""
+
+#: prefs.js:589
+msgid "Pivot Point X\t\t\t[\t-500  -  500\t%\t\t]"
+msgstr ""
+
+#: prefs.js:590
+msgid "Pivot Point Y\t\t\t[\t-500  -  500\t%\t\t]"
+msgstr ""
+
+#: prefs.js:591
+msgid "Rotation Center X\t\t[\t0  -  100\t%\t\t]"
+msgstr ""
+
+#: prefs.js:592
+msgid "Rotation Center Y\t\t[\t0  -  100\t%\t\t]"
+msgstr ""
+
+#: prefs.js:593
+msgid "Rotation Center Z\t\t[\t0  -  100\t%\t\t]"
+msgstr ""
+
+#: prefs.js:594
+msgid "Time\t\t\t\t\t[\tin milliseconds\t]"
+msgstr ""
+
+#: prefs.js:595
+msgid "Ending Opacity\t\t[\t0  -  255\t\t\t]"
+msgstr ""
+
+#: prefs.js:596
+msgid "Ending Width\t\t\t[\t0  -  200\t%\t\t]"
+msgstr ""
+
+#: prefs.js:597
+msgid "Ending Height\t\t\t[\t0  -  200\t%\t\t]"
+msgstr ""
+
+#: prefs.js:598
+msgid "Movement along X\t[\t0 ± % Screen width from current X→\t]"
+msgstr ""
+
+#: prefs.js:599
+msgid "Movement along Y\t[\t0 ± % Screen height from current Y↓\t]"
+msgstr ""
+
+#: prefs.js:600
+msgid "Movement along Z\t[\t0 ± % Screen height from current Z\t]"
+msgstr ""
+
+#: prefs.js:601
+msgid "Rotation about X\t\t[\tin Degree\t%\t\t]"
+msgstr ""
+
+#: prefs.js:602
+msgid "Rotation about Y\t\t[\tin Degree\t%\t\t]"
+msgstr ""
+
+#: prefs.js:603
+msgid "Rotation about Z\t\t[\tin Degree\t%\t\t]"
+msgstr ""
+
+#: prefs.js:604
+msgid "Transition Type\t\t"
+msgstr ""
+
+#: prefs.js:785 prefs.js:899
+msgid "Items"
+msgstr ""
+
+#: prefs.js:786 prefs.js:1084
+msgid "Effect"
+msgstr ""
+
+#: prefs.js:787 prefs.js:1085
+msgid "Time ( in ms )"
+msgstr ""
+
+#: prefs.js:788 prefs.js:902 prefs.js:1086
+msgid "Status"
+msgstr ""
+
+#: prefs.js:900
+msgid "Starting Effect"
+msgstr ""
+
+#: prefs.js:901
+msgid "Ending Effect"
+msgstr ""
+
+#: prefs.js:954
+msgid "Choose an application"
+msgstr ""
+
+#: prefs.js:1041 prefs.js:1048 prefs.js:1219
+msgid "Window Preferences"
+msgstr ""
+
+#: prefs.js:1048 prefs.js:1219
+msgid "No Application Selected"
+msgstr ""
+
+#: prefs.js:1083
+msgid "Action"
+msgstr ""
+
+#: prefs.js:1098
+msgid "Application List"
+msgstr ""
+
+#: prefs.js:1111
+msgid "Add"
+msgstr ""
+
+#: prefs.js:1114
+msgid "Remove"
+msgstr ""
+
+#: prefs.js:1256
+msgid "Alt Key"
+msgstr ""
+
+#: prefs.js:1256
+msgid "Ctrl Key"
+msgstr ""
+
+#: prefs.js:1256
+msgid "Shift Key"
+msgstr ""
+
+#: prefs.js:1256
+msgid "Super Key"
 msgstr ""
 
 #: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:25
@@ -209,9 +233,11 @@ msgid "Unminimizing effect animation switch"
 msgstr ""
 
 #: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:53
-#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:146
-#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:220
-#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:295
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:192
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:302
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:413
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:558
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:594
 msgid "Normal Windows"
 msgstr ""
 
@@ -220,9 +246,11 @@ msgid "Animation settings for Normal Windows opening"
 msgstr ""
 
 #: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:63
-#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:155
-#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:229
-#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:305
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:201
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:311
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:423
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:567
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:603
 msgid "Dialog Windows"
 msgstr ""
 
@@ -231,9 +259,11 @@ msgid "Animation settings for Dialog Windows opening"
 msgstr ""
 
 #: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:73
-#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:164
-#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:238
-#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:315
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:210
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:320
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:433
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:576
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:612
 msgid "Modal Dialog"
 msgstr ""
 
@@ -241,233 +271,286 @@ msgstr ""
 msgid "Animation settings for Modal Dialog Windows opening"
 msgstr ""
 
-#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:137
-msgid "Window Opening Effects"
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:183
+msgid "Window Opening Effects List"
 msgstr ""
 
-#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:138
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:184
 msgid "List of default opening effects for windows"
 msgstr ""
 
-#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:147
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:193
 msgid "Animation settings for Normal Windows closing"
 msgstr ""
 
-#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:156
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:202
 msgid "Animation settings for Dialog Windows closing"
 msgstr ""
 
-#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:165
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:211
 msgid "Animation settings for Modal Dialog Windows closing"
 msgstr ""
 
-#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:211
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:293
 msgid "Window Closing Effects"
 msgstr ""
 
-#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:212
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:294
 msgid "List of default closing effects for windows"
 msgstr ""
 
-#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:221
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:303
 msgid "Animation settings for Normal Windows minimizing"
 msgstr ""
 
-#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:230
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:312
 msgid "Animation settings for Dialog Windows minimizing"
 msgstr ""
 
-#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:239
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:321
 msgid "Only provided so that shell does not crash if for any reason Modal Dialog Windows is minimzing"
 msgstr ""
 
-#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:285
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:403
 msgid "Window Minimizing Effects"
 msgstr ""
 
-#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:286
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:404
 msgid "List of default minimizing effects for windows"
 msgstr ""
 
-#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:296
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:414
 msgid "Animation settings for Normal Windows unminimizing"
 msgstr ""
 
-#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:306
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:424
 msgid "Animation settings for Dialog Windows unminimzing"
 msgstr ""
 
-#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:316
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:434
 msgid "Only provided so that shell does not crash if for any reason Modal Dialog Windows is unminimzing"
 msgstr ""
 
-#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:379
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:543
 msgid "Window Unminimizing Effects"
 msgstr ""
 
-#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:380
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:544
 msgid "List of default unminimizing effects for windows"
 msgstr ""
 
-#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:389
-msgid "Dropdown Menu"
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:549
+msgid "Dragging Effects [ for windows ]"
 msgstr ""
 
-#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:390
-msgid "Animation settings for Dropdown Menu opening"
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:550
+msgid "Starting to move effect animation switch"
 msgstr ""
 
-#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:399
-msgid "Pop Up Menu"
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:559
+msgid "Animation settings for Normal Windows start to move"
 msgstr ""
 
-#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:400
-msgid "Animation settings for Pop Up Menu opening"
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:568
+msgid "Animation settings for Dialog Windows start to move"
 msgstr ""
 
-#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:409
-msgid "Combo Box"
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:577
+msgid "Only provided so that shell does not crash if for any reason Modal Dialog Windows start to move"
 msgstr ""
 
-#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:410
-msgid "Animation settings for Combo Box opening"
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:585
+msgid "Window Start Moving Effects"
 msgstr ""
 
-#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:419
-msgid "Splash Screen"
-msgstr ""
-
-#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:420
-msgid "Animation settings for Splash Screen opening"
-msgstr ""
-
-#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:429
-msgid "Tooltips"
-msgstr ""
-
-#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:430
-msgid "Animation settings for Tooltips opening"
-msgstr ""
-
-#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:439
-msgid "Overrides Others"
-msgstr ""
-
-#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:440
-msgid "Animation settings for Overrides Others opening"
-msgstr ""
-
-#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:487
-msgid "Other Opening Effects"
-msgstr ""
-
-#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:488
-msgid "List of default opening effects for other items"
-msgstr ""
-
-#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:497
-#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:554
-msgid "Notification Banner"
-msgstr ""
-
-#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:498
-msgid "Animation settings for Notification Banner opening"
-msgstr ""
-
-#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:545
-msgid "Notification Banner Opening Effects"
-msgstr ""
-
-#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:546
-msgid "List of default opening effects for notification banner"
-msgstr ""
-
-#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:555
-msgid "Animation settings for Notification Banner closing"
-msgstr ""
-
-#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:589
-msgid "Notification Banner Closing Effects"
-msgstr ""
-
-#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:590
-msgid "List of default closing effects for notification banner"
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:586
+msgid "List of default start moving effects for windows"
 msgstr ""
 
 #: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:595
-#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:596
+msgid "Animation settings for Normal Windows stop moving"
+msgstr ""
+
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:604
+msgid "Animation settings for Dialog Windows stop moving"
+msgstr ""
+
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:613
+msgid "Only provided so that shell does not crash if for any reason Modal Dialog Windows stop moving"
+msgstr ""
+
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:621
+msgid "Window Stop Moving Effects"
+msgstr ""
+
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:622
+msgid "List of default stop moving effects for windows"
+msgstr ""
+
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:631
+msgid "Dropdown Menu"
+msgstr ""
+
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:632
+msgid "Animation settings for Dropdown Menu opening"
+msgstr ""
+
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:641
+msgid "Pop Up Menu"
+msgstr ""
+
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:642
+msgid "Animation settings for Pop Up Menu opening"
+msgstr ""
+
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:651
+msgid "Combo Box"
+msgstr ""
+
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:652
+msgid "Animation settings for Combo Box opening"
+msgstr ""
+
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:661
+msgid "Splash Screen"
+msgstr ""
+
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:662
+msgid "Animation settings for Splash Screen opening"
+msgstr ""
+
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:671
+msgid "Tooltips"
+msgstr ""
+
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:672
+msgid "Animation settings for Tooltips opening"
+msgstr ""
+
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:681
+msgid "Overrides Others"
+msgstr ""
+
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:682
+msgid "Animation settings for Overrides Others opening"
+msgstr ""
+
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:756
+msgid "Other Opening Effects List"
+msgstr ""
+
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:757
+msgid "List of default opening effects for other items"
+msgstr ""
+
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:766
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:823
+msgid "Notification Banner"
+msgstr ""
+
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:767
+msgid "Animation settings for Notification Banner opening"
+msgstr ""
+
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:814
+msgid "Notification Banner Opening Effects"
+msgstr ""
+
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:815
+msgid "List of default opening effects for notification banner"
+msgstr ""
+
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:824
+msgid "Animation settings for Notification Banner closing"
+msgstr ""
+
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:858
+msgid "Notification Banner Closing Effects"
+msgstr ""
+
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:859
+msgid "List of default closing effects for notification banner"
+msgstr ""
+
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:864
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:865
 msgid "Notification Banner position"
 msgstr ""
 
-#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:605
-#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:668
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:875
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:938
 msgid "Pad OSD"
 msgstr ""
 
-#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:606
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:876
 msgid "Animation settings for Pad OSD opening"
 msgstr ""
 
-#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:653
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:923
 msgid "Pad OSD Opening Effects"
 msgstr ""
 
-#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:654
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:924
 msgid "List of default opening effects for Pad OSD"
 msgstr ""
 
-#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:659
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:929
 msgid "Pad OSD hide timeout [ in ms ]"
 msgstr ""
 
-#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:660
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:930
 msgid "Time for which Pad OSD is Shown"
 msgstr ""
 
-#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:669
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:939
 msgid "Animation settings for Pad OSD closing"
 msgstr ""
 
-#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:703
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:973
 msgid "Pad OSD Closing Effects"
 msgstr ""
 
-#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:704
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:974
 msgid "List of default closing effects for Pad OSD"
 msgstr ""
 
-#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:709
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:979
 msgid "Application Profiles"
 msgstr ""
 
-#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:710
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:980
 msgid "Application profiles status switch"
 msgstr ""
 
-#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:716
-#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:717
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:986
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:987
 msgid "List of Applicaions for custom profiles"
 msgstr ""
 
-#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:723
-#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:724
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:993
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:994
 msgid "List of Applicaions names for custom profiles"
 msgstr ""
 
-#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:729
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:999
 msgid "Use the workaround for Wayland"
 msgstr ""
 
-#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:730
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:1000
 msgid "Settings If used under wayland"
 msgstr ""
 
-#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:735
-#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:736
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:1007
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:1008
+msgid "Shortcut key combiation to disable extension"
+msgstr ""
+
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:1013
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:1014
 msgid "Signals the extension to reload"
 msgstr ""
 
-#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:741
-#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:742
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:1019
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:1020
 msgid "Signals the extension to reload Application Profiles"
 msgstr ""

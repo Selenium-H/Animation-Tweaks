@@ -4,7 +4,7 @@
 
 # &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Animation Tweaks
 <p align="center">
-Version 9.3
+Version 9.4
 </p>
 
 <p align="center">
@@ -20,11 +20,11 @@ Some effects might not work properly on wayland, for which a workaround is provi
 </p>
 
 <p align="center">
-<img src = /Screenshots/Image_03.png >
+<img src = /Screenshots/Image_02.png >
 </p>
 
 <p align="center">
-<img src = /Screenshots/Image_02.png >
+<img src = /Screenshots/Image_03.png >
 </p>
 
 <p align="center">
@@ -41,6 +41,10 @@ Some effects might not work properly on wayland, for which a workaround is provi
 
 <p align="center">
 <img src = /Screenshots/Image_07.png >
+</p>
+
+<p align="center">
+<img src = /Screenshots/Image_08.png >
 </p>
 
 # &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Installations

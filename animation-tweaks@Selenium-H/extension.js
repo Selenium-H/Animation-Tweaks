@@ -1,6 +1,6 @@
 /*
 
-Version 9.4
+Version 9.5
 ===========
 
 Effect String Format [ |  S    Name      C    PPX    PPY    CX     CY     CZ     T        OP     SX     SY     PX     PY      TZ     RX     RY     RZ     TRN  ]
@@ -119,7 +119,7 @@ const EffectsManager = new Lang.Class({
 
   },
   
-  addWindowEffects : function (actor, action) {
+  addWindowEffects : function (actor, action, useApplicationProfilesForThisAction = false) {
     
     let eParams=[];
     let windowType = "Other";
@@ -131,17 +131,17 @@ const EffectsManager = new Lang.Class({
         
       case Meta.WindowType.NORMAL :
         windowType = "Window";
-        eParams = this["normalWindow"+action+"Profile"][this.useApplicationProfiles*(this.nameList.indexOf(Shell.WindowTracker.get_default().get_window_app(actor.meta_window).get_name())+1)].slice(0);
+        eParams = this["normalWindow"+action+"Profile"][(this.useApplicationProfiles && useApplicationProfilesForThisAction)*(this.nameList.indexOf(Shell.WindowTracker.get_default().get_window_app(actor.meta_window).get_name())+1)].slice(0);
         break;
         
       case Meta.WindowType.DIALOG :
         windowType = "Window";
-        eParams = this["dialogWindow"+action+"Profile"][this.useApplicationProfiles*(this.nameList.indexOf(Shell.WindowTracker.get_default().get_window_app(actor.meta_window).get_name())+1)].slice(0);
+        eParams = this["dialogWindow"+action+"Profile"][(this.useApplicationProfiles && useApplicationProfilesForThisAction)*(this.nameList.indexOf(Shell.WindowTracker.get_default().get_window_app(actor.meta_window).get_name())+1)].slice(0);
         break;
         
       case Meta.WindowType.MODAL_DIALOG:
         windowType = "Window";
-        eParams = this["modaldialogWindow"+action+"Profile"][this.useApplicationProfiles*(this.nameList.indexOf(Shell.WindowTracker.get_default().get_window_app(actor.meta_window).get_name())+1)].slice(0);
+        eParams = this["modaldialogWindow"+action+"Profile"][(this.useApplicationProfiles && useApplicationProfilesForThisAction)*(this.nameList.indexOf(Shell.WindowTracker.get_default().get_window_app(actor.meta_window).get_name())+1)].slice(0);
         break;
         
       case Meta.WindowType.DROPDOWN_MENU :
@@ -276,7 +276,6 @@ const EffectsManager = new Lang.Class({
     
       case "openpadosdOld":
       case "openpadosdNew":
-        actor.show();
         actor.set_opacity(255);
         actor.set_scale(1,1);
         return;
@@ -284,7 +283,8 @@ const EffectsManager = new Lang.Class({
       case "closepadosdOld":
       case "closepadosdNew":
         actor.hide(); 
-        itemObject._hide();
+        itemObject._reset();
+        Meta.enable_unredirect_for_display(global.display);           
         actor.set_opacity(255);
         actor.set_scale(1,1);
         return;
@@ -312,13 +312,13 @@ const EffectsManager = new Lang.Class({
         break;
 
       case "minimizewindowOld" :
-        actor.hide();
+        actor.hide(); 
         Main.wm._minimizing.push(actor);
         Main.wm._minimizeWindowDone(Main.wm._shellwm ,actor);
         return;
                
       case "minimizewindowNew" :
-        actor.hide();
+        actor.hide();      
         Main.wm._minimizing.add(actor);
         Main.wm._minimizeWindowDone(Main.wm._shellwm ,actor);
         return;
@@ -333,7 +333,7 @@ const EffectsManager = new Lang.Class({
 
     actor.set_scale(1,1);
     actor.set_opacity(255);
-    actor.set_pivot_point(0,0);
+    actor.set_pivot_point(0,0); 
     actor.rotation_angle_x = 0;
     actor.rotation_angle_y = 0;
     actor.rotation_angle_z = 0;
@@ -385,7 +385,7 @@ const EffectsManager = new Lang.Class({
         params.scale_y          = eParams[startIndex++];    
         params.translation_x    = eParams[startIndex++]*xRes;
         params.translation_y    = eParams[startIndex++]*yRes; 
-        params.translation_z    = eParams[startIndex++]*actor.height;
+        params.translation_z    = eParams[startIndex++]*yRes;
         params.rotation_angle_x = eParams[startIndex++];
         params.rotation_angle_y = eParams[startIndex++];           
         params.rotation_angle_z = eParams[startIndex++];
@@ -416,15 +416,12 @@ const EffectsManager = new Lang.Class({
     }
   
   },
-  
-  driveOSDAnimation: function(monitorIndex, icon, label, level, maxLevel, action="open",osdWindow=null) {
-       
-    osdWindow = (osdWindow==null) ? Main.osdWindowManager._osdWindows[monitorIndex]: osdWindow;
+    
+  driveOSDAnimation: function(monitorIndex, icon, label, level, maxLevel, action="open", osdWindow=null) {
         
-    let eParams = effectsManager["padosdWindow"+action+"Profile"];
+    osdWindow = (osdWindow==null) ? Main.osdWindowManager._osdWindows[monitorIndex]: osdWindow;
     let osdWindowActor = (Config.PACKAGE_VERSION < "3.36") ? osdWindow.actor:osdWindow; 
-    let xRes = Main.layoutManager.monitors[monitorIndex].width;
-    let yRes = Main.layoutManager.monitors[monitorIndex].height;
+    let eParams = effectsManager["padosdWindow"+action+"Profile"];
    
     switch (action) {
     
@@ -437,7 +434,7 @@ const EffectsManager = new Lang.Class({
         if (!osdWindow._icon.gicon){
           return;
         }
-        
+                
         if(!osdWindowActor.visible) {
     
           Meta.disable_unredirect_for_display(global.display);
@@ -445,8 +442,8 @@ const EffectsManager = new Lang.Class({
           osdWindowActor.opacity = 0;
           osdWindowActor.get_parent().set_child_above_sibling(osdWindowActor, null);
       
-          if(eParams[0]=="T"){
-            effectsManager.driveOtherAnimation(osdWindowActor, eParams, 0, action,"padosd",osdWindow,xRes,yRes);
+          if(eParams[0]=="T"){         
+            effectsManager.driveOtherAnimation(osdWindowActor, eParams, 0, action, "padosd", osdWindow, Main.layoutManager.monitors[monitorIndex].width, Main.layoutManager.monitors[monitorIndex].height);
           }
           else {
             Tweener.addTween(osdWindowActor,{ 
@@ -458,28 +455,33 @@ const EffectsManager = new Lang.Class({
        
         }
         
-        if(Main.osdWindowManager._hideTimeoutId) {
-          GLib.source_remove(Main.osdWindowManager._hideTimeoutId);
-        }
-
-        Main.osdWindowManager._hideTimeoutId = GLib.timeout_add(GLib.PRIORITY_DEFAULT,effectsManager.prefs.get_int("padosd-hide-timeout"),()=> effectsManager.driveOSDAnimation(monitorIndex, icon, label, level, maxLevel, "close",osdWindow));
-        GLib.Source.set_name_by_id( Main.osdWindowManager._hideTimeoutId, '[gnome-shell] this._hide');  
-
+        if(osdWindowActor._hideTimeoutId) {
+          GLib.source_remove(osdWindowActor._hideTimeoutId);
+        } 
+        osdWindowActor._hideTimeoutId = GLib.timeout_add(GLib.PRIORITY_DEFAULT,effectsManager.prefs.get_int("padosd-hide-timeout"),()=>effectsManager.driveOSDAnimation(monitorIndex, icon, label, level, maxLevel, "close",osdWindow));        
+        GLib.Source.set_name_by_id( osdWindowActor._hideTimeoutId, '[gnome-shell] this._hide');  
+        
         return;
     
       case "close" :         
-          
-        if(eParams[0]=="F") {
-          osdWindow._hide();
-          return;
+        GLib.source_remove(osdWindowActor._hideTimeoutId);
+        osdWindowActor._hideTimeoutId = 0;
+        
+        if(eParams[0]=="T") {
+          effectsManager.driveOtherAnimation(osdWindowActor, eParams, 0, action, "padosd", osdWindow, Main.layoutManager.monitors[monitorIndex].width, Main.layoutManager.monitors[monitorIndex].height);
+        }
+        else {
+          Tweener.addTween(osdWindowActor,{ 
+            opacity: 0,
+            duration: 0.250,
+            transition: 'easeOutQuad', 
+            onComplete: effectsManager.animationDone,
+            onCompleteParams: [osdWindowActor, "close", "padosd", osdWindow]
+          });
         }
         
-        osdWindowActor.show();
-        osdWindowActor.opacity = 255;
-        osdWindowActor.set_scale(1,1);
-
-        effectsManager.driveOtherAnimation(osdWindowActor, eParams, 0, action, "padosd", osdWindow,xRes,yRes);
-        return;
+        return GLib.SOURCE_REMOVE;
+        
     }
     
   },
@@ -647,7 +649,7 @@ const EffectsManager = new Lang.Class({
     return --endIndex;
 
   },
-  
+
   loadPreferences : function() {
 
     this.openingEffectEnabled       = this.prefs.get_boolean("opening-effect");
@@ -751,23 +753,17 @@ const EffectsManager = new Lang.Class({
         this.normalWindowopenProfile[i+1]       = this.getEffectFor(this.nameList[i],normalWindowopenProfileRaw);
         this.normalWindowcloseProfile[i+1]      = this.getEffectFor(this.nameList[i],normalWindowcloseProfileRaw);
         this.normalWindowminimizeProfile[i+1]   = this.getEffectFor(this.nameList[i],normalWindowminimizeProfileRaw);
-        this.normalWindowunminimizeProfile[i+1] = this.getEffectFor(this.nameList[i],normalWindowunminimizeProfileRaw);
-        this.normalWindowmovestartProfile[i+1]  = this.getEffectFor(this.nameList[i],normalWindowmovestartProfileRaw);
-        this.normalWindowmovestopProfile[i+1]   = this.getEffectFor(this.nameList[i],normalWindowmovestopProfileRaw);    
+        this.normalWindowunminimizeProfile[i+1] = this.getEffectFor(this.nameList[i],normalWindowunminimizeProfileRaw);   
       
         this.dialogWindowopenProfile[i+1]       = this.getEffectFor(this.nameList[i],dialogWindowopenProfileRaw);
         this.dialogWindowcloseProfile[i+1]      = this.getEffectFor(this.nameList[i],dialogWindowcloseProfileRaw);
         this.dialogWindowminimizeProfile[i+1]   = this.getEffectFor(this.nameList[i],dialogWindowminimizeProfileRaw);
         this.dialogWindowunminimizeProfile[i+1] = this.getEffectFor(this.nameList[i],dialogWindowunminimizeProfileRaw);
-        this.dialogWindowmovestartProfile[i+1]  = this.getEffectFor(this.nameList[i],dialogWindowmovestartProfileRaw);
-        this.dialogWindowmovestopProfile[i+1]   = this.getEffectFor(this.nameList[i],dialogWindowmovestopProfileRaw);
         
         this.modaldialogWindowopenProfile[i+1]       = this.getEffectFor(this.nameList[i],modaldialogWindowopenProfileRaw);
         this.modaldialogWindowcloseProfile[i+1]      = this.getEffectFor(this.nameList[i],modaldialogWindowcloseProfileRaw);
         this.modaldialogWindowminimizeProfile[i+1]   = this.getEffectFor(this.nameList[i],modaldialogWindowminimizeProfileRaw);
-        this.modaldialogWindowunminimizeProfile[i+1] = this.getEffectFor(this.nameList[i],modaldialogWindowunminimizeProfileRaw);
-        this.modaldialogWindowmovestartProfile[i+1]  = this.getEffectFor(this.nameList[i],modaldialogWindowmovestartProfileRaw);
-        this.modaldialogWindowmovestopProfile[i+1]   = this.getEffectFor(this.nameList[i],modaldialogWindowmovestopProfileRaw);    
+        this.modaldialogWindowunminimizeProfile[i+1] = this.getEffectFor(this.nameList[i],modaldialogWindowunminimizeProfileRaw); 
         
       }    
     }
@@ -943,10 +939,10 @@ const EffectsManager = new Lang.Class({
 
     this.loadPreferences();
     
-    this.onOpeningSig      = (this.openingEffectEnabled)      ? global.window_manager.connect("map",        (swm,actor) => this.addWindowEffects(actor, "open"))       : null;
-    this.onClosingSig      = (this.closingingEffectEnabled)   ? global.window_manager.connect("destroy",    (swm,actor) => this.addWindowEffects(actor, "close"))      : null;
-    this.onMinimizingSig   = (this.minimizingEffectEnabled)   ? global.window_manager.connect("minimize",   (swm,actor) => this.addWindowEffects(actor, "minimize"))   : null;
-    this.onUnminimizingSig = (this.unMinimizingEffectEnabled) ? global.window_manager.connect("unminimize", (swm,actor) => this.addWindowEffects(actor, "unminimize")) : null;
+    this.onOpeningSig      = (this.openingEffectEnabled)      ? global.window_manager.connect("map",        (swm,actor) => this.addWindowEffects(actor, "open", true))       : null;
+    this.onClosingSig      = (this.closingingEffectEnabled)   ? global.window_manager.connect("destroy",    (swm,actor) => this.addWindowEffects(actor, "close", true))      : null;
+    this.onMinimizingSig   = (this.minimizingEffectEnabled)   ? global.window_manager.connect("minimize",   (swm,actor) => this.addWindowEffects(actor, "minimize", true))   : null;
+    this.onUnminimizingSig = (this.unMinimizingEffectEnabled) ? global.window_manager.connect("unminimize", (swm,actor) => this.addWindowEffects(actor, "unminimize", true)) : null;
     
     if(this.movingEffectEnabled) {
       this.onMovingStartSig = global.display.connect('grab-op-begin', (display, screen, window, op)=> this.addMovingEffects(window, "movestart",op));

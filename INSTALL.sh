@@ -1,7 +1,7 @@
 #!/bin/bash
 
-#Version 5
-#=========
+#Version 9.5
+#===========
 
 # Default Installation Directory
 installDir=~/.local/share/gnome-shell/extensions
@@ -95,5 +95,5 @@ echo ""
 echo "Enable this extension using GNOME Tweak Tool."
 echo ""
 echo "* If you are updating this extension, please reset the extension using Reset button in preferences -> About Tab."
-echo "* Workaround for wayland option has been moved to preferences -> Extras tab."
+echo "* Workaround for wayland option has been moved to preferences -> Tweaks tab."
 echo ""

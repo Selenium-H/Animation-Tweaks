@@ -1,7 +1,7 @@
 /*
 
-Version 9.5
-===========
+Version 9.5.1
+=============
 
 Effect String Format [ |  S    Name      C    PPX    PPY    CX     CY     CZ     T        OP     SX     SY     PX     PY      TZ     RX     RY     RZ     TRN  ]
 
@@ -1281,20 +1281,22 @@ const PrefsWindow = new GObject.Class({
   
   prefsWA: function(KEY,posX,posY,sbox,space=1) {
   
-    let SettingLabel0   = new Gtk.Label({ xalign:  1, label:_(settings.settings_schema.get_key(KEY).get_summary()),halign: Gtk.Align.START });
-    let SettingSwitch0  = new Gtk.Switch({hexpand: false, active: settings.get_boolean(KEY), halign: Gtk.Align.START});
+    let SettingLabel0  = new Gtk.Label({ xalign:  1, label:_(settings.settings_schema.get_key(KEY).get_summary()),halign: Gtk.Align.START });
+    let SettingSwitch0 = new Gtk.Switch({hexpand: false, active: settings.get_boolean(KEY), halign: Gtk.Align.START});
+    let prefsSwitchBox = new Gtk.Box({ orientation: Gtk.Orientation.VERTICAL, margin: 0,hexpand:true});
         
     SettingSwitch0.connect("notify::active", Lang.bind(this, function(button) {
       settings.set_boolean(KEY, button.active);
-      reloadExtension();
+      reloadExtension(SettingSwitch0);
     }));
 
     settings.connect("changed::"+KEY, () => {
       SettingSwitch0.set_active(settings.get_boolean(KEY));
     });
-
+   
+    prefsSwitchBox.add(SettingSwitch0);
     sbox.attach(SettingLabel0,  posX,       posY, 1, 1);
-    sbox.attach(SettingSwitch0, posX+space, posY, 1, 1);
+    sbox.attach(prefsSwitchBox, posX+space, posY, 1, 1);
     
   },  
 

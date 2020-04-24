@@ -4,7 +4,7 @@
 
 # &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Animation Tweaks
 <p align="center">
-Version 9.1
+Version 9.3
 </p>
 
 <p align="center">
@@ -20,11 +20,11 @@ Some effects might not work properly on wayland, for which a workaround is provi
 </p>
 
 <p align="center">
-<img src = /Screenshots/Image_02.png >
+<img src = /Screenshots/Image_03.png >
 </p>
 
 <p align="center">
-<img src = /Screenshots/Image_03.png >
+<img src = /Screenshots/Image_02.png >
 </p>
 
 <p align="center">
@@ -61,4 +61,5 @@ This extension is inspired from
 [Compiz](http://www.compiz.org/) ,
 [Window Slide In Extension](https://extensions.gnome.org/extension/367/window-slide-in/) by mengzhuo, 
 [Files View Extension](https://extensions.gnome.org/extension/1395/files-view/) by abakkk.
+[Coverflow Alt-Tab Extension](https://extensions.gnome.org/extension/97/coverflow-alt-tab/) by p91paul
 

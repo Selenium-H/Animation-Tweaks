@@ -1,8 +1,7 @@
-﻿#!/bin/bash
+#!/bin/bash
 
-#Version 4
+#Version 5
 #=========
-
 
 # Default Installation Directory
 installDir=~/.local/share/gnome-shell/extensions
@@ -88,6 +87,13 @@ else
 fi 
  
 echo ""
-echo "Restart GNOME Shell ( Alt + F2 , Press r , Press Enter )."
+echo "Restart GNOME Shell" 
+echo ""
+echo "* For Xorg Press Alt + F2 -> Press r -> Press Enter."
+echo "* For Wayland Log out and Log in Back."
+echo ""
 echo "Enable this extension using GNOME Tweak Tool."
+echo ""
+echo "* If you are updating this extension, please reset the extension using Reset button in preferences -> About Tab."
+echo "* Workaround for wayland option has been moved to preferences -> Extras tab."
 echo ""

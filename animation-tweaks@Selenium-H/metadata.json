@@ -1,6 +1,6 @@
 {
 "name": "Animation Tweaks", 
-"description": "Add animations to different items and customize them.\nPlease reset the extension after updating. Reset button is present in preferences -> About Tab\nSome effects might not work properly on wayland, for which a workaround is provided. \nHowever, some animations might not work properly.", 
+"description": "Add animations to different items and customize them.\nPlease reset the extension after updating. Reset button is present in preferences -> About Tab\nSome effects might not work properly on wayland, for which a workaround is provided on preferences -> Extras tab. \nHowever, some animations might not work properly.", 
 "uuid": "animation-tweaks@Selenium-H", 
 "settings-schema": "org.gnome.shell.extensions.animation-tweaks", 
 "shell-version": [
@@ -9,5 +9,5 @@
 	"3.34"
 ],
 "url": "https://github.com/Selenium-H/Animation-Tweaks", 
-"version": 9.1
+"version": 9.3
 }

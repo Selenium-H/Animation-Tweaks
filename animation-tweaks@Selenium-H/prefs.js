@@ -1,7 +1,7 @@
 /*
 
-Version 9.5.1
-=============
+Version 9.6
+===========
 
 Effect String Format [ |  S    Name      C    PPX    PPY    CX     CY     CZ     T        OP     SX     SY     PX     PY      TZ     RX     RY     RZ     TRN  ]
 
@@ -490,9 +490,9 @@ function reloadApplicationProfiles() {
     
 }
 
-const AboutPage =  new GObject.Class({
+const AnimationTweaksAboutPage =  new GObject.Class({
 
-  Name: 'AboutPage',
+  Name: 'AnimationTweaksAboutPage',
   Extends: Gtk.ScrolledWindow,
 
   _init: function(params) {
@@ -577,9 +577,9 @@ const AboutPage =  new GObject.Class({
 
 });
 
-const AnimationSettingsForItem = new GObject.Class({
+const AnimationTweaksAnimationSettingsForItem = new GObject.Class({
 
-  Name: 'AnimationSettingsForItem',
+  Name: 'AnimationTweaksAnimationSettingsForItem',
 
   _init(itemType,windowType,action,grid,posY,topLevel,dontAttach=false) {
    
@@ -588,8 +588,8 @@ const AnimationSettingsForItem = new GObject.Class({
     this.windowType      =  windowType;
     this.appIndex        =  0;
     this.KEY             =  this.windowType+"-"+this.action;
-    this.allEffectsList  =  new EffectsList(this.itemType+"-"+this.action+"-effects-list");   
-    this.appProfile      =  new EffectsList(this.KEY);
+    this.allEffectsList  =  new AnimationTweaksEffectsList(this.itemType+"-"+this.action+"-effects-list");   
+    this.appProfile      =  new AnimationTweaksEffectsList(this.KEY);
     this.eStr            =  this.eStr = this.appProfile.getEffectAt(this.appIndex);
     
     this.prefsLabel      =  new Gtk.Label({xalign: 1, label:_(settings.settings_schema.get_key(this.KEY).get_summary()), halign: Gtk.Align.START});
@@ -636,7 +636,7 @@ const AnimationSettingsForItem = new GObject.Class({
   effectsTweaks : function(topLevel) { 
    
     let dialog = new Gtk.Dialog({title:_("Customize")+"   "+this.eStr[1]+"   "+_("Animation"),transient_for: topLevel.get_toplevel(),use_header_bar: true,modal:true});
-    dialog.get_content_area().pack_start(new EffectsTweaks(this.appProfile,this.appIndex), true, true, 0)
+    dialog.get_content_area().pack_start(new AnimationTweaksEffectsTweaks(this.appProfile,this.appIndex), true, true, 0)
     dialog.set_default_response(Gtk.ResponseType.CANCEL);
     let addButton     = dialog.add_button("Restore Default", Gtk.ResponseType.OK);
     dialog.connect('response', Lang.bind(this, function(dialog, id) { 
@@ -707,10 +707,10 @@ const AnimationSettingsForItem = new GObject.Class({
   
 });
 
-const AnimationSettingsForItemProfile = new GObject.Class({
+const AnimationTweaksAnimationSettingsForItemProfile = new GObject.Class({
 
-  Name: 'AnimationSettingsForItemProfile',
-  Extends: AnimationSettingsForItem,
+  Name: 'AnimationTweaksAnimationSettingsForItemProfile',
+  Extends: AnimationTweaksAnimationSettingsForItem,
   
   _init(itemType,windowType,action,grid,posY,topLevel,dontAttach=false) {
   
@@ -722,14 +722,14 @@ const AnimationSettingsForItemProfile = new GObject.Class({
   
 });
 
-const AnimationSettingsForItemPaired = new GObject.Class({
+const AnimationTweaksAnimationSettingsForItemPaired = new GObject.Class({
 
-  Name: 'AnimationSettingsForItemPaired',
+  Name: 'AnimationTweaksAnimationSettingsForItemPaired',
   
   _init(itemType,windowType,action,action1,grid,posY,topLevel) {
 
-    let startEffectPrefs = new AnimationSettingsForItem(itemType,windowType,action,grid,posY,topLevel,true);
-    let stopEffectPrefs  = new AnimationSettingsForItem(itemType,windowType,action1,grid,posY,topLevel,true);
+    let startEffectPrefs = new AnimationTweaksAnimationSettingsForItem(itemType,windowType,action,grid,posY,topLevel,true);
+    let stopEffectPrefs  = new AnimationTweaksAnimationSettingsForItem(itemType,windowType,action1,grid,posY,topLevel,true);
     
     this.prefsBoxStart  =  new Gtk.Box({spacing: 5, orientation: Gtk.Orientation.HORIZONTAL, margin: 0,hexpand:true});   
     this.prefsBoxStart.add(startEffectPrefs.prefsCombo);
@@ -757,12 +757,12 @@ const AnimationTweaksPrefs = new GObject.Class({
     
   _init: function() {
   
-    this.openingPrefs = new PrefsWindowForOpening("open");
-    this.closingPrefs = new PrefsWindowForClosing("close");
-    this.morePrefs    = new PrefsWindowForMore("minimize");
-    this.profilePrefs = new PrefsWindowForApps();
-    this.tweaksPrefs  = new PrefsWindowForTweaks();
-    this.aboutPage    = new AboutPage();
+    this.openingPrefs = new AnimationTweaksPrefsWindowForOpening("open");
+    this.closingPrefs = new AnimationTweaksPrefsWindowForClosing("close");
+    this.morePrefs    = new AnimationTweaksPrefsWindowForMore("minimize");
+    this.profilePrefs = new AnimationTweaksPrefsWindowForApps();
+    this.tweaksPrefs  = new AnimationTweaksPrefsWindowForTweaks();
+    this.aboutPage    = new AnimationTweaksAboutPage();
 
     this.prefsWindowOpening = new Gtk.ScrolledWindow({hexpand: true,shadow_type: Gtk.ShadowType.IN});
     this.prefsWindowOpening.add(this.openingPrefs);
@@ -792,9 +792,9 @@ const AnimationTweaksPrefs = new GObject.Class({
 
 });
 
-const EffectsList = new GObject.Class({
+const AnimationTweaksEffectsList = new GObject.Class({
 
-  Name: 'EffectsList',
+  Name: 'AnimationTweaksEffectsList',
     
   _init: function(KEY) {
   
@@ -1037,9 +1037,9 @@ const EffectsList = new GObject.Class({
   
 });
 
-const  EffectsTweaks =  new GObject.Class({
+const  AnimationTweaksEffectsTweaks =  new GObject.Class({
 
-  Name: 'EffectsTweaks',
+  Name: 'AnimationTweaksEffectsTweaks',
   Extends: Gtk.ScrolledWindow,
 
   _init: function(appProfile,appIndex) {
@@ -1235,9 +1235,9 @@ const  EffectsTweaks =  new GObject.Class({
 
 });
 
-const PrefsWindow = new GObject.Class({
+const AnimationTweaksPrefsWindow = new GObject.Class({
 
-  Name: 'PrefsWindow',
+  Name: 'AnimationTweaksPrefsWindow',
   Extends: Gtk.Grid,
 
   _init: function(action) {
@@ -1287,7 +1287,7 @@ const PrefsWindow = new GObject.Class({
         
     SettingSwitch0.connect("notify::active", Lang.bind(this, function(button) {
       settings.set_boolean(KEY, button.active);
-      reloadExtension(SettingSwitch0);
+      reloadExtension();
     }));
 
     settings.connect("changed::"+KEY, () => {
@@ -1302,9 +1302,9 @@ const PrefsWindow = new GObject.Class({
 
 });
 
-const PrefsWindowForApps = new GObject.Class({
+const AnimationTweaksPrefsWindowForApps = new GObject.Class({
 
-  Name: 'PrefsWindowForApps',
+  Name: 'AnimationTweaksPrefsWindowForApps',
   Extends: Gtk.Grid,
 
   _init: function() {  
@@ -1579,10 +1579,10 @@ const PrefsWindowForApps = new GObject.Class({
     this.emptyLine(pos++);
     this.heading(pos++);
     this.applicationProfilesStateSwitch("use-application-profiles");
-    this.appNormalOpenPrefs       =  new AnimationSettingsForItemProfile("window", "normal", "open",       this.gridWin, pos++, this);
-    this.appNormalClosePrefs      =  new AnimationSettingsForItemProfile("window", "normal", "close",      this.gridWin, pos++, this);
-    this.appNormalMinimizePrefs   =  new AnimationSettingsForItemProfile("window", "normal", "minimize",   this.gridWin, pos++, this);
-    this.appNormalUnminimizePrefs =  new AnimationSettingsForItemProfile("window", "normal", "unminimize", this.gridWin, pos++, this); 
+    this.appNormalOpenPrefs       =  new AnimationTweaksAnimationSettingsForItemProfile("window", "normal", "open",       this.gridWin, pos++, this);
+    this.appNormalClosePrefs      =  new AnimationTweaksAnimationSettingsForItemProfile("window", "normal", "close",      this.gridWin, pos++, this);
+    this.appNormalMinimizePrefs   =  new AnimationTweaksAnimationSettingsForItemProfile("window", "normal", "minimize",   this.gridWin, pos++, this);
+    this.appNormalUnminimizePrefs =  new AnimationTweaksAnimationSettingsForItemProfile("window", "normal", "unminimize", this.gridWin, pos++, this); 
     
     this.treeView.connect("cursor-changed",()=>this.appViewChange());
     
@@ -1590,10 +1590,10 @@ const PrefsWindowForApps = new GObject.Class({
 
 });
 
-const PrefsWindowForClosing = new GObject.Class({
+const AnimationTweaksPrefsWindowForClosing = new GObject.Class({
 
-  Name: 'PrefsWindowForClosing',
-  Extends: PrefsWindow,
+  Name: 'AnimationTweaksPrefsWindowForClosing',
+  Extends: AnimationTweaksPrefsWindow,
 
   _init: function(action) {  
   
@@ -1606,21 +1606,21 @@ const PrefsWindowForClosing = new GObject.Class({
     this.prefsWA("closing-effect",        0,  0,  this.switchBox0    );
     this.heading(1);
     let pos = 2;
-    new AnimationSettingsForItem("window",             "normal",             "close", this, pos++,this);
-    new AnimationSettingsForItem("window",             "dialog",             "close", this, pos++,this);
-    new AnimationSettingsForItem("window",             "modaldialog",        "close", this, pos++,this);
+    new AnimationTweaksAnimationSettingsForItem("window",             "normal",             "close", this, pos++,this);
+    new AnimationTweaksAnimationSettingsForItem("window",             "dialog",             "close", this, pos++,this);
+    new AnimationTweaksAnimationSettingsForItem("window",             "modaldialog",        "close", this, pos++,this);
     this.emptyLine(pos++);
-    new AnimationSettingsForItem("notificationbanner", "notificationbanner", "close", this, pos++,this);
-    new AnimationSettingsForItem("padosd",             "padosd",             "close", this, pos++,this);
+    new AnimationTweaksAnimationSettingsForItem("notificationbanner", "notificationbanner", "close", this, pos++,this);
+    new AnimationTweaksAnimationSettingsForItem("padosd",             "padosd",             "close", this, pos++,this);
     
   },
   
 });
 
-const PrefsWindowForMore = new GObject.Class({
+const AnimationTweaksPrefsWindowForMore = new GObject.Class({
 
-  Name: 'PrefsWindowForMore',
-  Extends: PrefsWindow,
+  Name: 'AnimationTweaksPrefsWindowForMore',
+  Extends: AnimationTweaksPrefsWindow,
 
   _init: function(action) {  
   
@@ -1646,17 +1646,17 @@ const PrefsWindowForMore = new GObject.Class({
     this.prefsWA("minimizing-effect",      0,  0,   this.switchBox0);
     this.heading(0,this.switchBox1);
     let pos=1;
-    new AnimationSettingsForItem("window", "normal", "minimize", this.switchBox1, pos++,this);
-    new AnimationSettingsForItem("window", "dialog", "minimize", this.switchBox1, pos++,this);
+    new AnimationTweaksAnimationSettingsForItem("window", "normal", "minimize", this.switchBox1, pos++,this);
+    new AnimationTweaksAnimationSettingsForItem("window", "dialog", "minimize", this.switchBox1, pos++,this);
     this.prefsWA("unminimizing-effect",    0,  0,   this.switchBox2);
     pos=pos+7;
-    new AnimationSettingsForItem("window", "normal", "unminimize", this.switchBox3, pos++,this);
-    new AnimationSettingsForItem("window", "dialog", "unminimize", this.switchBox3, pos++,this);
+    new AnimationTweaksAnimationSettingsForItem("window", "normal", "unminimize", this.switchBox3, pos++,this);
+    new AnimationTweaksAnimationSettingsForItem("window", "dialog", "unminimize", this.switchBox3, pos++,this);
     this.prefsWA("moving-effect",          0,  0,   this.switchBox4);
     pos=pos+12;
     this.headingForParedEffects(pos++,this.switchBox5);
-    new AnimationSettingsForItemPaired("window", "normal", "movestart", "movestop", this.switchBox5, pos++,this);
-    new AnimationSettingsForItemPaired("window", "dialog", "movestart", "movestop", this.switchBox5, pos++,this);
+    new AnimationTweaksAnimationSettingsForItemPaired("window", "normal", "movestart", "movestop", this.switchBox5, pos++,this);
+    new AnimationTweaksAnimationSettingsForItemPaired("window", "dialog", "movestart", "movestop", this.switchBox5, pos++,this);
 
   },
   
@@ -1671,10 +1671,10 @@ const PrefsWindowForMore = new GObject.Class({
   
 });
 
-const PrefsWindowForOpening = new GObject.Class({
+const AnimationTweaksPrefsWindowForOpening = new GObject.Class({
 
-  Name: 'PrefsWindowForOpening',
-  Extends: PrefsWindow,
+  Name: 'AnimationTweaksPrefsWindowForOpening',
+  Extends: AnimationTweaksPrefsWindow,
 
   _init: function(action) {  
   
@@ -1687,27 +1687,27 @@ const PrefsWindowForOpening = new GObject.Class({
     
     this.prefsWA("opening-effect",         0,  pos++,   this.switchBox0); 
     this.heading(pos++);
-    new AnimationSettingsForItem("window",             "normal",             "open", this, pos++, this);
-    new AnimationSettingsForItem("window",             "dialog",             "open", this, pos++, this);
-    new AnimationSettingsForItem("window",             "modaldialog",        "open", this, pos++, this);
-    new AnimationSettingsForItem("other",              "dropdownmenu",       "open", this, pos++, this);
-    new AnimationSettingsForItem("other",              "popupmenu",          "open", this, pos++, this);    
-    new AnimationSettingsForItem("other",              "combo",              "open", this, pos++, this);    
-    new AnimationSettingsForItem("other",              "tooltip",            "open", this, pos++, this);    
-    new AnimationSettingsForItem("other",              "splashscreen",       "open", this, pos++, this);    
-    new AnimationSettingsForItem("other",              "overrideother",      "open", this, pos++, this);   
+    new AnimationTweaksAnimationSettingsForItem("window",             "normal",             "open", this, pos++, this);
+    new AnimationTweaksAnimationSettingsForItem("window",             "dialog",             "open", this, pos++, this);
+    new AnimationTweaksAnimationSettingsForItem("window",             "modaldialog",        "open", this, pos++, this);
+    new AnimationTweaksAnimationSettingsForItem("other",              "dropdownmenu",       "open", this, pos++, this);
+    new AnimationTweaksAnimationSettingsForItem("other",              "popupmenu",          "open", this, pos++, this);    
+    new AnimationTweaksAnimationSettingsForItem("other",              "combo",              "open", this, pos++, this);    
+    new AnimationTweaksAnimationSettingsForItem("other",              "tooltip",            "open", this, pos++, this);    
+    new AnimationTweaksAnimationSettingsForItem("other",              "splashscreen",       "open", this, pos++, this);    
+    new AnimationTweaksAnimationSettingsForItem("other",              "overrideother",      "open", this, pos++, this);   
     this.emptyLine(pos++); 
-    new AnimationSettingsForItem("notificationbanner", "notificationbanner", "open", this, pos++, this); 
-    new AnimationSettingsForItem("padosd",             "padosd",             "open", this, pos++, this);   
+    new AnimationTweaksAnimationSettingsForItem("notificationbanner", "notificationbanner", "open", this, pos++, this); 
+    new AnimationTweaksAnimationSettingsForItem("padosd",             "padosd",             "open", this, pos++, this);   
     
   },
 
 }); 
 
-const PrefsWindowForTweaks = new GObject.Class({
+const AnimationTweaksPrefsWindowForTweaks = new GObject.Class({
 
-  Name: 'PrefsWindowForTweaks',
-  Extends: PrefsWindow,
+  Name: 'AnimationTweaksPrefsWindowForTweaks',
+  Extends: AnimationTweaksPrefsWindow,
 
   _init: function() {  
   

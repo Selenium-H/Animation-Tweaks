@@ -1,6 +1,6 @@
 /*
 
-Version 9.7
+Version 9.8
 ===========
 
 Effect Format  [  |  S    Name     C       PPX       PPY       CX        CY        CZ        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN  ]
@@ -25,7 +25,7 @@ const defaultNotificationBannerTweenFunction = (Config.PACKAGE_VERSION >= "3.36.
 const defaultUpdateShowingNotification       = Main.messageTray._updateShowingNotification;
 const defaultHideNotification                = Main.messageTray._hideNotification;
 
-let defaultOnCompleteParams ;
+let defaultOnCompleteParams;
 let defaultOnComplete;
 
 const defaultPadOSDShow = Main.osdWindowManager._showOsdWindow;
@@ -74,6 +74,13 @@ const EffectsManager = new Lang.Class({
 
     this.prefs = Convenience.getSettings("org.gnome.shell.extensions.animation-tweaks");
     this.forThisVersion=(Config.PACKAGE_VERSION < "3.34.2") ? "Old" : "New";
+    
+    this.dropdownmenuWindowcloseProfile  =  [''];   
+    this.popupmenuWindowcloseProfile     =  [''];
+    this.comboWindowcloseProfile         =  [''];
+    this.splashscreenWindowcloseProfile  =  [''];
+    this.tooltipWindowcloseProfile       =  [''];
+    this.overrideotherWindowcloseProfile =  [''];
 
   },
 
@@ -535,19 +542,19 @@ const EffectsManager = new Lang.Class({
     actor.rotation_center_y = actor.rotation_center_x;
     actor.rotation_center_z = actor.rotation_center_x;
 
-    if(!this.waylandWorkaroundEnabled) {
+    if(this.waylandWorkaroundEnabled && itemType == "other") {
+    
+      let skippedPosIndex = startIndex+6;
       Tweener.addTween(actor, {
         time:              eParams[startIndex++],
         opacity:           eParams[startIndex++],
         scale_x:           eParams[startIndex++],
-        scale_y:           eParams[startIndex++],
-        translation_x:     eParams[startIndex++]*xRes,           
-        translation_y:     eParams[startIndex++]*yRes,           
-        translation_z:     eParams[startIndex++]*yRes,
-        rotation_angle_x:  eParams[startIndex++],
-        rotation_angle_y:  eParams[startIndex++],           
-        rotation_angle_z:  eParams[startIndex++],
-        transition:        eParams[startIndex++],
+        scale_y:           eParams[startIndex++],         
+        translation_z:     eParams[skippedPosIndex++]*yRes,           
+        rotation_angle_x:  eParams[skippedPosIndex++],
+        rotation_angle_y:  eParams[skippedPosIndex++],           
+        rotation_angle_z:  eParams[skippedPosIndex++],
+        transition:        eParams[skippedPosIndex++],
         onComplete:        this.driveOtherAnimation,
         onCompleteScope:   this,
         onCompleteParams:  [actor,eParams,++subEffectNo,action,itemType,itemObject,xRes,yRes],
@@ -557,25 +564,25 @@ const EffectsManager = new Lang.Class({
       });
       return;
    }
-
-   let skippedPosIndex = startIndex+6;
    
    Tweener.addTween(actor, {
      time:              eParams[startIndex++],
      opacity:           eParams[startIndex++],
      scale_x:           eParams[startIndex++],
-     scale_y:           eParams[startIndex++],         
-     translation_z:     eParams[skippedPosIndex++]*yRes,           
-     rotation_angle_x:  eParams[skippedPosIndex++],
-     rotation_angle_y:  eParams[skippedPosIndex++],           
-     rotation_angle_z:  eParams[skippedPosIndex++],
-     transition:        eParams[skippedPosIndex++],
+     scale_y:           eParams[startIndex++],
+     translation_x:     eParams[startIndex++]*xRes,           
+     translation_y:     eParams[startIndex++]*yRes,           
+     translation_z:     eParams[startIndex++]*yRes,
+     rotation_angle_x:  eParams[startIndex++],
+     rotation_angle_y:  eParams[startIndex++],           
+     rotation_angle_z:  eParams[startIndex++],
+     transition:        eParams[startIndex++],
      onComplete:        this.driveOtherAnimation,
      onCompleteScope:   this,
      onCompleteParams:  [actor,eParams,++subEffectNo,action,itemType,itemObject,xRes,yRes],
      onOverwrite:       this.animationDone,
      onOverwriteScope : this,
-     onOverwriteParams: [actor,action,itemType,itemObject]
+     onOverwriteParams: [actor,action,itemType,itemObject]   
    });
    
   },
@@ -775,14 +782,7 @@ const EffectsManager = new Lang.Class({
     this.normalWindowmovestopProfile      = this.normalWindowmovestartProfile;
     this.dialogWindowmovestopProfile      = this.dialogWindowmovestartProfile;
     this.modaldialogWindowmovestopProfile = this.modaldialogWindowmovestartProfile;
-  
-    this.dropdownmenuWindowcloseProfile  =  [''];   
-    this.popupmenuWindowcloseProfile     =  [''];
-    this.comboWindowcloseProfile         =  [''];
-    this.splashscreenWindowcloseProfile  =  [''];
-    this.tooltipWindowcloseProfile       =  [''];
-    this.overrideotherWindowcloseProfile =  [''];
-    
+      
     this.dropdownmenuWindowopenProfile.splice(0,1);
     this.popupmenuWindowopenProfile.splice(0,1);
     this.comboWindowopenProfile.splice(0,1);         

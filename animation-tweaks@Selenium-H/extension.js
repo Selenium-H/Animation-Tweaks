@@ -1,9 +1,9 @@
 /*
 
-Version 9.5
-===========
+Version 10
+==========
 
-Effect String Format [ |  S    Name      C    PPX    PPY    CX     CY     CZ     T        OP     SX     SY     PX     PY      TZ     RX     RY     RZ     TRN  ]
+Effect Format  [  |  S    Name     C       PPX       PPY       CX        CY        CZ        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN  ]
 
 Read the effectParameters.txt File for details.
 
@@ -24,7 +24,8 @@ const changedActorRotationCenter = (Config.PACKAGE_VERSION >= "3.36.0")?imports.
 const defaultNotificationBannerTweenFunction = (Config.PACKAGE_VERSION >= "3.36.0")? null : Main.messageTray._tween;
 const defaultUpdateShowingNotification       = Main.messageTray._updateShowingNotification;
 const defaultHideNotification                = Main.messageTray._hideNotification;
-let defaultOnCompleteParams ;
+
+let defaultOnCompleteParams;
 let defaultOnComplete;
 
 const defaultPadOSDShow = Main.osdWindowManager._showOsdWindow;
@@ -73,12 +74,26 @@ const EffectsManager = new Lang.Class({
 
     this.prefs = Convenience.getSettings("org.gnome.shell.extensions.animation-tweaks");
     this.forThisVersion=(Config.PACKAGE_VERSION < "3.34.2") ? "Old" : "New";
+    
+    this.dropdownmenuWindowcloseProfile  =  [''];   
+    this.popupmenuWindowcloseProfile     =  [''];
+    this.comboWindowcloseProfile         =  [''];
+    this.splashscreenWindowcloseProfile  =  [''];
+    this.tooltipWindowcloseProfile       =  [''];
+    this.overrideotherWindowcloseProfile =  [''];
+
+  },
+
+  addFocussingEffects: function() {
+
+    (this.focusWindow != null                                 && this.doFocusAndDefocus == true && this.defocussingEffectEnabled == true && !Main.overview._shown ) ? this.addWindowEffects(this.focusWindow.get_compositor_private(),"defocus") : null;
+    ((this.focusWindow = global.display.focus_window) != null && this.doFocusAndDefocus == true && this.focussingEffectEnabled   == true && !Main.overview._shown ) ? this.addWindowEffects(this.focusWindow.get_compositor_private(),"focus")   : null;
 
   },
   
   addMovingEffects: function(window, action,op) {
 
-    (window != null && op == 1) ? this.addWindowEffects(window.get_compositor_private(),action): null;
+    (window != null && op == 1 && !Main.overview._shown ) ? this.addWindowEffects(window.get_compositor_private(),action): null;
     
   },
  
@@ -171,12 +186,23 @@ const EffectsManager = new Lang.Class({
     }
 
     switch(action+windowType+this.forThisVersion+eParams[0]) {
+
+      case "focusWindowOldT" :
+      case "focusWindowNewT" :
+      case "defocusWindowOldT"  :
+      case "defocusWindowNewT"  :
+        this.driveOtherAnimation(actor, eParams, 0, action,"window",null, Main.layoutManager.monitors[global.display.get_current_monitor()].width, Main.layoutManager.monitors[global.display.get_current_monitor()].height);
+        return;      
     
       case "movestartWindowOldT" :
       case "movestartWindowNewT" :
+        eParams[2] = eParams[2]/2;
+        this.driveOtherAnimation(actor, eParams, 0, action,"window",null, Main.layoutManager.monitors[global.display.get_current_monitor()].width, Main.layoutManager.monitors[global.display.get_current_monitor()].height);
+        return;
+        
       case "movestopWindowOldT"  :
       case "movestopWindowNewT"  :
-        this.driveOtherAnimation(actor, eParams, 0, action,"window",null, Main.layoutManager.monitors[global.display.get_current_monitor()].width, Main.layoutManager.monitors[global.display.get_current_monitor()].height);
+        this.driveOtherAnimation(actor, eParams, eParams[2]/2, action,"window",null, Main.layoutManager.monitors[global.display.get_current_monitor()].width, Main.layoutManager.monitors[global.display.get_current_monitor()].height);
         return;
 
       case "openOtherOldT" :
@@ -192,17 +218,20 @@ const EffectsManager = new Lang.Class({
         return;
 
       case "openWindowOldT" :
+        this.doFocusAndDefocus = false;
         actor.set_opacity(0);
         Main.wm._removeEffect(Main.wm._mapping, actor);
         break;
         
       case "openWindowNewT" :
+        this.doFocusAndDefocus = false;
         actor.set_opacity(0);
         Main.wm._mapping.delete(actor);
         actor.remove_all_transitions();        
         break;
         
       case "closeWindowOldT" :
+        this.doFocusAndDefocus = false;
         Main.wm._removeEffect(Main.wm._destroying, actor);   
         if(actor.meta_window.is_attached_dialog()) {
           actor._parentDestroyId = actor.meta_window.get_transient_for().connect('unmanaged', () => {
@@ -213,6 +242,7 @@ const EffectsManager = new Lang.Class({
         break;
         
       case "closeWindowNewT" :
+        this.doFocusAndDefocus = false;
         Main.wm._destroying.delete(actor);
         actor.remove_all_transitions();        
             
@@ -225,16 +255,19 @@ const EffectsManager = new Lang.Class({
         break;
         
       case "minimizeWindowOldT":
+        this.doFocusAndDefocus = false;
         Main.wm._removeEffect(Main.wm._minimizing, actor);
         break;
 
       case "minimizeWindowNewT":
+        this.doFocusAndDefocus = false;
         Main.wm._minimizing.delete(actor);
         actor.remove_all_transitions();        
         break;
 
       case "unminimizeWindowOldT" :
       case "unminimizeWindowNewT" :
+        this.doFocusAndDefocus = false;
         if(Main.overview._shown) {
           this.animationDone(actor,"unminimize","window");
           return;
@@ -249,6 +282,7 @@ const EffectsManager = new Lang.Class({
     }
 
     let [success, geom] = actor.meta_window.get_icon_geometry();
+    
     [eParams[0],eParams[1]] = [actor.x,actor.y];
     this.driveWindowAnimation( actor, eParams, 0, action,success,geom,Main.layoutManager.monitors[global.display.get_current_monitor()].width,Main.layoutManager.monitors[global.display.get_current_monitor()].height);        
 
@@ -264,13 +298,6 @@ const EffectsManager = new Lang.Class({
       case "closenotificationbannerNew":
         actor.hide();
         actor.set_scale(1,1);
-        actor.show();
-        return;
-                        
-      case "movestartwindowOldT" :
-      case "movestartwindowNewT" :
-      case "movestopwindowOldT"  :
-      case "movestopwindowNewT"  :
         actor.show();
         return;
     
@@ -292,42 +319,56 @@ const EffectsManager = new Lang.Class({
       case "openwindowOld" :
         Main.wm._mapping.push(actor);
         Main.wm._mapWindowDone(Main.wm._shellwm ,actor);
+        this.doFocusAndDefocus = true;
         break;
 
       case "openwindowNew" :
         (Config.PACKAGE_VERSION < "3.36.0") ? Main.wm._mapping.add(actor): null;
         Main.wm._mapWindowDone(Main.wm._shellwm ,actor);
+        this.doFocusAndDefocus = true;
         break;
 
       case "closewindowOld" :
       case "closewindowNew" :
         actor.hide();   
         Main.wm._destroyWindowDone(Main.wm._shellwm ,actor);
-        (actor) ? Main.wm._shellwm.completed_destroy(actor): null;
+        this.doFocusAndDefocus = true;
         return;
 
       case "unminimizewindowOld" :
       case "unminimizewindowNew" :
         Main.wm._unminimizeWindowDone(Main.wm._shellwm ,actor);
+        this.doFocusAndDefocus = true;
         break;
 
       case "minimizewindowOld" :
         actor.hide(); 
         Main.wm._minimizing.push(actor);
         Main.wm._minimizeWindowDone(Main.wm._shellwm ,actor);
+        this.doFocusAndDefocus = true;
         return;
                
       case "minimizewindowNew" :
         actor.hide();      
         Main.wm._minimizing.add(actor);
         Main.wm._minimizeWindowDone(Main.wm._shellwm ,actor);
+        this.doFocusAndDefocus = true;
         return;
       
       case "openotherOld":
       case "openotherNew":
-       
         break;
+
+      case "focusWindowOldT" :
+      case "focusWindowNewT" :
+      case "defocusWindowOldT"  :
+      case "defocusWindowNewT"  :
       
+      case "movestartwindowOldT" :
+      case "movestartwindowNewT" :
+      case "movestopwindowOldT"  :
+      case "movestopwindowNewT"  :
+
       default: return;
     }
 
@@ -458,7 +499,7 @@ const EffectsManager = new Lang.Class({
         if(osdWindowActor._hideTimeoutId) {
           GLib.source_remove(osdWindowActor._hideTimeoutId);
         } 
-        osdWindowActor._hideTimeoutId = GLib.timeout_add(GLib.PRIORITY_DEFAULT,effectsManager.prefs.get_int("padosd-hide-timeout"),()=>effectsManager.driveOSDAnimation(monitorIndex, icon, label, level, maxLevel, "close",osdWindow));        
+        osdWindowActor._hideTimeoutId = GLib.timeout_add(GLib.PRIORITY_DEFAULT,effectsManager.padOSDHideTime,()=>effectsManager.driveOSDAnimation(monitorIndex, icon, label, level, maxLevel, "close",osdWindow));        
         GLib.Source.set_name_by_id( osdWindowActor._hideTimeoutId, '[gnome-shell] this._hide');  
         
         return;
@@ -500,19 +541,19 @@ const EffectsManager = new Lang.Class({
     actor.rotation_center_y = actor.rotation_center_x;
     actor.rotation_center_z = actor.rotation_center_x;
 
-    if(!this.waylandWorkaroundEnabled) {
+    if(this.waylandWorkaroundEnabled && itemType == "other") {
+    
+      let skippedPosIndex = startIndex+6;
       Tweener.addTween(actor, {
         time:              eParams[startIndex++],
         opacity:           eParams[startIndex++],
         scale_x:           eParams[startIndex++],
-        scale_y:           eParams[startIndex++],
-        translation_x:     eParams[startIndex++]*xRes,           
-        translation_y:     eParams[startIndex++]*yRes,           
-        translation_z:     eParams[startIndex++]*yRes,
-        rotation_angle_x:  eParams[startIndex++],
-        rotation_angle_y:  eParams[startIndex++],           
-        rotation_angle_z:  eParams[startIndex++],
-        transition:        eParams[startIndex++],
+        scale_y:           eParams[startIndex++],         
+        translation_z:     eParams[skippedPosIndex++]*yRes,           
+        rotation_angle_x:  eParams[skippedPosIndex++],
+        rotation_angle_y:  eParams[skippedPosIndex++],           
+        rotation_angle_z:  eParams[skippedPosIndex++],
+        transition:        eParams[skippedPosIndex++],
         onComplete:        this.driveOtherAnimation,
         onCompleteScope:   this,
         onCompleteParams:  [actor,eParams,++subEffectNo,action,itemType,itemObject,xRes,yRes],
@@ -522,25 +563,25 @@ const EffectsManager = new Lang.Class({
       });
       return;
    }
-
-   let skippedPosIndex = startIndex+6;
    
    Tweener.addTween(actor, {
      time:              eParams[startIndex++],
      opacity:           eParams[startIndex++],
      scale_x:           eParams[startIndex++],
-     scale_y:           eParams[startIndex++],         
-     translation_z:     eParams[skippedPosIndex++]*yRes,           
-     rotation_angle_x:  eParams[skippedPosIndex++],
-     rotation_angle_y:  eParams[skippedPosIndex++],           
-     rotation_angle_z:  eParams[skippedPosIndex++],
-     transition:        eParams[skippedPosIndex++],
+     scale_y:           eParams[startIndex++],
+     translation_x:     eParams[startIndex++]*xRes,           
+     translation_y:     eParams[startIndex++]*yRes,           
+     translation_z:     eParams[startIndex++]*yRes,
+     rotation_angle_x:  eParams[startIndex++],
+     rotation_angle_y:  eParams[startIndex++],           
+     rotation_angle_z:  eParams[startIndex++],
+     transition:        eParams[startIndex++],
      onComplete:        this.driveOtherAnimation,
      onCompleteScope:   this,
      onCompleteParams:  [actor,eParams,++subEffectNo,action,itemType,itemObject,xRes,yRes],
      onOverwrite:       this.animationDone,
      onOverwriteScope : this,
-     onOverwriteParams: [actor,action,itemType,itemObject]
+     onOverwriteParams: [actor,action,itemType,itemObject]   
    });
    
   },
@@ -657,6 +698,11 @@ const EffectsManager = new Lang.Class({
     this.minimizingEffectEnabled    = this.prefs.get_boolean("minimizing-effect");
     this.unMinimizingEffectEnabled  = this.prefs.get_boolean("unminimizing-effect");
     this.movingEffectEnabled        = this.prefs.get_boolean("moving-effect");
+    this.focussingEffectEnabled     = this.prefs.get_boolean("focussing-effect");
+    this.defocussingEffectEnabled   = this.prefs.get_boolean("defocussing-effect");
+    
+    this.doFocusAndDefocus = true;
+    this.focusWindow = null;
     
     this.loadProfilePrefs();
 
@@ -671,22 +717,25 @@ const EffectsManager = new Lang.Class({
     let normalWindowcloseProfileRaw      = this.prefs.get_strv("normal-close");
     let normalWindowminimizeProfileRaw   = this.prefs.get_strv("normal-minimize");
     let normalWindowunminimizeProfileRaw = this.prefs.get_strv("normal-unminimize");    
-    let normalWindowmovestartProfileRaw  = this.prefs.get_strv("normal-movestart");    
-    let normalWindowmovestopProfileRaw   = this.prefs.get_strv("normal-movestop");    
+    let normalWindowmovestartProfileRaw  = this.prefs.get_strv("normal-movestart");   
+    let normalWindowfocusProfileRaw      = this.prefs.get_strv("normal-focus");    
+    let normalWindowdefocusProfileRaw    = this.prefs.get_strv("normal-defocus");    
      
     let dialogWindowopenProfileRaw       = this.prefs.get_strv("dialog-open");
     let dialogWindowcloseProfileRaw      = this.prefs.get_strv("dialog-close");
     let dialogWindowminimizeProfileRaw   = this.prefs.get_strv("dialog-minimize");
     let dialogWindowunminimizeProfileRaw = this.prefs.get_strv("dialog-unminimize");  
-    let dialogWindowmovestartProfileRaw  = this.prefs.get_strv("dialog-movestart");  
-    let dialogWindowmovestopProfileRaw   = this.prefs.get_strv("dialog-movestop");  
+    let dialogWindowmovestartProfileRaw  = this.prefs.get_strv("dialog-movestart");
+    let dialogWindowfocusProfileRaw      = this.prefs.get_strv("dialog-focus");    
+    let dialogWindowdefocusProfileRaw    = this.prefs.get_strv("dialog-defocus");    
 
     let modaldialogWindowopenProfileRaw       = this.prefs.get_strv("modaldialog-open");
     let modaldialogWindowcloseProfileRaw      = this.prefs.get_strv("modaldialog-close");
     let modaldialogWindowminimizeProfileRaw   = this.prefs.get_strv("modaldialog-minimize");
     let modaldialogWindowunminimizeProfileRaw = this.prefs.get_strv("modaldialog-unminimize");  
     let modaldialogWindowmovestartProfileRaw  = this.prefs.get_strv("modaldialog-movestart");
-    let modaldialogWindowmovestopProfileRaw   = this.prefs.get_strv("modaldialog-movestop");
+    let modaldialogWindowfocusProfileRaw      = this.prefs.get_strv("modaldialog-focus");    
+    let modaldialogWindowdefocusProfileRaw    = this.prefs.get_strv("modaldialog-defocus");    
     
     this.dropdownmenuWindowopenProfile  = this.prefs.get_strv("dropdownmenu-open");
     this.popupmenuWindowopenProfile     = this.prefs.get_strv("popupmenu-open");
@@ -703,35 +752,36 @@ const EffectsManager = new Lang.Class({
     this.padosdWindowcloseProfile = this.prefs.get_strv("padosd-close"); 
       
     this.waylandWorkaroundEnabled = this.prefs.get_boolean("wayland");
+    this.padOSDHideTime           = this.prefs.get_int("padosd-hide-timeout");
     
     this.normalWindowopenProfile       = [this.getEffectFor("",normalWindowopenProfileRaw)];
     this.normalWindowcloseProfile      = [this.getEffectFor("",normalWindowcloseProfileRaw)];
     this.normalWindowminimizeProfile   = [this.getEffectFor("",normalWindowminimizeProfileRaw)];
     this.normalWindowunminimizeProfile = [this.getEffectFor("",normalWindowunminimizeProfileRaw)];
     this.normalWindowmovestartProfile  = [this.getEffectFor("",normalWindowmovestartProfileRaw)];
-    this.normalWindowmovestopProfile   = [this.getEffectFor("",normalWindowmovestopProfileRaw)];        
+    this.normalWindowfocusProfile      = [this.getEffectFor("",normalWindowfocusProfileRaw)];
+    this.normalWindowdefocusProfile    = [this.getEffectFor("",normalWindowdefocusProfileRaw)];        
     
     this.dialogWindowopenProfile       = [this.getEffectFor("",dialogWindowopenProfileRaw)];
     this.dialogWindowcloseProfile      = [this.getEffectFor("",dialogWindowcloseProfileRaw)];
     this.dialogWindowminimizeProfile   = [this.getEffectFor("",dialogWindowminimizeProfileRaw)];
     this.dialogWindowunminimizeProfile = [this.getEffectFor("",dialogWindowunminimizeProfileRaw)];
     this.dialogWindowmovestartProfile  = [this.getEffectFor("",dialogWindowmovestartProfileRaw)];
-    this.dialogWindowmovestopProfile   = [this.getEffectFor("",dialogWindowmovestopProfileRaw)];
+    this.dialogWindowfocusProfile      = [this.getEffectFor("",dialogWindowfocusProfileRaw)];
+    this.dialogWindowdefocusProfile    = [this.getEffectFor("",dialogWindowdefocusProfileRaw)];        
 
     this.modaldialogWindowopenProfile       = [this.getEffectFor("",modaldialogWindowopenProfileRaw)];
     this.modaldialogWindowcloseProfile      = [this.getEffectFor("",modaldialogWindowcloseProfileRaw)];
     this.modaldialogWindowminimizeProfile   = [this.getEffectFor("",modaldialogWindowminimizeProfileRaw)];
     this.modaldialogWindowunminimizeProfile = [this.getEffectFor("",modaldialogWindowunminimizeProfileRaw)];
     this.modaldialogWindowmovestartProfile  = [this.getEffectFor("",modaldialogWindowmovestartProfileRaw)];
-    this.modaldialogWindowmovestopProfile   = [this.getEffectFor("",modaldialogWindowmovestopProfileRaw)];
-    
-    this.dropdownmenuWindowcloseProfile  =  [''];   
-    this.popupmenuWindowcloseProfile     =  [''];
-    this.comboWindowcloseProfile         =  [''];
-    this.splashscreenWindowcloseProfile  =  [''];
-    this.tooltipWindowcloseProfile       =  [''];
-    this.overrideotherWindowcloseProfile =  [''];
-    
+    this.modaldialogWindowfocusProfile      = [this.getEffectFor("",modaldialogWindowfocusProfileRaw)];
+    this.modaldialogWindowdefocusProfile    = [this.getEffectFor("",modaldialogWindowdefocusProfileRaw)];        
+
+    this.normalWindowmovestopProfile      = this.normalWindowmovestartProfile;
+    this.dialogWindowmovestopProfile      = this.dialogWindowmovestartProfile;
+    this.modaldialogWindowmovestopProfile = this.modaldialogWindowmovestartProfile;
+      
     this.dropdownmenuWindowopenProfile.splice(0,1);
     this.popupmenuWindowopenProfile.splice(0,1);
     this.comboWindowopenProfile.splice(0,1);         
@@ -786,7 +836,7 @@ const EffectsManager = new Lang.Class({
     Main.messageTray._resetNotificationLeftTimeout();
 
     if (animate) {
-      effectsManager.driveNotificationBannerAnimation(Main.messageTray._bannerBin, '_notificationState', 0,/*State.HIDDEN/**/{ 
+      effectsManager.driveNotificationBannerAnimation(Main.messageTray._bannerBin, '_notificationState', 0,/*State.HIDDEN/**/ { 
         y:               -Main.messageTray._bannerBin.height,
         _opacity:        0,
         time:            0.250,//ANIMATION_TIME,
@@ -938,17 +988,19 @@ const EffectsManager = new Lang.Class({
   startEffectsManager: function() {
 
     this.loadPreferences();
-    
-    this.onOpeningSig      = (this.openingEffectEnabled)      ? global.window_manager.connect("map",        (swm,actor) => this.addWindowEffects(actor, "open", true))       : null;
-    this.onClosingSig      = (this.closingingEffectEnabled)   ? global.window_manager.connect("destroy",    (swm,actor) => this.addWindowEffects(actor, "close", true))      : null;
-    this.onMinimizingSig   = (this.minimizingEffectEnabled)   ? global.window_manager.connect("minimize",   (swm,actor) => this.addWindowEffects(actor, "minimize", true))   : null;
+   
+    this.onOpeningSig      = (this.openingEffectEnabled)      ? global.window_manager.connect("map",        (swm,actor) => this.addWindowEffects(actor, "open",       true))       : null;
+    this.onClosingSig      = (this.closingingEffectEnabled)   ? global.window_manager.connect("destroy",    (swm,actor) => this.addWindowEffects(actor, "close",      true))      : null;
+    this.onMinimizingSig   = (this.minimizingEffectEnabled)   ? global.window_manager.connect("minimize",   (swm,actor) => this.addWindowEffects(actor, "minimize",   true))   : null;
     this.onUnminimizingSig = (this.unMinimizingEffectEnabled) ? global.window_manager.connect("unminimize", (swm,actor) => this.addWindowEffects(actor, "unminimize", true)) : null;
     
+    this.focussingDefocussingSig = (this.focussingEffectEnabled || this.defocussingEffectEnabled) ? global.display.connect('notify::focus-window',()=>this.addFocussingEffects()) : null;
+    
     if(this.movingEffectEnabled) {
-      this.onMovingStartSig = global.display.connect('grab-op-begin', (display, screen, window, op)=> this.addMovingEffects(window, "movestart",op));
-      this.onMovingEndSig   = global.display.connect('grab-op-end',   (display, screen, window, op)=> this.addMovingEffects(window, "movestop",op));
+      this.onMovingStartSig = global.display.connect('grab-op-begin', (display, screen, window, op)=> this.addMovingEffects(window, "movestart", op));
+      this.onMovingEndSig   = global.display.connect('grab-op-end',   (display, screen, window, op)=> this.addMovingEffects(window, "movestop",  op));
     }
-     
+       
     this.extensionDisableShortcut();
      
   },
@@ -959,6 +1011,8 @@ const EffectsManager = new Lang.Class({
     (this.closingingEffectEnabled)   ? global.window_manager.disconnect(this.onClosingSig)      : null;
     (this.minimizingEffectEnabled)   ? global.window_manager.disconnect(this.onMinimizingSig)   : null;
     (this.unMinimizingEffectEnabled) ? global.window_manager.disconnect(this.onUnminimizingSig) : null;
+    
+    (this.focussingEffectEnabled || this.defocussingEffectEnabled) ? global.display.disconnect(this.focussingDefocussingSig) : null;
 
     if(this.movingEffectEnabled) {
       global.display.disconnect(this.onMovingStartSig);

@@ -1,7 +1,7 @@
 #!/bin/bash
 
-#Version 9.5
-#===========
+#Version 10
+#==========
 
 # Default Installation Directory
 installDir=~/.local/share/gnome-shell/extensions
@@ -97,3 +97,5 @@ echo ""
 echo "* If you are updating this extension, please reset the extension using Reset button in preferences -> About Tab."
 echo "* Workaround for wayland option has been moved to preferences -> Tweaks tab."
 echo ""
+
+

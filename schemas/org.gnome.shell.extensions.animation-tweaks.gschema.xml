@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- 
-Version 9.5
-===========
+Version 10
+==========
 
-Effect String Format [ |  S    Name      C    PPX    PPY    CX     CY     CZ     T        OP     SX     SY     PX     PY      TZ     RX     RY     RZ     TRN  ]
+Effect Format  [  |  S    Name     C       PPX       PPY       CX        CY        CZ        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN  ]
 
 Read the effectParameters.txt File for details.
 
@@ -20,7 +20,7 @@ Read the effectParameters.txt File for details.
 
   <schema path="/org/gnome/shell/extensions/animation-tweaks/" id="org.gnome.shell.extensions.animation-tweaks">
   
-    <!--  ============================================================   Open   ===================================================================================== -->
+    <!--  ====================================================================================   Open   ================================================================================================== -->
 
     <key name="opening-effect" type="b">
       <default>true</default>
@@ -29,117 +29,117 @@ Read the effectParameters.txt File for details.
     </key>
     
     <key name="normal-open" type="as">
-    <!-- |  S    Name                    C    PPX    PPY    CX     CY     CZ     T        OP     SX     SY     PX     PY      TZ     RX     RY     RZ     TRN -->
+    <!-- |  S    Name                    C       PPX       PPY       CX        CY        CZ        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN -->
       <default>[                         
-        '|','F', 'Scale Down',           '2', '0.0', '0.0', '0.0', '0.0', '0.0', '0.001', '0',   '1.0', '0.5', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',
-                                              '0.0', '0.0', '0.0', '0.0', '0.0', '0.300', '255', '1.0', '1.0', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic'  
+        '|','F', 'Scale Down',           '2',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.001',  '0',      '1.0',    '0.5',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'easeOutCubic',
+                                                 '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.300',  '255',    '1.0',    '1.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'easeOutCubic'  
       ]</default>
       <summary>Normal Windows</summary>
       <description>Animation settings for Normal Windows opening</description>
     </key>
     
     <key name="dialog-open" type="as">
-    <!-- |  S    Name                    C    PPX    PPY    CX     CY     CZ     T        OP     SX     SY     PX     PY      TZ     RX     RY     RZ     TRN -->
+    <!-- |  S    Name                    C       PPX       PPY       CX        CY        CZ        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN -->
       <default>[
-        '|','F', 'Fold Out Sideways',    '2', '0.5', '0.0', '0.0', '0.0', '0.0', '0.001', '255', '0.0', '1.0', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',
-                                              '0.5', '0.0', '0.0', '0.0', '0.0', '0.300', '255', '1.0', '1.0', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic'  
+        '|','F', 'Fold Out Sideways',    '2',    '0.5',    '0.0',    '0.0',    '0.0',    '0.0',    '0.001',  '255',    '0.0',    '1.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'easeOutCubic',
+                                                 '0.5',    '0.0',    '0.0',    '0.0',    '0.0',    '0.300',  '255',    '1.0',    '1.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'easeOutCubic'  
       ]</default>
       <summary>Dialog Windows</summary>
       <description>Animation settings for Dialog Windows opening</description>
     </key>
 
     <key name="modaldialog-open" type="as">
-    <!-- |  S    Name                    C    PPX    PPY    CX     CY     CZ     T        OP     SX     SY     PX     PY      TZ     RX     RY     RZ     TRN -->
+    <!-- |  S    Name                    C       PPX       PPY       CX        CY        CZ        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN -->
       <default>[
-        '|','F', 'Slide Down',           '2', '0.0', '0.0', '0.0', '0.0', '0.0', '0.001', '0',   '1.0', '1.0', '0.0', '-0.2', '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',
-                                              '0.0', '0.0', '0.0', '0.0', '0.0', '0.300', '255', '1.0', '1.0', '0.0', '0.2',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic' 
+        '|','F', 'Slide Down',           '2',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.001',  '0',      '1.0',    '1.0',    '0.0',    '-0.2',   '0.0',    '0.0',    '0.0',    '0.0',    'easeOutCubic',
+                                                 '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.300',  '255',    '1.0',    '1.0',    '0.0',    '0.2',    '0.0',    '0.0',    '0.0',    '0.0',    'easeOutCubic' 
       ]</default>
       <summary>Modal Dialog</summary>
       <description>Animation settings for Modal Dialog Windows opening</description>
     </key>    
     
     <key name="dropdownmenu-open" type="as">
-    <!-- |  S    Name                    C    PPX    PPY    CX     CY     CZ     T        OP     SX     SY     PX     PY      TZ     RX     RY     RZ     TRN -->
+    <!-- |  S    Name                    C       PPX       PPY       CX        CY        CZ        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN -->
       <default>[
-        '|','T', 'Scale Down',           '2', '0.0', '0.0', '0.0', '0.0', '0.0', '0.001', '0',   '1.0', '0.5', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',
-                                              '0.0', '0.0', '0.0', '0.0', '0.0', '0.250', '255', '1.0', '1.0', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic'  
+        '|','T', 'Scale Down',           '2',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.001',  '0',      '1.0',    '0.5',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'easeOutCubic',
+                                                 '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.250',  '255',    '1.0',    '1.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'easeOutCubic'  
       ]</default>
       <summary>Dropdown Menu</summary>
       <description>Animation settings for Dropdown Menu opening</description>
     </key>
     
     <key name="popupmenu-open" type="as">
-    <!-- |  S    Name                    C    PPX    PPY    CX     CY     CZ     T        OP     SX     SY     PX     PY      TZ     RX     RY     RZ     TRN -->
+    <!-- |  S    Name                    C       PPX       PPY       CX        CY        CZ        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN -->
       <default>[
-       '|','T',  'Scale Down',           '2', '0.0', '0.0', '0.0', '0.0', '0.0', '0.001', '0',   '1.0', '0.5', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',
-                                              '0.0', '0.0', '0.0', '0.0', '0.0', '0.250', '255', '1.0', '1.0', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic'  
+        '|','T', 'Scale Down',           '2',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.001',  '0',      '1.0',    '0.5',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'easeOutCubic',
+                                                 '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.250',  '255',    '1.0',    '1.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'easeOutCubic'  
       ]</default>
       <summary>Pop Up Menu</summary>
       <description>Animation settings for Pop Up Menu opening</description>
     </key>
 
     <key name="combo-open" type="as">
-    <!-- |  S    Name                    C    PPX    PPY    CX     CY     CZ     T        OP     SX     SY     PX     PY      TZ     RX     RY     RZ     TRN -->
+    <!-- |  S    Name                    C       PPX       PPY       CX        CY        CZ        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN -->
       <default>[
-       '|','T', 'Scale Down',            '2', '0.0', '0.0', '0.0', '0.0', '0.0', '0.001', '0',   '1.0', '0.5', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',
-                                              '0.0', '0.0', '0.0', '0.0', '0.0', '0.250', '255', '1.0', '1.0', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic'  
+        '|','T', 'Scale Down',           '2',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.001',  '0',      '1.0',    '0.5',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'easeOutCubic',
+                                                 '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.250',  '255',    '1.0',    '1.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'easeOutCubic'  
       ]</default>
       <summary>Combo Box</summary>
       <description>Animation settings for Combo Box opening</description>
     </key>
     
     <key name="splashscreen-open" type="as">
-    <!-- |  S    Name                    C    PPX    PPY    CX     CY     CZ     T        OP     SX     SY     PX     PY      TZ     RX     RY     RZ     TRN -->
+    <!-- |  S    Name                    C       PPX       PPY       CX        CY        CZ        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN -->
       <default>[
-        '|','T', 'Zoom In',              '2', '0.5', '0.5', '0.0', '0.0', '0.0', '0.001', '0',   '0.8', '0.8', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',
-                                              '0.5', '0.5', '0.0', '0.0', '0.0', '0.250', '255', '1.0', '1.0', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic' 
+        '|','T', 'Zoom In',              '2',    '0.5',    '0.5',    '0.0',    '0.0',    '0.0',    '0.001',  '0',      '0.8',    '0.8',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'easeOutCubic',
+                                                 '0.5',    '0.5',    '0.0',    '0.0',    '0.0',    '0.250',  '255',    '1.0',    '1.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'easeOutCubic' 
       ]</default>
       <summary>Splash Screen</summary>
       <description>Animation settings for Splash Screen opening</description>
     </key>
 
     <key name="tooltip-open" type="as">
-    <!-- |  S    Name                    C    PPX    PPY    CX     CY     CZ     T        OP     SX     SY     PX     PY      TZ     RX     RY     RZ     TRN -->
+    <!-- |  S    Name                    C       PPX       PPY       CX        CY        CZ        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN -->
       <default>[
-        '|','T', 'Slide Up',             '2', '0.0', '0.0', '0.0', '0.0', '0.0', '0.001', '0',   '1.0', '1.0', '0.0', '0.1',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',
-                                              '0.0', '0.0', '0.0', '0.0', '0.0', '0.300', '255', '1.0', '1.0', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic'  
+        '|','T', 'Slide Up',             '2',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.001',  '0',      '1.0',    '1.0',    '0.0',    '0.1',    '0.0',    '0.0',    '0.0',    '0.0',    'easeOutCubic',
+                                                 '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.300',  '255',    '1.0',    '1.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'easeOutCubic'  
       ]</default>
       <summary>Tooltips</summary>
       <description>Animation settings for Tooltips opening</description>
     </key>
     
     <key name="overrideother-open" type="as">
-    <!-- |  S    Name                    C    PPX    PPY    CX     CY     CZ     T        OP     SX     SY     PX     PY      TZ     RX     RY     RZ     TRN -->
+    <!-- |  S    Name                    C       PPX       PPY       CX        CY        CZ        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN -->
       <default>[
-       '|','T', 'Scale Down',            '2', '0.0', '0.0', '0.0', '0.0', '0.0', '0.001', '0',   '1.0', '0.5', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',
-                                              '0.0', '0.0', '0.0', '0.0', '0.0', '0.250', '255', '1.0', '1.0', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic'  
+        '|','T', 'Scale Down',           '2',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.001',  '0',      '1.0',    '0.5',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'easeOutCubic',
+                                                 '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.250',  '255',    '1.0',    '1.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'easeOutCubic'  
       ]</default>
       <summary>Overrides Others</summary>
       <description>Animation settings for Overrides Others opening</description>
     </key>
     
     <key name="notificationbanner-open" type="as">
-    <!-- |  S    Name                    C    PPX    PPY    CX     CY     CZ     T        OP     SX     SY     PX     PY      TZ     RX     RY     RZ     TRN -->
+    <!-- |  S    Name                    C       PPX       PPY       CX        CY        CZ        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN -->
       <default>[
-        '|','F', 'Fade In',              '2', '0.0', '0.0', '0.0', '0.0', '0.0', '0.001', '0',   '1.0', '1.0', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',
-                                              '0.0', '0.0', '0.0', '0.0', '0.0', '0.300', '255', '1.0', '1.0', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic'  
+        '|','F', 'Fade In',              '2',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.001',  '0',      '1.0',    '1.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'easeOutCubic',
+                                                 '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.300',  '255',    '1.0',    '1.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'easeOutCubic'  
       ]</default>
       <summary>Notification Banner</summary>
       <description>Animation settings for Notification Banner opening</description>
     </key>
     
     <key name="padosd-open" type="as">
-    <!-- |  S    Name                    C    PPX    PPY    CX     CY     CZ     T        OP     SX     SY     PX     PY      TZ     RX     RY     RZ     TRN -->
+    <!-- |  S    Name                    C       PPX       PPY       CX        CY        CZ        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN -->
       <default>[
-        '|','F', 'Slide Up',             '3', '0.0', '0.0', '0.0', '0.0', '0.0', '0.001', '0',   '1.0', '1.0', '0.0', '0.2',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',
-                                              '0.0', '0.0', '0.0', '0.0', '0.0', '0.300', '255', '1.0', '1.0', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',
-                                              '0.0', '0.0', '0.0', '0.0', '0.0', '0.300', '255', '1.0', '1.0', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic'    
+        '|','F', 'Slide Up',             '3',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.001',  '0',      '1.0',    '1.0',    '0.0',    '0.2',    '0.0',    '0.0',    '0.0',    '0.0',    'easeOutCubic',
+                                                 '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.300',  '255',    '1.0',    '1.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'easeOutCubic',
+                                                 '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.300',  '255',    '1.0',    '1.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'easeOutCubic'    
       ]</default>
       <summary>Pad OSD</summary>
       <description>Animation settings for Pad OSD opening</description>
     </key>
 
-    <!--  ============================================================   Close   ==================================================================================== -->
+    <!--  ==================================================================================   Close   =================================================================================================== -->
     
     <key name="closing-effect" type="b">
       <default>false</default>
@@ -148,53 +148,53 @@ Read the effectParameters.txt File for details.
     </key>
  
     <key name="normal-close" type="as">
-    <!-- |  S    Name                    C    PPX    PPY    CX     CY     CZ     T        OP     SX     SY     PX     PY      TZ     RX     RY     RZ     TRN -->
+    <!-- |  S    Name                    C       PPX       PPY       CX        CY        CZ        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN -->
       <default>[
-        '|','F', 'Scale Up',             '1', '0.0', '0.0', '0.0', '0.0', '0.0', '0.300', '0',   '1.0', '0.5', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeInCubic'
+        '|','F', 'Scale Up',             '1',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.300',  '0',      '1.0',    '0.5',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'easeInCubic'
       ]</default>
       <summary>Normal Windows</summary>
       <description>Animation settings for Normal Windows closing</description>
     </key>
     
     <key name="dialog-close" type="as">
-    <!-- |  S    Name                    C    PPX    PPY    CX     CY     CZ     T        OP     SX     SY     PX     PY      TZ     RX     RY     RZ     TRN -->
+    <!-- |  S    Name                    C       PPX       PPY       CX        CY        CZ        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN -->
       <default>[
-        '|','F', 'Fold In Sideways',     '1', '0.5', '0.0', '0.0', '0.0', '0.0', '0.300', '255', '0.0', '1.0', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic'
+        '|','F', 'Fold In Sideways',     '1',    '0.5',    '0.0',    '0.0',    '0.0',    '0.0',    '0.300',  '255',    '0.0',    '1.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'easeOutCubic'
       ]</default>
       <summary>Dialog Windows</summary>
       <description>Animation settings for Dialog Windows closing</description>
     </key>
     
     <key name="modaldialog-close" type="as">
-    <!-- |  S    Name                    C    PPX    PPY    CX     CY     CZ     T        OP     SX     SY     PX     PY      TZ     RX     RY     RZ     TRN -->
+    <!-- |  S    Name                    C       PPX       PPY       CX        CY        CZ        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN -->
       <default>[
-        '|','F', 'Slide Up',             '1', '0.0', '0.0', '0.0', '0.0', '0.0', '0.300', '0',   '1.0', '1.0', '0.0', '-0.2', '0.0', '0.0', '0.0', '0.0', 'easeInCubic'
+        '|','F', 'Slide Up',             '1',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.300',  '0',      '1.0',    '1.0',    '0.0',    '-0.2',   '0.0',    '0.0',    '0.0',    '0.0',    'easeInCubic'
       ]</default>
       <summary>Modal Dialog</summary>
       <description>Animation settings for Modal Dialog Windows closing</description>
     </key>
  
     <key name="notificationbanner-close" type="as">
-    <!-- |  S    Name                    C    PPX    PPY    CX     CY     CZ     T        OP     SX     SY     PX     PY      TZ     RX     RY     RZ     TRN -->
+    <!-- |  S    Name                    C       PPX       PPY       CX        CY        CZ        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN -->
       <default>[
-        '|','F', 'Fade Out',             '1', '0.0', '0.0', '0.0', '0.0', '0.0', '0.300', '0',   '1.0', '1.0', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic'
+        '|','F', 'Fade Out',             '1',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.300',  '0',      '1.0',    '1.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'easeOutCubic'
       ]</default>
       <summary>Notification Banner</summary>
       <description>Animation settings for Notification Banner closing</description>
     </key>
        
     <key name="padosd-close" type="as">
-    <!-- |  S    Name                    C    PPX    PPY    CX     CY     CZ     T        OP     SX     SY     PX     PY      TZ     RX     RY     RZ     TRN -->
+    <!-- |  S    Name                    C       PPX       PPY       CX        CY        CZ        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN -->
       <default>[
-        '|','F', 'Scale Up',             '1', '0.0', '1.0', '0.0', '0.0', '0.0', '0.300', '255', '1.0', '0.0', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0','easeOutCubic'
+        '|','F', 'Scale Up',             '1',    '0.0',    '1.0',    '0.0',    '0.0',    '0.0',    '0.300',  '255',    '1.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0','easeOutCubic'
       ]</default>
       <summary>Pad OSD</summary>
       <description>Animation settings for Pad OSD closing</description>
     </key>    
 
-    <!--  =============================================================    More   =================================================================================== -->
+    <!--  ==================================================================================    More   =================================================================================================== -->
     
-    <!--  =============================================================  Minimize  ================================================================================== -->
+    <!--  ==================================================================================  Minimize  ================================================================================================== -->
     
     <key name="minimizing-effect" type="b">
       <default>false</default>
@@ -203,33 +203,33 @@ Read the effectParameters.txt File for details.
     </key>
     
     <key name="normal-minimize" type="as">
-    <!-- |  S    Name                    C    PPX    PPY    CX     CY     CZ     T        OP     SX     SY     PX     PY      TZ     RX     RY     RZ     TRN -->
+    <!-- |  S    Name                    C       PPX       PPY       CX        CY        CZ        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN -->
       <default>[
-        '|','F', 'Slide Down',           '1', '0.0', '0.0', '0.0', '0.0', '0.0', '0.300', '0',   '1.0', '1.0', '0.0', '0.2',  '0.0', '0.0', '0.0', '0.0', 'easeInCubic'
+        '|','F', 'Slide Down',           '1',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.300',  '0',      '1.0',    '1.0',    '0.0',    '0.2',    '0.0',    '0.0',    '0.0',    '0.0',    'easeInCubic'
       ]</default>
       <summary>Normal Windows</summary>
       <description>Animation settings for Normal Windows minimizing</description>
     </key>
     
     <key name="dialog-minimize" type="as">
-    <!-- |  S    Name                    C    PPX    PPY    CX     CY     CZ     T        OP     SX     SY     PX     PY      TZ     RX     RY     RZ     TRN -->
+    <!-- |  S    Name                    C       PPX       PPY       CX        CY        CZ        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN -->
       <default>[
-        '|','F', 'Slide Down',           '1', '0.0', '0.0', '0.0', '0.0', '0.0', '0.300', '0',   '1.0', '1.0', '0.0', '0.2',  '0.0', '0.0', '0.0', '0.0', 'easeInCubic'
+        '|','F', 'Slide Down',           '1',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.300',  '0',      '1.0',    '1.0',    '0.0',    '0.2',    '0.0',    '0.0',    '0.0',    '0.0',    'easeInCubic'
       ]</default>
       <summary>Dialog Windows</summary>
       <description>Animation settings for Dialog Windows minimizing</description>
     </key>
 
     <key name="modaldialog-minimize" type="as">
-    <!-- |  S    Name                    C    PPX    PPY    CX     CY     CZ     T        OP     SX     SY     PX     PY      TZ     RX     RY     RZ     TRN -->
+    <!-- |  S    Name                    C       PPX       PPY       CX        CY        CZ        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN -->
       <default>[
-        '|','F', 'Slide Down',           '1', '0.0', '0.0', '0.0', '0.0', '0.0', '0.300', '0',   '1.0', '1.0', '0.0', '0.2',  '0.0', '0.0', '0.0', '0.0', 'easeInCubic'
+        '|','F', 'Slide Down',           '1',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.300',  '0',      '1.0',    '1.0',    '0.0',    '0.2',    '0.0',    '0.0',    '0.0',    '0.0',    'easeInCubic'
       ]</default>
       <summary>Modal Dialog</summary>
       <description>Only provided so that shell does not crash if for any reason Modal Dialog Windows is minimzing</description>
     </key>
 
-    <!--  ============================================================  Uninimize  ================================================================================== -->
+    <!--  ===========================================================================  Uninimize  ======================================================================================================== -->
     
     <key name="unminimizing-effect" type="b">
       <default>false</default>
@@ -238,98 +238,150 @@ Read the effectParameters.txt File for details.
     </key>
     
     <key name="normal-unminimize" type="as">
-    <!-- |  S    Name                    C    PPX    PPY    CX     CY     CZ     T        OP     SX     SY     PX     PY      TZ     RX     RY     RZ     TRN -->
+    <!-- |  S    Name                    C       PPX       PPY       CX        CY        CZ        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN -->
       <default>[
-        '|','F', 'Slide Up',             '2', '0.0', '0.0', '0.0', '0.0', '0.0', '0.001', '0',   '1.0', '1.0', '0.0', '0.2',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',
-                                              '0.0', '0.0', '0.0', '0.0', '0.0', '0.300', '255', '1.0', '1.0', '0.0', '-0.2', '0.0', '0.0', '0.0', '0.0', 'easeOutCubic'  
+        '|','F', 'Slide Up',             '2',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.001',  '0',      '1.0',    '1.0',    '0.0',    '0.2',    '0.0',    '0.0',    '0.0',    '0.0',    'easeOutCubic',
+                                                 '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.300',  '255',    '1.0',    '1.0',    '0.0',    '-0.2',   '0.0',    '0.0',    '0.0',    '0.0',    'easeOutCubic'  
       ]</default>
       <summary>Normal Windows</summary>
       <description>Animation settings for Normal Windows unminimizing</description>
     </key>
 
     <key name="dialog-unminimize" type="as">
-    <!-- |  S    Name                    C    PPX    PPY    CX     CY     CZ     T        OP     SX     SY     PX     PY      TZ     RX     RY     RZ     TRN -->
+    <!-- |  S    Name                    C       PPX       PPY       CX        CY        CZ        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN -->
       <default>[
-        '|','F', 'Slide Up',             '2', '0.0', '0.0', '0.0', '0.0', '0.0', '0.001', '0',   '1.0', '1.0', '0.0', '0.2',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',
-                                              '0.0', '0.0', '0.0', '0.0', '0.0', '0.300', '255', '1.0', '1.0', '0.0', '-0.2', '0.0', '0.0', '0.0', '0.0', 'easeOutCubic'  
+        '|','F', 'Slide Up',             '2',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.001',  '0',      '1.0',    '1.0',    '0.0',    '0.2',    '0.0',    '0.0',    '0.0',    '0.0',    'easeOutCubic',
+                                                 '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.300',  '255',    '1.0',    '1.0',    '0.0',    '-0.2',   '0.0',    '0.0',    '0.0',    '0.0',    'easeOutCubic'  
       ]</default>
       <summary>Dialog Windows</summary>
       <description>Animation settings for Dialog Windows unminimzing</description>
     </key>
     
     <key name="modaldialog-unminimize" type="as">
-    <!-- |  S    Name                    C    PPX    PPY    CX     CY     CZ     T        OP     SX     SY     PX     PY      TZ     RX     RY     RZ     TRN -->
+    <!-- |  S    Name                    C       PPX       PPY       CX        CY        CZ        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN -->
       <default>[
-        '|','F', 'Slide Up',             '2', '0.0', '0.0', '0.0', '0.0', '0.0', '0.001', '0',   '1.0', '1.0', '0.0', '0.2',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic',
-                                              '0.0', '0.0', '0.0', '0.0', '0.0', '0.300', '255', '1.0', '1.0', '0.0', '-0.2', '0.0', '0.0', '0.0', '0.0', 'easeOutCubic' 
+        '|','F', 'Slide Up',             '2',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.001',  '0',      '1.0',    '1.0',    '0.0',    '0.2',    '0.0',    '0.0',    '0.0',    '0.0',    'easeOutCubic',
+                                                 '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.300',  '255',    '1.0',    '1.0',    '0.0',    '-0.2',   '0.0',    '0.0',    '0.0',    '0.0',    'easeOutCubic' 
       ]</default>
       <summary>Modal Dialog</summary>
       <description>Only provided so that shell does not crash if for any reason Modal Dialog Windows is unminimzing</description>
     </key>
 
-    <!--  ============================================================  Dragging Window  ============================================================================ -->
+    <!--  ==============================================================================  Focus Window  ================================================================================================== -->
+
+    <key name="focussing-effect" type="b">
+      <default>false</default>
+      <summary>Focussing Effects </summary>
+      <description>Focussing effect animation switch</description>
+    </key>
+
+    <key name="normal-focus" type="as">
+    <!-- |  S    Name                    C       PPX       PPY       CX        CY        CZ        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN -->
+      <default>[
+        '|','F', 'Inflate',              '2',    '0.5',    '0.5',    '0.0',    '0.0',    '0.0',    '0.025',  '255',    '1.02',   '1.02',   '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'easeOutCubic',
+                                                 '0.5',    '0.5',    '0.0',    '0.0',    '0.0',    '0.025',  '255',    '1.0',    '1.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'easeInCubic'                                        
+      ]</default>
+      <summary>Normal Windows </summary>
+      <description>Animation settings for Normal Windows focus</description>
+    </key>
+
+    <key name="dialog-focus" type="as">
+    <!-- |  S    Name                    C       PPX       PPY       CX        CY        CZ        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN -->
+      <default>[
+        '|','F', 'Inflate',              '2',    '0.5',    '0.5',    '0.0',    '0.0',    '0.0',    '0.025',  '255',    '1.02',   '1.02',   '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'easeOutCubic',
+                                                 '0.5',    '0.5',    '0.0',    '0.0',    '0.0',    '0.025',  '255',    '1.0',    '1.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'easeInCubic'                                        
+      ]</default>
+      <summary>Dialog Windows</summary>
+      <description>Animation settings for Dialog Windows focus</description>
+    </key>
+    
+    <key name="modaldialog-focus" type="as">
+    <!-- |  S    Name                    C       PPX       PPY       CX        CY        CZ        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN -->
+      <default>[
+        '|','F', 'Inflate',              '2',    '0.5',    '0.5',    '0.0',    '0.0',    '0.0',    '0.025',  '255',    '1.02',   '1.02',   '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'easeOutCubic',
+                                                 '0.5',    '0.5',    '0.0',    '0.0',    '0.0',    '0.025',  '255',    '1.0',    '1.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'easeInCubic'
+      ]</default>
+      <summary>Modal Dialog</summary>
+      <description>Animation settings for Modal Dialog Windows focus</description>
+    </key>
+
+    <!--  ==================================================================================  Defocus Window  ============================================================================================ -->
+
+    <key name="defocussing-effect" type="b">
+      <default>false</default>
+      <summary>Defocussing Effects</summary>
+      <description>Defocussing effect animation switch</description>
+    </key>
+
+   <key name="normal-defocus" type="as">
+    <!-- |  S    Name                    C       PPX       PPY       CX        CY        CZ        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN -->
+      <default>[
+        '|','F', 'Deflate',              '2',    '0.5',    '0.5',    '0.0',    '0.0',    '0.0',    '0.025',  '255',    '0.97',   '0.97',   '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'easeOutCubic',
+                                                 '0.5',    '0.5',    '0.0',    '0.0',    '0.0',    '0.025',  '255',    '1.0',    '1.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'easeInCubic'
+      ]</default>
+      <summary>Normal Windows</summary>
+      <description>Animation settings for Normal Windows defocus</description>
+    </key>
+
+    <key name="dialog-defocus" type="as">
+    <!-- |  S    Name                    C       PPX       PPY       CX        CY        CZ        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN -->
+      <default>[
+        '|','F', 'Deflate',              '2',    '0.5',    '0.5',    '0.0',    '0.0',    '0.0',    '0.025',  '255',    '0.97',   '0.97',   '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'easeOutCubic',
+                                                 '0.5',    '0.5',    '0.0',    '0.0',    '0.0',    '0.025',  '255',    '1.0',    '1.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'easeInCubic'
+      ]</default>
+      <summary>Dialog Windows</summary>
+      <description>Animation settings for Dialog Windows defocus</description>
+    </key>
+    
+    <key name="modaldialog-defocus" type="as">
+    <!-- |  S    Name                    C       PPX       PPY       CX        CY        CZ        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN -->
+      <default>[
+        '|','F', 'Deflate',              '2',    '0.5',    '0.5',    '0.0',    '0.0',    '0.0',    '0.025',  '255',    '0.97',   '0.97',   '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'easeOutCubic',
+                                                 '0.5',    '0.5',    '0.0',    '0.0',    '0.0',    '0.025',  '255',    '1.0',    '1.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'easeInCubic'
+      ]</default>
+      <summary>Modal Dialog</summary>
+      <description>Animation settings for Modal Dialog Windows defocus</description>
+    </key>
+
+    <!--  ===============================================================================  Dragging Window  ============================================================================================== -->
 
     <key name="moving-effect" type="b">
       <default>false</default>
-      <summary>Dragging Effects [ for windows ]</summary>
+      <summary>Dragging Effects</summary>
       <description>Starting to move effect animation switch</description>
     </key>
 
     <key name="normal-movestart" type="as">
-    <!-- |  S    Name                    C    PPX    PPY    CX     CY     CZ     T        OP     SX     SY     PX     PY      TZ     RX     RY     RZ     TRN -->
+    <!-- |  S    Name                    C       PPX       PPY       CX        CY        CZ        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN -->
       <default>[
-        '|','F', 'Fade Out',             '1', '0.0', '0.0', '0.0', '0.0', '0.0', '0.300', '220', '1.0', '1.0', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic'
+        '|','F', 'Fade',                 '2',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.300',  '220',    '.9999',  '.9999',  '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'easeOutCubic',
+                                                 '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.300',  '255',    '1.0',    '1.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'easeOutCubic' 
       ]</default>
       <summary>Normal Windows </summary>
       <description>Animation settings for Normal Windows start to move</description>
     </key>
 
     <key name="dialog-movestart" type="as">
-    <!-- |  S    Name                    C    PPX    PPY    CX     CY     CZ     T        OP     SX     SY     PX     PY      TZ     RX     RY     RZ     TRN -->
+    <!-- |  S    Name                    C       PPX       PPY       CX        CY        CZ        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN -->
       <default>[
-        '|','F', 'Fade Out',             '1', '0.0', '0.0', '0.0', '0.0', '0.0', '0.300', '220', '1.0', '1.0', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic'  
+        '|','F', 'Fade',                 '2',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.300',  '220',    '1.0',    '1.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'easeOutCubic',
+                                                 '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.300',  '255',    '1.0',    '1.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'easeOutCubic'   
       ]</default>
       <summary>Dialog Windows</summary>
       <description>Animation settings for Dialog Windows start to move</description>
     </key>
     
     <key name="modaldialog-movestart" type="as">
-    <!-- |  S    Name                    C    PPX    PPY    CX     CY     CZ     T        OP     SX     SY     PX     PY      TZ     RX     RY     RZ     TRN -->
+    <!-- |  S    Name                    C       PPX       PPY       CX        CY        CZ        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN -->
       <default>[
-        '|','F', 'Fade Out',             '1', '0.0', '0.0', '0.0', '0.0', '0.0', '0.300', '220', '1.0', '1.0', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic'      
+        '|','F', 'Fade',                 '2',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.300',  '220',    '1.0',    '1.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'easeOutCubic',
+                                                 '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.300',  '255',    '1.0',    '1.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'easeOutCubic'      
       ]</default>
       <summary>Modal Dialog</summary>
-      <description>Only provided so that shell does not crash if for any reason Modal Dialog Windows start to move</description>
+      <description>Animation settings for Modal Dialog Windows start to move</description>
     </key>
 
-   <key name="normal-movestop" type="as">
-    <!-- |  S    Name                    C    PPX    PPY    CX     CY     CZ     T        OP     SX     SY     PX     PY      TZ     RX     RY     RZ     TRN -->
-      <default>[
-        '|','T', 'Fade In',              '1', '0.0', '0.0', '0.0', '0.0', '0.0', '0.300', '255', '1.0', '1.0', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic'  
-      ]</default>
-      <summary>Normal Windows</summary>
-      <description>Animation settings for Normal Windows stop moving</description>
-    </key>
-
-    <key name="dialog-movestop" type="as">
-    <!-- |  S    Name                    C    PPX    PPY    CX     CY     CZ     T        OP     SX     SY     PX     PY      TZ     RX     RY     RZ     TRN -->
-      <default>[
-        '|','T', 'Fade In',              '1', '0.0', '0.0', '0.0', '0.0', '0.0', '0.300', '255', '1.0', '1.0', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic'  
-      ]</default>
-      <summary>Dialog Windows</summary>
-      <description>Animation settings for Dialog Windows stop moving</description>
-    </key>
-    
-    <key name="modaldialog-movestop" type="as">
-    <!-- |  S    Name                    C    PPX    PPY    CX     CY     CZ     T        OP     SX     SY     PX     PY      TZ     RX     RY     RZ     TRN -->
-      <default>[
-         '|','T', 'Fade In',             '1', '0.0', '0.0', '0.0', '0.0', '0.0', '0.300', '255', '1.0', '1.0', '0.0', '0.0',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic'
-      ]</default>
-      <summary>Modal Dialog</summary>
-      <description>Only provided so that shell does not crash if for any reason Modal Dialog Windows stop moving</description>
-    </key>
-
-    <!--  ============================================================    Apps    =================================================================================== -->
+    <!--  ===================================================================================    Apps    ================================================================================================= -->
 
     <key name="use-application-profiles" type="b">
       <default>false</default>
@@ -351,7 +403,7 @@ Read the effectParameters.txt File for details.
       <description>List of Applicaions names for custom profiles</description>
     </key>
 
-    <!--  ============================================================  Tweaks  ===================================================================================== -->
+    <!--  ==========================================================================================  Tweaks  ============================================================================================ -->
 
     <key name="wayland"   type="b">
       <default>false</default>
@@ -395,3 +447,5 @@ Read the effectParameters.txt File for details.
     </schema>
     
 </schemalist>
+
+

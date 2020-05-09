@@ -1,7 +1,7 @@
 /*
 
-Version 9.8
-===========
+Version 10
+==========
 
 Effect Format  [  |  S    Name     C       PPX       PPY       CX        CY        CZ        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN  ]
 
@@ -332,7 +332,6 @@ const EffectsManager = new Lang.Class({
       case "closewindowNew" :
         actor.hide();   
         Main.wm._destroyWindowDone(Main.wm._shellwm ,actor);
-        (actor) ? Main.wm._shellwm.completed_destroy(actor): null;
         this.doFocusAndDefocus = true;
         return;
 
@@ -837,7 +836,7 @@ const EffectsManager = new Lang.Class({
     Main.messageTray._resetNotificationLeftTimeout();
 
     if (animate) {
-      effectsManager.driveNotificationBannerAnimation(Main.messageTray._bannerBin, '_notificationState', 0,/*State.HIDDEN/**/{ 
+      effectsManager.driveNotificationBannerAnimation(Main.messageTray._bannerBin, '_notificationState', 0,/*State.HIDDEN/**/ { 
         y:               -Main.messageTray._bannerBin.height,
         _opacity:        0,
         time:            0.250,//ANIMATION_TIME,
@@ -990,9 +989,9 @@ const EffectsManager = new Lang.Class({
 
     this.loadPreferences();
    
-    this.onOpeningSig      = (this.openingEffectEnabled)      ? global.window_manager.connect("map",        (swm,actor) => this.addWindowEffects(actor, "open", true))       : null;
-    this.onClosingSig      = (this.closingingEffectEnabled)   ? global.window_manager.connect("destroy",    (swm,actor) => this.addWindowEffects(actor, "close", true))      : null;
-    this.onMinimizingSig   = (this.minimizingEffectEnabled)   ? global.window_manager.connect("minimize",   (swm,actor) => this.addWindowEffects(actor, "minimize", true))   : null;
+    this.onOpeningSig      = (this.openingEffectEnabled)      ? global.window_manager.connect("map",        (swm,actor) => this.addWindowEffects(actor, "open",       true))       : null;
+    this.onClosingSig      = (this.closingingEffectEnabled)   ? global.window_manager.connect("destroy",    (swm,actor) => this.addWindowEffects(actor, "close",      true))      : null;
+    this.onMinimizingSig   = (this.minimizingEffectEnabled)   ? global.window_manager.connect("minimize",   (swm,actor) => this.addWindowEffects(actor, "minimize",   true))   : null;
     this.onUnminimizingSig = (this.unMinimizingEffectEnabled) ? global.window_manager.connect("unminimize", (swm,actor) => this.addWindowEffects(actor, "unminimize", true)) : null;
     
     this.focussingDefocussingSig = (this.focussingEffectEnabled || this.defocussingEffectEnabled) ? global.display.connect('notify::focus-window',()=>this.addFocussingEffects()) : null;

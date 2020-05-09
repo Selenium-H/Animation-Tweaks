@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- 
-Version 9.7
-===========
+Version 10
+==========
 
 Effect Format  [  |  S    Name     C       PPX       PPY       CX        CY        CZ        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN  ]
 
@@ -302,7 +302,7 @@ Read the effectParameters.txt File for details.
                                                  '0.5',    '0.5',    '0.0',    '0.0',    '0.0',    '0.025',  '255',    '1.0',    '1.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'easeInCubic'
       ]</default>
       <summary>Modal Dialog</summary>
-      <description>Only provided so that shell does not crash if for any reason Modal Dialog Windows focus</description>
+      <description>Animation settings for Modal Dialog Windows focus</description>
     </key>
 
     <!--  ==================================================================================  Defocus Window  ============================================================================================ -->
@@ -340,7 +340,7 @@ Read the effectParameters.txt File for details.
                                                  '0.5',    '0.5',    '0.0',    '0.0',    '0.0',    '0.025',  '255',    '1.0',    '1.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'easeInCubic'
       ]</default>
       <summary>Modal Dialog</summary>
-      <description>Only provided so that shell does not crash if for any reason Modal Dialog Windows defocus</description>
+      <description>Animation settings for Modal Dialog Windows defocus</description>
     </key>
 
     <!--  ===============================================================================  Dragging Window  ============================================================================================== -->
@@ -378,7 +378,7 @@ Read the effectParameters.txt File for details.
                                                  '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.300',  '255',    '1.0',    '1.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'easeOutCubic'      
       ]</default>
       <summary>Modal Dialog</summary>
-      <description>Only provided so that shell does not crash if for any reason Modal Dialog Windows start to move</description>
+      <description>Animation settings for Modal Dialog Windows start to move</description>
     </key>
 
     <!--  ===================================================================================    Apps    ================================================================================================= -->
@@ -447,3 +447,5 @@ Read the effectParameters.txt File for details.
     </schema>
     
 </schemalist>
+
+

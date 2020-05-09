@@ -1,10 +1,10 @@
-Version 9.3
-===========
+Version 10
+==========
 
-Effect String Format [ |  S    Name      C    PPX    PPY    CX     CY     CZ     T        OP     SX     SY     PX     PY      TZ     RX     RY     RZ     TRN  ]
+Effect Format  [  |  S    Name     C       PPX       PPY       CX        CY        CZ        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN  ]
 
 =========================================================================================================================================================================
-Parameters                 | Values it take                                         | Values displayed in preferences                                                   |
+Parameters                 | Values it take                                                 | Values displayed in preferences                                           |
 =========================================================================================================================================================================
                            |                                                                |                                                                           |
 S   - Status               | T if enabled else F                                            | Displayed as switch                                                       |
@@ -73,31 +73,49 @@ TRN - Tramsiion Type       | Can take the following values                      
 
 Example of parameter stored and displayed in preferences -
 
-Effect String Format [ |  S    Name                C    PPX    PPY    CX     CY     CZ     T        OP     SX     SY     PX     PY      TZ     RX     RY     RZ     TRN  ]              
+Effect Format  [  |  S    Name                    C       PPX       PPY       CX        CY        CZ        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN  ]
 
-Values stored         '|','F', 'Slide Down',       '1', '0.0', '0.0', '0.0', '0.0', '0.0', '0.250', '0',   '1.0', '1.0', '1.0', '1.2',  '0.0', '0.0', '0.0', '0.0', 'easeOutCubic'
+Values stored    '|','F', 'Slide Down',           '1',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.250',  '0',      '1.0',    '1.0',    '1.0',    '1.2',    '0.0',    '0.0',    '0.0',    '0.0',    'easeOutCubic'
 
-Values displayed in preferences                          0      0      0      0      0      250      0      100    100    100    120     0      0      0      0      easeOutCubic
+Values displayed in preferences                            0         0         0         0         0         250       0         100       100       100       120       0         0         0         0         easeOutCubic
  
  
 Parameter Values - non-float ( window animations only ) 
 =======================================================
 
-MX  =  Default X coordinate of Minimized window
-MY  =  Default Y coordinate of Minimized window
-LX  =  X Coordinate of window docked to left
-RX  =  X Coordinate of window docked to Right
-UY  =  Y Coordinate of window docked at Up 
-DY  =  Y Coordinate of window docked at bottom
 MW  =  Width of Minimized window 
 MH  =  Height of Minimized window
+
+MX  =  Default X coordinate of Minimized window
+MY  =  Default Y coordinate of Minimized window
+
+LX  =  X Coordinate of window docked to left
+RX  =  X Coordinate of window docked to Right
+
+UY  =  Y Coordinate of window docked at Up 
+DY  =  Y Coordinate of window docked at bottom
+
 SX  =  Same X Coordinate as previous
 SY  =  Same Y Coordinate as previous 
+
 IX  =  Initial X Coordinate during start
 IY  =  Initial Y Coordinate during start
 
 
-All non float values are overridden by actual values at run time.
+All non float values are overridden by actual values obtained from setNextParametersWindow function at run time.
 
 
+Moving Effects
+==============
 
+Moving effect Array stores two animations in a single array as follows
+
+Effect Array   [  |  S    Name                    C       PPX       PPY       CX        CY        CZ        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN  ]
+
+Starting    -->  '|','F'  'Fade',                 '2',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.300',  '220',    '1.0',    '1.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',   '0.0',     'easeOutCubic',  
+Stopping    -->                                           '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.300',  '255',    '1.0',    '1.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',   '0.0',     'easeOutCubic'   
+                                                        
+When window movement starts driveOtherEffects function is called with temporarily initializing C = 2/2 = 1, only executes first half of Effect Array 
+When window movement stops  driveOtherEffects function is called with subEffectNo = C/2, only executes second half of Effect Array
+
+  

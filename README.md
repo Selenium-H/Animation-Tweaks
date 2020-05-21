@@ -15,7 +15,7 @@ Please reset the extension after updating. The Extension will stop when upgraded
 A Default shortcut combination of Super Key + t is provided to temporarily disable the extension until GNOME Shell restarts. 
   
 Some effects might not work properly on wayland, for which a workaround is provided on preferences -> Tweaks tab.
-However, some animations might not work properly.", 
+However, some animations might not work properly.
 </p>
 
 # &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Customizations

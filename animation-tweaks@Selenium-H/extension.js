@@ -1,6 +1,6 @@
 /*
 
-Version 10
+Version 11
 ==========
 
 Effect Format  [  |  S    Name     C       PPX       PPY       CX        CY        CZ        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN  ]
@@ -73,6 +73,7 @@ const EffectsManager = new Lang.Class({
   _init: function () {
 
     this.prefs = Convenience.getSettings("org.gnome.shell.extensions.animation-tweaks");
+        
     this.forThisVersion=(Config.PACKAGE_VERSION < "3.34.2") ? "Old" : "New";
     
     this.dropdownmenuWindowcloseProfile  =  [''];   
@@ -81,7 +82,7 @@ const EffectsManager = new Lang.Class({
     this.splashscreenWindowcloseProfile  =  [''];
     this.tooltipWindowcloseProfile       =  [''];
     this.overrideotherWindowcloseProfile =  [''];
-
+      
   },
 
   addFocussingEffects: function() {
@@ -987,11 +988,18 @@ const EffectsManager = new Lang.Class({
 
   startEffectsManager: function() {
 
+    this.extensionDisableShortcut();
+   
+    if(this.prefs.get_int("current-version") <= 10) {    
+      Main.notify("Animation Tweaks","Extension is updated. A reset is needed. Please reset the extension");
+      return;
+    }
+
     this.loadPreferences();
    
-    this.onOpeningSig      = (this.openingEffectEnabled)      ? global.window_manager.connect("map",        (swm,actor) => this.addWindowEffects(actor, "open",       true))       : null;
-    this.onClosingSig      = (this.closingingEffectEnabled)   ? global.window_manager.connect("destroy",    (swm,actor) => this.addWindowEffects(actor, "close",      true))      : null;
-    this.onMinimizingSig   = (this.minimizingEffectEnabled)   ? global.window_manager.connect("minimize",   (swm,actor) => this.addWindowEffects(actor, "minimize",   true))   : null;
+    this.onOpeningSig      = (this.openingEffectEnabled)      ? global.window_manager.connect("map",        (swm,actor) => this.addWindowEffects(actor, "open",       true)) : null;
+    this.onClosingSig      = (this.closingingEffectEnabled)   ? global.window_manager.connect("destroy",    (swm,actor) => this.addWindowEffects(actor, "close",      true)) : null;
+    this.onMinimizingSig   = (this.minimizingEffectEnabled)   ? global.window_manager.connect("minimize",   (swm,actor) => this.addWindowEffects(actor, "minimize",   true)) : null;
     this.onUnminimizingSig = (this.unMinimizingEffectEnabled) ? global.window_manager.connect("unminimize", (swm,actor) => this.addWindowEffects(actor, "unminimize", true)) : null;
     
     this.focussingDefocussingSig = (this.focussingEffectEnabled || this.defocussingEffectEnabled) ? global.display.connect('notify::focus-window',()=>this.addFocussingEffects()) : null;
@@ -1000,8 +1008,6 @@ const EffectsManager = new Lang.Class({
       this.onMovingStartSig = global.display.connect('grab-op-begin', (display, screen, window, op)=> this.addMovingEffects(window, "movestart", op));
       this.onMovingEndSig   = global.display.connect('grab-op-end',   (display, screen, window, op)=> this.addMovingEffects(window, "movestop",  op));
     }
-       
-    this.extensionDisableShortcut();
      
   },
 

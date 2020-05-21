@@ -6,7 +6,7 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Animation-Tweaks-10\n"
+"Project-Id-Version: Animation-Tweaks-11\n"
 "POT-Creation-Date: 2016-06-10 19:03-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
@@ -16,191 +16,244 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: prefs.js:581
+#: prefs.js:651 prefs.js:676
 msgid "Reset Animation Tweaks Extension"
 msgstr ""
 
-#: prefs.js:711
+#: prefs.js:671
+msgid "Extension is upgraded to Version  "
+msgstr ""
+
+#: prefs.js:672
+msgid "A Reset to default preferences is needed if upgrading from a version older than version 10 or unable to reset during of a previous upgrade to version 10. Please Reset the extension by clicking the button below."
+msgstr ""
+
+#: prefs.js:674
+msgid ""
+"If already upgraded to Version 10 or higher and it's working fine, you can keep the preferences as it is.\n"
+"In that case click on the button below. Otherwise click the above button to reset."
+msgstr ""
+
+#: prefs.js:677
+msgid "Upgrade From Version 10 or newer."
+msgstr ""
+
+#: prefs.js:699
+msgid "Upgrade From Version 10 or newer"
+msgstr ""
+
+#: prefs.js:705
+msgid "Please make sure"
+msgstr ""
+
+#: prefs.js:706
+msgid ""
+"You are upgrading from version 10 or newer of this extension to current version.\n"
+"Already Reset the extension during previous upgrade.\n"
+"The extension is working fine."
+msgstr ""
+
+#: prefs.js:707
+msgid "Otherwise click Cancel to go back and reset."
+msgstr ""
+
+#: prefs.js:708
+msgid "Keep Preferences and Upgrade"
+msgstr ""
+
+#: prefs.js:738
+msgid "Version  "
+msgstr ""
+
+#: prefs.js:739
+msgid "Upgraded Successfully"
+msgstr ""
+
+#: prefs.js:801
 msgid "Customize"
 msgstr ""
 
-#: prefs.js:711
+#: prefs.js:801
 msgid "Animation"
 msgstr ""
 
-#: prefs.js:822
+#: prefs.js:914
+msgid "Update"
+msgstr ""
+
+#: prefs.js:916
 msgid "Open"
 msgstr ""
 
-#: prefs.js:823
+#: prefs.js:917
 msgid "Close"
 msgstr ""
 
-#: prefs.js:824
+#: prefs.js:918
 msgid "More"
 msgstr ""
 
-#: prefs.js:825
+#: prefs.js:919
 msgid "Apps"
 msgstr ""
 
-#: prefs.js:826
+#: prefs.js:920
 msgid "Tweaks"
 msgstr ""
 
-#: prefs.js:827
+#: prefs.js:922
 msgid "About"
 msgstr ""
 
-#: prefs.js:1100
+#: prefs.js:1197
 msgid "Any  Changes  done  here  are  Applied  immediately"
 msgstr ""
 
-#: prefs.js:1101
+#: prefs.js:1198
 msgid "Details of parameter values are described in"
 msgstr ""
 
-#: prefs.js:1101
+#: prefs.js:1198
 msgid "file  in  extension folder."
 msgstr ""
 
-#: prefs.js:1114
+#: prefs.js:1211
 msgid "Parameters for Starting Effect"
 msgstr ""
 
-#: prefs.js:1121
+#: prefs.js:1218
 msgid "Tween Parameters - "
 msgstr ""
 
-#: prefs.js:1124
+#: prefs.js:1221
 msgid "Pivot Point X\t\t\t[\t-500  -  500\t%\t\t]"
 msgstr ""
 
-#: prefs.js:1125
+#: prefs.js:1222
 msgid "Pivot Point Y\t\t\t[\t-500  -  500\t%\t\t]"
 msgstr ""
 
-#: prefs.js:1126
+#: prefs.js:1223
 msgid "Rotation Center X\t\t[\t0  -  100\t%\t\t]"
 msgstr ""
 
-#: prefs.js:1127
+#: prefs.js:1224
 msgid "Rotation Center Y\t\t[\t0  -  100\t%\t\t]"
 msgstr ""
 
-#: prefs.js:1128
+#: prefs.js:1225
 msgid "Rotation Center Z\t\t[\t0  -  100\t%\t\t]"
 msgstr ""
 
-#: prefs.js:1129
+#: prefs.js:1226
 msgid "Time\t\t\t\t\t[\tin milliseconds\t]"
 msgstr ""
 
-#: prefs.js:1130
+#: prefs.js:1227
 msgid "Ending Opacity\t\t[\t0  -  255\t\t\t]"
 msgstr ""
 
-#: prefs.js:1131
+#: prefs.js:1228
 msgid "Ending Width\t\t\t[\t0  -  200\t%\t\t]"
 msgstr ""
 
-#: prefs.js:1132
+#: prefs.js:1229
 msgid "Ending Height\t\t\t[\t0  -  200\t%\t\t]"
 msgstr ""
 
-#: prefs.js:1133
+#: prefs.js:1230
 msgid "Movement along X\t[\t0 ± % Screen width from current X→\t]"
 msgstr ""
 
-#: prefs.js:1134
+#: prefs.js:1231
 msgid "Movement along Y\t[\t0 ± % Screen height from current Y↓\t]"
 msgstr ""
 
-#: prefs.js:1135
+#: prefs.js:1232
 msgid "Movement along Z\t[\t0 ± % Screen height from current Z\t]"
 msgstr ""
 
-#: prefs.js:1136
+#: prefs.js:1233
 msgid "Rotation about X\t\t[\tin Degree\t%\t\t]"
 msgstr ""
 
-#: prefs.js:1137
+#: prefs.js:1234
 msgid "Rotation about Y\t\t[\tin Degree\t%\t\t]"
 msgstr ""
 
-#: prefs.js:1138
+#: prefs.js:1235
 msgid "Rotation about Z\t\t[\tin Degree\t%\t\t]"
 msgstr ""
 
-#: prefs.js:1139
+#: prefs.js:1236
 msgid "Transition Type\t\t"
 msgstr ""
 
-#: prefs.js:1144
+#: prefs.js:1241
 msgid "Parameters for Ending Effect"
 msgstr ""
 
-#: prefs.js:1322
+#: prefs.js:1419
 msgid "Items"
 msgstr ""
 
-#: prefs.js:1323 prefs.js:1503
+#: prefs.js:1420 prefs.js:1600
 msgid "Effect"
 msgstr ""
 
-#: prefs.js:1324
+#: prefs.js:1421
 msgid "Time { in ms }"
 msgstr ""
 
-#: prefs.js:1325 prefs.js:1505
+#: prefs.js:1422 prefs.js:1602
 msgid "Status"
 msgstr ""
 
-#: prefs.js:1377
+#: prefs.js:1474
 msgid "Choose an application"
 msgstr ""
 
-#: prefs.js:1462 prefs.js:1469 prefs.js:1634
+#: prefs.js:1559 prefs.js:1566 prefs.js:1731
 msgid "Window Preferences"
 msgstr ""
 
-#: prefs.js:1469 prefs.js:1634
+#: prefs.js:1566 prefs.js:1731
 msgid "No Application Selected"
 msgstr ""
 
-#: prefs.js:1502
+#: prefs.js:1599
 msgid "Action"
 msgstr ""
 
-#: prefs.js:1504
+#: prefs.js:1601
 msgid "Time { in ms )"
 msgstr ""
 
-#: prefs.js:1517
+#: prefs.js:1614
 msgid "Application List"
 msgstr ""
 
-#: prefs.js:1530
+#: prefs.js:1627
 msgid "Add"
 msgstr ""
 
-#: prefs.js:1533
+#: prefs.js:1630
 msgid "Remove"
 msgstr ""
 
-#: prefs.js:1787
+#: prefs.js:1884
 msgid "Alt Key"
 msgstr ""
 
-#: prefs.js:1787
+#: prefs.js:1884
 msgid "Ctrl Key"
 msgstr ""
 
-#: prefs.js:1787
+#: prefs.js:1884
 msgid "Shift Key"
 msgstr ""
 
-#: prefs.js:1787
+#: prefs.js:1884
 msgid "Super Key"
 msgstr ""
 
@@ -492,12 +545,20 @@ msgstr ""
 msgid "Shortcut key combiation to disable extension"
 msgstr ""
 
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:436
+msgid "Version of Current Extension"
+msgstr ""
+
 #: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:437
-#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:438
+msgid "Provided to ensure that extension is stopped incase of autoupdate from previous version to prevent unwanted effects"
+msgstr ""
+
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:442
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:443
 msgid "Signals the extension to reload"
 msgstr ""
 
-#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:443
-#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:444
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:448
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:449
 msgid "Signals the extension to reload Application Profiles"
 msgstr ""

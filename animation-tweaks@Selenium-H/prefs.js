@@ -1,6 +1,6 @@
 /*
 
-Version 10
+Version 11
 ==========
 
 Effect Format  [  |  S    Name     C       PPX       PPY       CX        CY        CZ        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN  ]
@@ -570,24 +570,13 @@ const AnimationTweaksAboutPage =  new GObject.Class({
     this.parent();
     
   },
-  
-  showInfo: function(){
-  
-    let vbox                 = new Gtk.Box({ orientation: Gtk.Orientation.VERTICAL, margin: 30 });
-    let imageBox             = new Gtk.Box();
-    let image                = new Gtk.Image({ file: Extension.dir.get_child('eicon.png').get_path(), pixel_size: 96 });
-    let textBox              = new Gtk.Box({ orientation: Gtk.Orientation.VERTICAL });
-    let text                 = new Gtk.Label({ wrap: true, justify: 2, use_markup: true, label: "<big><b>" + Metadata.name + "</b></big>\n" +"<small>Version  "+ Metadata.version +"</small>\n\n" +(Metadata.description)+"\n\n\n\n\n<span size=\"small\">This program comes with ABSOLUTELY NO WARRANTY.\nSee the <a href=\"https://www.gnu.org/licenses/old-licenses/gpl-2.0.html\">GNU General Public License, version 2 or later</a>for details.</span>\n"});  
-    let ResetExtensionButton = new Gtk.Button({label: _("Reset Animation Tweaks Extension"),halign:Gtk.Align.CENTER});
     
-    ResetExtensionButton.connect('clicked', ()=> this.resetExtension());
-
-    imageBox.set_center_widget(image);
-    textBox.pack_start(text,               false, false, 0);
-    vbox.pack_start(imageBox,              false, false, 0);
-    vbox.pack_start(textBox,               false, false, 0);
-    vbox.pack_start(ResetExtensionButton,  false, false, 0);
-    this.add(vbox);
+  keepPreferences: function(dialog) {
+  
+    settings.set_int("current-version", Metadata.version);
+    reloadExtension();
+    this.updateDone();
+    dialog.destroy();
     
   },
   
@@ -646,10 +635,111 @@ const AnimationTweaksAboutPage =  new GObject.Class({
     settings.reset("padosd-hide-timeout");
     settings.reset("notificationbanner-pos");
     
+    settings.set_int("current-version", Metadata.version);
+    
     reloadExtension();
     
-  }  
+  },
+    
+  showInfo: function(){
+  
+    let vbox                 = new Gtk.Box({ orientation: Gtk.Orientation.VERTICAL, margin: 30 });
+    let imageBox             = new Gtk.Box();
+    let image                = new Gtk.Image({ file: Extension.dir.get_child('eicon.png').get_path(), pixel_size: 96 });
+    let textBox              = new Gtk.Box({ orientation: Gtk.Orientation.VERTICAL });
+    let text                 = new Gtk.Label({ wrap: true, justify: 2, use_markup: true, label: "<big><b>" + Metadata.name + "</b></big>\n" +"<small>Version  "+ Metadata.version +"</small>\n\n" +(Metadata.description)+"\n\n\n\n\n<span size=\"small\">This program comes with ABSOLUTELY NO WARRANTY.\nSee the <a href=\"https://www.gnu.org/licenses/old-licenses/gpl-2.0.html\">GNU General Public License, version 2 or later</a>for details.</span>\n"});  
+    let ResetExtensionButton = new Gtk.Button({label: _("Reset Animation Tweaks Extension"),halign:Gtk.Align.CENTER});
+    
+    ResetExtensionButton.connect('clicked', ()=> this.resetExtension());
 
+    imageBox.set_center_widget(image);
+    textBox.pack_start(text,               false, false, 0);
+    vbox.pack_start(imageBox,              false, false, 0);
+    vbox.pack_start(textBox,               false, false, 0);
+    vbox.pack_start(ResetExtensionButton,  false, false, 0);
+    this.add(vbox);
+    
+  },
+  
+  showUpdateInfo: function(){
+  
+    this.vbox                = new Gtk.Box({ orientation: Gtk.Orientation.VERTICAL, margin: 30 });
+    let imageBox             = new Gtk.Box();
+    let image                = new Gtk.Image({ file: Extension.dir.get_child('eicon.png').get_path(), pixel_size: 96 });
+    let textBox              = new Gtk.Box({ orientation: Gtk.Orientation.VERTICAL });
+    let text                 = new Gtk.Label({ wrap: true, justify: 2, use_markup: true, label: "<big><b>" + Metadata.name + "</b></big>\n\n"});
+    this.text1               = new Gtk.Label({ wrap: true, justify: 2, use_markup: true, label: _("Extension is upgraded to Version  ")+ Metadata.version+"\n" });
+    this.text2               = new Gtk.Label({ wrap: true, justify: 2, use_markup: true, label: "<big><b> "+_("A Reset to default preferences is needed if upgrading from a version older than version 10 or unable to reset during previous upgrade to version 10. Please Reset the extension by clicking the button below.")+"</b></big>\n\n"});
+    this.textBox1            = new Gtk.Box({ orientation: Gtk.Orientation.VERTICAL });
+    let text3                = new Gtk.Label({ wrap: true, justify: 2, use_markup: true, label: "\n\n<big><b>"+_("If already upgraded to Version 10 or higher and it's working fine, you can keep the preferences as it is.\nIn that case click on the button below. Otherwise click the above button to reset.")+"</b></big>"+"\n\n"});
+    
+    this.ResetExtensionButton = new Gtk.Button({label: _("Reset Animation Tweaks Extension"),halign:Gtk.Align.CENTER});
+    this.upgradeFormVersion10 = new Gtk.Button({label: _("Upgrade From Version 10 or newer."),halign:Gtk.Align.CENTER});
+    
+    this.ResetExtensionButton.connect('clicked', ()=> {this.resetExtension(); this.updateDone();});
+    this.upgradeFormVersion10.connect('clicked', ()=> this.showVersion10Options());
+
+    imageBox.set_center_widget(image);
+    textBox.pack_start(text,                        false, false, 0);
+    textBox.pack_start(this.text1,                  false, false, 0);
+    textBox.pack_start(this.text2,                  false, false, 0);
+    this.textBox1.pack_start(text3,                 false, false, 0);
+    this.vbox.pack_start(imageBox,                  false, false, 0);
+    this.vbox.pack_start(textBox,                   false, false, 0);
+    this.vbox.pack_start(this.ResetExtensionButton, false, false, 0);
+    this.vbox.pack_start(this.textBox1,             false, false, 0);
+    this.vbox.pack_start(this.upgradeFormVersion10, false, false, 0);
+    
+    this.add(this.vbox);
+    
+  },
+
+  showVersion10Options: function() {
+  
+    let dialog = new Gtk.Dialog({ title: _("Upgrade From Version 10 or newer"),transient_for: this.get_toplevel(),use_header_bar: true,modal: true });
+  
+    dialog.set_default_response(Gtk.ResponseType.OK);
+    dialog.add_button(Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL);
+ 
+    let textBox              = new Gtk.Box({ orientation: Gtk.Orientation.VERTICAL });
+    let text                 = new Gtk.Label({ wrap: true, justify: 2, use_markup: true, label: "<big><b>"+_("Please make sure")+"</b></big>"});
+    let text1                = new Gtk.Label({ wrap: true, justify: 3, use_markup: true, label: "\n\n"+_("You are upgrading from version 10 or newer of this extension to current version.\nAlready Reset the extension during previous upgrade.\nThe extension is working fine.")});
+    let text2                = new Gtk.Label({ wrap: true, justify: 2, use_markup: true, label: "\n\n<big><b>"+_("Otherwise click Cancel to go back and reset.")+"</b></big>"});
+    let upgradeFormVersion10Button = new Gtk.Button({label: _("Keep Preferences and Upgrade"),halign:Gtk.Align.CENTER });
+    upgradeFormVersion10Button.connect('clicked', ()=> this.keepPreferences(dialog));
+    textBox.pack_start(text,                false, false, 0);
+    textBox.pack_start(text1,               false, false, 0);
+    textBox.pack_start(text2,               false, false, 0);
+    
+    let vbox = new Gtk.Box({orientation: Gtk.Orientation.VERTICAL,margin: 5});
+    vbox.pack_start(textBox, true, true, 0);
+    vbox.pack_start(upgradeFormVersion10Button,  false, false, 0);
+
+    dialog.get_content_area().pack_start(vbox, true, true, 0);
+    dialog.connect('response', Lang.bind(this, function(dialog, id) {
+      if(id != Gtk.ResponseType.OK) {
+        dialog.destroy();
+        return;
+      }
+
+      dialog.destroy();
+    }));
+    
+    dialog.show_all();
+    
+  },
+    
+  updateDone: function() {
+  
+    this.textBox1.destroy();
+    this.ResetExtensionButton.destroy();
+    this.upgradeFormVersion10.destroy();
+    
+    this.text1.label =_("Version  ")+ Metadata.version+"\n";
+    this.text2.label = "<big><b> "+_("Upgraded Successfully")+"</b></big>";
+  
+  },
+  
 });
 
 const AnimationTweaksAnimationSettingsForItem = new GObject.Class({
@@ -819,19 +909,26 @@ const AnimationTweaksPrefs = new GObject.Class({
 
     this.parent({ transition_type: 6  ,transition_duration: 300 });
     
-    this.add_titled(this.prefsWindowOpening, "Open",   _("Open")  );
+    let previousVersion = settings.get_int("current-version");
+    
+    ( previousVersion < Metadata.version) ? this.add_titled(this.aboutPage, "Update", _("Update") ) : null;  
+    
+    this.add_titled(this.prefsWindowOpening, "Open",   _("Open")  )
     this.add_titled(this.closingPrefs,       "Close",  _("Close") );
     this.add_titled(this.prefsWindowMore,    "More",   _("More")  );
     this.add_titled(this.profilePrefs,       "Apps",   _("Apps")  );
     this.add_titled(this.tweaksPrefs,        "Tweaks", _("Tweaks"));
-    this.add_titled(this.aboutPage,          "About",  _("About") );  
+    
+    ( previousVersion == Metadata.version) ? this.add_titled(this.aboutPage, "About", _("About") ) : null;
+
     
     this.openingPrefs.displayPrefs();
     this.closingPrefs.displayPrefs();
     this.morePrefs.displayPrefs();
     this.profilePrefs.displayPrefs();
     this.tweaksPrefs.displayPrefs();
-    this.aboutPage.showInfo();
+    
+    ( previousVersion == Metadata.version) ? this.aboutPage.showInfo() : this.aboutPage.showUpdateInfo();
 
   },
 

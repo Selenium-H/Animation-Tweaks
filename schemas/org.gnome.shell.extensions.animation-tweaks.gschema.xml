@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- 
-Version 10
+Version 11
 ==========
 
 Effect Format  [  |  S    Name     C       PPX       PPY       CX        CY        CZ        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN  ]
@@ -431,6 +431,11 @@ Read the effectParameters.txt File for details.
       <description>Shortcut key combiation to disable extension</description>
     </key>
 
+    <key name="current-version" type="i">
+      <default>10</default>
+      <summary>Version of Current Extension</summary>
+      <description>Provided to ensure that extension is stopped incase of autoupdate from previous version to prevent unwanted effects</description>
+    </key>
 
     <key name="reload-signal" type="b">
       <default>false</default>

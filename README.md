@@ -4,15 +4,18 @@
 
 # &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Animation Tweaks
 <p align="center">
-Version 10
+Version 11
 </p>
 
 <p align="center">
 A GNOME Shell Extension to Tweak animations of different items and Customize them.
 </p>
 <p align="left">
-Please reset the extension after updating. Reset button is present in preferences -> About Tab.
-Some effects might not work properly on wayland, for which a workaround is provided. However, some animations might not work properly.
+Please reset the extension after updating. The Extension will stop when upgraded to an incompatible version. In that case an Update tab is created to easily reset the extension. A Reset button is also always present in preferences -> About Tab.
+A Default shortcut combination of Super Key + t is provided to temporarily disable the extension until GNOME Shell restarts. 
+  
+Some effects might not work properly on wayland, for which a workaround is provided on preferences -> Tweaks tab.
+However, some animations might not work properly.", 
 </p>
 
 # &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Customizations

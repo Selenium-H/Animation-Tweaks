@@ -2,7 +2,8 @@
 <img src = /animation-tweaks@Selenium-H/eicon.png >
 </p>
 
-# &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Animation Tweaks
+<h1 align="center"> Animation Tweaks </h1>
+
 <p align="center">
 Version 11
 </p>
@@ -18,7 +19,7 @@ Some effects might not work properly on wayland, for which a workaround is provi
 However, some animations might not work properly.
 </p>
 
-# &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Customizations
+<h1 align="center"> Customizations </h1>
 
 <p align="center">
 <img src = /Screenshots/Image_01.png >

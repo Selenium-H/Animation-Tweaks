@@ -1,11 +1,19 @@
 /*
 
-Version 11
-==========
+Version 11.01
+=============
 
 Effect Format  [  |  S    Name     C       PPX       PPY       CX        CY        CZ        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN  ]
 
 Read the effectParameters.txt File for details.
+
+Credits:
+
+This file is based on https://extensions.gnome.org/extension/367/window-slide-in/ by mengzhuo.
+Rotation animations are based on code from https://extensions.gnome.org/extension/97/coverflow-alt-tab/ by p91paul
+Notification animation are based on https://github.com/Selenium-H/Animation-Tweaks/issues/2#issuecomment-535698204 by JasonLG1979 
+
+Some code was also adapted from the upstream Gnome Shell source code.   
 
 */
 
@@ -15,15 +23,14 @@ const Convenience = Extension.imports.convenience;
 const GLib        = imports.gi.GLib;
 const Lang        = imports.lang;
 const Meta        = imports.gi.Meta;
-const Tweener     = imports.ui.tweener;
 const Main        = imports.ui.main;
 const Shell       = imports.gi.Shell;
+const Clutter     = imports.gi.Clutter;
 
-const changedActorRotationCenter = (Config.PACKAGE_VERSION >= "3.36.0")?imports.gi.Graphene.Point3D : imports.gi.Clutter.Vertex;
+const changedActorRotationCenter = imports.gi.Graphene.Point3D;
 
-const defaultNotificationBannerTweenFunction = (Config.PACKAGE_VERSION >= "3.36.0")? null : Main.messageTray._tween;
-const defaultUpdateShowingNotification       = Main.messageTray._updateShowingNotification;
-const defaultHideNotification                = Main.messageTray._hideNotification;
+const defaultUpdateShowingNotification = Main.messageTray._updateShowingNotification;
+const defaultHideNotification          = Main.messageTray._hideNotification;
 
 let defaultOnCompleteParams;
 let defaultOnComplete;
@@ -73,8 +80,6 @@ const EffectsManager = new Lang.Class({
   _init: function () {
 
     this.prefs = Convenience.getSettings("org.gnome.shell.extensions.animation-tweaks");
-        
-    this.forThisVersion=(Config.PACKAGE_VERSION < "3.34.2") ? "Old" : "New";
     
     this.dropdownmenuWindowcloseProfile  =  [''];   
     this.popupmenuWindowcloseProfile     =  [''];
@@ -97,7 +102,7 @@ const EffectsManager = new Lang.Class({
     (window != null && op == 1 && !Main.overview._shown ) ? this.addWindowEffects(window.get_compositor_private(),action): null;
     
   },
- 
+  
   addNotificationBannerEffects: function() {
   
     if(this.notificationBannerAlignment != 0) {
@@ -110,13 +115,8 @@ const EffectsManager = new Lang.Class({
         
     if(this.notificationbannerWindowopenProfile[0]=="T"||this.notificationbannerWindowcloseProfile[0]=="T") {
 
-      if(Config.PACKAGE_VERSION < "3.34.2") {
-        Main.messageTray._tween = this.driveNotificationBannerAnimation;
-      }
-      else {
         Main.messageTray._updateShowingNotification = (this.notificationbannerWindowopenProfile[0]=="T")?this.overriddenUpdateShowingNotification: defaultUpdateShowingNotification;  
         Main.messageTray._hideNotification = (this.notificationbannerWindowcloseProfile[0]=="T")?this.overriddenHideNotification:defaultHideNotification;
-      }
 
       return;
     }
@@ -186,63 +186,36 @@ const EffectsManager = new Lang.Class({
         
     }
 
-    switch(action+windowType+this.forThisVersion+eParams[0]) {
+    switch(action+windowType+eParams[0]) {
 
-      case "focusWindowOldT" :
-      case "focusWindowNewT" :
-      case "defocusWindowOldT"  :
-      case "defocusWindowNewT"  :
+      case "focusWindowT" :
+      case "defocusWindowT"  :
         this.driveOtherAnimation(actor, eParams, 0, action,"window",null, Main.layoutManager.monitors[global.display.get_current_monitor()].width, Main.layoutManager.monitors[global.display.get_current_monitor()].height);
         return;      
     
-      case "movestartWindowOldT" :
-      case "movestartWindowNewT" :
+      case "movestartWindowT" :
         eParams[2] = eParams[2]/2;
         this.driveOtherAnimation(actor, eParams, 0, action,"window",null, Main.layoutManager.monitors[global.display.get_current_monitor()].width, Main.layoutManager.monitors[global.display.get_current_monitor()].height);
         return;
         
-      case "movestopWindowOldT"  :
-      case "movestopWindowNewT"  :
+      case "movestopWindowT"  :
         this.driveOtherAnimation(actor, eParams, eParams[2]/2, action,"window",null, Main.layoutManager.monitors[global.display.get_current_monitor()].width, Main.layoutManager.monitors[global.display.get_current_monitor()].height);
         return;
-
-      case "openOtherOldT" :
-        actor.set_opacity(0);
-        Tweener.removeTweens(actor);
-        this.driveOtherAnimation(actor, eParams, 0, action,"other",null, Main.layoutManager.monitors[global.display.get_current_monitor()].width, Main.layoutManager.monitors[global.display.get_current_monitor()].height);
-        return;
         
-      case "openOtherNewT" :
+      case "openOtherT" :
         actor.set_opacity(0);
         actor.remove_all_transitions();
         this.driveOtherAnimation(actor, eParams, 0, action,"other",null, Main.layoutManager.monitors[global.display.get_current_monitor()].width, Main.layoutManager.monitors[global.display.get_current_monitor()].height);
         return;
 
-      case "openWindowOldT" :
-        this.doFocusAndDefocus = false;
-        actor.set_opacity(0);
-        Main.wm._removeEffect(Main.wm._mapping, actor);
-        break;
-        
-      case "openWindowNewT" :
+      case "openWindowT" :
         this.doFocusAndDefocus = false;
         actor.set_opacity(0);
         Main.wm._mapping.delete(actor);
         actor.remove_all_transitions();        
         break;
         
-      case "closeWindowOldT" :
-        this.doFocusAndDefocus = false;
-        Main.wm._removeEffect(Main.wm._destroying, actor);   
-        if(actor.meta_window.is_attached_dialog()) {
-          actor._parentDestroyId = actor.meta_window.get_transient_for().connect('unmanaged', () => {
-            Tweener.removeTweens(actor);
-            this.animationDone(actor,action,"window");
-          });
-        }
-        break;
-        
-      case "closeWindowNewT" :
+      case "closeWindowT" :
         this.doFocusAndDefocus = false;
         Main.wm._destroying.delete(actor);
         actor.remove_all_transitions();        
@@ -254,27 +227,22 @@ const EffectsManager = new Lang.Class({
           });
         }
         break;
-        
-      case "minimizeWindowOldT":
-        this.doFocusAndDefocus = false;
-        Main.wm._removeEffect(Main.wm._minimizing, actor);
-        break;
 
-      case "minimizeWindowNewT":
+      case "minimizeWindowT":
         this.doFocusAndDefocus = false;
         Main.wm._minimizing.delete(actor);
         actor.remove_all_transitions();        
         break;
 
-      case "unminimizeWindowOldT" :
-      case "unminimizeWindowNewT" :
+      case "unminimizeWindowT" :
+      case "unminimizeWindowT" :
         this.doFocusAndDefocus = false;
         if(Main.overview._shown) {
           this.animationDone(actor,"unminimize","window");
           return;
         }
-        actor.set_opacity(0);
         Main.wm._unminimizeWindowDone(Main.wm._shellwm ,actor);
+        actor.set_opacity(0);
         break;
         
       default:
@@ -291,84 +259,70 @@ const EffectsManager = new Lang.Class({
    
   animationDone : function (actor, action, itemType="other",itemObject=null) {
   
-    switch(action+itemType+this.forThisVersion) {
+    switch(action+itemType) {
 
-      case "opennotificationbannerOld":
-      case "opennotificationbannerNew":
-      case "closenotificationbannerOld":            
-      case "closenotificationbannerNew":
+      case "opennotificationbanner":
+      case "opennotificationbanner":
+      case "closenotificationbanner":            
+      case "closenotificationbanner":
         actor.hide();
         actor.set_scale(1,1);
         actor.show();
         return;
     
-      case "openpadosdOld":
-      case "openpadosdNew":
+      case "openpadosd":
+      case "openpadosd":
         actor.set_opacity(255);
         actor.set_scale(1,1);
         return;
 
-      case "closepadosdOld":
-      case "closepadosdNew":
+      case "closepadosd":
+      case "closepadosd":
         actor.hide(); 
         itemObject._reset();
         Meta.enable_unredirect_for_display(global.display);           
         actor.set_opacity(255);
         actor.set_scale(1,1);
         return;
-      
-      case "openwindowOld" :
-        Main.wm._mapping.push(actor);
+
+      case "openwindow" :
         Main.wm._mapWindowDone(Main.wm._shellwm ,actor);
         this.doFocusAndDefocus = true;
         break;
 
-      case "openwindowNew" :
-        (Config.PACKAGE_VERSION < "3.36.0") ? Main.wm._mapping.add(actor): null;
-        Main.wm._mapWindowDone(Main.wm._shellwm ,actor);
-        this.doFocusAndDefocus = true;
-        break;
-
-      case "closewindowOld" :
-      case "closewindowNew" :
+      case "closewindow" :
+      case "closewindow" :
         actor.hide();   
         Main.wm._destroyWindowDone(Main.wm._shellwm ,actor);
         this.doFocusAndDefocus = true;
         return;
 
-      case "unminimizewindowOld" :
-      case "unminimizewindowNew" :
+      case "unminimizewindow" :
+      case "unminimizewindow" :
         Main.wm._unminimizeWindowDone(Main.wm._shellwm ,actor);
         this.doFocusAndDefocus = true;
         break;
-
-      case "minimizewindowOld" :
-        actor.hide(); 
-        Main.wm._minimizing.push(actor);
-        Main.wm._minimizeWindowDone(Main.wm._shellwm ,actor);
-        this.doFocusAndDefocus = true;
-        return;
-               
-      case "minimizewindowNew" :
+             
+      case "minimizewindow" :
         actor.hide();      
         Main.wm._minimizing.add(actor);
         Main.wm._minimizeWindowDone(Main.wm._shellwm ,actor);
         this.doFocusAndDefocus = true;
         return;
       
-      case "openotherOld":
-      case "openotherNew":
+      case "openother":
+      case "openother":
         break;
 
-      case "focusWindowOldT" :
-      case "focusWindowNewT" :
-      case "defocusWindowOldT"  :
-      case "defocusWindowNewT"  :
+      case "focusWindowT" :
+      case "focusWindowT" :
+      case "defocusWindowT"  :
+      case "defocusWindowT"  :
       
-      case "movestartwindowOldT" :
-      case "movestartwindowNewT" :
-      case "movestopwindowOldT"  :
-      case "movestopwindowNewT"  :
+      case "movestartwindowT" :
+      case "movestartwindowT" :
+      case "movestopwindowT"  :
+      case "movestopwindowT"  :
 
       default: return;
     }
@@ -404,7 +358,7 @@ const EffectsManager = new Lang.Class({
     switch(eParams[0]) {
  
       case "F": 
-        params.onComplete = Main.messageTray._tweenComplete;
+        params.onComplete = ()=>{Main.messageTray._tweenComplete(statevar, value, defaultOnComplete, Main.messageTray, defaultOnCompleteParams);}
         params.onCompleteParams = [statevar, value, defaultOnComplete, Main.messageTray, defaultOnCompleteParams];
         actor.set_opacity(255);
         break;
@@ -421,7 +375,7 @@ const EffectsManager = new Lang.Class({
         actor.rotation_center_y = actor.rotation_center_x;
         actor.rotation_center_z = actor.rotation_center_x;
         
-        params.time             = eParams[startIndex++];
+        params.duration         = eParams[startIndex++]*1000;
         params.opacity          = eParams[startIndex++];
         params.scale_x          = eParams[startIndex++];
         params.scale_y          = eParams[startIndex++];    
@@ -437,32 +391,27 @@ const EffectsManager = new Lang.Class({
         if(eParams[2] == subEffectNo+1) {
           params.onComplete = ()=> {
             effectsManager.animationDone(Main.messageTray._bannerBin, "open", "notificationbanner");
-            (Config.PACKAGE_VERSION < "3.34.2") ? Main.messageTray._tweenComplete(statevar, value, defaultOnComplete , Main.messageTray, defaultOnCompleteParams):defaultOnComplete();
+            defaultOnComplete();
           }
           params.onCompleteParams = [statevar, value, defaultOnComplete , Main.messageTray, defaultOnCompleteParams];
         }
         else {
-          params.onComplete = effectsManager.driveNotificationBannerAnimation;
+          params.onComplete = ()=> {effectsManager.driveNotificationBannerAnimation(actor,statevar, value, params,subEffectNo+1,eParams,xRes,yRes);}
           params.onCompleteParams = [actor,statevar, value, params,subEffectNo+1,eParams,xRes,yRes];
         }
     
     }  
   
-    Tweener.removeTweens(actor); 
+    actor.remove_all_transitions();
     Main.messageTray.bannerAlignment = effectsManager.notificationBannerAlignment;
-    Tweener.addTween(actor, params);
-     
-    if(Config.PACKAGE_VERSION < "3.34.2") {
-      let valuing = (value == 2  ) ? 1 : 3 ;
-      Main.messageTray[statevar] = valuing;
-    }
-  
+    actor.ease(params);
+
   },
     
   driveOSDAnimation: function(monitorIndex, icon, label, level, maxLevel, action="open", osdWindow=null) {
         
     osdWindow = (osdWindow==null) ? Main.osdWindowManager._osdWindows[monitorIndex]: osdWindow;
-    let osdWindowActor = (Config.PACKAGE_VERSION < "3.36") ? osdWindow.actor:osdWindow; 
+    let osdWindowActor = osdWindow; 
     let eParams = effectsManager["padosdWindow"+action+"Profile"];
    
     switch (action) {
@@ -488,10 +437,10 @@ const EffectsManager = new Lang.Class({
             effectsManager.driveOtherAnimation(osdWindowActor, eParams, 0, action, "padosd", osdWindow, Main.layoutManager.monitors[monitorIndex].width, Main.layoutManager.monitors[monitorIndex].height);
           }
           else {
-            Tweener.addTween(osdWindowActor,{ 
+            osdWindowActor.ease({ 
               opacity: 255,
-              time: 0.250,
-              transition: 'easeOutQuad' 
+              duration: 250,
+              mode: Clutter.AnimationMode.EASE_OUT_QUAD,
             });
           } 
        
@@ -513,12 +462,11 @@ const EffectsManager = new Lang.Class({
           effectsManager.driveOtherAnimation(osdWindowActor, eParams, 0, action, "padosd", osdWindow, Main.layoutManager.monitors[monitorIndex].width, Main.layoutManager.monitors[monitorIndex].height);
         }
         else {
-          Tweener.addTween(osdWindowActor,{ 
+          osdWindowActor.ease({ 
             opacity: 0,
-            duration: 0.250,
-            transition: 'easeOutQuad', 
-            onComplete: effectsManager.animationDone,
-            onCompleteParams: [osdWindowActor, "close", "padosd", osdWindow]
+            duration: 250,
+            mode: Clutter.AnimationMode.EASE_OUT_QUAD,
+            onComplete: ()=> effectsManager.animationDone(osdWindowActor, "close", "padosd", osdWindow),
           });
         }
         
@@ -545,8 +493,8 @@ const EffectsManager = new Lang.Class({
     if(this.waylandWorkaroundEnabled && itemType == "other") {
     
       let skippedPosIndex = startIndex+6;
-      Tweener.addTween(actor, {
-        time:              eParams[startIndex++],
+      actor.ease({
+        duration:          eParams[startIndex++]*1000,
         opacity:           eParams[startIndex++],
         scale_x:           eParams[startIndex++],
         scale_y:           eParams[startIndex++],         
@@ -554,36 +502,27 @@ const EffectsManager = new Lang.Class({
         rotation_angle_x:  eParams[skippedPosIndex++],
         rotation_angle_y:  eParams[skippedPosIndex++],           
         rotation_angle_z:  eParams[skippedPosIndex++],
-        transition:        eParams[skippedPosIndex++],
-        onComplete:        this.driveOtherAnimation,
-        onCompleteScope:   this,
-        onCompleteParams:  [actor,eParams,++subEffectNo,action,itemType,itemObject,xRes,yRes],
-        onOverwrite:       this.animationDone,
-        onOverwriteScope : this,
-        onOverwriteParams: [actor,action,itemType,itemObject]
-      });
+        mode:              Clutter.AnimationMode.EASE_OUT_QUAD,
+        onComplete:        ()=>this.driveOtherAnimation(actor,eParams,++subEffectNo,action,itemType,itemObject,xRes,yRes),
+     });  
+     
       return;
    }
    
-   Tweener.addTween(actor, {
-     time:              eParams[startIndex++],
-     opacity:           eParams[startIndex++],
-     scale_x:           eParams[startIndex++],
-     scale_y:           eParams[startIndex++],
-     translation_x:     eParams[startIndex++]*xRes,           
-     translation_y:     eParams[startIndex++]*yRes,           
-     translation_z:     eParams[startIndex++]*yRes,
-     rotation_angle_x:  eParams[startIndex++],
-     rotation_angle_y:  eParams[startIndex++],           
-     rotation_angle_z:  eParams[startIndex++],
-     transition:        eParams[startIndex++],
-     onComplete:        this.driveOtherAnimation,
-     onCompleteScope:   this,
-     onCompleteParams:  [actor,eParams,++subEffectNo,action,itemType,itemObject,xRes,yRes],
-     onOverwrite:       this.animationDone,
-     onOverwriteScope : this,
-     onOverwriteParams: [actor,action,itemType,itemObject]   
-   });
+    actor.ease({
+      duration:          eParams[startIndex++]*1000,
+      opacity:           eParams[startIndex++],
+      scale_x:           eParams[startIndex++],
+      scale_y:           eParams[startIndex++],
+      translation_x:     eParams[startIndex++]*xRes,           
+      translation_y:     eParams[startIndex++]*yRes,           
+      translation_z:     eParams[startIndex++]*yRes,
+      rotation_angle_x:  eParams[startIndex++],
+      rotation_angle_y:  eParams[startIndex++],           
+      rotation_angle_z:  eParams[startIndex++],
+      mode:              Clutter.AnimationMode.EASE_OUT_QUAD,
+      onComplete:        ()=>this.driveOtherAnimation(actor,eParams,++subEffectNo,action,itemType,itemObject,xRes,yRes),
+   });  
    
   },
 
@@ -602,8 +541,8 @@ const EffectsManager = new Lang.Class({
     actor.rotation_center_y = actor.rotation_center_x;
     actor.rotation_center_z = actor.rotation_center_x;
 
-    Tweener.addTween(actor, {
-      time:              eParams[startIndex++],
+    actor.ease({
+      duration:          eParams[startIndex++]*1000,
       opacity:           eParams[startIndex++],
       scale_x:           eParams[startIndex++],
       scale_y:           eParams[startIndex++],
@@ -613,15 +552,10 @@ const EffectsManager = new Lang.Class({
       rotation_angle_x:  eParams[startIndex++],
       rotation_angle_y:  eParams[startIndex++],           
       rotation_angle_z:  eParams[startIndex++],
-      transition:        eParams[startIndex++],
-      onComplete:        this.driveWindowAnimation,
-      onCompleteScope:   this,
-      onCompleteParams:  [actor,eParams,++subEffectNo,action,success,geom,xRes,yRes],
-      onOverwrite:       this.animationDone,
-      onOverwriteScope : this,
-      onOverwriteParams: [actor,action,"window"]
-    });
-  
+      mode:              Clutter.AnimationMode.EASE_OUT_QUAD,
+      onComplete:        ()=> this.driveWindowAnimation(actor,eParams,++subEffectNo,action,success,geom,xRes,yRes),
+    });  
+ 
   },
   
   extensionDisableShortcut : function() {
@@ -840,8 +774,8 @@ const EffectsManager = new Lang.Class({
       effectsManager.driveNotificationBannerAnimation(Main.messageTray._bannerBin, '_notificationState', 0,/*State.HIDDEN/**/ { 
         y:               -Main.messageTray._bannerBin.height,
         _opacity:        0,
-        time:            0.250,//ANIMATION_TIME,
-        transition:      'easeOutBack',
+        duration:        250,//ANIMATION_TIME,
+        mode:            Clutter.AnimationMode.EASE_OUT_QUAD,
         onUpdate:        Main.messageTray._clampOpacity,
         onUpdateScope:   Main.messageTray,
         onComplete:      () => {
@@ -853,7 +787,7 @@ const EffectsManager = new Lang.Class({
       });
     } 
     else {
-      Tweener.removeTweens(Main.messageTray._bannerBin);
+      Main.messageTray._bannerBin.remove_all_transitions();
       Main.messageTray._bannerBin.y = -Main.messageTray._bannerBin.height;
       Main.messageTray._bannerBin.opacity = 0;
       Main.messageTray._notificationState = 0;//State.HIDDEN;
@@ -890,8 +824,8 @@ const EffectsManager = new Lang.Class({
           
       let tweenParams = { y: 0,
                           _opacity: 255,
-                          time: 0.250, //ANIMATION_TIME,
-                          transition: 'easeOutBack',
+                          duration: 250, //ANIMATION_TIME,
+                          mode: Clutter.AnimationMode.EASE_OUT_QUAD,
                           onUpdate: Main.messageTray._clampOpacity,
                           onUpdateScope: Main.messageTray,
                           onComplete: () => {
@@ -909,11 +843,6 @@ const EffectsManager = new Lang.Class({
     
   restoreDefaultNotificationBannerEffects: function() {
 
-    if(Config.PACKAGE_VERSION < "3.34.2") {
-      Main.messageTray._tween = defaultNotificationBannerTweenFunction;
-      return;
-    }
-      
     Main.messageTray._updateShowingNotification = defaultUpdateShowingNotification; 
     Main.messageTray._hideNotification = defaultHideNotification;
     

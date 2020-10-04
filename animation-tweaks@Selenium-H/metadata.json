@@ -4,11 +4,8 @@
 "uuid": "animation-tweaks@Selenium-H", 
 "settings-schema": "org.gnome.shell.extensions.animation-tweaks", 
 "shell-version": [
-	"3.30",
-	"3.32",
-	"3.34",
-	"3.36"
+	"3.38"
 ],
 "url": "https://github.com/Selenium-H/Animation-Tweaks", 
-"version": 11
+"version": 12
 }

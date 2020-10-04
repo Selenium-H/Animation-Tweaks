@@ -1,11 +1,18 @@
 /*
 
-Version 11
-==========
+Version 11.01
+=============
 
 Effect Format  [  |  S    Name     C       PPX       PPY       CX        CY        CZ        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN  ]
 
 Read the effectParameters.txt File for details.
+
+Credits:
+
+This file is based on https://extensions.gnome.org/extension/1395/files-view/ by abakkk.
+Application List is based on code from https://extensions.gnome.org/extension/258/notifications-alert-on-user-menu/ by hackedbellini
+
+Some code was also adapted from the upstream Gnome Shell source code.   
 
 */
 
@@ -737,6 +744,8 @@ const AnimationTweaksAboutPage =  new GObject.Class({
     
     this.text1.label =_("Version  ")+ Metadata.version+"\n";
     this.text2.label = "<big><b> "+_("Upgraded Successfully")+"</b></big>";
+    
+    settings.set_int("current-version", parseInt(Metadata.version));
   
   },
   

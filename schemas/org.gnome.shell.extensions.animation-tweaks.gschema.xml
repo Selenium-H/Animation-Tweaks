@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- 
-Version 11
-==========
+Version 11.02
+=============
 
 Effect Format  [  |  S    Name     C       PPX       PPY       CX        CY        CZ        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN  ]
 
@@ -20,7 +20,7 @@ Read the effectParameters.txt File for details.
 
   <schema path="/org/gnome/shell/extensions/animation-tweaks/" id="org.gnome.shell.extensions.animation-tweaks">
   
-    <!--  ====================================================================================   Open   ================================================================================================== -->
+    <!--  ====================================================================================   Actions - Open   ================================================================================================== -->
 
     <key name="opening-effect" type="b">
       <default>true</default>
@@ -138,8 +138,28 @@ Read the effectParameters.txt File for details.
       <summary>Pad OSD</summary>
       <description>Animation settings for Pad OSD opening</description>
     </key>
+    
+    <key name="toppanelpopupmenu-open" type="as">
+    <!-- |  S    Name                    C       PPX       PPY       CX        CY        CZ        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN -->
+      <default>[
+        '|','F', 'Scale Down',           '2',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.001',  '0',      '1.0',    '0.5',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'easeOutCubic',
+                                                 '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.250',  '255',    '1.0',    '1.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'easeOutCubic'  
+      ]</default>
+      <summary>Top Panel Pop Up Menu</summary>
+      <description>Animation settings for Top Panel Pop up Menu opening</description>
+    </key>
 
-    <!--  ==================================================================================   Close   =================================================================================================== -->
+    <key name="desktoppopupmenu-open" type="as">
+    <!-- |  S    Name                    C       PPX       PPY       CX        CY        CZ        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN -->
+      <default>[
+        '|','F', 'Scale Down',           '2',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.001',  '0',      '1.0',    '0.5',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'easeOutCubic',
+                                                 '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.250',  '255',    '1.0',    '1.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'easeOutCubic'  
+      ]</default>
+      <summary>Desktop Pop Up Menu</summary>
+      <description>Animation settings for Desktop Pop up Menu opening</description>
+    </key>    
+
+    <!--  ==================================================================================  Actions - Close   =================================================================================================== -->
     
     <key name="closing-effect" type="b">
       <default>false</default>
@@ -186,15 +206,31 @@ Read the effectParameters.txt File for details.
     <key name="padosd-close" type="as">
     <!-- |  S    Name                    C       PPX       PPY       CX        CY        CZ        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN -->
       <default>[
-        '|','F', 'Scale Up',             '1',    '0.0',    '1.0',    '0.0',    '0.0',    '0.0',    '0.300',  '255',    '1.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0','easeOutCubic'
+        '|','F', 'Scale Up',             '1',    '0.0',    '1.0',    '0.0',    '0.0',    '0.0',    '0.300',  '255',    '1.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'easeOutCubic'
       ]</default>
       <summary>Pad OSD</summary>
       <description>Animation settings for Pad OSD closing</description>
     </key>    
-
-    <!--  ==================================================================================    More   =================================================================================================== -->
     
-    <!--  ==================================================================================  Minimize  ================================================================================================== -->
+    <key name="toppanelpopupmenu-close" type="as">
+    <!-- |  S    Name                    C       PPX       PPY       CX        CY        CZ        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN -->
+      <default>[
+        '|','F', 'Scale Up',             '1',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.300',  '0',      '1.0',    '0.5',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'easeInCubic'
+      ]</default>
+      <summary>Top Panel Pop Up Menu</summary>
+      <description>Animation settings for Top Panel Pop Up Menu closing</description>
+    </key>     
+ 
+     <key name="desktoppopupmenu-close" type="as">
+    <!-- |  S    Name                    C       PPX       PPY       CX        CY        CZ        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN -->
+      <default>[
+        '|','F', 'Scale Up',             '1',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.300',  '0',      '1.0',    '0.5',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'easeInCubic'
+      ]</default>
+      <summary>Desktop Pop Up Menu</summary>
+      <description>Animation settings for Desktop Pop Up Menu closing</description>
+    </key>     
+    
+    <!--  ==================================================================================  Actions - Minimize  ================================================================================================== -->
     
     <key name="minimizing-effect" type="b">
       <default>false</default>
@@ -229,7 +265,7 @@ Read the effectParameters.txt File for details.
       <description>Only provided so that shell does not crash if for any reason Modal Dialog Windows is minimzing</description>
     </key>
 
-    <!--  ===========================================================================  Uninimize  ======================================================================================================== -->
+    <!--  ===========================================================================  Actions -  Uninimize  ======================================================================================================== -->
     
     <key name="unminimizing-effect" type="b">
       <default>false</default>
@@ -267,7 +303,7 @@ Read the effectParameters.txt File for details.
       <description>Only provided so that shell does not crash if for any reason Modal Dialog Windows is unminimzing</description>
     </key>
 
-    <!--  ==============================================================================  Focus Window  ================================================================================================== -->
+    <!--  ============================================================================== Actions - Focus Window  ================================================================================================== -->
 
     <key name="focussing-effect" type="b">
       <default>false</default>
@@ -305,7 +341,7 @@ Read the effectParameters.txt File for details.
       <description>Animation settings for Modal Dialog Windows focus</description>
     </key>
 
-    <!--  ==================================================================================  Defocus Window  ============================================================================================ -->
+    <!--  ==================================================================================  Actions - Defocus Window  ============================================================================================ -->
 
     <key name="defocussing-effect" type="b">
       <default>false</default>
@@ -343,7 +379,7 @@ Read the effectParameters.txt File for details.
       <description>Animation settings for Modal Dialog Windows defocus</description>
     </key>
 
-    <!--  ===============================================================================  Dragging Window  ============================================================================================== -->
+    <!--  ===============================================================================  Actions - Dragging Window  ============================================================================================== -->
 
     <key name="moving-effect" type="b">
       <default>false</default>
@@ -381,7 +417,7 @@ Read the effectParameters.txt File for details.
       <description>Animation settings for Modal Dialog Windows start to move</description>
     </key>
 
-    <!--  ===================================================================================    Apps    ================================================================================================= -->
+    <!--  ===================================================================================    Profiles - Apps    ================================================================================================= -->
 
     <key name="use-application-profiles" type="b">
       <default>false</default>
@@ -403,7 +439,15 @@ Read the effectParameters.txt File for details.
       <description>List of Applicaions names for custom profiles</description>
     </key>
 
-    <!--  ==========================================================================================  Tweaks  ============================================================================================ -->
+    <!--  ===================================================================================    Profiles - Extension   ============================================================================================= -->
+
+    <key name="profile-name" type="s">
+      <default>"Default"</default>
+      <summary>Extension Profile Currently In Use</summary>
+      <description>Extension Profile Currently In Use</description>
+    </key>
+
+    <!--  ==========================================================================================  Tweaks  ======================================================================================================= -->
 
     <key name="wayland"   type="b">
       <default>false</default>
@@ -430,6 +474,8 @@ Read the effectParameters.txt File for details.
       <summary>Shortcut key combiation to disable extension</summary>
       <description>Shortcut key combiation to disable extension</description>
     </key>
+
+    <!--  =============================================================================   Extension Variables  =========================================================================================== -->
 
     <key name="current-version" type="i">
       <default>10</default>

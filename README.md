@@ -15,7 +15,7 @@ A GNOME Shell Extension to Tweak animations of different items and Customize the
 </p>
 <p align="left">
 Please reset the extension after updating. The Extension will stop when upgraded to an incompatible version. In that case an Update tab is created to easily reset the extension. A Reset button is also always present in preferences -> About Tab.
-A Default shortcut combination of Super Key + t is provided to temporarily disable the extension until GNOME Shell restarts. 
+A Default shortcut combination of Super Key + t is provided to disable the extension. 
   
 Some effects might not work properly on wayland, for which a workaround is provided on preferences -> Tweaks tab.
 However, some animations might not work properly.
@@ -94,3 +94,5 @@ This extension is inspired from
 [Window Slide In Extension](https://extensions.gnome.org/extension/367/window-slide-in/) by mengzhuo, 
 [Files View Extension](https://extensions.gnome.org/extension/1395/files-view/) by abakkk.
 [Coverflow Alt-Tab Extension](https://extensions.gnome.org/extension/97/coverflow-alt-tab/) by p91paul.
+
+Thanks to @JasonLG1979.

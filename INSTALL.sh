@@ -62,8 +62,15 @@ echo -ne "Compiling Schemas ...            "
 glib-compile-schemas schemas
 echo "Done"
 
-#echo -ne "Creating Translations ...        "
-#cd locale
+echo -ne "Creating Translations ...        "
+cd locale
+
+find . | egrep '\.po$' | while read line;
+    do
+        mkdir -p $(echo $line | sed 's/\.po$//')'/LC_MESSAGES/';
+        msgfmt -o $(echo $line | sed 's/\.po$//')'/LC_MESSAGES/'$extensionName'.mo' $line;
+    done
+echo "Done"
 
 status="Done"
 

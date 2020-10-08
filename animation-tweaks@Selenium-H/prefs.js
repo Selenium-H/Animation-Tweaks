@@ -284,27 +284,31 @@ const AnimationSettingsForItem_AnimationTweaksExtension = new GObject.Class({
     }
 
     this.eStr = this.appProfile.getEffectAt(this.appIndex);
-    this.appProfile.modifyEffectForWindowAction(this.appIndex,this.allEffectsList.setEffectTime(value,this.eStr));
+    this.appProfile.modifyEffectForWindowAction(this.appIndex,
+                                                this.allEffectsList.setEffectTime(value, this.eStr));
     reloadApplicationProfiles();
 
   },
   
-  effectsTweaks : function(topLevel, thisIsPairedEffect) { 
-   
-    let dialog = new Gtk.Dialog({title:_("Customize")+"   "+this.eStr[1]+"   "+_("Animation"),transient_for: topLevel.get_toplevel(),use_header_bar: true,modal:true});
-    dialog.get_content_area().pack_start(new EffectsTweaks_AnimationTweaksExtension(this.appProfile,this.appIndex, thisIsPairedEffect), true, true, 0)
+  effectsTweaks : function(topLevel, thisIsPairedEffect) {
+
+    let dialog = new Gtk.Dialog({title:_("Customize Animation") + "  -  " + this.eStr[1],
+                                 transient_for: topLevel.get_toplevel(),
+                                 use_header_bar: true,modal:true});
+    dialog.get_content_area().pack_start(new EffectsTweaks_AnimationTweaksExtension(this.appProfile, this.appIndex, thisIsPairedEffect), true, true, 0)
+
     dialog.set_default_response(Gtk.ResponseType.CANCEL);
-    let addButton     = dialog.add_button("Restore Default", Gtk.ResponseType.OK);
+    let addButton = dialog.add_button(_("Restore Default"), Gtk.ResponseType.OK);
     dialog.connect('response', Lang.bind(this, function(dialog, id) { 
-      
+
       if(id == Gtk.ResponseType.OK) {
         this.selectEffectFromList(this.prefsCombo.get_active());
       }
       dialog.destroy();
-      
+
     }));
     dialog.show_all();
-    
+
   },
     
   selectEffectFromList: function(selectedIndex) {
@@ -699,7 +703,7 @@ const  EffectsTweaks_AnimationTweaksExtension =  new GObject.Class({
     while(i<TWEEN_PARAMETERS_LENGTH*this.eStr[2]) {
     
       this.gridWin.attach(new Gtk.Label({xalign:1,use_markup:true,label:" ",halign: Gtk.Align.CENTER }) ,0  ,++pos ,1  ,1);
-      this.gridWin.attach(new Gtk.Label({xalign:1,use_markup:true,label:"<big><b><u>"+_("Tween Parameters - "+((i-2)/TWEEN_PARAMETERS_LENGTH+1))+"</u></b></big>", halign: Gtk.Align.CENTER }) ,0  ,++pos ,3  ,1);
+      this.gridWin.attach(new Gtk.Label({xalign:1,use_markup:true,label:"<big><b><u>"+(_("Tween Parameters - ")+((i-2)/TWEEN_PARAMETERS_LENGTH+1))+"</u></b></big>", halign: Gtk.Align.CENTER }) ,0  ,++pos ,3  ,1);
       this.gridWin.attach(new Gtk.Label({xalign:1,use_markup:true,label:" ",halign: Gtk.Align.CENTER }) ,0  ,++pos ,1  ,1);
        
       this.tweakParameter(         ++i, _("Pivot Point X\t\t\t[\t-500  -  500\t%\t\t]"),                   ++pos, -500,  500,     100                            );
@@ -1000,7 +1004,7 @@ const PrefsWindowForApps_AnimationTweaksExtension = new GObject.Class({
     dialog._appChooser = new Gtk.AppChooserWidget({ show_all: true });
     dialog.set_default_response(Gtk.ResponseType.OK);
     dialog.add_button(Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL);
-    let addButton = dialog.add_button("Add", Gtk.ResponseType.OK);
+    let addButton = dialog.add_button(_("Add"), Gtk.ResponseType.OK);
     let hbox = new Gtk.Box({orientation: Gtk.Orientation.VERTICAL,margin: 5});
     hbox.pack_start(dialog._appChooser, true, true, 0);
     dialog.get_content_area().pack_start(hbox, true, true, 0);
@@ -1876,10 +1880,14 @@ const PrefsWindowForTweaks_AnimationTweaksExtension = new GObject.Class({
     this.margin_top     = 20;
   
     let pos=0;
-    this.prefsWA("wayland",                  0, pos++, this,                                                                                                     7);
-    this.prefInt("padosd-hide-timeout",      0, pos++,                                                                                                           7);
-    this.prefCombo("notificationbanner-pos", 0, pos++, ["auto","left","center","right"],          ["Autodetect","Left","Center","Right"],                        7);
-    this.prefStr("disable-shortcut",         0, pos++, ['<Alt>', '<Ctrl>', '<Shift>', '<Super>'], [_('Alt Key'), _('Ctrl Key'), _('Shift Key'), _('Super Key')], 7);
+    this.prefsWA("wayland",                  0, pos++, this, 7);
+    this.prefInt("padosd-hide-timeout",      0, pos++,       7);
+    this.prefCombo("notificationbanner-pos", 0, pos++,
+                   ["auto", "left", "center", "right"],
+                   [_("Autodetect"), _("Left"), _("Center"), _("Right")], 7);
+    this.prefStr("disable-shortcut", 0, pos++,
+                 ['<Alt>', '<Ctrl>', '<Shift>', '<Super>'],
+                 [_('Alt Key'), _('Ctrl Key'), _('Shift Key'), _('Super Key')], 7);
     
   },
   

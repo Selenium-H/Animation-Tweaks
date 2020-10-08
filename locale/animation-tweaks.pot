@@ -1,259 +1,289 @@
 # SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR Free Software Foundation, Inc.
-# This file is distributed under the same license as the GNU make package.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Animation-Tweaks-11\n"
-"POT-Creation-Date: 2016-06-10 19:03-0400\n"
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-10-08 15:00+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team:\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: prefs.js:651 prefs.js:676
+#: animation-tweaks@Selenium-H/prefs.js:658
+#: animation-tweaks@Selenium-H/prefs.js:683
 msgid "Reset Animation Tweaks Extension"
 msgstr ""
 
-#: prefs.js:671
+#: animation-tweaks@Selenium-H/prefs.js:678
 msgid "Extension is upgraded to Version  "
 msgstr ""
 
-#: prefs.js:672
-msgid "A Reset to default preferences is needed if upgrading from a version older than version 10 or unable to reset during of a previous upgrade to version 10. Please Reset the extension by clicking the button below."
-msgstr ""
-
-#: prefs.js:674
+#: animation-tweaks@Selenium-H/prefs.js:679
 msgid ""
-"If already upgraded to Version 10 or higher and it's working fine, you can keep the preferences as it is.\n"
-"In that case click on the button below. Otherwise click the above button to reset."
+"A Reset to default preferences is needed if upgrading from a version older "
+"than version 10 or unable to reset during previous upgrade to version 10. "
+"Please Reset the extension by clicking the button below."
 msgstr ""
 
-#: prefs.js:677
+#: animation-tweaks@Selenium-H/prefs.js:681
+msgid ""
+"If already upgraded to Version 10 or higher and it's working fine, you can "
+"keep the preferences as it is.\n"
+"In that case click on the button below. Otherwise click the above button to "
+"reset."
+msgstr ""
+
+#: animation-tweaks@Selenium-H/prefs.js:684
 msgid "Upgrade From Version 10 or newer."
 msgstr ""
 
-#: prefs.js:699
+#: animation-tweaks@Selenium-H/prefs.js:706
 msgid "Upgrade From Version 10 or newer"
 msgstr ""
 
-#: prefs.js:705
+#: animation-tweaks@Selenium-H/prefs.js:712
 msgid "Please make sure"
 msgstr ""
 
-#: prefs.js:706
+#: animation-tweaks@Selenium-H/prefs.js:713
 msgid ""
-"You are upgrading from version 10 or newer of this extension to current version.\n"
+"You are upgrading from version 10 or newer of this extension to current "
+"version.\n"
 "Already Reset the extension during previous upgrade.\n"
 "The extension is working fine."
 msgstr ""
 
-#: prefs.js:707
+#: animation-tweaks@Selenium-H/prefs.js:714
 msgid "Otherwise click Cancel to go back and reset."
 msgstr ""
 
-#: prefs.js:708
+#: animation-tweaks@Selenium-H/prefs.js:715
 msgid "Keep Preferences and Upgrade"
 msgstr ""
 
-#: prefs.js:738
+#: animation-tweaks@Selenium-H/prefs.js:745
 msgid "Version  "
 msgstr ""
 
-#: prefs.js:739
+#: animation-tweaks@Selenium-H/prefs.js:746
 msgid "Upgraded Successfully"
 msgstr ""
 
-#: prefs.js:801
-msgid "Customize"
+#: animation-tweaks@Selenium-H/prefs.js:811
+msgid "Customize Animation"
 msgstr ""
 
-#: prefs.js:801
-msgid "Animation"
+#: animation-tweaks@Selenium-H/prefs.js:820
+msgid "Restore Default"
 msgstr ""
 
-#: prefs.js:914
+#: animation-tweaks@Selenium-H/prefs.js:930
 msgid "Update"
 msgstr ""
 
-#: prefs.js:916
+#: animation-tweaks@Selenium-H/prefs.js:932
 msgid "Open"
 msgstr ""
 
-#: prefs.js:917
+#: animation-tweaks@Selenium-H/prefs.js:933
 msgid "Close"
 msgstr ""
 
-#: prefs.js:918
+#: animation-tweaks@Selenium-H/prefs.js:934
 msgid "More"
 msgstr ""
 
-#: prefs.js:919
+#: animation-tweaks@Selenium-H/prefs.js:935
 msgid "Apps"
 msgstr ""
 
-#: prefs.js:920
+#: animation-tweaks@Selenium-H/prefs.js:936
 msgid "Tweaks"
 msgstr ""
 
-#: prefs.js:922
+#: animation-tweaks@Selenium-H/prefs.js:938
 msgid "About"
 msgstr ""
 
-#: prefs.js:1197
+#: animation-tweaks@Selenium-H/prefs.js:1213
 msgid "Any  Changes  done  here  are  Applied  immediately"
 msgstr ""
 
-#: prefs.js:1198
+#: animation-tweaks@Selenium-H/prefs.js:1214
 msgid "Details of parameter values are described in"
 msgstr ""
 
-#: prefs.js:1198
+#: animation-tweaks@Selenium-H/prefs.js:1214
 msgid "file  in  extension folder."
 msgstr ""
 
-#: prefs.js:1211
+#: animation-tweaks@Selenium-H/prefs.js:1227
 msgid "Parameters for Starting Effect"
 msgstr ""
 
-#: prefs.js:1218
+#: animation-tweaks@Selenium-H/prefs.js:1234
 msgid "Tween Parameters - "
 msgstr ""
 
-#: prefs.js:1221
+#: animation-tweaks@Selenium-H/prefs.js:1237
 msgid "Pivot Point X\t\t\t[\t-500  -  500\t%\t\t]"
 msgstr ""
 
-#: prefs.js:1222
+#: animation-tweaks@Selenium-H/prefs.js:1238
 msgid "Pivot Point Y\t\t\t[\t-500  -  500\t%\t\t]"
 msgstr ""
 
-#: prefs.js:1223
+#: animation-tweaks@Selenium-H/prefs.js:1239
 msgid "Rotation Center X\t\t[\t0  -  100\t%\t\t]"
 msgstr ""
 
-#: prefs.js:1224
+#: animation-tweaks@Selenium-H/prefs.js:1240
 msgid "Rotation Center Y\t\t[\t0  -  100\t%\t\t]"
 msgstr ""
 
-#: prefs.js:1225
+#: animation-tweaks@Selenium-H/prefs.js:1241
 msgid "Rotation Center Z\t\t[\t0  -  100\t%\t\t]"
 msgstr ""
 
-#: prefs.js:1226
+#: animation-tweaks@Selenium-H/prefs.js:1242
 msgid "Time\t\t\t\t\t[\tin milliseconds\t]"
 msgstr ""
 
-#: prefs.js:1227
+#: animation-tweaks@Selenium-H/prefs.js:1243
 msgid "Ending Opacity\t\t[\t0  -  255\t\t\t]"
 msgstr ""
 
-#: prefs.js:1228
+#: animation-tweaks@Selenium-H/prefs.js:1244
 msgid "Ending Width\t\t\t[\t0  -  200\t%\t\t]"
 msgstr ""
 
-#: prefs.js:1229
+#: animation-tweaks@Selenium-H/prefs.js:1245
 msgid "Ending Height\t\t\t[\t0  -  200\t%\t\t]"
 msgstr ""
 
-#: prefs.js:1230
+#: animation-tweaks@Selenium-H/prefs.js:1246
 msgid "Movement along X\t[\t0 ± % Screen width from current X→\t]"
 msgstr ""
 
-#: prefs.js:1231
+#: animation-tweaks@Selenium-H/prefs.js:1247
 msgid "Movement along Y\t[\t0 ± % Screen height from current Y↓\t]"
 msgstr ""
 
-#: prefs.js:1232
+#: animation-tweaks@Selenium-H/prefs.js:1248
 msgid "Movement along Z\t[\t0 ± % Screen height from current Z\t]"
 msgstr ""
 
-#: prefs.js:1233
+#: animation-tweaks@Selenium-H/prefs.js:1249
 msgid "Rotation about X\t\t[\tin Degree\t%\t\t]"
 msgstr ""
 
-#: prefs.js:1234
+#: animation-tweaks@Selenium-H/prefs.js:1250
 msgid "Rotation about Y\t\t[\tin Degree\t%\t\t]"
 msgstr ""
 
-#: prefs.js:1235
+#: animation-tweaks@Selenium-H/prefs.js:1251
 msgid "Rotation about Z\t\t[\tin Degree\t%\t\t]"
 msgstr ""
 
-#: prefs.js:1236
+#: animation-tweaks@Selenium-H/prefs.js:1252
 msgid "Transition Type\t\t"
 msgstr ""
 
-#: prefs.js:1241
+#: animation-tweaks@Selenium-H/prefs.js:1257
 msgid "Parameters for Ending Effect"
 msgstr ""
 
-#: prefs.js:1419
+#: animation-tweaks@Selenium-H/prefs.js:1435
 msgid "Items"
 msgstr ""
 
-#: prefs.js:1420 prefs.js:1600
+#: animation-tweaks@Selenium-H/prefs.js:1436
+#: animation-tweaks@Selenium-H/prefs.js:1616
 msgid "Effect"
 msgstr ""
 
-#: prefs.js:1421
+#: animation-tweaks@Selenium-H/prefs.js:1437
 msgid "Time { in ms }"
 msgstr ""
 
-#: prefs.js:1422 prefs.js:1602
+#: animation-tweaks@Selenium-H/prefs.js:1438
+#: animation-tweaks@Selenium-H/prefs.js:1618
 msgid "Status"
 msgstr ""
 
-#: prefs.js:1474
+#: animation-tweaks@Selenium-H/prefs.js:1490
 msgid "Choose an application"
 msgstr ""
 
-#: prefs.js:1559 prefs.js:1566 prefs.js:1731
-msgid "Window Preferences"
-msgstr ""
-
-#: prefs.js:1566 prefs.js:1731
-msgid "No Application Selected"
-msgstr ""
-
-#: prefs.js:1599
-msgid "Action"
-msgstr ""
-
-#: prefs.js:1601
-msgid "Time { in ms )"
-msgstr ""
-
-#: prefs.js:1614
-msgid "Application List"
-msgstr ""
-
-#: prefs.js:1627
+#: animation-tweaks@Selenium-H/prefs.js:1494
+#: animation-tweaks@Selenium-H/prefs.js:1643
 msgid "Add"
 msgstr ""
 
-#: prefs.js:1630
+#: animation-tweaks@Selenium-H/prefs.js:1575
+#: animation-tweaks@Selenium-H/prefs.js:1582
+#: animation-tweaks@Selenium-H/prefs.js:1747
+msgid "Window Preferences"
+msgstr ""
+
+#: animation-tweaks@Selenium-H/prefs.js:1582
+#: animation-tweaks@Selenium-H/prefs.js:1747
+msgid "No Application Selected"
+msgstr ""
+
+#: animation-tweaks@Selenium-H/prefs.js:1615
+msgid "Action"
+msgstr ""
+
+#: animation-tweaks@Selenium-H/prefs.js:1617
+msgid "Time { in ms )"
+msgstr ""
+
+#: animation-tweaks@Selenium-H/prefs.js:1630
+msgid "Application List"
+msgstr ""
+
+#: animation-tweaks@Selenium-H/prefs.js:1646
 msgid "Remove"
 msgstr ""
 
-#: prefs.js:1884
+#: animation-tweaks@Selenium-H/prefs.js:1901
+msgid "Autodetect"
+msgstr ""
+
+#: animation-tweaks@Selenium-H/prefs.js:1901
+msgid "Left"
+msgstr ""
+
+#: animation-tweaks@Selenium-H/prefs.js:1901
+msgid "Center"
+msgstr ""
+
+#: animation-tweaks@Selenium-H/prefs.js:1901
+msgid "Right"
+msgstr ""
+
+#: animation-tweaks@Selenium-H/prefs.js:1904
 msgid "Alt Key"
 msgstr ""
 
-#: prefs.js:1884
+#: animation-tweaks@Selenium-H/prefs.js:1904
 msgid "Ctrl Key"
 msgstr ""
 
-#: prefs.js:1884
+#: animation-tweaks@Selenium-H/prefs.js:1904
 msgid "Shift Key"
 msgstr ""
 
-#: prefs.js:1884
+#: animation-tweaks@Selenium-H/prefs.js:1904
 msgid "Super Key"
 msgstr ""
 
@@ -418,7 +448,9 @@ msgid "Animation settings for Dialog Windows minimizing"
 msgstr ""
 
 #: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:229
-msgid "Only provided so that shell does not crash if for any reason Modal Dialog Windows is minimzing"
+msgid ""
+"Only provided so that shell does not crash if for any reason Modal Dialog "
+"Windows is minimzing"
 msgstr ""
 
 #: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:236
@@ -438,7 +470,9 @@ msgid "Animation settings for Dialog Windows unminimzing"
 msgstr ""
 
 #: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:267
-msgid "Only provided so that shell does not crash if for any reason Modal Dialog Windows is unminimzing"
+msgid ""
+"Only provided so that shell does not crash if for any reason Modal Dialog "
+"Windows is unminimzing"
 msgstr ""
 
 #: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:274
@@ -550,7 +584,9 @@ msgid "Version of Current Extension"
 msgstr ""
 
 #: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:437
-msgid "Provided to ensure that extension is stopped incase of autoupdate from previous version to prevent unwanted effects"
+msgid ""
+"Provided to ensure that extension is stopped incase of autoupdate from "
+"previous version to prevent unwanted effects"
 msgstr ""
 
 #: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:442

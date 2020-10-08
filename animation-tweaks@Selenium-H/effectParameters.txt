@@ -1,5 +1,5 @@
-Version 10
-==========
+Version 11.02
+=============
 
 Effect Format  [  |  S    Name     C       PPX       PPY       CX        CY        CZ        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN  ]
 
@@ -55,7 +55,7 @@ RY  - Rotation center Z    | Can take values -3600 - 3600 [ In Degrees (°) ]   
                            |                                                                |                                                                           |
 RZ  - Rotation center Y    | Can take values -3600 - 3600 [ In Degrees (°) ]                | Can be changed from -3600° - 3600°. Displayed in degree in preferences.   |
                            |                                                                |                                                                           |
-TRN - Tramsiion Type       | Can take the following values                                  | Can be selected form Dropdown List.                                       |
+TRN - Transiion Type       | Can take the following values                                  | Can be selected form Dropdown List.                                       |
                            |                                                                |                                                                           |
                            | "easeInSine"    "easeOutSine"    "easeInOutSine"               |                                                                           |
                            | "easeInCubic"   "easeOutCubic"   "easeInOutCubic"              |                                                                           |

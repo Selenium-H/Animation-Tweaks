@@ -1,6 +1,6 @@
 /*
 
-Version 11.02
+Version 11.03
 =============
 
 Effect Format  [  |  S    Name     C       PPX       PPY       CX        CY        CZ        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN  ]
@@ -79,13 +79,6 @@ const EffectsManager = new Lang.Class({
   _init: function () {
 
     extensionSettings = ExtensionUtils.getSettings("org.gnome.shell.extensions.animation-tweaks");
-    
-    this.dropdownmenuWindowcloseProfile  =  [''];   
-    this.popupmenuWindowcloseProfile     =  [''];
-    this.comboWindowcloseProfile         =  [''];
-    this.splashscreenWindowcloseProfile  =  [''];
-    this.tooltipWindowcloseProfile       =  [''];
-    this.overrideotherWindowcloseProfile =  [''];
       
   },
     
@@ -178,8 +171,8 @@ const EffectsManager = new Lang.Class({
       case "openWindowT" :
         this.doFocusAndDefocus = false;
         actor.set_opacity(0);
-        Main.wm._mapping.delete(actor);
-        actor.remove_all_transitions();        
+        actor.remove_all_transitions();
+        (actor.meta_window.is_monitor_sized()) ? actor.set_position(0,0) : null; 
         break;
         
       case "closeWindowT" :

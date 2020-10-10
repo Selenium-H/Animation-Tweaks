@@ -1,6 +1,6 @@
 /*
 
-Version 11.02
+Version 11.03
 =============
 
 Effect Format  [  |  S    Name     C       PPX       PPY       CX        CY        CZ        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN  ]
@@ -528,7 +528,7 @@ const EffectsList_AnimationTweaksExtension = new GObject.Class({
     let cIndex = 0;
 
      while(cIndex!=-1) {
-       effectsCombo.append(this.effectsList[cIndex+1],this.effectsList[cIndex+1]);
+       effectsCombo.append(this.effectsList[cIndex+1],_(this.effectsList[cIndex+1]));
        cIndex = this.effectsList.indexOf('|',cIndex+1);
      } 
      
@@ -706,22 +706,22 @@ const  EffectsTweaks_AnimationTweaksExtension =  new GObject.Class({
       this.gridWin.attach(new Gtk.Label({xalign:1,use_markup:true,label:"<big><b><u>"+(_("Tween Parameters - ")+((i-2)/TWEEN_PARAMETERS_LENGTH+1))+"</u></b></big>", halign: Gtk.Align.CENTER }) ,0  ,++pos ,3  ,1);
       this.gridWin.attach(new Gtk.Label({xalign:1,use_markup:true,label:" ",halign: Gtk.Align.CENTER }) ,0  ,++pos ,1  ,1);
        
-      this.tweakParameter(         ++i, _("Pivot Point X\t\t\t[\t-500  -  500\t%\t\t]"),                   ++pos, -500,  500,     100                            );
-      this.tweakParameter(         ++i, _("Pivot Point Y\t\t\t[\t-500  -  500\t%\t\t]"),                   ++pos, -500,  500,     100                            );
-      this.tweakParameter(         ++i, _("Rotation Center X\t\t[\t0  -  100\t%\t\t]"),                    ++pos, 0,     100,     100                            );
-      this.tweakParameter(         ++i, _("Rotation Center Y\t\t[\t0  -  100\t%\t\t]"),                    ++pos, 0,     100,     100                            );
-      this.tweakParameter(         ++i, _("Rotation Center Z\t\t[\t0  -  100\t%\t\t]"),                    ++pos, 0,     100,     100                            );
-      this.tweakParameter(         ++i, _("Time\t\t\t\t\t[\tin milliseconds\t]"),                          ++pos, 1,     10000,   1000                           ); 
-      this.tweakParameter(         ++i, _("Ending Opacity\t\t[\t0  -  255\t\t\t]"),                        ++pos, 0,     255,     1                              );
-      this.tweakParameterDim(      ++i, _("Ending Width\t\t\t[\t0  -  200\t%\t\t]"),                       ++pos, 0,     200,     100, ["MW"]                    );
-      this.tweakParameterDim(      ++i, _("Ending Height\t\t\t[\t0  -  200\t%\t\t]"),                      ++pos, 0,     200,     100, ["MH"]                    );
-      this.tweakParameterPosition( ++i, _("Movement along X\t[\t0 ± % Screen width from current X→\t]"),   ++pos, -100,  100,     100, ["MX","LX","RX","SX","IX"]);
-      this.tweakParameterPosition( ++i, _("Movement along Y\t[\t0 ± % Screen height from current Y↓\t]"),  ++pos, -100,  100,     100, ["MY","DY","UY","SY","IY"]);
-      this.tweakParameter(         ++i, _("Movement along Z\t[\t0 ± % Screen height from current Z\t]"),   ++pos, -100,  100,     100,                           );
-      this.tweakParameter(         ++i, _("Rotation about X\t\t[\tin Degree\t%\t\t]"),                     ++pos, -3600, 3600,    1                              );
-      this.tweakParameter(         ++i, _("Rotation about Y\t\t[\tin Degree\t%\t\t]"),                     ++pos, -3600, 3600,    1                              );
-      this.tweakParameter(         ++i, _("Rotation about Z\t\t[\tin Degree\t%\t\t]"),                     ++pos, -3600, 3600,    1                              );
-      this.tweakTransitionType(    ++i, _("Transition Type\t\t"),                                          ++pos                                                 );
+      this.tweakParameter(         ++i, _("Pivot Point X")+"\t\t\t"+"["+"\t"+_("-500  -  500")+"\t%\t\t"+"]",                 ++pos, -500,  500,     100                            );
+      this.tweakParameter(         ++i, _("Pivot Point Y")+"\t\t\t"+"["+"\t"+_("-500  -  500")+"\t%\t\t"+"]",                 ++pos, -500,  500,     100                            );
+      this.tweakParameter(         ++i, _("Rotation Center X")+"\t\t"+"["+"\t"+_("0  -  100")+"\t%\t\t"+"]",                  ++pos, 0,     100,     100                            );
+      this.tweakParameter(         ++i, _("Rotation Center Y")+"\t\t"+"["+"\t"+_("0  -  100")+"\t%\t\t"+"]",                  ++pos, 0,     100,     100                            );
+      this.tweakParameter(         ++i, _("Rotation Center Z")+"\t\t"+"["+"\t"+_("0  -  100")+"\t%\t\t"+"]",                  ++pos, 0,     100,     100                            );
+      this.tweakParameter(         ++i, _("Time")+"\t\t\t\t\t"+"["+"\t"+_("in milliseconds")+"\t"+"]",                        ++pos, 1,     10000,   1000                           ); 
+      this.tweakParameter(         ++i, _("Ending Opacity")+"\t\t"+"["+"\t"+_("0  -  255")+"\t\t\t"+"]",                      ++pos, 0,     255,     1                              );
+      this.tweakParameterDim(      ++i, _("Ending Width")+"\t\t\t"+"["+"\t"+_("0  -  200")+"\t%\t\t"+"]",                     ++pos, 0,     200,     100, ["MW"]                    );
+      this.tweakParameterDim(      ++i, _("Ending Height")+"\t\t\t"+"["+"\t"+_("0  -  200")+"\t%\t\t"+"]",                    ++pos, 0,     200,     100, ["MH"]                    );
+      this.tweakParameterPosition( ++i, _("Movement along X")+"\t"+"["+"\t"+_("0 ± % Screen width from current X→")+"\t"+"]", ++pos, -100,  100,     100, ["MX","LX","RX","SX","IX"]);
+      this.tweakParameterPosition( ++i, _("Movement along Y")+"\t[\t"+_("0 ± % Screen height from current Y↓")+"\t]",         ++pos, -100,  100,     100, ["MY","DY","UY","SY","IY"]);
+      this.tweakParameter(         ++i, _("Movement along Z")+"\t[\t"+_("0 ± % Screen height from current Z")+"\t]",          ++pos, -100,  100,     100,                           );
+      this.tweakParameter(         ++i, _("Rotation about X")+"\t\t[\t"+_("in Degree")+"\t%\t\t]",                            ++pos, -3600, 3600,    1                              );
+      this.tweakParameter(         ++i, _("Rotation about Y")+"\t\t[\t"+_("in Degree")+"\t%\t\t]",                            ++pos, -3600, 3600,    1                              );
+      this.tweakParameter(         ++i, _("Rotation about Z")+"\t\t[\t"+_("in Degree")+"\t%\t\t]",                            ++pos, -3600, 3600,    1                              );
+      this.tweakTransitionType(    ++i, _("Transition Type")+"\t\t",                                                          ++pos                                                 );
 
       if(messageForPairedEffects==true && i == (TWEEN_PARAMETERS_LENGTH*this.eStr[2]*0.5)+2) {
       
@@ -906,7 +906,7 @@ const PrefsWindow_AnimationTweaksExtension = new GObject.Class({
   
     grid.attach(new Gtk.Label({ xalign: 1, label: _("Items"), halign: Gtk.Align.CENTER }),          0, posY, 1, 1);
     grid.attach(new Gtk.Label({ xalign: 1, label: _("Effect"), halign: Gtk.Align.CENTER }),         1, posY, 1, 1);
-    grid.attach(new Gtk.Label({ xalign: 1, label: _("Time { in ms }"), halign: Gtk.Align.CENTER }), 3, posY, 1, 1);
+    grid.attach(new Gtk.Label({ xalign: 1, label: _("Time [ in ms ]"), halign: Gtk.Align.CENTER }), 3, posY, 1, 1);
     grid.attach(new Gtk.Label({ xalign: 1, label: _("Status"), halign: Gtk.Align.CENTER }),         4, posY, 1, 1);
     
   },
@@ -1127,7 +1127,7 @@ const PrefsWindowForApps_AnimationTweaksExtension = new GObject.Class({
   
     this.gridWin.attach(new Gtk.Label({ xalign: 1, label: _("Action") ,halign: Gtk.Align.CENTER })          ,0  ,posY ,1  ,1);
     this.gridWin.attach(new Gtk.Label({ xalign: 1, label: _("Effect"),halign: Gtk.Align.CENTER })           ,1  ,posY ,1  ,1);
-    this.gridWin.attach(new Gtk.Label({ xalign: 1, label: _("Time { in ms )"),halign: Gtk.Align.CENTER })   ,3  ,posY ,1  ,1);
+    this.gridWin.attach(new Gtk.Label({ xalign: 1, label: _("Time [ in ms ]"),halign: Gtk.Align.CENTER })   ,3  ,posY ,1  ,1);
     this.gridWin.attach(new Gtk.Label({ xalign: 1, label: _("Status"),     halign: Gtk.Align.CENTER })      ,4  ,posY ,1  ,1);
     
   },
@@ -1507,16 +1507,16 @@ const PrefsWindowForExtensionProfiles_AnimationTweaksExtension = new GObject.Cla
     settings.set_boolean("defocussing-effect",  profileClass.defocussingEffectEnabled);
   
     settings.set_boolean("use-application-profiles", profileClass.useApplicationProfiles);
-    settings.set_strv("name-list",                   profileClass.nameList              );
-    settings.set_strv("application-list",            profileClass.appList)              ;
+    settings.set_strv("name-list",                   profileClass.nameList);
+    settings.set_strv("application-list",            profileClass.appList);
     
-    settings.set_strv("normal-open",       profileClass.normalWindowopenProfileRaw      ); 
-    settings.set_strv("normal-close",      profileClass.normalWindowcloseProfileRaw     );
-    settings.set_strv("normal-minimize",   profileClass.normalWindowminimizeProfileRaw  );
+    settings.set_strv("normal-open",       profileClass.normalWindowopenProfileRaw); 
+    settings.set_strv("normal-close",      profileClass.normalWindowcloseProfileRaw);
+    settings.set_strv("normal-minimize",   profileClass.normalWindowminimizeProfileRaw);
     settings.set_strv("normal-unminimize", profileClass.normalWindowunminimizeProfileRaw);    
-    settings.set_strv("normal-movestart",  profileClass.normalWindowmovestartProfileRaw );   
-    settings.set_strv("normal-focus",      profileClass.normalWindowfocusProfileRaw     );    
-    settings.set_strv("normal-defocus",    profileClass.normalWindowdefocusProfileRaw   );    
+    settings.set_strv("normal-movestart",  profileClass.normalWindowmovestartProfileRaw);   
+    settings.set_strv("normal-focus",      profileClass.normalWindowfocusProfileRaw);    
+    settings.set_strv("normal-defocus",    profileClass.normalWindowdefocusProfileRaw);    
      
     settings.set_strv("dialog-open",       profileClass.dialogWindowopenProfileRaw);
     settings.set_strv("dialog-close",      profileClass.dialogWindowcloseProfileRaw);

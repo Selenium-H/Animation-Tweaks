@@ -1,11 +1,15 @@
 /*
 
-Version 11.01
+Version 11.03
 =============
 
 Effect Format  [  |  S    Name     C       PPX       PPY       CX        CY        CZ        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN  ]
 
 Read the effectParameters.txt File for details.
+
+!!! Do not change indentation !!!
+
+This file is used by update_pot.sh to translate effects names.
 
 */
 
@@ -573,9 +577,3 @@ var transitionOptions = [
   "easeOutBack","easeOutBounce","easeOutCirc","easeOutCubic","easeOutElastic","easeOutExpo","easeOutQuad","easeOutQuart","easeOutQuint","easeOutSine"
   
 ];
-
-
-
-
-
-

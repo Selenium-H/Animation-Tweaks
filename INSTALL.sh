@@ -1,7 +1,7 @@
 #!/bin/bash
 
-#Version 10
-#==========
+#Version 11.03
+#=============
 
 # Default Installation Directory
 installDir=~/.local/share/gnome-shell/extensions

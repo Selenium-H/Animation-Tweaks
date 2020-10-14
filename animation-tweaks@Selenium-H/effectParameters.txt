@@ -1,4 +1,4 @@
-Version 11.02
+Version 11.04
 =============
 
 Effect Format  [  |  S    Name     C       PPX       PPY       CX        CY        CZ        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN  ]
@@ -57,16 +57,16 @@ RZ  - Rotation center Y    | Can take values -3600 - 3600 [ In Degrees (°) ]   
                            |                                                                |                                                                           |
 TRN - Transiion Type       | Can take the following values                                  | Can be selected form Dropdown List.                                       |
                            |                                                                |                                                                           |
-                           | "easeInSine"    "easeOutSine"    "easeInOutSine"               |                                                                           |
-                           | "easeInCubic"   "easeOutCubic"   "easeInOutCubic"              |                                                                           |
-                           | "easeInQuint"   "easeOutQuint"   "easeInOutQuint"              |                                                                           |
-                           | "easeInCirc"    "easeOutCirc"    "easeInOutCirc"               |                                                                           |
-                           | "easeInElastic" "easeOutElastic" "easeInOutElastic"            |                                                                           |
-                           | "easeInQuad"    "easeOutQuad"    "easeInOutQuad"               |                                                                           |
-                           | "easeInQuart"   "easeOutQuart"   "easeInOutQuart"              |                                                                           |
-                           | "easeInExpo"    "easeOutExpo"    "easeInOutExpo"               |                                                                           |
-                           | "easeInBack"    "easeOutBack"    "easeInOutBack"               |                                                                           |
-                           | "easeInBounce"  "easeOutBounce"  "easeInOutBounce"             |                                                                           |
+                           | "EASE_IN_SINE"    "EASE_OUT_SINE"    "EASE_IN_OUT_SINE"        |                                                                           |
+                           | "EASE_IN_CUBIC"   "EASE_OUT_CUBIC"   "EASE_IN_OUT_CUBIC"       |                                                                           |
+                           | "EASE_IN_QUINT"   "EASE_OUT_QUINT"   "EASE_IN_OUT_QUINT"       |                                                                           |
+                           | "EASE_IN_CIRC"    "EASE_OUT_CIRC"    "EASE_IN_OUT_CIRC"        |                                                                           |
+                           | "EASE_IN_ELASTIC" "EASE_OUT_ELASTIC" "EASE_IN_OUT_ELASTIC"     |                                                                           |
+                           | "EASE_IN_QUAD"    "EASE_OUT_QUAD"    "EASE_IN_OUT_QUAD"        |                                                                           |
+                           | "EASE_IN_QUART"   "EASE_OUT_QUART"   "EASE_IN_OUT_QUART"       |                                                                           |
+                           | "EASE_IN_EXPO"    "EASE_OUT_EXPO"    "EASE_IN_OUT_EXPO"        |                                                                           |
+                           | "EASE_IN_BACK"    "EASE_OUT_BACK"    "EASE_IN_OUT_BACK"        |                                                                           |
+                           | "EASE_IN_BOUNCE"  "EASE_OUT_BOUNCE"  "EASE_IN_OUT_BOUNCE"      |                                                                           |
                            |                                                                |                                                                           |
 =========================================================================================================================================================================
 
@@ -75,9 +75,9 @@ Example of parameter stored and displayed in preferences -
 
 Effect Format  [  |  S    Name                    C       PPX       PPY       CX        CY        CZ        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN  ]
 
-Values stored    '|','F', 'Slide Down',           '1',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.250',  '0',      '1.0',    '1.0',    '1.0',    '1.2',    '0.0',    '0.0',    '0.0',    '0.0',    'easeOutCubic'
+Values stored    '|','F', 'Slide Down',           '1',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.250',  '0',      '1.0',    '1.0',    '1.0',    '1.2',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_CUBIC'
 
-Values displayed in preferences                            0         0         0         0         0         250       0         100       100       100       120       0         0         0         0         easeOutCubic
+Values displayed in preferences                            0         0         0         0         0         250       0         100       100       100       120       0         0         0         0         EASE_OUT_CUBIC
  
  
 Parameter Values - non-float ( window animations only ) 
@@ -112,8 +112,8 @@ Moving effect Array stores two animations in a single array as follows
 
 Effect Array   [  |  S    Name                    C       PPX       PPY       CX        CY        CZ        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN  ]
 
-Starting    -->  '|','F'  'Fade',                 '2',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.300',  '220',    '1.0',    '1.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',   '0.0',     'easeOutCubic',  
-Stopping    -->                                           '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.300',  '255',    '1.0',    '1.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',   '0.0',     'easeOutCubic'   
+Starting    -->  '|','F'  'Fade',                 '2',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.300',  '220',    '1.0',    '1.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',   '0.0',     'EASE_OUT_CUBIC',  
+Stopping    -->                                           '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.300',  '255',    '1.0',    '1.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',   '0.0',     'EASE_OUT_CUBIC'   
                                                         
 When window movement starts driveOtherEffects function is called with temporarily initializing C = 2/2 = 1, only executes first half of Effect Array 
 When window movement stops  driveOtherEffects function is called with subEffectNo = C/2, only executes second half of Effect Array

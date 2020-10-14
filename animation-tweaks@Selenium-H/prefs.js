@@ -1,6 +1,6 @@
 /*
 
-Version 11.03
+Version 11.04
 =============
 
 Effect Format  [  |  S    Name     C       PPX       PPY       CX        CY        CZ        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN  ]
@@ -28,10 +28,14 @@ const Gtk               = imports.gi.Gtk;
 const Lang              = imports.lang;
 const _                 = Gettext.domain("animation-tweaks").gettext;
 
-const TWEEN_PARAMETERS_LENGTH     = 16;
-const PROFILE_FILE_NAME           = "animationTweaksExtensionProfiles.js"; 
-       
+const TWEEN_PARAMETERS_LENGTH = 16;
+const PROFILE_FILE_NAME       = "animationTweaksExtensionProfiles.js"; 
+
+const SETTINGS_APPLY_DELAY_TIME = 500;   
+    
 let settings = null;
+let reloadApplicationProfileAfterSomeTime = null;
+let reloadExtensionAfterSomeTime          = null;
 
 function init() {
 
@@ -57,14 +61,35 @@ function buildPrefsWidget() {
 
 function reloadExtension () {
 
-  (settings.get_boolean("reload-signal")) ? settings.set_boolean("reload-signal", false) : settings.set_boolean("reload-signal", true);
+  if(reloadExtensionAfterSomeTime != null) {
+      GLib.source_remove(reloadExtensionAfterSomeTime);
+      reloadExtensionAfterSomeTime = null;
+  }
+
+  if(reloadApplicationProfileAfterSomeTime != null) {
+      GLib.source_remove(reloadApplicationProfileAfterSomeTime);
+      reloadApplicationProfileAfterSomeTime = null;
+  }
+ 
+  reloadExtensionAfterSomeTime = GLib.timeout_add(GLib.PRIORITY_DEFAULT, SETTINGS_APPLY_DELAY_TIME, ()=> {
+    settings.set_boolean("reload-signal", (settings.get_boolean("reload-signal")) ? false : true ); 
+    reloadExtensionAfterSomeTime = null;
+  });
     
 }
 
 function reloadApplicationProfiles() {
-  
-  (settings.get_boolean("reload-profiles-signal")) ? settings.set_boolean("reload-profiles-signal", false) : settings.set_boolean("reload-profiles-signal", true);
-    
+
+  if(reloadApplicationProfileAfterSomeTime != null) {
+    GLib.source_remove(reloadApplicationProfileAfterSomeTime);
+    reloadApplicationProfileAfterSomeTime = null;
+  }
+
+  reloadApplicationProfileAfterSomeTime = GLib.timeout_add(GLib.PRIORITY_DEFAULT, SETTINGS_APPLY_DELAY_TIME, ()=> {
+    settings.set_boolean("reload-profiles-signal", (settings.get_boolean("reload-profiles-signal")) ? false : true );
+    reloadApplicationProfileAfterSomeTime = null;
+  });
+
 }
 
 const AboutPage_AnimationTweaksExtension =  new GObject.Class({
@@ -284,10 +309,8 @@ const AnimationSettingsForItem_AnimationTweaksExtension = new GObject.Class({
     }
 
     this.eStr = this.appProfile.getEffectAt(this.appIndex);
-    this.appProfile.modifyEffectForWindowAction(this.appIndex,
-                                                this.allEffectsList.setEffectTime(value, this.eStr));
-    reloadApplicationProfiles();
-
+    this.appProfile.modifyEffectForWindowAction(this.appIndex,this.allEffectsList.setEffectTime(value, this.eStr));
+   
   },
   
   effectsTweaks : function(topLevel, thisIsPairedEffect) {
@@ -425,6 +448,7 @@ const EffectsList_AnimationTweaksExtension = new GObject.Class({
   _init: function(KEY) {
   
     this.reloadList(KEY);
+    this.modifyAfterSomeTime = null;
     
   },
   
@@ -536,36 +560,47 @@ const EffectsList_AnimationTweaksExtension = new GObject.Class({
 
   modifyEffectForWindowAction: function(appIndex,eStr) {
     
-    let windowOpenEffect = eStr;
+    if(this.modifyAfterSomeTime != null) {
+      GLib.source_remove(this.modifyAfterSomeTime);
+      this.modifyAfterSomeTime = null;
+    }
     
-    let effectIndex = 0;
-    let startIndex  = 0;
-    let endIndex    = this.getEndIndex(startIndex);
-   
-    windowOpenEffect.splice(0,0,"|");
-   
-    while(startIndex!=-1) {
+    this.modifyAfterSomeTime = GLib.timeout_add(GLib.PRIORITY_DEFAULT, SETTINGS_APPLY_DELAY_TIME, ()=> {
     
-      if(effectIndex == appIndex) {
+      this.modifyAfterSomeTime = null;
+  
+      let windowOpenEffect = eStr;  
+      let effectIndex = 0;
+      let startIndex  = 0;
+      let endIndex    = this.getEndIndex(startIndex);
+   
+      windowOpenEffect.splice(0,0,"|");
+   
+      while(startIndex!=-1) {
+    
+        if(effectIndex == appIndex) {
 
-        for(let i=0;i<windowOpenEffect.length;i++) {
-          this.effectsList.splice(startIndex+i,0,windowOpenEffect[i]);
+          for(let i=0;i<windowOpenEffect.length;i++) {
+            this.effectsList.splice(startIndex+i,0,windowOpenEffect[i]);
+          }
+          settings.set_strv(this.KEY,this.effectsList); 
+          reloadApplicationProfiles(); 
+          this.removeEffectForWindowAction(appIndex+1); 
+          windowOpenEffect.splice(0,1);
+        
+          return;
+        
         }
-        settings.set_strv(this.KEY,this.effectsList);  
-        this.removeEffectForWindowAction(appIndex+1); 
-        windowOpenEffect.splice(0,1);
-        
-        return;
-        
-      }
       
-      effectIndex++;
-      startIndex = this.effectsList.indexOf('|',startIndex+1);
-      endIndex   = this.getEndIndex(startIndex);
+        effectIndex++;
+        startIndex = this.effectsList.indexOf('|',startIndex+1);
+        endIndex   = this.getEndIndex(startIndex);
       
-    } 
+      } 
     
-    windowOpenEffect.splice(0,1);
+      windowOpenEffect.splice(0,1);
+      
+    });
         
   },
 
@@ -1168,22 +1203,6 @@ const PrefsWindowForApps_AnimationTweaksExtension = new GObject.Class({
     this.attach(listBox, 0,0,1,3);
     this.attach(this.profilesOptionTopGrid, 1,0,1,1);
     this.attach(this.gridWin, 1,1,1,1);
-    
-  },
-
-  prefCombo: function(KEY, pos, options, items,box) {
-  
-    let SettingCombo = new Gtk.ComboBoxText();
-    for (let i = 0; i < options.length; i++) {
-      SettingCombo.append(options[i],  items[i]);
-    }
-    SettingCombo.set_active(options.indexOf(settings.get_string(KEY)));
-    SettingCombo.connect('changed', Lang.bind(this, function(widget) {
-      settings.set_string(KEY, options[widget.get_active()]);
-    }));
-    
-    this.attachLabel(KEY,pos,box);
-    box.attach(SettingCombo, 0, pos+1, 1, 1);
     
   },
 

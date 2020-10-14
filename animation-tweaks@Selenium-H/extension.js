@@ -1,6 +1,6 @@
 /*
 
-Version 11.03
+Version 11.04
 =============
 
 Effect Format  [  |  S    Name     C       PPX       PPY       CX        CY        CZ        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN  ]
@@ -79,6 +79,13 @@ const EffectsManager = new Lang.Class({
   _init: function () {
 
     extensionSettings = ExtensionUtils.getSettings("org.gnome.shell.extensions.animation-tweaks");
+    
+    this.dropdownmenuWindowcloseProfile  =  [''];   
+    this.popupmenuWindowcloseProfile     =  [''];
+    this.comboWindowcloseProfile         =  [''];
+    this.splashscreenWindowcloseProfile  =  [''];
+    this.tooltipWindowcloseProfile       =  [''];
+    this.overrideotherWindowcloseProfile =  [''];    
       
   },
     
@@ -172,7 +179,13 @@ const EffectsManager = new Lang.Class({
         this.doFocusAndDefocus = false;
         actor.set_opacity(0);
         actor.remove_all_transitions();
-        (actor.meta_window.is_monitor_sized()) ? actor.set_position(0,0) : null; 
+        if(actor.meta_window.is_monitor_sized()) {
+          actor.set_position(0,0);
+        }
+        else {
+          actor.x = (actor.meta_window.maximized_horizontally)  ? 0                                                                    : actor.x; 
+          actor.y = (actor.meta_window.maximized_vertically)    ? (Main.layoutManager.panelBox.y + Main.layoutManager.panelBox.height) : actor.y;    
+        }
         break;
         
       case "closeWindowT" :
@@ -211,7 +224,6 @@ const EffectsManager = new Lang.Class({
     }
 
     let [success, geom] = actor.meta_window.get_icon_geometry();
-    
     [eParams[0],eParams[1]] = [actor.x,actor.y];
     this.driveWindowAnimation( actor, eParams, 0, action,success,geom,Main.layoutManager.monitors[global.display.get_current_monitor()].width,Main.layoutManager.monitors[global.display.get_current_monitor()].height);        
 
@@ -367,6 +379,8 @@ const EffectsManager = new Lang.Class({
         }       
       }
       
+      this.connectingToPanelMenusInProcess = null;
+      
     });
   },
     
@@ -441,7 +455,7 @@ const EffectsManager = new Lang.Class({
       rotation_angle_x: eParams[startIndex++],
       rotation_angle_y: eParams[startIndex++],           
       rotation_angle_z: eParams[startIndex++],
-      //transition:       eParams[startIndex++],
+      mode:             Clutter.AnimationMode[eParams[startIndex++]],
       onUpdate: effectsManager.doNothing, 
       onComplete: onCompleteF,
     });
@@ -542,7 +556,7 @@ const EffectsManager = new Lang.Class({
         rotation_angle_x:  eParams[skippedPosIndex++],
         rotation_angle_y:  eParams[skippedPosIndex++],           
         rotation_angle_z:  eParams[skippedPosIndex++],
-        mode:              Clutter.AnimationMode.EASE_OUT_QUAD,
+        mode:              Clutter.AnimationMode[eParams[startIndex++]],
         onComplete:        ()=>this.driveOtherAnimation(actor,eParams,++subEffectNo,action,itemType,itemObject,xRes,yRes),
      });  
      
@@ -560,7 +574,7 @@ const EffectsManager = new Lang.Class({
       rotation_angle_x:  eParams[startIndex++],
       rotation_angle_y:  eParams[startIndex++],           
       rotation_angle_z:  eParams[startIndex++],
-      mode:              Clutter.AnimationMode.EASE_OUT_QUAD,
+      mode:              Clutter.AnimationMode[eParams[startIndex++]],
       onComplete:        ()=>this.driveOtherAnimation(actor,eParams,++subEffectNo,action,itemType,itemObject,xRes,yRes),
    });  
    
@@ -592,7 +606,7 @@ const EffectsManager = new Lang.Class({
       rotation_angle_x:  eParams[startIndex++],
       rotation_angle_y:  eParams[startIndex++],           
       rotation_angle_z:  eParams[startIndex++],
-      mode:              Clutter.AnimationMode.EASE_OUT_QUAD,
+      mode:              Clutter.AnimationMode[eParams[startIndex++]],
       onComplete:        ()=> this.driveWindowAnimation(actor,eParams,++subEffectNo,action,success,geom,xRes,yRes),
     });  
  
@@ -966,7 +980,7 @@ const EffectsManager = new Lang.Class({
 
     this.panelBoxSignalHandlers = [];
     this.loadPreferences();
-   
+     
     this.onOpeningSig      = (this.openingEffectEnabled)      ? global.window_manager.connect("map",        (swm,actor) => this.addWindowEffects(actor, "open",       true)) : null;
     this.onClosingSig      = (this.closingingEffectEnabled)   ? global.window_manager.connect("destroy",    (swm,actor) => this.addWindowEffects(actor, "close",      true)) : null;
     this.onMinimizingSig   = (this.minimizingEffectEnabled)   ? global.window_manager.connect("minimize",   (swm,actor) => this.addWindowEffects(actor, "minimize",   true)) : null;
@@ -980,7 +994,7 @@ const EffectsManager = new Lang.Class({
     }
        
   },
-  
+
   updateAddDesktopPopUpMenuEffects: function(openStatus = "F", closeStatus = "F") {
 
     Main.layoutManager._bgManagers[0].backgroundActor._backgroundMenu._boxPointer.open  = ( openStatus  == "T") ? this.driveDesktopMenuOpenAnimation  : defaultBoxPointerOpenAnimationFunction;   

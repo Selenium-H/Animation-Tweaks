@@ -1,6 +1,6 @@
 /*
 
-Version 11.05
+Version 11.06
 =============
 
 Effect Format  [  |  S    Name     C       PPX       PPY       CX        CY        CZ        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN  ]
@@ -398,7 +398,7 @@ const AnimationSettingsForItemProfile_AnimationTweaksExtension = new GObject.Cla
   _init(itemType,windowType,action,grid,posY,topLevel,thisIsPairedEffect=false) {
   
     this.parent(itemType,windowType,action,grid,posY,topLevel,thisIsPairedEffect);
-    this.prefsLabel.label = this.action.charAt(0).toUpperCase()+this.action.slice(1);
+    this.prefsLabel.label = _(this.action.charAt(0).toUpperCase()+this.action.slice(1));
     this.updateValues(-1);
   
   },
@@ -1000,11 +1000,11 @@ const PrefsWindowForAction_AnimationTweaksExtension = new GObject.Class({
     this.prefsWindowOpening.add(this.openingPrefs);
     this.prefsWindowOpening.set_min_content_height(700);
 
-    this.append_page(this.prefsWindowOpening, new Gtk.Label({ label: _("Open")                        }));
-    this.append_page(this.closingPrefs,       new Gtk.Label({ label: _("Close")                       }));    
-    this.append_page(this.minimizePrefs,      new Gtk.Label({ label: _("Minimize")+" / "+_("Maximize")}));    
-    this.append_page(this.focusPrefs,         new Gtk.Label({ label: _("Focus")   +" / "+_("Defocus") }));    
-    this.append_page(this.morePrefs,          new Gtk.Label({ label: _("Drag")                        }));
+    this.append_page(this.prefsWindowOpening, new Gtk.Label({ label: _("Open")                         }));
+    this.append_page(this.closingPrefs,       new Gtk.Label({ label: _("Close")                        }));    
+    this.append_page(this.minimizePrefs,      new Gtk.Label({ label: _("Minimize")+" / "+_("Unminimize")}));    
+    this.append_page(this.focusPrefs,         new Gtk.Label({ label: _("Focus")   +" / "+_("Defocus")  }));    
+    this.append_page(this.morePrefs,          new Gtk.Label({ label: _("Drag")                         }));
 
     this.child_set_property(this.prefsWindowOpening, "tab-expand", true);
     this.child_set_property(this.closingPrefs,       "tab-expand", true);

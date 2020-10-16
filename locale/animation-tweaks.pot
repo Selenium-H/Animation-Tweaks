@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-16 15:42+0530\n"
+"POT-Creation-Date: 2020-10-16 18:19+0530\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -276,7 +276,7 @@ msgid "Minimize"
 msgstr ""
 
 #: animation-tweaks@Selenium-H/prefs.js:1005
-msgid "Maximize"
+msgid "Unminimize"
 msgstr ""
 
 #: animation-tweaks@Selenium-H/prefs.js:1006

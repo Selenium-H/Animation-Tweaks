@@ -315,7 +315,7 @@ const AnimationSettingsForItem_AnimationTweaksExtension = new GObject.Class({
   
   effectsTweaks : function(topLevel, thisIsPairedEffect) {
 
-    let dialog = new Gtk.Dialog({title:_("Customize Animation") + "  -  " + this.eStr[1],
+    let dialog = new Gtk.Dialog({title:_("Customize Animation") + "  -  «" + _(this.eStr[1]) + "»",
                                  transient_for: topLevel.get_toplevel(),
                                  use_header_bar: true,modal:true});
     dialog.get_content_area().pack_start(new EffectsTweaks_AnimationTweaksExtension(this.appProfile, this.appIndex, thisIsPairedEffect), true, true, 0)
@@ -1470,8 +1470,8 @@ const PrefsWindowForProfiles_AnimationTweaksExtension = new GObject.Class({
     this.appProfilesPrefs       = new PrefsWindowForApps_AnimationTweaksExtension();
     this.extensionProfilesPrefs = new PrefsWindowForExtensionProfiles_AnimationTweaksExtension();
 
-    this.append_page(this.appProfilesPrefs,       new Gtk.Label({ label: "Application Profiles"}) );
-    this.append_page(this.extensionProfilesPrefs, new Gtk.Label({ label: "Extension Profiles"})   );
+    this.append_page(this.appProfilesPrefs,       new Gtk.Label({ label: _("Application Profiles")}) );
+    this.append_page(this.extensionProfilesPrefs, new Gtk.Label({ label: _("Extension Profiles")})   );
 
     this.child_set_property(this.appProfilesPrefs,       "tab-expand", true);
     this.child_set_property(this.extensionProfilesPrefs, "tab-expand", true);

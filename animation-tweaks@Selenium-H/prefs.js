@@ -1,6 +1,6 @@
 /*
 
-Version 11.04
+Version 11.05
 =============
 
 Effect Format  [  |  S    Name     C       PPX       PPY       CX        CY        CZ        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN  ]
@@ -185,7 +185,7 @@ const AboutPage_AnimationTweaksExtension =  new GObject.Class({
     let imageBox              = new Gtk.Box();
     let image                 = new Gtk.Image({ file: Extension.dir.get_child('eicon.png').get_path(), pixel_size: 96 });
     
-    this.firstInfo            = new Gtk.Label({ wrap: true, justify: 2, use_markup: true, label: "<big><b>" + Metadata.name + "</b></big>\n" +"<small>Version  "+ Metadata.version +" "+Metadata.status+"</small>\n\n" +(Metadata.description)+"\n\n\n\n\n<span size=\"small\">This program comes with ABSOLUTELY NO WARRANTY.\nSee the <a href=\"https://www.gnu.org/licenses/old-licenses/gpl-2.0.html\">GNU General Public License, version 2 or later</a>for details.</span>\n"});  
+    this.firstInfo            = new Gtk.Label({ wrap: true, justify: 2, use_markup: true, label: "<big><b>" + Metadata.name + "</b></big>\n" +"<small>Version  "+ Metadata.version +" "+Metadata.status+"</small>\n\n" +_(Metadata.description)+"\n\n\n\n\n<span size=\"small\">"+_("This program comes with ABSOLUTELY NO WARRANTY.\nSee the")+" <a href=\"https://www.gnu.org/licenses/old-licenses/gpl-2.0.html\">GNU General Public License, version 2 or later</a>"+_("for details.")+"</span>\n"});  
     this.resetExtensionButton = new Gtk.Button({label: _("Reset Animation Tweaks Extension"),halign:Gtk.Align.CENTER});
     
     this.resetExtensionButton.connect('clicked', ()=> {this.resetExtension(); this.updateDone(mode);});
@@ -1498,7 +1498,7 @@ const PrefsWindowForExtensionProfiles_AnimationTweaksExtension = new GObject.Cla
   addImportExportPrefs: function() {
 
     let exportExtensionProfilesButton  = new Gtk.Button({label: _("Export Profiles"),halign:Gtk.Align.START});  
-    let importExtensionProfilesButton  = new Gtk.Button({label: _("Import Profile"),halign:Gtk.Align.END});
+    let importExtensionProfilesButton  = new Gtk.Button({label: _("Import Profiles"),halign:Gtk.Align.END});
     
     exportExtensionProfilesButton.connect('clicked', ()=>  this.fileManagementDialogWindow(1));
     importExtensionProfilesButton.connect('clicked',  ()=> this.fileManagementDialogWindow(0));
@@ -1835,22 +1835,18 @@ const PrefsWindowForExtensionProfiles_AnimationTweaksExtension = new GObject.Cla
     
   }, 
   
- setPath: function() {
-    
-    if(Extension.path == "/usr/share/gnome-shell/extensions/animation-tweaks@Selenium-H") {
-      this.PROFILE_PATH = "/home/"+GLib.spawn_command_line_sync("whoami")[1]+"/.config/gnome-shell-extension-animation-tweaks@Selenium-H";
-      this.PROFILE_PATH = this.PROFILE_PATH.replace("\n","");
-      if(GLib.spawn_command_line_sync("ls "+this.PROFILE_PATH)[1] != "profiles\n") {
-        GLib.spawn_command_line_sync("mkdir "+this.PROFILE_PATH);
-        GLib.spawn_command_line_sync("cp -r /usr/share/gnome-shell/extensions/animation-tweaks@Selenium-H/profiles "+this.PROFILE_PATH);
-      }
+  setPath: function() {
  
-      Extension.imports.searchPath = [this.PROFILE_PATH];
-      this.PROFILE_PATH += "/profiles/";
-      return;
+    this.PROFILE_PATH = "/home/"+GLib.spawn_command_line_sync("whoami")[1]+"/.config/gnome-shell-extension-animation-tweaks@Selenium-H";
+    this.PROFILE_PATH = this.PROFILE_PATH.replace("\n","");
+    if(GLib.spawn_command_line_sync("ls "+this.PROFILE_PATH)[1] != "profiles\n") {
+      GLib.spawn_command_line_sync("mkdir "+this.PROFILE_PATH);
+      GLib.spawn_command_line_sync("cp -r "+Extension.path+"/profiles/ "+this.PROFILE_PATH);
     }
-
-    this.PROFILE_PATH = Extension.path+"/profiles/";
+ 
+    Extension.imports.searchPath = [this.PROFILE_PATH];
+    this.PROFILE_PATH += "/profiles/";
+    return;
 
   },
   

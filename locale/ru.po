@@ -8,23 +8,35 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Animation-Tweaks-11\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-08 15:30+0300\n"
-"PO-Revision-Date: 2020-10-08 15:36+0300\n"
+"POT-Creation-Date: 2020-10-19 08:43+0300\n"
+"PO-Revision-Date: 2020-10-19 08:44+0300\n"
 "Last-Translator: vantu5z <vantu5z@mail.ru>\n"
-"Language-Team:Russian <>\n"
+"Language-Team: Russian <>\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2)\n"
-"X-Generator: Gtranslator 3.36.0\n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Generator: Poedit 2.4.1\n"
 
-#: animation-tweaks@Selenium-H/prefs.js:164
+#: animation-tweaks@Selenium-H/prefs.js:188
+msgid ""
+"This program comes with ABSOLUTELY NO WARRANTY.\n"
+"See the"
+msgstr ""
+"Эта программа распространяется БЕЗ КАКИХ-ЛИБО ГАРАНТИЙ.\n"
+"Смотри"
+
+#: animation-tweaks@Selenium-H/prefs.js:188
+msgid "for details."
+msgstr " для дополнительной информации."
+
+#: animation-tweaks@Selenium-H/prefs.js:189
 msgid "Reset Animation Tweaks Extension"
 msgstr "Сбросить настройки"
 
-#: animation-tweaks@Selenium-H/prefs.js:175
+#: animation-tweaks@Selenium-H/prefs.js:200
 msgid ""
 "If already upgraded to Version 10 or higher and it's working fine, you can "
 "keep the preferences as it is.\n"
@@ -36,11 +48,11 @@ msgstr ""
 "В этом случае нажмите кнопку ниже. Иначе нажмите кнопку выше для сброса "
 "настроек."
 
-#: animation-tweaks@Selenium-H/prefs.js:176
+#: animation-tweaks@Selenium-H/prefs.js:201
 msgid "Extension is upgraded to Version  "
 msgstr "Дополнение обновлено до версии  "
 
-#: animation-tweaks@Selenium-H/prefs.js:176
+#: animation-tweaks@Selenium-H/prefs.js:201
 msgid ""
 "A Reset to default preferences is needed if upgrading from a version older "
 "than version 10 or unable to reset during previous upgrade to version 10. "
@@ -51,19 +63,19 @@ msgstr ""
 "обновления до версии 10. Проведите сброс настроек дополнения с помощью "
 "кнопки ниже."
 
-#: animation-tweaks@Selenium-H/prefs.js:177
+#: animation-tweaks@Selenium-H/prefs.js:202
 msgid "Upgrade From Version 10 or newer."
 msgstr "Обновление с версии 10 или новее."
 
-#: animation-tweaks@Selenium-H/prefs.js:188
+#: animation-tweaks@Selenium-H/prefs.js:213
 msgid "Upgrade From Version 10 or newer"
 msgstr "Обновление с версии 10 или новее"
 
-#: animation-tweaks@Selenium-H/prefs.js:194
+#: animation-tweaks@Selenium-H/prefs.js:219
 msgid "Please make sure"
 msgstr "Пожалуйста проверьте"
 
-#: animation-tweaks@Selenium-H/prefs.js:195
+#: animation-tweaks@Selenium-H/prefs.js:220
 msgid ""
 "You are upgrading from version 10 or newer of this extension to current "
 "version.\n"
@@ -74,275 +86,323 @@ msgstr ""
 "Уже проводили сброс настроек при предыдущем обновлении.\n"
 "Дополнение работает нормально."
 
-#: animation-tweaks@Selenium-H/prefs.js:196
+#: animation-tweaks@Selenium-H/prefs.js:221
 msgid "Otherwise click Cancel to go back and reset."
 msgstr "Иначе нажмите Отмена и вернитесь к сбросу настроек."
 
-#: animation-tweaks@Selenium-H/prefs.js:197
+#: animation-tweaks@Selenium-H/prefs.js:222
 msgid "Keep Preferences and Upgrade"
 msgstr "Сохранить настройки и обновить"
 
-#: animation-tweaks@Selenium-H/prefs.js:231
+#: animation-tweaks@Selenium-H/prefs.js:256
 msgid "Version  "
 msgstr "Версия  "
 
-#: animation-tweaks@Selenium-H/prefs.js:231
+#: animation-tweaks@Selenium-H/prefs.js:256
 msgid "Upgraded Successfully"
 msgstr "Обновлено успешно"
 
-#: animation-tweaks@Selenium-H/prefs.js:295
+#: animation-tweaks@Selenium-H/prefs.js:318
 msgid "Customize Animation"
 msgstr "Настройка анимации"
 
-#: animation-tweaks@Selenium-H/prefs.js:301
+#: animation-tweaks@Selenium-H/prefs.js:324
 msgid "Restore Default"
 msgstr "Сбросить по умолчанию"
 
-#: animation-tweaks@Selenium-H/prefs.js:401
+#: animation-tweaks@Selenium-H/prefs.js:424
 msgid "Update"
 msgstr "Обновить"
 
-#: animation-tweaks@Selenium-H/prefs.js:403
+#: animation-tweaks@Selenium-H/prefs.js:426
 msgid "Actions"
 msgstr "Действия"
 
-#: animation-tweaks@Selenium-H/prefs.js:404
+#: animation-tweaks@Selenium-H/prefs.js:427
 msgid "Profiles"
 msgstr "Профили"
 
-#: animation-tweaks@Selenium-H/prefs.js:405
+#: animation-tweaks@Selenium-H/prefs.js:428
 msgid "Tweaks"
 msgstr "Настройки"
 
-#: animation-tweaks@Selenium-H/prefs.js:408
+#: animation-tweaks@Selenium-H/prefs.js:431
 msgid "About"
 msgstr "О приложении"
 
-#: animation-tweaks@Selenium-H/prefs.js:685
+#: animation-tweaks@Selenium-H/prefs.js:720
 msgid "Any  Changes  done  here  are  Applied  immediately"
 msgstr "Все изменения сделанные здесь применяются немедленно"
 
-#: animation-tweaks@Selenium-H/prefs.js:686
+#: animation-tweaks@Selenium-H/prefs.js:721
 msgid "Details of parameter values are described in"
 msgstr "Подробнее о значениях параметров написано в файле"
 
-#: animation-tweaks@Selenium-H/prefs.js:686
+#: animation-tweaks@Selenium-H/prefs.js:721
 msgid "file  in  extension folder."
 msgstr "в каталоге дополнения."
 
-#: animation-tweaks@Selenium-H/prefs.js:699
+#: animation-tweaks@Selenium-H/prefs.js:734
 msgid "Parameters for Starting Effect"
 msgstr "Параметры начала эффекта"
 
-#: animation-tweaks@Selenium-H/prefs.js:706
+#: animation-tweaks@Selenium-H/prefs.js:741
 msgid "Tween Parameters - "
 msgstr "Параметры анимации - "
 
-#: animation-tweaks@Selenium-H/prefs.js:709
-msgid "Pivot Point X\t\t\t[\t-500  -  500\t%\t\t]"
-msgstr "Опорная точка X\t\t\t[\t\t± 500\t%\t\t]"
+#: animation-tweaks@Selenium-H/prefs.js:744
+msgid "Pivot Point X"
+msgstr "Точка вращения X"
 
-#: animation-tweaks@Selenium-H/prefs.js:710
-msgid "Pivot Point Y\t\t\t[\t-500  -  500\t%\t\t]"
-msgstr "Опорная точка Y\t\t\t[\t\t± 500\t%\t\t]"
+#: animation-tweaks@Selenium-H/prefs.js:744
+#: animation-tweaks@Selenium-H/prefs.js:745
+msgid "-500  -  500"
+msgstr "-500  -  500"
 
-#: animation-tweaks@Selenium-H/prefs.js:711
-msgid "Rotation Center X\t\t[\t0  -  100\t%\t\t]"
-msgstr "Поворот от цента по X\t\t[\t\t0  -  100\t%\t\t]"
+#: animation-tweaks@Selenium-H/prefs.js:745
+msgid "Pivot Point Y"
+msgstr "Точка вращения Y"
 
-#: animation-tweaks@Selenium-H/prefs.js:712
-msgid "Rotation Center Y\t\t[\t0  -  100\t%\t\t]"
-msgstr "Поворот от цента по Y\t\t[\t\t0  -  100\t%\t\t]"
+#: animation-tweaks@Selenium-H/prefs.js:746
+msgid "Rotation Center X"
+msgstr "Поворот от цента по X"
 
-#: animation-tweaks@Selenium-H/prefs.js:713
-msgid "Rotation Center Z\t\t[\t0  -  100\t%\t\t]"
-msgstr "Поворот от цента по Z\t\t[\t\t0  -  100\t%\t\t]"
+#: animation-tweaks@Selenium-H/prefs.js:746
+#: animation-tweaks@Selenium-H/prefs.js:747
+#: animation-tweaks@Selenium-H/prefs.js:748
+msgid "0  -  100"
+msgstr "0  -  100"
 
-#: animation-tweaks@Selenium-H/prefs.js:714
-msgid "Time\t\t\t\t\t[\tin milliseconds\t]"
-msgstr "Время\t\t\t\t\t[\t\tмиллисекунды\t\t]"
+#: animation-tweaks@Selenium-H/prefs.js:747
+msgid "Rotation Center Y"
+msgstr "Поворот от цента по Y"
 
-#: animation-tweaks@Selenium-H/prefs.js:715
-msgid "Ending Opacity\t\t[\t0  -  255\t\t\t]"
-msgstr "Конечная прозрачность\t\t[\t\t0  -  255\t\t\t]"
+#: animation-tweaks@Selenium-H/prefs.js:748
+msgid "Rotation Center Z"
+msgstr "Поворот от цента по Z"
 
-#: animation-tweaks@Selenium-H/prefs.js:716
-msgid "Ending Width\t\t\t[\t0  -  200\t%\t\t]"
-msgstr "Конечная ширина\t\t\t[\t\t0  -  200\t%\t\t]"
+#: animation-tweaks@Selenium-H/prefs.js:749
+msgid "Time"
+msgstr "Время"
 
-#: animation-tweaks@Selenium-H/prefs.js:717
-msgid "Ending Height\t\t\t[\t0  -  200\t%\t\t]"
-msgstr "Конечная высота\t\t\t[\t\t0  -  200\t%\t\t]"
+#: animation-tweaks@Selenium-H/prefs.js:749
+msgid "in milliseconds"
+msgstr "в миллисекундах"
 
-#: animation-tweaks@Selenium-H/prefs.js:718
-msgid "Movement along X\t[\t0 ± % Screen width from current X→\t]"
-msgstr "Смещение по X\t\t[\t0 ± % Ширины экрана от текущего X→\t]"
+#: animation-tweaks@Selenium-H/prefs.js:750
+msgid "Ending Opacity"
+msgstr "Конечная прозрачность"
 
-#: animation-tweaks@Selenium-H/prefs.js:719
-msgid "Movement along Y\t[\t0 ± % Screen height from current Y↓\t]"
-msgstr "Смещение по Y\t\t[\t0 ± % Высоты экрана от текущего Y↓\t\t]"
+#: animation-tweaks@Selenium-H/prefs.js:750
+msgid "0  -  255"
+msgstr "0  -  255"
 
-#: animation-tweaks@Selenium-H/prefs.js:720
-msgid "Movement along Z\t[\t0 ± % Screen height from current Z\t]"
-msgstr "Смещение по Z\t\t[\t0 ± % Высоты экрана от текущего Z\t\t]"
+#: animation-tweaks@Selenium-H/prefs.js:751
+msgid "Ending Width"
+msgstr "Конечная ширина"
 
-#: animation-tweaks@Selenium-H/prefs.js:721
-msgid "Rotation about X\t\t[\tin Degree\t%\t\t]"
-msgstr "Поворот вдоль X\t\t\t[\t\tградусы\t\t\t]"
+#: animation-tweaks@Selenium-H/prefs.js:751
+#: animation-tweaks@Selenium-H/prefs.js:752
+msgid "0  -  200"
+msgstr "0  -  200"
 
-#: animation-tweaks@Selenium-H/prefs.js:722
-msgid "Rotation about Y\t\t[\tin Degree\t%\t\t]"
-msgstr "Поворот вдоль Y\t\t\t[\t\tградусы\t\t\t]"
+#: animation-tweaks@Selenium-H/prefs.js:752
+msgid "Ending Height"
+msgstr "Конечная высота"
 
-#: animation-tweaks@Selenium-H/prefs.js:723
-msgid "Rotation about Z\t\t[\tin Degree\t%\t\t]"
-msgstr "Поворот вдоль Z\t\t\t[\t\tградусы\t\t\t]"
+#: animation-tweaks@Selenium-H/prefs.js:753
+msgid "Movement along X"
+msgstr "Смещение по X"
 
-#: animation-tweaks@Selenium-H/prefs.js:724
-msgid "Transition Type\t\t"
-msgstr "Тип перехода\t\t"
+#: animation-tweaks@Selenium-H/prefs.js:753
+msgid "0 ± % Screen width from current X→"
+msgstr "0 ± % Ширины экрана от текущего X→"
 
-#: animation-tweaks@Selenium-H/prefs.js:729
+#: animation-tweaks@Selenium-H/prefs.js:754
+msgid "Movement along Y"
+msgstr "Смещение по Y"
+
+#: animation-tweaks@Selenium-H/prefs.js:754
+msgid "0 ± % Screen height from current Y↓"
+msgstr "0 ± % Высоты экрана от текущего Y↓"
+
+#: animation-tweaks@Selenium-H/prefs.js:755
+msgid "Movement along Z"
+msgstr "Смещение по Z"
+
+#: animation-tweaks@Selenium-H/prefs.js:755
+msgid "0 ± % Screen height from current Z"
+msgstr "0 ± % Высоты экрана от текущего Z"
+
+#: animation-tweaks@Selenium-H/prefs.js:756
+msgid "Rotation about X"
+msgstr "Поворот вдоль X"
+
+#: animation-tweaks@Selenium-H/prefs.js:756
+#: animation-tweaks@Selenium-H/prefs.js:757
+#: animation-tweaks@Selenium-H/prefs.js:758
+msgid "in Degree"
+msgstr "в градусах"
+
+#: animation-tweaks@Selenium-H/prefs.js:757
+msgid "Rotation about Y"
+msgstr "Поворот вдоль Y"
+
+#: animation-tweaks@Selenium-H/prefs.js:758
+msgid "Rotation about Z"
+msgstr "Поворот вдоль Z"
+
+#: animation-tweaks@Selenium-H/prefs.js:759
+msgid "Transition Type"
+msgstr "Тип перехода"
+
+#: animation-tweaks@Selenium-H/prefs.js:764
 msgid "Parameters for Ending Effect"
 msgstr "Параметры завершения эффекта"
 
-#: animation-tweaks@Selenium-H/prefs.js:907
+#: animation-tweaks@Selenium-H/prefs.js:942
 msgid "Items"
 msgstr "Объекты"
 
-#: animation-tweaks@Selenium-H/prefs.js:908
-#: animation-tweaks@Selenium-H/prefs.js:1129
+#: animation-tweaks@Selenium-H/prefs.js:943
+#: animation-tweaks@Selenium-H/prefs.js:1164
 msgid "Effect"
 msgstr "Эффект"
 
-#: animation-tweaks@Selenium-H/prefs.js:909
-msgid "Time { in ms }"
+#: animation-tweaks@Selenium-H/prefs.js:944
+#: animation-tweaks@Selenium-H/prefs.js:1165
+msgid "Time [ in ms ]"
 msgstr "Время (мс)"
 
-#: animation-tweaks@Selenium-H/prefs.js:910
-#: animation-tweaks@Selenium-H/prefs.js:1131
+#: animation-tweaks@Selenium-H/prefs.js:945
+#: animation-tweaks@Selenium-H/prefs.js:1166
 msgid "Status"
 msgstr "Статус"
 
-#: animation-tweaks@Selenium-H/prefs.js:968
+#: animation-tweaks@Selenium-H/prefs.js:1003
 msgid "Open"
 msgstr "Открытие"
 
-#: animation-tweaks@Selenium-H/prefs.js:969
+#: animation-tweaks@Selenium-H/prefs.js:1004
 msgid "Close"
 msgstr "Закрытие"
 
-#: animation-tweaks@Selenium-H/prefs.js:970
+#: animation-tweaks@Selenium-H/prefs.js:1005
 msgid "Minimize"
 msgstr "Свернуть"
 
-#: animation-tweaks@Selenium-H/prefs.js:970
-msgid "Maximize"
+#: animation-tweaks@Selenium-H/prefs.js:1005
+msgid "Unminimize"
 msgstr "Развернуть"
 
-#: animation-tweaks@Selenium-H/prefs.js:971
+#: animation-tweaks@Selenium-H/prefs.js:1006
 msgid "Focus"
 msgstr "Установка фокуса"
 
-#: animation-tweaks@Selenium-H/prefs.js:971
+#: animation-tweaks@Selenium-H/prefs.js:1006
 msgid "Defocus"
 msgstr "Снятие фокуса"
 
-#: animation-tweaks@Selenium-H/prefs.js:972
+#: animation-tweaks@Selenium-H/prefs.js:1007
 msgid "Drag"
 msgstr "Перемещение"
 
-#: animation-tweaks@Selenium-H/prefs.js:1003
+#: animation-tweaks@Selenium-H/prefs.js:1038
 msgid "Choose an application"
 msgstr "Выберите приложение"
 
-#: animation-tweaks@Selenium-H/prefs.js:1007
-#: animation-tweaks@Selenium-H/prefs.js:1156
+#: animation-tweaks@Selenium-H/prefs.js:1042
+#: animation-tweaks@Selenium-H/prefs.js:1191
 msgid "Add"
 msgstr "Добавить"
 
-#: animation-tweaks@Selenium-H/prefs.js:1088
-#: animation-tweaks@Selenium-H/prefs.js:1095
-#: animation-tweaks@Selenium-H/prefs.js:1260
+#: animation-tweaks@Selenium-H/prefs.js:1123
+#: animation-tweaks@Selenium-H/prefs.js:1130
+#: animation-tweaks@Selenium-H/prefs.js:1279
 msgid "Window Preferences"
 msgstr "Параметры окна"
 
-#: animation-tweaks@Selenium-H/prefs.js:1095
-#: animation-tweaks@Selenium-H/prefs.js:1260
+#: animation-tweaks@Selenium-H/prefs.js:1130
+#: animation-tweaks@Selenium-H/prefs.js:1279
 msgid "No Application Selected"
 msgstr "Приложения не выбраны"
 
-#: animation-tweaks@Selenium-H/prefs.js:1128
+#: animation-tweaks@Selenium-H/prefs.js:1163
 msgid "Action"
 msgstr "Действие"
 
-#: animation-tweaks@Selenium-H/prefs.js:1130
-msgid "Time { in ms )"
-msgstr "Время (мс)"
-
-#: animation-tweaks@Selenium-H/prefs.js:1143
+#: animation-tweaks@Selenium-H/prefs.js:1178
 msgid "Application List"
 msgstr "Список приложений"
 
-#: animation-tweaks@Selenium-H/prefs.js:1159
+#: animation-tweaks@Selenium-H/prefs.js:1194
 msgid "Remove"
 msgstr "Удалить"
 
-#: animation-tweaks@Selenium-H/prefs.js:1481
+#: animation-tweaks@Selenium-H/prefs.js:1473
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:424
+msgid "Application Profiles"
+msgstr "Профили приложений"
+
+#: animation-tweaks@Selenium-H/prefs.js:1474
+msgid "Extension Profiles"
+msgstr "Профили дополнения"
+
+#: animation-tweaks@Selenium-H/prefs.js:1500
 msgid "Export Profiles"
 msgstr "Экспорт профилей"
 
-#: animation-tweaks@Selenium-H/prefs.js:1482
-msgid "Import Profile"
-msgstr "Импорт профиля"
+#: animation-tweaks@Selenium-H/prefs.js:1501
+msgid "Import Profiles"
+msgstr "Импорт профилей"
 
-#: animation-tweaks@Selenium-H/prefs.js:1572
-#: animation-tweaks@Selenium-H/prefs.js:1573
+#: animation-tweaks@Selenium-H/prefs.js:1591
+#: animation-tweaks@Selenium-H/prefs.js:1592
 msgid "Import"
 msgstr "Импорт"
 
-#: animation-tweaks@Selenium-H/prefs.js:1572
-#: animation-tweaks@Selenium-H/prefs.js:1573
+#: animation-tweaks@Selenium-H/prefs.js:1591
+#: animation-tweaks@Selenium-H/prefs.js:1592
 msgid "Export"
 msgstr "Экспорт"
 
-#: animation-tweaks@Selenium-H/prefs.js:1572
+#: animation-tweaks@Selenium-H/prefs.js:1591
 msgid " Animation Tweaks Profile"
 msgstr " Настройки Animation Tweaks"
 
-#: animation-tweaks@Selenium-H/prefs.js:1720
+#: animation-tweaks@Selenium-H/prefs.js:1739
 msgid "Save"
 msgstr "Сохранить"
 
-#: animation-tweaks@Selenium-H/prefs.js:1887
+#: animation-tweaks@Selenium-H/prefs.js:1902
 msgid "Autodetect"
 msgstr "Автоматически"
 
-#: animation-tweaks@Selenium-H/prefs.js:1887
+#: animation-tweaks@Selenium-H/prefs.js:1902
 msgid "Left"
 msgstr "Слева"
 
-#: animation-tweaks@Selenium-H/prefs.js:1887
+#: animation-tweaks@Selenium-H/prefs.js:1902
 msgid "Center"
 msgstr "По центру"
 
-#: animation-tweaks@Selenium-H/prefs.js:1887
+#: animation-tweaks@Selenium-H/prefs.js:1902
 msgid "Right"
 msgstr "Справа"
 
-#: animation-tweaks@Selenium-H/prefs.js:1890
+#: animation-tweaks@Selenium-H/prefs.js:1905
 msgid "Alt Key"
 msgstr "Alt"
 
-#: animation-tweaks@Selenium-H/prefs.js:1890
+#: animation-tweaks@Selenium-H/prefs.js:1905
 msgid "Ctrl Key"
 msgstr "Ctrl"
 
-#: animation-tweaks@Selenium-H/prefs.js:1890
+#: animation-tweaks@Selenium-H/prefs.js:1905
 msgid "Shift Key"
 msgstr "Shift"
 
-#: animation-tweaks@Selenium-H/prefs.js:1890
+#: animation-tweaks@Selenium-H/prefs.js:1905
 msgid "Super Key"
 msgstr "Super"
 
@@ -606,27 +666,23 @@ msgstr "Параметры анимации при снятия фокуса с 
 
 #: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:386
 msgid "Dragging Effects"
-msgstr "Эффекты перетаскивания"
+msgstr "Эффекты перемещения окон"
 
 #: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:387
 msgid "Starting to move effect animation switch"
-msgstr "Включение/отключение анимации начала перетаскивани"
+msgstr "Включение/отключение анимации начала перемещения"
 
 #: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:397
 msgid "Animation settings for Normal Windows start to move"
-msgstr "Параметры анимации при начале перетаскивания обычных окон"
+msgstr "Параметры анимации при начале перемещения обычных окон"
 
 #: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:407
 msgid "Animation settings for Dialog Windows start to move"
-msgstr "Параметры анимации при начале перетаскивания диалоговых окон"
+msgstr "Параметры анимации при начале перемещения диалоговых окон"
 
 #: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:417
 msgid "Animation settings for Modal Dialog Windows start to move"
-msgstr "Параметры анимации при начале перетаскивания модальных окон"
-
-#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:424
-msgid "Application Profiles"
-msgstr "Настройки приложения"
+msgstr "Параметры анимации при начале перемещения модальных окон"
 
 #: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:425
 msgid "Application profiles status switch"
@@ -653,7 +709,7 @@ msgstr "Использовать решение для Wayland"
 
 #: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:455
 msgid "Settings If used under wayland"
-msgstr "Включите, если используете wayland"
+msgstr "Включите, если используете Wayland"
 
 #: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:460
 #: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:461
@@ -694,6 +750,249 @@ msgstr "Сигналы для перезагрузки дополнения"
 #: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:495
 msgid "Signals the extension to reload Application Profiles"
 msgstr "Сигналы для перезагрузки настроек приложений"
+
+#: Generated by update_pot.sh
+msgid "Compressed Slide Down"
+msgstr "Скольжение миниатюры вниз"
+
+#: Generated by update_pot.sh
+msgid "Compressed Slide Left"
+msgstr "Скольжение миниатюры влево"
+
+#: Generated by update_pot.sh
+msgid "Compressed Slide Right"
+msgstr "Скольжение миниатюры вправо"
+
+#: Generated by update_pot.sh
+msgid "Compressed Slide Up"
+msgstr "Скольжение миниатюры вверх"
+
+#: Generated by update_pot.sh
+msgid "Deflate"
+msgstr "Пульсация внутрь"
+
+#: Generated by update_pot.sh
+msgid "Fade In"
+msgstr "Появление"
+
+#: Generated by update_pot.sh
+msgid "Fade Out"
+msgstr "Растворение"
+
+#: Generated by update_pot.sh
+msgid "Fade"
+msgstr "Прозрачность"
+
+#: Generated by update_pot.sh
+msgid "Fall Behind"
+msgstr "Падение назад"
+
+#: Generated by update_pot.sh
+msgid "Fall and Bounce"
+msgstr "Падение с отскакиванием"
+
+#: Generated by update_pot.sh
+msgid "Flip Horizontally"
+msgstr "Переворот горизонтально"
+
+#: Generated by update_pot.sh
+msgid "Flip Over"
+msgstr "Переворот вверх"
+
+#: Generated by update_pot.sh
+msgid "Flip Vertically"
+msgstr "Переворот горизонтально"
+
+#: Generated by update_pot.sh
+msgid "Flipped Slide Down"
+msgstr "Скольжение вниз с переворотом"
+
+#: Generated by update_pot.sh
+msgid "Flipped Slide Up"
+msgstr "Скольжение вверх с переворотом"
+
+#: Generated by update_pot.sh
+msgid "Float Up"
+msgstr "Поток вверх"
+
+#: Generated by update_pot.sh
+msgid "Fold In Sideways"
+msgstr "Сворачивание горизонтально"
+
+#: Generated by update_pot.sh
+msgid "Fold In Vertically"
+msgstr "Сворачивание вертикально"
+
+#: Generated by update_pot.sh
+msgid "Fold Out Sideways"
+msgstr "Разворачивание горизонтально"
+
+#: Generated by update_pot.sh
+msgid "Fold Out Vertically"
+msgstr "Разворачивание вертикально"
+
+#: Generated by update_pot.sh
+msgid "Inflate"
+msgstr "Пульсация наружу"
+
+#: Generated by update_pot.sh
+msgid "Magnify"
+msgstr "Магнетизм"
+
+#: Generated by update_pot.sh
+msgid "None"
+msgstr "Без эффекта"
+
+#: Generated by update_pot.sh
+msgid "Rotate In Down"
+msgstr "Поворот вниз"
+
+#: Generated by update_pot.sh
+msgid "Rotate In Left"
+msgstr "Поворот влево"
+
+#: Generated by update_pot.sh
+msgid "Rotate In Right"
+msgstr "Поворот вправо"
+
+#: Generated by update_pot.sh
+msgid "Rotate In Up"
+msgstr "Поворот вверх"
+
+#: Generated by update_pot.sh
+msgid "Rotate Out Down"
+msgstr "Поворот вниз (с уменьшением)"
+
+#: Generated by update_pot.sh
+msgid "Rotate Out Left"
+msgstr "Поворот влево (с уменьшением)"
+
+#: Generated by update_pot.sh
+msgid "Rotate Out Right"
+msgstr "Поворот вправо (с уменьшением)"
+
+#: Generated by update_pot.sh
+msgid "Rotate Out Up"
+msgstr "Поворот вверх (с уменьшением)"
+
+#: Generated by update_pot.sh
+msgid "Scale Auto In"
+msgstr "Уменьшение (авто)"
+
+#: Generated by update_pot.sh
+msgid "Scale Auto Out"
+msgstr "Увеличение (авто)"
+
+#: Generated by update_pot.sh
+msgid "Scale Down"
+msgstr "Масштабирование вниз"
+
+#: Generated by update_pot.sh
+msgid "Scale Left"
+msgstr "Масштабирование влево"
+
+#: Generated by update_pot.sh
+msgid "Scale Right"
+msgstr "Масштабирование вправо"
+
+#: Generated by update_pot.sh
+msgid "Scale Up"
+msgstr "Масштабирование вверх"
+
+#: Generated by update_pot.sh
+msgid "Slide Down"
+msgstr "Скольжение вниз"
+
+#: Generated by update_pot.sh
+msgid "Slide Left"
+msgstr "Скольжение влево"
+
+#: Generated by update_pot.sh
+msgid "Slide Right"
+msgstr "Скольжение вправо"
+
+#: Generated by update_pot.sh
+msgid "Slide Up"
+msgstr "Скольжение вверх"
+
+#: Generated by update_pot.sh
+msgid "Squeezed Slide Down"
+msgstr "Сжатое скольжение вниз"
+
+#: Generated by update_pot.sh
+msgid "Squeezed Slide Left"
+msgstr "Сжатое скольжение влево"
+
+#: Generated by update_pot.sh
+msgid "Squeezed Slide Right"
+msgstr "Сжатое скольжение вправо"
+
+#: Generated by update_pot.sh
+msgid "Squeezed Slide Up"
+msgstr "Сжатое скольжение вверх"
+
+#: Generated by update_pot.sh
+msgid "Unmagnify"
+msgstr "Размагничивание"
+
+#: Generated by update_pot.sh
+msgid "Wiggle"
+msgstr "Потряхивание"
+
+#: Generated by update_pot.sh
+msgid "Zoom In"
+msgstr "Приближение"
+
+#: Generated by update_pot.sh
+msgid "Zoom Out"
+msgstr "Отдаление"
+
+#: Generated by update_pot.sh
+msgid ""
+"Add animations to different items and customize them.\n"
+"\n"
+"Please reset the extension after updating. The Extension will stop when "
+"upgraded to an incompatible version. In that case an Update tab is created "
+"to easily reset the extension. A Reset button is also always present in "
+"preferences -> About Tab.\n"
+" A Default shortcut combination of Super Key + t is provided to temporarily "
+"disable the extension until GNOME Shell restarts. \n"
+"\n"
+"Some effects might not work properly on wayland, for which a workaround is "
+"provided on preferences -> Tweaks tab. \n"
+"However, some animations might not work properly."
+msgstr ""
+"Добавляйте эффекты анимации для различных событий и настраивайте их по "
+"своему вкусу.\n"
+"\n"
+"Необходимо сбросить настройки после обновления. Дополнение будет остановлено "
+"при обновлении до несовместимой версии. В этом случае будет доступна вкладка "
+"\"Обновление\" для быстрого доступа к сбросу настроек. Также кнопка Сброса "
+"настроек всегда доступна в настройках на вкладке \"О приложении\".\n"
+"Комбинация клавиш по умолчанию [ Super Key + t ] используется для временного "
+"отключения дополнения до перезапуска GNOME Shell.\n"
+"\n"
+"Некоторые эффекты могут некорректно работать под Wayland, на вкладке "
+"\"Настройки\" предусмотрен параметр для решения этой проблемы.\n"
+"Однако, некоторые эффекты всё-же могут работать некорректно."
+
+#~ msgid "Maximize"
+#~ msgstr "Развернуть"
+
+#~ msgid "Pivot Point X\t\t\t[\t-500  -  500\t%\t\t]"
+#~ msgstr "Опорная точка X\t\t\t[\t\t± 500\t%\t\t]"
+
+#~ msgid "Pivot Point Y\t\t\t[\t-500  -  500\t%\t\t]"
+#~ msgstr "Опорная точка Y\t\t\t[\t\t± 500\t%\t\t]"
+
+#~ msgid "Ending Width\t\t\t[\t0  -  200\t%\t\t]"
+#~ msgstr "Конечная ширина\t\t\t[\t\t0  -  200\t%\t\t]"
+
+#~ msgid "Ending Height\t\t\t[\t0  -  200\t%\t\t]"
+#~ msgstr "Конечная высота\t\t\t[\t\t0  -  200\t%\t\t]"
+
+#~ msgid "Time { in ms )"
+#~ msgstr "Время (мс)"
 
 #~ msgid "More"
 #~ msgstr "Дополнительно"

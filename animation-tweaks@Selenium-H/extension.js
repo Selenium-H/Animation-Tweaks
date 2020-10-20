@@ -1,38 +1,44 @@
 /*
 
-Version 11
-==========
+Version 11.04
+=============
 
 Effect Format  [  |  S    Name     C       PPX       PPY       CX        CY        CZ        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN  ]
 
 Read the effectParameters.txt File for details.
 
+Credits:
+
+This file is based on https://extensions.gnome.org/extension/367/window-slide-in/ by mengzhuo.
+Rotation animations are based on code from https://extensions.gnome.org/extension/97/coverflow-alt-tab/ by p91paul
+Notification animation are based on https://github.com/Selenium-H/Animation-Tweaks/issues/2#issuecomment-535698204 by JasonLG1979 
+
+Some code was also adapted from the upstream Gnome Shell source code.   
+
 */
 
-const Config      = imports.misc.config;
-const Extension   = imports.misc.extensionUtils.getCurrentExtension();
-const Convenience = Extension.imports.convenience;
-const GLib        = imports.gi.GLib;
-const Lang        = imports.lang;
-const Meta        = imports.gi.Meta;
-const Tweener     = imports.ui.tweener;
-const Main        = imports.ui.main;
-const Shell       = imports.gi.Shell;
+const Clutter        = imports.gi.Clutter;
+const Config         = imports.misc.config;
+const ExtensionUtils = imports.misc.extensionUtils;
+const GLib           = imports.gi.GLib;
+const Lang           = imports.lang;
+const Main           = imports.ui.main;
+const Meta           = imports.gi.Meta;
+const Point3D        = imports.gi.Graphene.Point3D;
+const Shell          = imports.gi.Shell;
 
-const changedActorRotationCenter = (Config.PACKAGE_VERSION >= "3.36.0")?imports.gi.Graphene.Point3D : imports.gi.Clutter.Vertex;
+const defaultUpdateShowingNotification = Main.messageTray._updateShowingNotification;
+const defaultHideNotification          = Main.messageTray._hideNotification;
 
-const defaultNotificationBannerTweenFunction = (Config.PACKAGE_VERSION >= "3.36.0")? null : Main.messageTray._tween;
-const defaultUpdateShowingNotification       = Main.messageTray._updateShowingNotification;
-const defaultHideNotification                = Main.messageTray._hideNotification;
-
-let defaultOnCompleteParams;
-let defaultOnComplete;
+const defaultBoxPointerOpenAnimationFunction  = Main.panel.statusArea.dateMenu.menu._boxPointer.open;
+const defaultBoxPointerCloseAnimationFunction = Main.panel.statusArea.dateMenu.menu._boxPointer.close;
 
 const defaultPadOSDShow = Main.osdWindowManager._showOsdWindow;
 
 const TWEEN_PARAMETERS_LENGTH = 16;
 
-let effectsManager = null;
+let effectsManager    = null;
+let extensionSettings = null;
 
 function enable() {
 
@@ -52,14 +58,14 @@ function disable() {
 function reloadApplicationProfilesOnPrefsChange() {
 
   // Reloads Application Profiles when preferences are changed.
-  effectsManager.prefs.connect("changed::reload-profiles-signal", () => effectsManager.loadProfilePrefs());
+  extensionSettings.connect("changed::reload-profiles-signal", () => effectsManager.loadProfilePrefs());
 
 }
 
 function reloadExtensionOnPrefsChange() {
 
   // Reloads the Extension when preferences are changed.
-  effectsManager.prefs.connect("changed::reload-signal", () => {
+  extensionSettings.connect("changed::reload-signal", () => {
     effectsManager.destroy();
     effectsManager.startEffectsManager();
   });
@@ -72,19 +78,17 @@ const EffectsManager = new Lang.Class({
 
   _init: function () {
 
-    this.prefs = Convenience.getSettings("org.gnome.shell.extensions.animation-tweaks");
-        
-    this.forThisVersion=(Config.PACKAGE_VERSION < "3.34.2") ? "Old" : "New";
+    extensionSettings = ExtensionUtils.getSettings("org.gnome.shell.extensions.animation-tweaks");
     
     this.dropdownmenuWindowcloseProfile  =  [''];   
     this.popupmenuWindowcloseProfile     =  [''];
     this.comboWindowcloseProfile         =  [''];
     this.splashscreenWindowcloseProfile  =  [''];
     this.tooltipWindowcloseProfile       =  [''];
-    this.overrideotherWindowcloseProfile =  [''];
+    this.overrideotherWindowcloseProfile =  [''];    
       
   },
-
+    
   addFocussingEffects: function() {
 
     (this.focusWindow != null                                 && this.doFocusAndDefocus == true && this.defocussingEffectEnabled == true && !Main.overview._shown ) ? this.addWindowEffects(this.focusWindow.get_compositor_private(),"defocus") : null;
@@ -97,44 +101,7 @@ const EffectsManager = new Lang.Class({
     (window != null && op == 1 && !Main.overview._shown ) ? this.addWindowEffects(window.get_compositor_private(),action): null;
     
   },
- 
-  addNotificationBannerEffects: function() {
-  
-    if(this.notificationBannerAlignment != 0) {
-      Main.messageTray.bannerAlignment = this.notificationBannerAlignment;
-    }
-    else {
-      this.notificationBannerAlignment = Main.messageTray.bannerAlignment;
-      this.prefs.set_enum("notificationbanner-pos",Main.messageTray.bannerAlignment);
-    }
-        
-    if(this.notificationbannerWindowopenProfile[0]=="T"||this.notificationbannerWindowcloseProfile[0]=="T") {
-
-      if(Config.PACKAGE_VERSION < "3.34.2") {
-        Main.messageTray._tween = this.driveNotificationBannerAnimation;
-      }
-      else {
-        Main.messageTray._updateShowingNotification = (this.notificationbannerWindowopenProfile[0]=="T")?this.overriddenUpdateShowingNotification: defaultUpdateShowingNotification;  
-        Main.messageTray._hideNotification = (this.notificationbannerWindowcloseProfile[0]=="T")?this.overriddenHideNotification:defaultHideNotification;
-      }
-
-      return;
-    }
-    
-    this.restoreDefaultNotificationBannerEffects();
-
-  },
-
-  addPadOSDEffects: function() {
-  
-    if(this.padosdWindowopenProfile[0]=="T"||this.padosdWindowcloseProfile[0]=="T"){
-      Main.osdWindowManager._showOsdWindow = this.driveOSDAnimation;
-      return;
-    }  
-    this.restoreDefaultPadOSDEffects();
-
-  },
-  
+     
   addWindowEffects : function (actor, action, useApplicationProfilesForThisAction = false) {
     
     let eParams=[];
@@ -186,63 +153,42 @@ const EffectsManager = new Lang.Class({
         
     }
 
-    switch(action+windowType+this.forThisVersion+eParams[0]) {
+    switch(action+windowType+eParams[0]) {
 
-      case "focusWindowOldT" :
-      case "focusWindowNewT" :
-      case "defocusWindowOldT"  :
-      case "defocusWindowNewT"  :
+      case "focusWindowT" :
+      case "defocusWindowT"  :
         this.driveOtherAnimation(actor, eParams, 0, action,"window",null, Main.layoutManager.monitors[global.display.get_current_monitor()].width, Main.layoutManager.monitors[global.display.get_current_monitor()].height);
         return;      
     
-      case "movestartWindowOldT" :
-      case "movestartWindowNewT" :
+      case "movestartWindowT" :
         eParams[2] = eParams[2]/2;
         this.driveOtherAnimation(actor, eParams, 0, action,"window",null, Main.layoutManager.monitors[global.display.get_current_monitor()].width, Main.layoutManager.monitors[global.display.get_current_monitor()].height);
         return;
         
-      case "movestopWindowOldT"  :
-      case "movestopWindowNewT"  :
+      case "movestopWindowT"  :
         this.driveOtherAnimation(actor, eParams, eParams[2]/2, action,"window",null, Main.layoutManager.monitors[global.display.get_current_monitor()].width, Main.layoutManager.monitors[global.display.get_current_monitor()].height);
         return;
-
-      case "openOtherOldT" :
-        actor.set_opacity(0);
-        Tweener.removeTweens(actor);
-        this.driveOtherAnimation(actor, eParams, 0, action,"other",null, Main.layoutManager.monitors[global.display.get_current_monitor()].width, Main.layoutManager.monitors[global.display.get_current_monitor()].height);
-        return;
         
-      case "openOtherNewT" :
+      case "openOtherT" :
         actor.set_opacity(0);
         actor.remove_all_transitions();
         this.driveOtherAnimation(actor, eParams, 0, action,"other",null, Main.layoutManager.monitors[global.display.get_current_monitor()].width, Main.layoutManager.monitors[global.display.get_current_monitor()].height);
         return;
 
-      case "openWindowOldT" :
+      case "openWindowT" :
         this.doFocusAndDefocus = false;
         actor.set_opacity(0);
-        Main.wm._removeEffect(Main.wm._mapping, actor);
-        break;
-        
-      case "openWindowNewT" :
-        this.doFocusAndDefocus = false;
-        actor.set_opacity(0);
-        Main.wm._mapping.delete(actor);
-        actor.remove_all_transitions();        
-        break;
-        
-      case "closeWindowOldT" :
-        this.doFocusAndDefocus = false;
-        Main.wm._removeEffect(Main.wm._destroying, actor);   
-        if(actor.meta_window.is_attached_dialog()) {
-          actor._parentDestroyId = actor.meta_window.get_transient_for().connect('unmanaged', () => {
-            Tweener.removeTweens(actor);
-            this.animationDone(actor,action,"window");
-          });
+        actor.remove_all_transitions();
+        if(actor.meta_window.is_monitor_sized()) {
+          actor.set_position(0,0);
+        }
+        else {
+          actor.x = (actor.meta_window.maximized_horizontally)  ? 0                                                                    : actor.x; 
+          actor.y = (actor.meta_window.maximized_vertically)    ? (Main.layoutManager.panelBox.y + Main.layoutManager.panelBox.height) : actor.y;    
         }
         break;
         
-      case "closeWindowNewT" :
+      case "closeWindowT" :
         this.doFocusAndDefocus = false;
         Main.wm._destroying.delete(actor);
         actor.remove_all_transitions();        
@@ -254,27 +200,22 @@ const EffectsManager = new Lang.Class({
           });
         }
         break;
-        
-      case "minimizeWindowOldT":
-        this.doFocusAndDefocus = false;
-        Main.wm._removeEffect(Main.wm._minimizing, actor);
-        break;
 
-      case "minimizeWindowNewT":
+      case "minimizeWindowT":
         this.doFocusAndDefocus = false;
         Main.wm._minimizing.delete(actor);
         actor.remove_all_transitions();        
         break;
 
-      case "unminimizeWindowOldT" :
-      case "unminimizeWindowNewT" :
+      case "unminimizeWindowT" :
+      case "unminimizeWindowT" :
         this.doFocusAndDefocus = false;
         if(Main.overview._shown) {
           this.animationDone(actor,"unminimize","window");
           return;
         }
-        actor.set_opacity(0);
         Main.wm._unminimizeWindowDone(Main.wm._shellwm ,actor);
+        actor.set_opacity(0);
         break;
         
       default:
@@ -283,7 +224,6 @@ const EffectsManager = new Lang.Class({
     }
 
     let [success, geom] = actor.meta_window.get_icon_geometry();
-    
     [eParams[0],eParams[1]] = [actor.x,actor.y];
     this.driveWindowAnimation( actor, eParams, 0, action,success,geom,Main.layoutManager.monitors[global.display.get_current_monitor()].width,Main.layoutManager.monitors[global.display.get_current_monitor()].height);        
 
@@ -291,84 +231,103 @@ const EffectsManager = new Lang.Class({
    
   animationDone : function (actor, action, itemType="other",itemObject=null) {
   
-    switch(action+itemType+this.forThisVersion) {
+    switch(action+itemType) {
 
-      case "opennotificationbannerOld":
-      case "opennotificationbannerNew":
-      case "closenotificationbannerOld":            
-      case "closenotificationbannerNew":
+      case "opennotificationbanner":
+      case "opennotificationbanner":
         actor.hide();
         actor.set_scale(1,1);
         actor.show();
+        Main.messageTray._notificationState = 2;//State.SHOWN;
+        Main.messageTray._showNotificationCompleted();
+        Main.messageTray._updateState();
         return;
-    
-      case "openpadosdOld":
-      case "openpadosdNew":
+        
+      case "closenotificationbanner":            
+      case "closenotificationbanner":
+        actor.translation_x = 0;
+        actor.hide();
+        actor.set_scale(1,1);
+        actor.show();
+        Main.messageTray._notificationState = 0; //State.HIDDEN;
+        Main.messageTray._hideNotificationCompleted();
+        Main.messageTray._updateState();   
+        return;
+
+      case "opentoppanelpopupmenu":
+      case "opentoppanelpopupmenu":
+        actor._muteInput = false; 
+        if(itemObject) {
+          itemObject();
+        }
+        
+      case "openpadosd":
+      case "openpadosd":
         actor.set_opacity(255);
         actor.set_scale(1,1);
         return;
 
-      case "closepadosdOld":
-      case "closepadosdNew":
+      case "closetoppanelpopupmenu":
+      case "closetoppanelpopupmenu":
+        actor.hide();
+        actor.set_scale(1,1);
+        actor.opacity = 0;
+        actor.translation_x = 0;
+        actor.translation_y = 0;        
+      
+        if(itemObject) {
+          itemObject();
+        }
+        
+        return;
+
+      case "closepadosd":
+      case "closepadosd":
         actor.hide(); 
         itemObject._reset();
         Meta.enable_unredirect_for_display(global.display);           
         actor.set_opacity(255);
         actor.set_scale(1,1);
         return;
-      
-      case "openwindowOld" :
-        Main.wm._mapping.push(actor);
+
+      case "openwindow" :
         Main.wm._mapWindowDone(Main.wm._shellwm ,actor);
         this.doFocusAndDefocus = true;
         break;
 
-      case "openwindowNew" :
-        (Config.PACKAGE_VERSION < "3.36.0") ? Main.wm._mapping.add(actor): null;
-        Main.wm._mapWindowDone(Main.wm._shellwm ,actor);
-        this.doFocusAndDefocus = true;
-        break;
-
-      case "closewindowOld" :
-      case "closewindowNew" :
+      case "closewindow" :
+      case "closewindow" :
         actor.hide();   
         Main.wm._destroyWindowDone(Main.wm._shellwm ,actor);
         this.doFocusAndDefocus = true;
         return;
 
-      case "unminimizewindowOld" :
-      case "unminimizewindowNew" :
+      case "unminimizewindow" :
+      case "unminimizewindow" :
         Main.wm._unminimizeWindowDone(Main.wm._shellwm ,actor);
         this.doFocusAndDefocus = true;
         break;
-
-      case "minimizewindowOld" :
-        actor.hide(); 
-        Main.wm._minimizing.push(actor);
-        Main.wm._minimizeWindowDone(Main.wm._shellwm ,actor);
-        this.doFocusAndDefocus = true;
-        return;
-               
-      case "minimizewindowNew" :
+             
+      case "minimizewindow" :
         actor.hide();      
         Main.wm._minimizing.add(actor);
         Main.wm._minimizeWindowDone(Main.wm._shellwm ,actor);
         this.doFocusAndDefocus = true;
         return;
       
-      case "openotherOld":
-      case "openotherNew":
+      case "openother":
+      case "openother":
         break;
 
-      case "focusWindowOldT" :
-      case "focusWindowNewT" :
-      case "defocusWindowOldT"  :
-      case "defocusWindowNewT"  :
+      case "focusWindowT" :
+      case "focusWindowT" :
+      case "defocusWindowT"  :
+      case "defocusWindowT"  :
       
-      case "movestartwindowOldT" :
-      case "movestartwindowNewT" :
-      case "movestopwindowOldT"  :
-      case "movestopwindowNewT"  :
+      case "movestartwindowT" :
+      case "movestartwindowT" :
+      case "movestopwindowT"  :
+      case "movestopwindowT"  :
 
       default: return;
     }
@@ -384,85 +343,129 @@ const EffectsManager = new Lang.Class({
     
   },
   
+  connectPanelMenusAndOverrideBoxPinterAnimationFunctions: function(openStatus, closeStatus) {
+
+    if(this.connectingToPanelMenusInProcess != null) {
+      GLib.source_remove(this.connectingToPanelMenusInProcess);
+      this.connectingToPanelMenusInProcess = null;
+    }
+    
+    this.connectingToPanelMenusInProcess = GLib.timeout_add(GLib.PRIORITY_DEFAULT, 1000, ()=> {
+    
+      let panelMenues = Object.getOwnPropertyNames(Main.panel.statusArea);
+      let i = panelMenues.length;
+
+      if(openStatus == "T") {
+        while(i>0) {
+          (Main.panel.statusArea[panelMenues[--i]].menu._boxPointer) ? Main.panel.statusArea[panelMenues[i]].menu._boxPointer.open = this.driveBoxPointerOpenAnimation : null;
+        }    
+      } 
+      else {
+        while(i>0) {
+          (Main.panel.statusArea[panelMenues[--i]].menu._boxPointer) ? Main.panel.statusArea[panelMenues[i]].menu._boxPointer.open = defaultBoxPointerOpenAnimationFunction   : null;
+        } 
+      }
+      
+      i = panelMenues.length;
+      
+      if(closeStatus == "T") {
+        while(i>0) {
+          (Main.panel.statusArea[panelMenues[--i]].menu._boxPointer) ? Main.panel.statusArea[panelMenues[i]].menu._boxPointer.close = this.driveBoxPointerCloseAnimation : null;
+        }  
+      }
+      else {
+        while(i>0) {
+          (Main.panel.statusArea[panelMenues[--i]].menu._boxPointer) ? Main.panel.statusArea[panelMenues[i]].menu._boxPointer.close = defaultBoxPointerCloseAnimationFunction : null;
+        }       
+      }
+      
+      this.connectingToPanelMenusInProcess = null;
+      
+    });
+  },
+    
   doNothing: function() {
   
   // Do Nothing
   
   },
-  
-  driveNotificationBannerAnimation: function(actor, statevar, value, params,subEffectNo=0,eParams=[],xRes, yRes) {
-   
-    if(subEffectNo == 0) {
-      xRes = Main.layoutManager.monitors[global.display.get_current_monitor()].width;
-      yRes = Main.layoutManager.monitors[global.display.get_current_monitor()].height;
-      eParams = effectsManager["notificationbannerWindow"+((value==0)?"close":"open")+"Profile"];
-      params.y = (eParams[0]=="T" && value==0)? 0 : params.y;
-      defaultOnComplete = params.onComplete;
-      defaultOnCompleteParams = params.onCompleteParams;
-    }
 
-    switch(eParams[0]) {
- 
-      case "F": 
-        params.onComplete = Main.messageTray._tweenComplete;
-        params.onCompleteParams = [statevar, value, defaultOnComplete, Main.messageTray, defaultOnCompleteParams];
-        actor.set_opacity(255);
-        break;
-     
-      default: 
-        if(value == 0 && actor.x != 0 ) {
-          Main.messageTray.bannerAlignment = 1;
-        }
-      
-        let startIndex = subEffectNo*TWEEN_PARAMETERS_LENGTH + 3;
-      
-        actor.set_pivot_point( eParams[startIndex++] ,eParams[startIndex++] );
-        actor.rotation_center_x = new changedActorRotationCenter({ x: parseFloat(eParams[startIndex++])*actor.width,y: parseFloat(eParams[startIndex++])*actor.height,z: parseFloat(eParams[startIndex++])*actor.height})
-        actor.rotation_center_y = actor.rotation_center_x;
-        actor.rotation_center_z = actor.rotation_center_x;
-        
-        params.time             = eParams[startIndex++];
-        params.opacity          = eParams[startIndex++];
-        params.scale_x          = eParams[startIndex++];
-        params.scale_y          = eParams[startIndex++];    
-        params.translation_x    = eParams[startIndex++]*xRes;
-        params.translation_y    = eParams[startIndex++]*yRes; 
-        params.translation_z    = eParams[startIndex++]*yRes;
-        params.rotation_angle_x = eParams[startIndex++];
-        params.rotation_angle_y = eParams[startIndex++];           
-        params.rotation_angle_z = eParams[startIndex++];
-        params.transition       = eParams[startIndex++];
-        params.onUpdate         = effectsManager.doNothing; 
-
-        if(eParams[2] == subEffectNo+1) {
-          params.onComplete = ()=> {
-            effectsManager.animationDone(Main.messageTray._bannerBin, "open", "notificationbanner");
-            (Config.PACKAGE_VERSION < "3.34.2") ? Main.messageTray._tweenComplete(statevar, value, defaultOnComplete , Main.messageTray, defaultOnCompleteParams):defaultOnComplete();
-          }
-          params.onCompleteParams = [statevar, value, defaultOnComplete , Main.messageTray, defaultOnCompleteParams];
-        }
-        else {
-          params.onComplete = effectsManager.driveNotificationBannerAnimation;
-          params.onCompleteParams = [actor,statevar, value, params,subEffectNo+1,eParams,xRes,yRes];
-        }
+  driveBoxPointerCloseAnimation: function(animate, onComplete) {
     
-    }  
-  
-    Tweener.removeTweens(actor); 
-    Main.messageTray.bannerAlignment = effectsManager.notificationBannerAlignment;
-    Tweener.addTween(actor, params);
+    if (!this.visible)
+      return;
      
-    if(Config.PACKAGE_VERSION < "3.34.2") {
-      let valuing = (value == 2  ) ? 1 : 3 ;
-      Main.messageTray[statevar] = valuing;
-    }
+    this._muteInput = true;
+    this.remove_all_transitions();    
+    effectsManager.driveOtherAnimation(this, effectsManager.toppanelpopupmenuWindowcloseProfile, 0, "close", "toppanelpopupmenu", onComplete, Main.layoutManager.monitors[global.display.get_current_monitor()].width, Main.layoutManager.monitors[global.display.get_current_monitor()].height);
+
+  },  
+
+  driveBoxPointerOpenAnimation: function(animate, onComplete) {
   
+    this.show();
+    this.set_opacity(0);
+    effectsManager.driveOtherAnimation(this, effectsManager.toppanelpopupmenuWindowopenProfile, 0, "open", "toppanelpopupmenu", onComplete, Main.layoutManager.monitors[global.display.get_current_monitor()].width, Main.layoutManager.monitors[global.display.get_current_monitor()].height);
+
+  },  
+  
+  driveDesktopMenuCloseAnimation: function(animate, onComplete) {
+    
+    if (!this.visible)
+      return;
+    
+    this._muteInput = true;
+    this.remove_all_transitions();
+    effectsManager.driveOtherAnimation(this, effectsManager.desktoppopupmenuWindowcloseProfile, 0, "close", "toppanelpopupmenu", onComplete, Main.layoutManager.monitors[global.display.get_current_monitor()].width, Main.layoutManager.monitors[global.display.get_current_monitor()].height);
+
+  },  
+
+  driveDesktopMenuOpenAnimation: function(animate, onComplete) {
+  
+    this.show();
+    this.set_opacity(0);
+    effectsManager.driveOtherAnimation(this, effectsManager.desktoppopupmenuWindowopenProfile, 0, "open", "toppanelpopupmenu", onComplete, Main.layoutManager.monitors[global.display.get_current_monitor()].width, Main.layoutManager.monitors[global.display.get_current_monitor()].height);
+
+  },  
+
+  driveNotificationBannerAnimation: function(action, subEffectNo=0, eParams, xRes, yRes) {
+   
+    let startIndex = subEffectNo*TWEEN_PARAMETERS_LENGTH + 3;
+    let onCompleteF = (eParams[2] == subEffectNo+1) ? ()=> {effectsManager.animationDone(Main.messageTray._bannerBin, action, "notificationbanner");} :()=> {effectsManager.driveNotificationBannerAnimation(action, subEffectNo+1,eParams,xRes,yRes);}
+    
+    if(action == "open" && Main.messageTray._bannerBin.x != 0 ) {
+      Main.messageTray.bannerAlignment = 1;
+    }
+
+    Main.messageTray._bannerBin.set_pivot_point( eParams[startIndex++] ,eParams[startIndex++] );
+    Main.messageTray._bannerBin.rotation_center_x = new Point3D({ x: parseFloat(eParams[startIndex++])*Main.messageTray._bannerBin.width,y: parseFloat(eParams[startIndex++])*Main.messageTray._bannerBin.height,z: parseFloat(eParams[startIndex++])*Main.messageTray._bannerBin.height})
+    Main.messageTray._bannerBin.rotation_center_y = Main.messageTray._bannerBin.rotation_center_x;
+    Main.messageTray._bannerBin.rotation_center_z = Main.messageTray._bannerBin.rotation_center_x;
+
+    Main.messageTray._bannerBin.remove_all_transitions();
+    Main.messageTray.bannerAlignment = effectsManager.notificationBannerAlignment;
+    Main.messageTray._bannerBin.ease({
+      duration:         eParams[startIndex++]*1000,
+      opacity:          eParams[startIndex++],
+      scale_x:          eParams[startIndex++],
+      scale_y:          eParams[startIndex++],    
+      translation_x:    eParams[startIndex++]*xRes,
+      translation_y:    eParams[startIndex++]*yRes, 
+      translation_z:    eParams[startIndex++]*yRes,
+      rotation_angle_x: eParams[startIndex++],
+      rotation_angle_y: eParams[startIndex++],           
+      rotation_angle_z: eParams[startIndex++],
+      mode:             Clutter.AnimationMode[eParams[startIndex++]],
+      onUpdate: effectsManager.doNothing, 
+      onComplete: onCompleteF,
+    });
+
   },
     
   driveOSDAnimation: function(monitorIndex, icon, label, level, maxLevel, action="open", osdWindow=null) {
         
     osdWindow = (osdWindow==null) ? Main.osdWindowManager._osdWindows[monitorIndex]: osdWindow;
-    let osdWindowActor = (Config.PACKAGE_VERSION < "3.36") ? osdWindow.actor:osdWindow; 
+    let osdWindowActor = osdWindow; 
     let eParams = effectsManager["padosdWindow"+action+"Profile"];
    
     switch (action) {
@@ -488,10 +491,10 @@ const EffectsManager = new Lang.Class({
             effectsManager.driveOtherAnimation(osdWindowActor, eParams, 0, action, "padosd", osdWindow, Main.layoutManager.monitors[monitorIndex].width, Main.layoutManager.monitors[monitorIndex].height);
           }
           else {
-            Tweener.addTween(osdWindowActor,{ 
+            osdWindowActor.ease({ 
               opacity: 255,
-              time: 0.250,
-              transition: 'easeOutQuad' 
+              duration: 250,
+              mode: Clutter.AnimationMode.EASE_OUT_QUAD,
             });
           } 
        
@@ -513,12 +516,11 @@ const EffectsManager = new Lang.Class({
           effectsManager.driveOtherAnimation(osdWindowActor, eParams, 0, action, "padosd", osdWindow, Main.layoutManager.monitors[monitorIndex].width, Main.layoutManager.monitors[monitorIndex].height);
         }
         else {
-          Tweener.addTween(osdWindowActor,{ 
+          osdWindowActor.ease({ 
             opacity: 0,
-            duration: 0.250,
-            transition: 'easeOutQuad', 
-            onComplete: effectsManager.animationDone,
-            onCompleteParams: [osdWindowActor, "close", "padosd", osdWindow]
+            duration: 250,
+            mode: Clutter.AnimationMode.EASE_OUT_QUAD,
+            onComplete: ()=> effectsManager.animationDone(osdWindowActor, "close", "padosd", osdWindow),
           });
         }
         
@@ -538,15 +540,15 @@ const EffectsManager = new Lang.Class({
     let startIndex = subEffectNo*TWEEN_PARAMETERS_LENGTH + 3;
        
     actor.set_pivot_point( eParams[startIndex++] ,eParams[startIndex++] );   
-    actor.rotation_center_x = new changedActorRotationCenter({ x: parseFloat(eParams[startIndex++])*actor.width,y: parseFloat(eParams[startIndex++])*actor.height,z: parseFloat(eParams[startIndex++])*actor.height})
+    actor.rotation_center_x = new Point3D({ x: parseFloat(eParams[startIndex++])*actor.width,y: parseFloat(eParams[startIndex++])*actor.height,z: parseFloat(eParams[startIndex++])*actor.height})
     actor.rotation_center_y = actor.rotation_center_x;
     actor.rotation_center_z = actor.rotation_center_x;
 
     if(this.waylandWorkaroundEnabled && itemType == "other") {
     
       let skippedPosIndex = startIndex+6;
-      Tweener.addTween(actor, {
-        time:              eParams[startIndex++],
+      actor.ease({
+        duration:          eParams[startIndex++]*1000,
         opacity:           eParams[startIndex++],
         scale_x:           eParams[startIndex++],
         scale_y:           eParams[startIndex++],         
@@ -554,36 +556,27 @@ const EffectsManager = new Lang.Class({
         rotation_angle_x:  eParams[skippedPosIndex++],
         rotation_angle_y:  eParams[skippedPosIndex++],           
         rotation_angle_z:  eParams[skippedPosIndex++],
-        transition:        eParams[skippedPosIndex++],
-        onComplete:        this.driveOtherAnimation,
-        onCompleteScope:   this,
-        onCompleteParams:  [actor,eParams,++subEffectNo,action,itemType,itemObject,xRes,yRes],
-        onOverwrite:       this.animationDone,
-        onOverwriteScope : this,
-        onOverwriteParams: [actor,action,itemType,itemObject]
-      });
+        mode:              Clutter.AnimationMode[eParams[startIndex++]],
+        onComplete:        ()=>this.driveOtherAnimation(actor,eParams,++subEffectNo,action,itemType,itemObject,xRes,yRes),
+     });  
+     
       return;
    }
    
-   Tweener.addTween(actor, {
-     time:              eParams[startIndex++],
-     opacity:           eParams[startIndex++],
-     scale_x:           eParams[startIndex++],
-     scale_y:           eParams[startIndex++],
-     translation_x:     eParams[startIndex++]*xRes,           
-     translation_y:     eParams[startIndex++]*yRes,           
-     translation_z:     eParams[startIndex++]*yRes,
-     rotation_angle_x:  eParams[startIndex++],
-     rotation_angle_y:  eParams[startIndex++],           
-     rotation_angle_z:  eParams[startIndex++],
-     transition:        eParams[startIndex++],
-     onComplete:        this.driveOtherAnimation,
-     onCompleteScope:   this,
-     onCompleteParams:  [actor,eParams,++subEffectNo,action,itemType,itemObject,xRes,yRes],
-     onOverwrite:       this.animationDone,
-     onOverwriteScope : this,
-     onOverwriteParams: [actor,action,itemType,itemObject]   
-   });
+    actor.ease({
+      duration:          eParams[startIndex++]*1000,
+      opacity:           eParams[startIndex++],
+      scale_x:           eParams[startIndex++],
+      scale_y:           eParams[startIndex++],
+      translation_x:     eParams[startIndex++]*xRes,           
+      translation_y:     eParams[startIndex++]*yRes,           
+      translation_z:     eParams[startIndex++]*yRes,
+      rotation_angle_x:  eParams[startIndex++],
+      rotation_angle_y:  eParams[startIndex++],           
+      rotation_angle_z:  eParams[startIndex++],
+      mode:              Clutter.AnimationMode[eParams[startIndex++]],
+      onComplete:        ()=>this.driveOtherAnimation(actor,eParams,++subEffectNo,action,itemType,itemObject,xRes,yRes),
+   });  
    
   },
 
@@ -598,12 +591,12 @@ const EffectsManager = new Lang.Class({
     
     this.setNextParametersWindow(actor,eParams,startIndex+7,success,geom,xRes,yRes);
     actor.set_pivot_point( eParams[startIndex++] ,eParams[startIndex++]);        
-    actor.rotation_center_x = new changedActorRotationCenter({ x: parseFloat(eParams[startIndex++])*actor.width,y: parseFloat(eParams[startIndex++])*actor.height,z: parseFloat(eParams[startIndex++])*actor.height})
+    actor.rotation_center_x = new Point3D({ x: parseFloat(eParams[startIndex++])*actor.width,y: parseFloat(eParams[startIndex++])*actor.height,z: parseFloat(eParams[startIndex++])*actor.height})
     actor.rotation_center_y = actor.rotation_center_x;
     actor.rotation_center_z = actor.rotation_center_x;
 
-    Tweener.addTween(actor, {
-      time:              eParams[startIndex++],
+    actor.ease({
+      duration:          eParams[startIndex++]*1000,
       opacity:           eParams[startIndex++],
       scale_x:           eParams[startIndex++],
       scale_y:           eParams[startIndex++],
@@ -613,27 +606,25 @@ const EffectsManager = new Lang.Class({
       rotation_angle_x:  eParams[startIndex++],
       rotation_angle_y:  eParams[startIndex++],           
       rotation_angle_z:  eParams[startIndex++],
-      transition:        eParams[startIndex++],
-      onComplete:        this.driveWindowAnimation,
-      onCompleteScope:   this,
-      onCompleteParams:  [actor,eParams,++subEffectNo,action,success,geom,xRes,yRes],
-      onOverwrite:       this.animationDone,
-      onOverwriteScope : this,
-      onOverwriteParams: [actor,action,"window"]
-    });
-  
+      mode:              Clutter.AnimationMode[eParams[startIndex++]],
+      onComplete:        ()=> this.driveWindowAnimation(actor,eParams,++subEffectNo,action,success,geom,xRes,yRes),
+    });  
+ 
   },
   
   extensionDisableShortcut : function() {
 
     Main.wm.addKeybinding(
       'disable-shortcut',
-      this.prefs,
+      extensionSettings,
       Meta.KeyBindingFlags.NONE,
       Shell.ActionMode.NORMAL | Shell.ActionMode.OVERVIEW,
       () => {
-        disable();
-        Main.notify("Animation Tweaks Extension Stopped ... ", "Extension is stopped temporarily. It will restart on restarting GNOME Shell");
+        let settings = ExtensionUtils.getSettings("org.gnome.shell");
+        let extensionList = settings.get_strv("enabled-extensions");
+        extensionList.splice(extensionList.indexOf("animation-tweaks@Selenium-H"), 1);
+        settings.set_strv("enabled-extensions", extensionList);       
+        Main.notify("Animation Tweaks Extension Disabled ... ", "Extension is disabled by Keyboard Shortcut. To use it again, manually enable it using GNOME Tweak Tool or the Extensions app.");
       }
     );
 
@@ -694,13 +685,13 @@ const EffectsManager = new Lang.Class({
 
   loadPreferences : function() {
 
-    this.openingEffectEnabled       = this.prefs.get_boolean("opening-effect");
-    this.closingingEffectEnabled    = this.prefs.get_boolean("closing-effect");
-    this.minimizingEffectEnabled    = this.prefs.get_boolean("minimizing-effect");
-    this.unMinimizingEffectEnabled  = this.prefs.get_boolean("unminimizing-effect");
-    this.movingEffectEnabled        = this.prefs.get_boolean("moving-effect");
-    this.focussingEffectEnabled     = this.prefs.get_boolean("focussing-effect");
-    this.defocussingEffectEnabled   = this.prefs.get_boolean("defocussing-effect");
+    this.openingEffectEnabled      = extensionSettings.get_boolean("opening-effect");
+    this.closingingEffectEnabled   = extensionSettings.get_boolean("closing-effect");
+    this.minimizingEffectEnabled   = extensionSettings.get_boolean("minimizing-effect");
+    this.unMinimizingEffectEnabled = extensionSettings.get_boolean("unminimizing-effect");
+    this.movingEffectEnabled       = extensionSettings.get_boolean("moving-effect");
+    this.focussingEffectEnabled    = extensionSettings.get_boolean("focussing-effect");
+    this.defocussingEffectEnabled  = extensionSettings.get_boolean("defocussing-effect");
     
     this.doFocusAndDefocus = true;
     this.focusWindow = null;
@@ -711,49 +702,55 @@ const EffectsManager = new Lang.Class({
   
   loadProfilePrefs: function() {
   
-    this.useApplicationProfiles = this.prefs.get_boolean("use-application-profiles");
-    this.nameList = this.prefs.get_strv("name-list");
-    
-    let normalWindowopenProfileRaw       = this.prefs.get_strv("normal-open"); 
-    let normalWindowcloseProfileRaw      = this.prefs.get_strv("normal-close");
-    let normalWindowminimizeProfileRaw   = this.prefs.get_strv("normal-minimize");
-    let normalWindowunminimizeProfileRaw = this.prefs.get_strv("normal-unminimize");    
-    let normalWindowmovestartProfileRaw  = this.prefs.get_strv("normal-movestart");   
-    let normalWindowfocusProfileRaw      = this.prefs.get_strv("normal-focus");    
-    let normalWindowdefocusProfileRaw    = this.prefs.get_strv("normal-defocus");    
-     
-    let dialogWindowopenProfileRaw       = this.prefs.get_strv("dialog-open");
-    let dialogWindowcloseProfileRaw      = this.prefs.get_strv("dialog-close");
-    let dialogWindowminimizeProfileRaw   = this.prefs.get_strv("dialog-minimize");
-    let dialogWindowunminimizeProfileRaw = this.prefs.get_strv("dialog-unminimize");  
-    let dialogWindowmovestartProfileRaw  = this.prefs.get_strv("dialog-movestart");
-    let dialogWindowfocusProfileRaw      = this.prefs.get_strv("dialog-focus");    
-    let dialogWindowdefocusProfileRaw    = this.prefs.get_strv("dialog-defocus");    
-
-    let modaldialogWindowopenProfileRaw       = this.prefs.get_strv("modaldialog-open");
-    let modaldialogWindowcloseProfileRaw      = this.prefs.get_strv("modaldialog-close");
-    let modaldialogWindowminimizeProfileRaw   = this.prefs.get_strv("modaldialog-minimize");
-    let modaldialogWindowunminimizeProfileRaw = this.prefs.get_strv("modaldialog-unminimize");  
-    let modaldialogWindowmovestartProfileRaw  = this.prefs.get_strv("modaldialog-movestart");
-    let modaldialogWindowfocusProfileRaw      = this.prefs.get_strv("modaldialog-focus");    
-    let modaldialogWindowdefocusProfileRaw    = this.prefs.get_strv("modaldialog-defocus");    
-    
-    this.dropdownmenuWindowopenProfile  = this.prefs.get_strv("dropdownmenu-open");
-    this.popupmenuWindowopenProfile     = this.prefs.get_strv("popupmenu-open");
-    this.comboWindowopenProfile         = this.prefs.get_strv("combo-open");
-    this.splashscreenWindowopenProfile  = this.prefs.get_strv("splashscreen-open");
-    this.tooltipWindowopenProfile       = this.prefs.get_strv("tooltip-open");
-    this.overrideotherWindowopenProfile = this.prefs.get_strv("overrideother-open");    
-
-    this.notificationbannerWindowopenProfile  = this.prefs.get_strv("notificationbanner-open");
-    this.notificationbannerWindowcloseProfile = this.prefs.get_strv("notificationbanner-close");
-    this.notificationBannerAlignment          = this.prefs.get_enum("notificationbanner-pos");  
-    
-    this.padosdWindowopenProfile  = this.prefs.get_strv("padosd-open");
-    this.padosdWindowcloseProfile = this.prefs.get_strv("padosd-close"); 
+    this.useApplicationProfiles = extensionSettings.get_boolean("use-application-profiles");
+    this.nameList = extensionSettings.get_strv("name-list");
       
-    this.waylandWorkaroundEnabled = this.prefs.get_boolean("wayland");
-    this.padOSDHideTime           = this.prefs.get_int("padosd-hide-timeout");
+    let normalWindowopenProfileRaw       = extensionSettings.get_strv("normal-open"); 
+    let normalWindowcloseProfileRaw      = extensionSettings.get_strv("normal-close");
+    let normalWindowminimizeProfileRaw   = extensionSettings.get_strv("normal-minimize");
+    let normalWindowunminimizeProfileRaw = extensionSettings.get_strv("normal-unminimize");    
+    let normalWindowmovestartProfileRaw  = extensionSettings.get_strv("normal-movestart");   
+    let normalWindowfocusProfileRaw      = extensionSettings.get_strv("normal-focus");    
+    let normalWindowdefocusProfileRaw    = extensionSettings.get_strv("normal-defocus");    
+     
+    let dialogWindowopenProfileRaw       = extensionSettings.get_strv("dialog-open");
+    let dialogWindowcloseProfileRaw      = extensionSettings.get_strv("dialog-close");
+    let dialogWindowminimizeProfileRaw   = extensionSettings.get_strv("dialog-minimize");
+    let dialogWindowunminimizeProfileRaw = extensionSettings.get_strv("dialog-unminimize");  
+    let dialogWindowmovestartProfileRaw  = extensionSettings.get_strv("dialog-movestart");
+    let dialogWindowfocusProfileRaw      = extensionSettings.get_strv("dialog-focus");    
+    let dialogWindowdefocusProfileRaw    = extensionSettings.get_strv("dialog-defocus");    
+
+    let modaldialogWindowopenProfileRaw       = extensionSettings.get_strv("modaldialog-open");
+    let modaldialogWindowcloseProfileRaw      = extensionSettings.get_strv("modaldialog-close");
+    let modaldialogWindowminimizeProfileRaw   = extensionSettings.get_strv("modaldialog-minimize");
+    let modaldialogWindowunminimizeProfileRaw = extensionSettings.get_strv("modaldialog-unminimize");  
+    let modaldialogWindowmovestartProfileRaw  = extensionSettings.get_strv("modaldialog-movestart");
+    let modaldialogWindowfocusProfileRaw      = extensionSettings.get_strv("modaldialog-focus");    
+    let modaldialogWindowdefocusProfileRaw    = extensionSettings.get_strv("modaldialog-defocus");    
+    
+    this.dropdownmenuWindowopenProfile  = extensionSettings.get_strv("dropdownmenu-open");
+    this.popupmenuWindowopenProfile     = extensionSettings.get_strv("popupmenu-open");
+    this.comboWindowopenProfile         = extensionSettings.get_strv("combo-open");
+    this.splashscreenWindowopenProfile  = extensionSettings.get_strv("splashscreen-open");
+    this.tooltipWindowopenProfile       = extensionSettings.get_strv("tooltip-open");
+    this.overrideotherWindowopenProfile = extensionSettings.get_strv("overrideother-open");    
+
+    this.notificationbannerWindowopenProfile  = extensionSettings.get_strv("notificationbanner-open");
+    this.notificationbannerWindowcloseProfile = extensionSettings.get_strv("notificationbanner-close");
+    this.notificationBannerAlignment          = extensionSettings.get_enum("notificationbanner-pos");  
+    
+    this.padosdWindowopenProfile  = extensionSettings.get_strv("padosd-open");
+    this.padosdWindowcloseProfile = extensionSettings.get_strv("padosd-close");
+    
+    this.toppanelpopupmenuWindowopenProfile  = extensionSettings.get_strv("toppanelpopupmenu-open"); 
+    this.toppanelpopupmenuWindowcloseProfile = extensionSettings.get_strv("toppanelpopupmenu-close"); 
+    
+    this.desktoppopupmenuWindowopenProfile  = extensionSettings.get_strv("desktoppopupmenu-open"); 
+    this.desktoppopupmenuWindowcloseProfile = extensionSettings.get_strv("desktoppopupmenu-close");     
+    
+    this.waylandWorkaroundEnabled = extensionSettings.get_boolean("wayland");
+    this.padOSDHideTime           = extensionSettings.get_int("padosd-hide-timeout");
     
     this.normalWindowopenProfile       = [this.getEffectFor("",normalWindowopenProfileRaw)];
     this.normalWindowcloseProfile      = [this.getEffectFor("",normalWindowcloseProfileRaw)];
@@ -792,12 +789,21 @@ const EffectsManager = new Lang.Class({
 
     this.padosdWindowopenProfile.splice(0,1);
     this.padosdWindowcloseProfile.splice(0,1);
-    this.addPadOSDEffects(); 
         
     this.notificationbannerWindowopenProfile.splice(0,1);
     this.notificationbannerWindowcloseProfile.splice(0,1);
-    this.addNotificationBannerEffects();
+    
+    this.toppanelpopupmenuWindowopenProfile.splice(0,1);
+    this.toppanelpopupmenuWindowcloseProfile.splice(0,1);
 
+    this.desktoppopupmenuWindowopenProfile.splice(0,1);
+    this.desktoppopupmenuWindowcloseProfile.splice(0,1);
+
+    this.updateAddPadOSDEffects(             this.padosdWindowopenProfile[0],             this.padosdWindowcloseProfile[0]             ); 
+    this.updateAddNotificationBannerEffects( this.notificationbannerWindowopenProfile[0], this.notificationbannerWindowcloseProfile[0] );
+    this.updateAddTopPanelPopUpMenuEffects(  this.toppanelpopupmenuWindowopenProfile[0], this.toppanelpopupmenuWindowcloseProfile[0]  );
+    this.updateAddDesktopPopUpMenuEffects(   this.desktoppopupmenuWindowopenProfile[0],   this.desktoppopupmenuWindowcloseProfile[0]   );
+        
     if(this.useApplicationProfiles) {
       for(let i=0;i<this.nameList.length;i++) {
     
@@ -837,23 +843,10 @@ const EffectsManager = new Lang.Class({
     Main.messageTray._resetNotificationLeftTimeout();
 
     if (animate) {
-      effectsManager.driveNotificationBannerAnimation(Main.messageTray._bannerBin, '_notificationState', 0,/*State.HIDDEN/**/ { 
-        y:               -Main.messageTray._bannerBin.height,
-        _opacity:        0,
-        time:            0.250,//ANIMATION_TIME,
-        transition:      'easeOutBack',
-        onUpdate:        Main.messageTray._clampOpacity,
-        onUpdateScope:   Main.messageTray,
-        onComplete:      () => {
-                           Main.messageTray._notificationState = 0;
-                           Main.messageTray._hideNotificationCompleted();
-                           Main.messageTray._updateState();
-                         },
-        onCompleteScope: Main.messageTray
-      });
+      effectsManager.driveNotificationBannerAnimation("close" , 0, effectsManager.notificationbannerWindowcloseProfile, Main.layoutManager.monitors[global.display.get_current_monitor()].width, Main.layoutManager.monitors[global.display.get_current_monitor()].height );
     } 
     else {
-      Tweener.removeTweens(Main.messageTray._bannerBin);
+      Main.messageTray._bannerBin.remove_all_transitions();
       Main.messageTray._bannerBin.y = -Main.messageTray._bannerBin.height;
       Main.messageTray._bannerBin.opacity = 0;
       Main.messageTray._notificationState = 0;//State.HIDDEN;
@@ -869,7 +862,7 @@ const EffectsManager = new Lang.Class({
 
     // We auto-expand notifications with CRITICAL urgency, or for which the relevant setting
     // is on in the control center.
-    if (Main.messageTray._notification.urgency == 3  ||  // Urgency.CRITICAL
+    if (Main.messageTray._notification.urgency == 3 || //Urgency.CRITICAL
       Main.messageTray._notification.source.policy.forceExpanded)
       Main.messageTray._expandBanner(true);
 
@@ -884,46 +877,36 @@ const EffectsManager = new Lang.Class({
       // We use this._showNotificationCompleted() onComplete callback to extend the time the updated
       // notification is being shown.
 
-      Main.messageTray._notificationState = 1;//State.SHOWING;
+      Main.messageTray._notificationState = 1; //State.SHOWING;
       Main.messageTray._bannerBin.remove_all_transitions();
-      Main.messageTray._bannerBin.set_opacity(255);
-          
-      let tweenParams = { y: 0,
-                          _opacity: 255,
-                          time: 0.250, //ANIMATION_TIME,
-                          transition: 'easeOutBack',
-                          onUpdate: Main.messageTray._clampOpacity,
-                          onUpdateScope: Main.messageTray,
-                          onComplete: () => {
-                                        Main.messageTray._notificationState = 2;//State.SHOWN;
-                                        Main.messageTray._showNotificationCompleted();
-                                        Main.messageTray._updateState();
-                                      },
-
-                          onCompleteScope: Main.messageTray
-                        };      
-        
-      effectsManager.driveNotificationBannerAnimation(Main.messageTray._bannerBin,  '_notificationState', 2 , tweenParams,0)
-
-  },
-    
-  restoreDefaultNotificationBannerEffects: function() {
-
-    if(Config.PACKAGE_VERSION < "3.34.2") {
-      Main.messageTray._tween = defaultNotificationBannerTweenFunction;
-      return;
-    }
       
-    Main.messageTray._updateShowingNotification = defaultUpdateShowingNotification; 
-    Main.messageTray._hideNotification = defaultHideNotification;
-    
-  },
+      Main.messageTray._bannerBin.ease({
+        opacity: 0,
+        y: 0,
+        duration: 1,
+        onComplete : ()=> effectsManager.driveNotificationBannerAnimation("open" , 0, effectsManager.notificationbannerWindowopenProfile, Main.layoutManager.monitors[global.display.get_current_monitor()].width, Main.layoutManager.monitors[global.display.get_current_monitor()].height ),
+      });
 
-  restoreDefaultPadOSDEffects: function() {
-  
-    Main.osdWindowManager._showOsdWindow = defaultPadOSDShow; 
-    
   },
+  
+  restoreTopPanelEffects: function() {
+   
+    let panelMenues = Object.getOwnPropertyNames(Main.panel.statusArea);
+    let i = panelMenues.length;
+   
+    
+    if(this.desktoppopupmenuWindowopenProfile[0] == "T" || this.desktoppopupmenuWindowcloseProfile[0] == "T") {
+      Main.panel._leftBox.disconnect(this.panelBoxSignalHandlers[0]);
+      Main.panel._centerBox.disconnect(this.panelBoxSignalHandlers[1]);
+      Main.panel._rightBox.disconnect(this.panelBoxSignalHandlers[2]);
+    }
+          
+    while(i>0) {
+      (Main.panel.statusArea[panelMenues[--i]].menu._boxPointer) ? Main.panel.statusArea[panelMenues[i]].menu._boxPointer.open = defaultBoxPointerOpenAnimationFunction   : null;
+      (Main.panel.statusArea[panelMenues[i]].menu._boxPointer)   ? Main.panel.statusArea[panelMenues[i]].menu._boxPointer.close = defaultBoxPointerCloseAnimationFunction : null;
+    }  
+   
+  },  
 
   setNextParametersWindow: function(actor,eParams,pIndex,success,geom,xRes,yRes) {
 
@@ -990,13 +973,14 @@ const EffectsManager = new Lang.Class({
 
     this.extensionDisableShortcut();
    
-    if(this.prefs.get_int("current-version") <= 10) {    
+    if(extensionSettings.get_int("current-version") <= 10) {    
       Main.notify("Animation Tweaks","Extension is updated. A reset is needed. Please reset the extension");
       return;
     }
 
+    this.panelBoxSignalHandlers = [];
     this.loadPreferences();
-   
+     
     this.onOpeningSig      = (this.openingEffectEnabled)      ? global.window_manager.connect("map",        (swm,actor) => this.addWindowEffects(actor, "open",       true)) : null;
     this.onClosingSig      = (this.closingingEffectEnabled)   ? global.window_manager.connect("destroy",    (swm,actor) => this.addWindowEffects(actor, "close",      true)) : null;
     this.onMinimizingSig   = (this.minimizingEffectEnabled)   ? global.window_manager.connect("minimize",   (swm,actor) => this.addWindowEffects(actor, "minimize",   true)) : null;
@@ -1008,8 +992,54 @@ const EffectsManager = new Lang.Class({
       this.onMovingStartSig = global.display.connect('grab-op-begin', (display, screen, window, op)=> this.addMovingEffects(window, "movestart", op));
       this.onMovingEndSig   = global.display.connect('grab-op-end',   (display, screen, window, op)=> this.addMovingEffects(window, "movestop",  op));
     }
-     
+       
   },
+
+  updateAddDesktopPopUpMenuEffects: function(openStatus = "F", closeStatus = "F") {
+
+    Main.layoutManager._bgManagers[0].backgroundActor._backgroundMenu._boxPointer.open  = ( openStatus  == "T") ? this.driveDesktopMenuOpenAnimation  : defaultBoxPointerOpenAnimationFunction;   
+    Main.layoutManager._bgManagers[0].backgroundActor._backgroundMenu._boxPointer.close = ( closeStatus == "T") ? this.driveDesktopMenuCloseAnimation : defaultBoxPointerCloseAnimationFunction;
+
+  },  
+  
+  updateAddNotificationBannerEffects: function(openStatus = "F", closeStatus = "F") {
+  
+    if(this.notificationBannerAlignment != 0) {
+      Main.messageTray.bannerAlignment = this.notificationBannerAlignment;
+    }
+    else {
+      this.notificationBannerAlignment = Main.messageTray.bannerAlignment;
+      extensionSettings.set_enum("notificationbanner-pos",Main.messageTray.bannerAlignment);
+    }
+
+    Main.messageTray._updateShowingNotification = (openStatus  =="T") ? this.overriddenUpdateShowingNotification : defaultUpdateShowingNotification;  
+    Main.messageTray._hideNotification          = (closeStatus =="T") ? this.overriddenHideNotification          : defaultHideNotification;
+
+  },
+  
+  updateAddPadOSDEffects: function(openStatus = "F", closeStatus = "F") {
+  
+    ( openStatus =="T" || closeStatus =="T" ) ? Main.osdWindowManager._showOsdWindow = this.driveOSDAnimation : defaultPadOSDShow;
+
+  },  
+  
+  updateAddTopPanelPopUpMenuEffects: function(openStatus = "F", closeStatus = "F") {
+        
+    this.connectPanelMenusAndOverrideBoxPinterAnimationFunctions(openStatus, closeStatus);
+    
+    if(openStatus == "T" || closeStatus == "T") {
+      this.panelBoxSignalHandlers[0] = Main.panel._leftBox.connect("actor-added",   ()=> this.connectPanelMenusAndOverrideBoxPinterAnimationFunctions(openStatus, closeStatus));
+      this.panelBoxSignalHandlers[1] = Main.panel._centerBox.connect("actor-added", ()=> this.connectPanelMenusAndOverrideBoxPinterAnimationFunctions(openStatus, closeStatus));
+      this.panelBoxSignalHandlers[2] = Main.panel._rightBox.connect("actor-added",  ()=> this.connectPanelMenusAndOverrideBoxPinterAnimationFunctions(openStatus, closeStatus));
+    }
+    
+    else if(this.panelBoxSignalHandlers.length>0) {
+      Main.panel._leftBox.disconnect(this.panelBoxSignalHandlers[0]);
+      Main.panel._centerBox.disconnect(this.panelBoxSignalHandlers[1]);
+      Main.panel._rightBox.disconnect(this.panelBoxSignalHandlers[2]);
+    }    
+         
+  },  
 
   destroy: function () {
 
@@ -1025,14 +1055,14 @@ const EffectsManager = new Lang.Class({
       global.display.disconnect(this.onMovingEndSig);
     }
 
-    this.restoreDefaultNotificationBannerEffects();
-    this.restoreDefaultPadOSDEffects();
+    this.updateAddPadOSDEffects(); 
+    this.updateAddNotificationBannerEffects();
+    this.updateAddDesktopPopUpMenuEffects();
+    this.updateAddTopPanelPopUpMenuEffects();
     
     Main.wm.removeKeybinding('disable-shortcut');
     
   },
 
 });
-
-
 

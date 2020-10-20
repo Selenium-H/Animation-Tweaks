@@ -1,35 +1,40 @@
 # SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
+# Copyright (C) YEAR Free Software Foundation, Inc.
+# This file is distributed under the same license as the GNU make package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# vantu5z <vantu5z@mail.ru>, 2020.
 #
-#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: Animation-Tweaks-11\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-16 18:19+0530\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"POT-Creation-Date: 2020-10-19 08:43+0300\n"
+"PO-Revision-Date: 2020-10-19 08:44+0300\n"
+"Last-Translator: vantu5z <vantu5z@mail.ru>\n"
+"Language-Team: Russian <>\n"
+"Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Generator: Poedit 2.4.1\n"
 
 #: animation-tweaks@Selenium-H/prefs.js:188
 msgid ""
 "This program comes with ABSOLUTELY NO WARRANTY.\n"
 "See the"
 msgstr ""
+"Эта программа распространяется БЕЗ КАКИХ-ЛИБО ГАРАНТИЙ.\n"
+"Смотри"
 
 #: animation-tweaks@Selenium-H/prefs.js:188
 msgid "for details."
-msgstr ""
+msgstr " для дополнительной информации."
 
 #: animation-tweaks@Selenium-H/prefs.js:189
 msgid "Reset Animation Tweaks Extension"
-msgstr ""
+msgstr "Сбросить настройки"
 
 #: animation-tweaks@Selenium-H/prefs.js:200
 msgid ""
@@ -38,10 +43,14 @@ msgid ""
 "In that case click on the button below. Otherwise click the above button to "
 "reset."
 msgstr ""
+"Если приложение уже обновлено до версии 10 или выше и работает нормально, "
+"можно сохранить настройки.\n"
+"В этом случае нажмите кнопку ниже. Иначе нажмите кнопку выше для сброса "
+"настроек."
 
 #: animation-tweaks@Selenium-H/prefs.js:201
 msgid "Extension is upgraded to Version  "
-msgstr ""
+msgstr "Дополнение обновлено до версии  "
 
 #: animation-tweaks@Selenium-H/prefs.js:201
 msgid ""
@@ -49,18 +58,22 @@ msgid ""
 "than version 10 or unable to reset during previous upgrade to version 10. "
 "Please Reset the extension by clicking the button below."
 msgstr ""
+"Сброс к настройкам по умолчанию требуется, если обновление происходит с "
+"версии ниже 10 или невозможно выполнить сброс во время предыдущего "
+"обновления до версии 10. Проведите сброс настроек дополнения с помощью "
+"кнопки ниже."
 
 #: animation-tweaks@Selenium-H/prefs.js:202
 msgid "Upgrade From Version 10 or newer."
-msgstr ""
+msgstr "Обновление с версии 10 или новее."
 
 #: animation-tweaks@Selenium-H/prefs.js:213
 msgid "Upgrade From Version 10 or newer"
-msgstr ""
+msgstr "Обновление с версии 10 или новее"
 
 #: animation-tweaks@Selenium-H/prefs.js:219
 msgid "Please make sure"
-msgstr ""
+msgstr "Пожалуйста проверьте"
 
 #: animation-tweaks@Selenium-H/prefs.js:220
 msgid ""
@@ -69,325 +82,337 @@ msgid ""
 "Already Reset the extension during previous upgrade.\n"
 "The extension is working fine."
 msgstr ""
+"Вы обновляете дополнение с версии 10 или выше.\n"
+"Уже проводили сброс настроек при предыдущем обновлении.\n"
+"Дополнение работает нормально."
 
 #: animation-tweaks@Selenium-H/prefs.js:221
 msgid "Otherwise click Cancel to go back and reset."
-msgstr ""
+msgstr "Иначе нажмите Отмена и вернитесь к сбросу настроек."
 
 #: animation-tweaks@Selenium-H/prefs.js:222
 msgid "Keep Preferences and Upgrade"
-msgstr ""
+msgstr "Сохранить настройки и обновить"
 
 #: animation-tweaks@Selenium-H/prefs.js:256
 msgid "Version  "
-msgstr ""
+msgstr "Версия  "
 
 #: animation-tweaks@Selenium-H/prefs.js:256
 msgid "Upgraded Successfully"
-msgstr ""
+msgstr "Обновлено успешно"
 
 #: animation-tweaks@Selenium-H/prefs.js:318
 msgid "Customize Animation"
-msgstr ""
+msgstr "Настройка анимации"
 
 #: animation-tweaks@Selenium-H/prefs.js:324
 msgid "Restore Default"
-msgstr ""
+msgstr "Сбросить по умолчанию"
 
 #: animation-tweaks@Selenium-H/prefs.js:424
 msgid "Update"
-msgstr ""
+msgstr "Обновить"
 
 #: animation-tweaks@Selenium-H/prefs.js:426
 msgid "Actions"
-msgstr ""
+msgstr "Действия"
 
 #: animation-tweaks@Selenium-H/prefs.js:427
 msgid "Profiles"
-msgstr ""
+msgstr "Профили"
 
 #: animation-tweaks@Selenium-H/prefs.js:428
 msgid "Tweaks"
-msgstr ""
+msgstr "Настройки"
 
 #: animation-tweaks@Selenium-H/prefs.js:431
 msgid "About"
-msgstr ""
+msgstr "О приложении"
 
 #: animation-tweaks@Selenium-H/prefs.js:720
 msgid "Any  Changes  done  here  are  Applied  immediately"
-msgstr ""
+msgstr "Все изменения сделанные здесь применяются немедленно"
 
 #: animation-tweaks@Selenium-H/prefs.js:721
 msgid "Details of parameter values are described in"
-msgstr ""
+msgstr "Подробнее о значениях параметров написано в файле"
 
 #: animation-tweaks@Selenium-H/prefs.js:721
 msgid "file  in  extension folder."
-msgstr ""
+msgstr "в каталоге дополнения."
 
 #: animation-tweaks@Selenium-H/prefs.js:734
 msgid "Parameters for Starting Effect"
-msgstr ""
+msgstr "Параметры начала эффекта"
 
 #: animation-tweaks@Selenium-H/prefs.js:741
 msgid "Tween Parameters - "
-msgstr ""
+msgstr "Параметры анимации - "
 
 #: animation-tweaks@Selenium-H/prefs.js:744
 msgid "Pivot Point X"
-msgstr ""
+msgstr "Точка вращения X"
 
 #: animation-tweaks@Selenium-H/prefs.js:744
 #: animation-tweaks@Selenium-H/prefs.js:745
 msgid "-500  -  500"
-msgstr ""
+msgstr "-500  -  500"
 
 #: animation-tweaks@Selenium-H/prefs.js:745
 msgid "Pivot Point Y"
-msgstr ""
+msgstr "Точка вращения Y"
 
 #: animation-tweaks@Selenium-H/prefs.js:746
 msgid "Rotation Center X"
-msgstr ""
+msgstr "Поворот от цента по X"
 
 #: animation-tweaks@Selenium-H/prefs.js:746
 #: animation-tweaks@Selenium-H/prefs.js:747
 #: animation-tweaks@Selenium-H/prefs.js:748
 msgid "0  -  100"
-msgstr ""
+msgstr "0  -  100"
 
 #: animation-tweaks@Selenium-H/prefs.js:747
 msgid "Rotation Center Y"
-msgstr ""
+msgstr "Поворот от цента по Y"
 
 #: animation-tweaks@Selenium-H/prefs.js:748
 msgid "Rotation Center Z"
-msgstr ""
+msgstr "Поворот от цента по Z"
 
 #: animation-tweaks@Selenium-H/prefs.js:749
 msgid "Time"
-msgstr ""
+msgstr "Время"
 
 #: animation-tweaks@Selenium-H/prefs.js:749
 msgid "in milliseconds"
-msgstr ""
+msgstr "в миллисекундах"
 
 #: animation-tweaks@Selenium-H/prefs.js:750
 msgid "Ending Opacity"
-msgstr ""
+msgstr "Конечная прозрачность"
 
 #: animation-tweaks@Selenium-H/prefs.js:750
 msgid "0  -  255"
-msgstr ""
+msgstr "0  -  255"
 
 #: animation-tweaks@Selenium-H/prefs.js:751
 msgid "Ending Width"
-msgstr ""
+msgstr "Конечная ширина"
 
 #: animation-tweaks@Selenium-H/prefs.js:751
 #: animation-tweaks@Selenium-H/prefs.js:752
 msgid "0  -  200"
-msgstr ""
+msgstr "0  -  200"
 
 #: animation-tweaks@Selenium-H/prefs.js:752
 msgid "Ending Height"
-msgstr ""
+msgstr "Конечная высота"
 
 #: animation-tweaks@Selenium-H/prefs.js:753
 msgid "Movement along X"
-msgstr ""
+msgstr "Смещение по X"
 
 #: animation-tweaks@Selenium-H/prefs.js:753
 msgid "0 ± % Screen width from current X→"
-msgstr ""
+msgstr "0 ± % Ширины экрана от текущего X→"
 
 #: animation-tweaks@Selenium-H/prefs.js:754
 msgid "Movement along Y"
-msgstr ""
+msgstr "Смещение по Y"
 
 #: animation-tweaks@Selenium-H/prefs.js:754
 msgid "0 ± % Screen height from current Y↓"
-msgstr ""
+msgstr "0 ± % Высоты экрана от текущего Y↓"
 
 #: animation-tweaks@Selenium-H/prefs.js:755
 msgid "Movement along Z"
-msgstr ""
+msgstr "Смещение по Z"
 
 #: animation-tweaks@Selenium-H/prefs.js:755
 msgid "0 ± % Screen height from current Z"
-msgstr ""
+msgstr "0 ± % Высоты экрана от текущего Z"
 
 #: animation-tweaks@Selenium-H/prefs.js:756
 msgid "Rotation about X"
-msgstr ""
+msgstr "Поворот вдоль X"
 
 #: animation-tweaks@Selenium-H/prefs.js:756
 #: animation-tweaks@Selenium-H/prefs.js:757
 #: animation-tweaks@Selenium-H/prefs.js:758
 msgid "in Degree"
-msgstr ""
+msgstr "в градусах"
 
 #: animation-tweaks@Selenium-H/prefs.js:757
 msgid "Rotation about Y"
-msgstr ""
+msgstr "Поворот вдоль Y"
 
 #: animation-tweaks@Selenium-H/prefs.js:758
 msgid "Rotation about Z"
-msgstr ""
+msgstr "Поворот вдоль Z"
 
 #: animation-tweaks@Selenium-H/prefs.js:759
 msgid "Transition Type"
-msgstr ""
+msgstr "Тип перехода"
 
 #: animation-tweaks@Selenium-H/prefs.js:764
 msgid "Parameters for Ending Effect"
-msgstr ""
+msgstr "Параметры завершения эффекта"
 
 #: animation-tweaks@Selenium-H/prefs.js:942
 msgid "Items"
-msgstr ""
+msgstr "Объекты"
 
 #: animation-tweaks@Selenium-H/prefs.js:943
 #: animation-tweaks@Selenium-H/prefs.js:1164
 msgid "Effect"
-msgstr ""
+msgstr "Эффект"
 
 #: animation-tweaks@Selenium-H/prefs.js:944
 #: animation-tweaks@Selenium-H/prefs.js:1165
 msgid "Time [ in ms ]"
-msgstr ""
+msgstr "Время (мс)"
 
 #: animation-tweaks@Selenium-H/prefs.js:945
 #: animation-tweaks@Selenium-H/prefs.js:1166
 msgid "Status"
-msgstr ""
+msgstr "Статус"
 
 #: animation-tweaks@Selenium-H/prefs.js:1003
 msgid "Open"
-msgstr ""
+msgstr "Открытие"
 
 #: animation-tweaks@Selenium-H/prefs.js:1004
 msgid "Close"
-msgstr ""
+msgstr "Закрытие"
 
 #: animation-tweaks@Selenium-H/prefs.js:1005
 msgid "Minimize"
-msgstr ""
+msgstr "Свернуть"
 
 #: animation-tweaks@Selenium-H/prefs.js:1005
 msgid "Unminimize"
-msgstr ""
+msgstr "Развернуть"
 
 #: animation-tweaks@Selenium-H/prefs.js:1006
 msgid "Focus"
-msgstr ""
+msgstr "Установка фокуса"
 
 #: animation-tweaks@Selenium-H/prefs.js:1006
 msgid "Defocus"
-msgstr ""
+msgstr "Снятие фокуса"
 
 #: animation-tweaks@Selenium-H/prefs.js:1007
 msgid "Drag"
-msgstr ""
+msgstr "Перемещение"
 
 #: animation-tweaks@Selenium-H/prefs.js:1038
 msgid "Choose an application"
-msgstr ""
+msgstr "Выберите приложение"
 
 #: animation-tweaks@Selenium-H/prefs.js:1042
 #: animation-tweaks@Selenium-H/prefs.js:1191
 msgid "Add"
-msgstr ""
+msgstr "Добавить"
 
 #: animation-tweaks@Selenium-H/prefs.js:1123
 #: animation-tweaks@Selenium-H/prefs.js:1130
 #: animation-tweaks@Selenium-H/prefs.js:1279
 msgid "Window Preferences"
-msgstr ""
+msgstr "Параметры окна"
 
 #: animation-tweaks@Selenium-H/prefs.js:1130
 #: animation-tweaks@Selenium-H/prefs.js:1279
 msgid "No Application Selected"
-msgstr ""
+msgstr "Приложения не выбраны"
 
 #: animation-tweaks@Selenium-H/prefs.js:1163
 msgid "Action"
-msgstr ""
+msgstr "Действие"
 
 #: animation-tweaks@Selenium-H/prefs.js:1178
 msgid "Application List"
-msgstr ""
+msgstr "Список приложений"
 
 #: animation-tweaks@Selenium-H/prefs.js:1194
 msgid "Remove"
-msgstr ""
+msgstr "Удалить"
+
+#: animation-tweaks@Selenium-H/prefs.js:1473
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:424
+msgid "Application Profiles"
+msgstr "Профили приложений"
+
+#: animation-tweaks@Selenium-H/prefs.js:1474
+msgid "Extension Profiles"
+msgstr "Профили дополнения"
 
 #: animation-tweaks@Selenium-H/prefs.js:1500
 msgid "Export Profiles"
-msgstr ""
+msgstr "Экспорт профилей"
 
 #: animation-tweaks@Selenium-H/prefs.js:1501
 msgid "Import Profiles"
-msgstr ""
+msgstr "Импорт профилей"
 
 #: animation-tweaks@Selenium-H/prefs.js:1591
 #: animation-tweaks@Selenium-H/prefs.js:1592
 msgid "Import"
-msgstr ""
+msgstr "Импорт"
 
 #: animation-tweaks@Selenium-H/prefs.js:1591
 #: animation-tweaks@Selenium-H/prefs.js:1592
 msgid "Export"
-msgstr ""
+msgstr "Экспорт"
 
 #: animation-tweaks@Selenium-H/prefs.js:1591
 msgid " Animation Tweaks Profile"
-msgstr ""
+msgstr " Настройки Animation Tweaks"
 
 #: animation-tweaks@Selenium-H/prefs.js:1739
 msgid "Save"
-msgstr ""
+msgstr "Сохранить"
 
 #: animation-tweaks@Selenium-H/prefs.js:1902
 msgid "Autodetect"
-msgstr ""
+msgstr "Автоматически"
 
 #: animation-tweaks@Selenium-H/prefs.js:1902
 msgid "Left"
-msgstr ""
+msgstr "Слева"
 
 #: animation-tweaks@Selenium-H/prefs.js:1902
 msgid "Center"
-msgstr ""
+msgstr "По центру"
 
 #: animation-tweaks@Selenium-H/prefs.js:1902
 msgid "Right"
-msgstr ""
+msgstr "Справа"
 
 #: animation-tweaks@Selenium-H/prefs.js:1905
 msgid "Alt Key"
-msgstr ""
+msgstr "Alt"
 
 #: animation-tweaks@Selenium-H/prefs.js:1905
 msgid "Ctrl Key"
-msgstr ""
+msgstr "Ctrl"
 
 #: animation-tweaks@Selenium-H/prefs.js:1905
 msgid "Shift Key"
-msgstr ""
+msgstr "Shift"
 
 #: animation-tweaks@Selenium-H/prefs.js:1905
 msgid "Super Key"
-msgstr ""
+msgstr "Super"
 
 #: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:27
 msgid "Opening Effects [ for windows ]"
-msgstr ""
+msgstr "Эффекты открытия окон"
 
 #: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:28
 msgid "Opening effect animation switch"
-msgstr ""
+msgstr "Включение/отключение анимации открытия окон"
 
 #: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:37
 #: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:175
@@ -397,11 +422,11 @@ msgstr ""
 #: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:358
 #: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:396
 msgid "Normal Windows"
-msgstr ""
+msgstr "Обычные окна"
 
 #: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:38
 msgid "Animation settings for Normal Windows opening"
-msgstr ""
+msgstr "Параметры анимации для открытия обычных окон"
 
 #: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:47
 #: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:184
@@ -411,11 +436,11 @@ msgstr ""
 #: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:368
 #: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:406
 msgid "Dialog Windows"
-msgstr ""
+msgstr "Диалоговые окна"
 
 #: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:48
 msgid "Animation settings for Dialog Windows opening"
-msgstr ""
+msgstr "Параметры анимации для открытия диалоговых окон"
 
 #: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:57
 #: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:193
@@ -425,501 +450,555 @@ msgstr ""
 #: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:378
 #: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:416
 msgid "Modal Dialog"
-msgstr ""
+msgstr "Модальные диалоги"
 
 #: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:58
 msgid "Animation settings for Modal Dialog Windows opening"
-msgstr ""
+msgstr "Параметры анимации для открытия модальных диалогов"
 
 #: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:67
 msgid "Dropdown Menu"
-msgstr ""
+msgstr "Выпадающие меню"
 
 #: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:68
 msgid "Animation settings for Dropdown Menu opening"
-msgstr ""
+msgstr "Параметры анимации для открытия выпадающих меню"
 
 #: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:77
 msgid "Pop Up Menu"
-msgstr ""
+msgstr "Всплывающие меню"
 
 #: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:78
 msgid "Animation settings for Pop Up Menu opening"
-msgstr ""
+msgstr "Параметры анимации для открытия всплывающих меню"
 
 #: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:87
 msgid "Combo Box"
-msgstr ""
+msgstr "Выпадающие списки"
 
 #: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:88
 msgid "Animation settings for Combo Box opening"
-msgstr ""
+msgstr "Параметры анимации для открытия выпадающих списков"
 
 #: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:97
 msgid "Splash Screen"
-msgstr ""
+msgstr "Заставки"
 
 #: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:98
 msgid "Animation settings for Splash Screen opening"
-msgstr ""
+msgstr "Параметры анимации для открытия заставок"
 
 #: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:107
 msgid "Tooltips"
-msgstr ""
+msgstr "Подсказки"
 
 #: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:108
 msgid "Animation settings for Tooltips opening"
-msgstr ""
+msgstr "Параметры анимации для открытия подсказок"
 
 #: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:117
 msgid "Overrides Others"
-msgstr ""
+msgstr "Остальные"
 
 #: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:118
 msgid "Animation settings for Overrides Others opening"
-msgstr ""
+msgstr "Параметры анимации для открытия остальных окон"
 
 #: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:127
 #: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:202
 msgid "Notification Banner"
-msgstr ""
+msgstr "Уведомления"
 
 #: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:128
 msgid "Animation settings for Notification Banner opening"
-msgstr ""
+msgstr "Параметры анимации для открытия уведомлений"
 
 #: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:138
 #: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:211
 msgid "Pad OSD"
-msgstr ""
+msgstr "Pad OSD"
 
 #: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:139
 msgid "Animation settings for Pad OSD opening"
-msgstr ""
+msgstr "Параметры анимации для открытия Pad OSD"
 
 #: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:148
 #: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:220
 msgid "Top Panel Pop Up Menu"
-msgstr ""
+msgstr "Всплывающие меню верхней панели"
 
 #: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:149
 msgid "Animation settings for Top Panel Pop up Menu opening"
-msgstr ""
+msgstr "Параметры анимации для открытия всплывающих меню верхней панели"
 
 #: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:158
 #: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:229
 msgid "Desktop Pop Up Menu"
-msgstr ""
+msgstr "Всплывающие меню рабочего стола"
 
 #: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:159
 msgid "Animation settings for Desktop Pop up Menu opening"
-msgstr ""
+msgstr "Параметры анимации для открытия всплывающих меню рабочего стола"
 
 #: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:166
 msgid "Closing Effects [ for windows ]"
-msgstr ""
+msgstr "Эффекты закрытия окон"
 
 #: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:167
 msgid "Closing effect for windows animation switch"
-msgstr ""
+msgstr "Включение/отключение анимации закрытия окон"
 
 #: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:176
 msgid "Animation settings for Normal Windows closing"
-msgstr ""
+msgstr "Параметры анимации для закрытия нормальных окон"
 
 #: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:185
 msgid "Animation settings for Dialog Windows closing"
-msgstr ""
+msgstr "Параметры анимации для закрытия диалоговых окон"
 
 #: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:194
 msgid "Animation settings for Modal Dialog Windows closing"
-msgstr ""
+msgstr "Параметры анимации для закрытия модальных диалогов"
 
 #: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:203
 msgid "Animation settings for Notification Banner closing"
-msgstr ""
+msgstr "Параметры анимации для закрытия уведомлений"
 
 #: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:212
 msgid "Animation settings for Pad OSD closing"
-msgstr ""
+msgstr "Параметры анимации для закрытия Pad OSD"
 
 #: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:221
 msgid "Animation settings for Top Panel Pop Up Menu closing"
-msgstr ""
+msgstr "Параметры анимации для закрытия всплывающих меню верхней панели"
 
 #: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:230
 msgid "Animation settings for Desktop Pop Up Menu closing"
-msgstr ""
+msgstr "Параметры анимации для закрытия всплывающих меню рабочего стола"
 
 #: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:237
 msgid "Minimizing Effects"
-msgstr ""
+msgstr "Эффекты сворачивания"
 
 #: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:238
 msgid "Minimizing effect animation switch"
-msgstr ""
+msgstr "Включение/отключение анимации сворачивания окон"
 
 #: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:247
 msgid "Animation settings for Normal Windows minimizing"
-msgstr ""
+msgstr "Параметры анимации для сворачивания обычных окон"
 
 #: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:256
 msgid "Animation settings for Dialog Windows minimizing"
-msgstr ""
+msgstr "Параметры анимации для сворачивания диалоговых окон"
 
 #: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:265
 msgid ""
 "Only provided so that shell does not crash if for any reason Modal Dialog "
 "Windows is minimzing"
 msgstr ""
+"Только при условии, что оболочка не выйдет из строя, если по какой-либо "
+"причине модальные диалоговые окна свернуться"
 
 #: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:272
 msgid "Unminimizing Effects"
-msgstr ""
+msgstr "Эффекты восстановления"
 
 #: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:273
 msgid "Unminimizing effect animation switch"
-msgstr ""
+msgstr "Включение/отключение анимации восстановления окон"
 
 #: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:283
 msgid "Animation settings for Normal Windows unminimizing"
-msgstr ""
+msgstr "Параметры анимации для восстановления обычных окон"
 
 #: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:293
 msgid "Animation settings for Dialog Windows unminimzing"
-msgstr ""
+msgstr "Параметры анимации для восстановления диалоговых окон"
 
 #: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:303
 msgid ""
 "Only provided so that shell does not crash if for any reason Modal Dialog "
 "Windows is unminimzing"
 msgstr ""
+"Только при условии, что оболочка не выйдет из строя, если по какой-либо "
+"причине модальные диалоговые окна восстановятся"
 
 #: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:310
 msgid "Focussing Effects"
-msgstr ""
+msgstr "Эффекты установки фокуса"
 
 #: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:311
 msgid "Focussing effect animation switch"
-msgstr ""
+msgstr "Включение/отключение анимации установки фокуса"
 
 #: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:321
 msgid "Animation settings for Normal Windows focus"
-msgstr ""
+msgstr "Параметры анимации при установке фокуса обычных окон"
 
 #: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:331
 msgid "Animation settings for Dialog Windows focus"
-msgstr ""
+msgstr "Параметры анимации при установке фокуса диалоговых окон"
 
 #: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:341
 msgid "Animation settings for Modal Dialog Windows focus"
-msgstr ""
+msgstr "Параметры анимации при установке фокуса модальных диалогов"
 
 #: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:348
 msgid "Defocussing Effects"
-msgstr ""
+msgstr "Эффекты снятия фокуса"
 
 #: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:349
 msgid "Defocussing effect animation switch"
-msgstr ""
+msgstr "Включение/отключение анимации снятия фокуса"
 
 #: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:359
 msgid "Animation settings for Normal Windows defocus"
-msgstr ""
+msgstr "Параметры анимации при снятия фокуса с обычных окон"
 
 #: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:369
 msgid "Animation settings for Dialog Windows defocus"
-msgstr ""
+msgstr "Параметры анимации при снятия фокуса с диалоговых окон"
 
 #: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:379
 msgid "Animation settings for Modal Dialog Windows defocus"
-msgstr ""
+msgstr "Параметры анимации при снятия фокуса с модальных диалогов"
 
 #: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:386
 msgid "Dragging Effects"
-msgstr ""
+msgstr "Эффекты перемещения окон"
 
 #: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:387
 msgid "Starting to move effect animation switch"
-msgstr ""
+msgstr "Включение/отключение анимации начала перемещения"
 
 #: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:397
 msgid "Animation settings for Normal Windows start to move"
-msgstr ""
+msgstr "Параметры анимации при начале перемещения обычных окон"
 
 #: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:407
 msgid "Animation settings for Dialog Windows start to move"
-msgstr ""
+msgstr "Параметры анимации при начале перемещения диалоговых окон"
 
 #: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:417
 msgid "Animation settings for Modal Dialog Windows start to move"
-msgstr ""
-
-#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:424
-msgid "Application Profiles"
-msgstr ""
+msgstr "Параметры анимации при начале перемещения модальных окон"
 
 #: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:425
 msgid "Application profiles status switch"
-msgstr ""
+msgstr "Включение/отключение настроек приложения"
 
 #: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:431
 #: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:432
 msgid "List of Applicaions for custom profiles"
-msgstr ""
+msgstr "Список приложений с пользовательскими настройками"
 
 #: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:438
 #: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:439
 msgid "List of Applicaions names for custom profiles"
-msgstr ""
+msgstr "Список названий приложений с пользовательскими настройками"
 
 #: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:446
 #: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:447
 msgid "Extension Profile Currently In Use"
-msgstr ""
+msgstr "Текущий профиль"
 
 #: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:454
 msgid "Use the workaround for Wayland"
-msgstr ""
+msgstr "Использовать решение для Wayland"
 
 #: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:455
 msgid "Settings If used under wayland"
-msgstr ""
+msgstr "Включите, если используете Wayland"
 
 #: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:460
 #: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:461
 msgid "Notification Banner position"
-msgstr ""
+msgstr "Положение уведомлений"
 
 #: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:466
 msgid "Pad OSD hide timeout [ in ms ]"
-msgstr ""
+msgstr "Задержка перед скрытием Pad OSD (мс)"
 
 #: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:467
 msgid "Time for which Pad OSD is Shown"
-msgstr ""
+msgstr "Время отображения Pad OSD"
 
 #: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:474
 #: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:475
 msgid "Shortcut key combiation to disable extension"
-msgstr ""
+msgstr "Комбинация клавиш для отключения дополнения"
 
 #: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:482
 msgid "Version of Current Extension"
-msgstr ""
+msgstr "Версия текущего дополнения"
 
 #: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:483
 msgid ""
 "Provided to ensure that extension is stopped incase of autoupdate from "
 "previous version to prevent unwanted effects"
 msgstr ""
+"Необходимо убедиться, что приложение выключено перед обновлением для "
+"предотвращения нежелательных эффектов"
 
 #: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:488
 #: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:489
 msgid "Signals the extension to reload"
-msgstr ""
+msgstr "Сигналы для перезагрузки дополнения"
 
 #: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:494
 #: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:495
 msgid "Signals the extension to reload Application Profiles"
-msgstr ""
+msgstr "Сигналы для перезагрузки настроек приложений"
 
 #: Generated by update_pot.sh
-msgid "Compressed Slide Down"      
-msgstr ""
+msgid "Compressed Slide Down"
+msgstr "Скольжение миниатюры вниз"
 
 #: Generated by update_pot.sh
-msgid "Compressed Slide Left"      
-msgstr ""
+msgid "Compressed Slide Left"
+msgstr "Скольжение миниатюры влево"
 
 #: Generated by update_pot.sh
-msgid "Compressed Slide Right"     
-msgstr ""
+msgid "Compressed Slide Right"
+msgstr "Скольжение миниатюры вправо"
 
 #: Generated by update_pot.sh
-msgid "Compressed Slide Up"        
-msgstr ""
+msgid "Compressed Slide Up"
+msgstr "Скольжение миниатюры вверх"
 
 #: Generated by update_pot.sh
-msgid "Deflate"                    
-msgstr ""
+msgid "Deflate"
+msgstr "Пульсация внутрь"
 
 #: Generated by update_pot.sh
-msgid "Fade"                       
-msgstr ""
+msgid "Fade In"
+msgstr "Появление"
 
 #: Generated by update_pot.sh
-msgid "Fade In"                    
-msgstr ""
+msgid "Fade Out"
+msgstr "Растворение"
 
 #: Generated by update_pot.sh
-msgid "Fade Out"                   
-msgstr ""
+msgid "Fade"
+msgstr "Прозрачность"
 
 #: Generated by update_pot.sh
-msgid "Fall and Bounce"            
-msgstr ""
+msgid "Fall Behind"
+msgstr "Падение назад"
 
 #: Generated by update_pot.sh
-msgid "Fall Behind"                
-msgstr ""
+msgid "Fall and Bounce"
+msgstr "Падение с отскакиванием"
 
 #: Generated by update_pot.sh
-msgid "Flip Horizontally"          
-msgstr ""
+msgid "Flip Horizontally"
+msgstr "Переворот горизонтально"
 
 #: Generated by update_pot.sh
-msgid "Flip Over"                  
-msgstr ""
+msgid "Flip Over"
+msgstr "Переворот вверх"
 
 #: Generated by update_pot.sh
-msgid "Flipped Slide Down"         
-msgstr ""
+msgid "Flip Vertically"
+msgstr "Переворот горизонтально"
 
 #: Generated by update_pot.sh
-msgid "Flipped Slide Up"           
-msgstr ""
+msgid "Flipped Slide Down"
+msgstr "Скольжение вниз с переворотом"
 
 #: Generated by update_pot.sh
-msgid "Flip Vertically"            
-msgstr ""
+msgid "Flipped Slide Up"
+msgstr "Скольжение вверх с переворотом"
 
 #: Generated by update_pot.sh
-msgid "Float Up"                   
-msgstr ""
+msgid "Float Up"
+msgstr "Поток вверх"
 
 #: Generated by update_pot.sh
-msgid "Fold In Sideways"           
-msgstr ""
+msgid "Fold In Sideways"
+msgstr "Сворачивание горизонтально"
 
 #: Generated by update_pot.sh
-msgid "Fold In Vertically"         
-msgstr ""
+msgid "Fold In Vertically"
+msgstr "Сворачивание вертикально"
 
 #: Generated by update_pot.sh
-msgid "Fold Out Sideways"          
-msgstr ""
+msgid "Fold Out Sideways"
+msgstr "Разворачивание горизонтально"
 
 #: Generated by update_pot.sh
-msgid "Fold Out Vertically"        
-msgstr ""
+msgid "Fold Out Vertically"
+msgstr "Разворачивание вертикально"
 
 #: Generated by update_pot.sh
-msgid "Inflate"                    
-msgstr ""
+msgid "Inflate"
+msgstr "Пульсация наружу"
 
 #: Generated by update_pot.sh
-msgid "Magnify"                    
-msgstr ""
+msgid "Magnify"
+msgstr "Магнетизм"
 
 #: Generated by update_pot.sh
-msgid "None"                       
-msgstr ""
+msgid "None"
+msgstr "Без эффекта"
 
 #: Generated by update_pot.sh
-msgid "Rotate In Down"             
-msgstr ""
+msgid "Rotate In Down"
+msgstr "Поворот вниз"
 
 #: Generated by update_pot.sh
-msgid "Rotate In Left"             
-msgstr ""
+msgid "Rotate In Left"
+msgstr "Поворот влево"
 
 #: Generated by update_pot.sh
-msgid "Rotate In Right"            
-msgstr ""
+msgid "Rotate In Right"
+msgstr "Поворот вправо"
 
 #: Generated by update_pot.sh
-msgid "Rotate In Up"               
-msgstr ""
+msgid "Rotate In Up"
+msgstr "Поворот вверх"
 
 #: Generated by update_pot.sh
-msgid "Rotate Out Down"            
-msgstr ""
+msgid "Rotate Out Down"
+msgstr "Поворот вниз (с уменьшением)"
 
 #: Generated by update_pot.sh
-msgid "Rotate Out Left"            
-msgstr ""
+msgid "Rotate Out Left"
+msgstr "Поворот влево (с уменьшением)"
 
 #: Generated by update_pot.sh
-msgid "Rotate Out Right"           
-msgstr ""
+msgid "Rotate Out Right"
+msgstr "Поворот вправо (с уменьшением)"
 
 #: Generated by update_pot.sh
-msgid "Rotate Out Up"              
-msgstr ""
+msgid "Rotate Out Up"
+msgstr "Поворот вверх (с уменьшением)"
 
 #: Generated by update_pot.sh
-msgid "Scale Auto In"              
-msgstr ""
+msgid "Scale Auto In"
+msgstr "Уменьшение (авто)"
 
 #: Generated by update_pot.sh
-msgid "Scale Auto Out"             
-msgstr ""
+msgid "Scale Auto Out"
+msgstr "Увеличение (авто)"
 
 #: Generated by update_pot.sh
-msgid "Scale Down"                 
-msgstr ""
+msgid "Scale Down"
+msgstr "Масштабирование вниз"
 
 #: Generated by update_pot.sh
-msgid "Scale Left"                 
-msgstr ""
+msgid "Scale Left"
+msgstr "Масштабирование влево"
 
 #: Generated by update_pot.sh
-msgid "Scale Right"                
-msgstr ""
+msgid "Scale Right"
+msgstr "Масштабирование вправо"
 
 #: Generated by update_pot.sh
-msgid "Scale Up"                   
-msgstr ""
+msgid "Scale Up"
+msgstr "Масштабирование вверх"
 
 #: Generated by update_pot.sh
-msgid "Slide Down"                 
-msgstr ""
+msgid "Slide Down"
+msgstr "Скольжение вниз"
 
 #: Generated by update_pot.sh
-msgid "Slide Left"                 
-msgstr ""
+msgid "Slide Left"
+msgstr "Скольжение влево"
 
 #: Generated by update_pot.sh
-msgid "Slide Right"                
-msgstr ""
+msgid "Slide Right"
+msgstr "Скольжение вправо"
 
 #: Generated by update_pot.sh
-msgid "Slide Up"                   
-msgstr ""
+msgid "Slide Up"
+msgstr "Скольжение вверх"
 
 #: Generated by update_pot.sh
-msgid "Squeezed Slide Down"        
-msgstr ""
+msgid "Squeezed Slide Down"
+msgstr "Сжатое скольжение вниз"
 
 #: Generated by update_pot.sh
-msgid "Squeezed Slide Left"        
-msgstr ""
+msgid "Squeezed Slide Left"
+msgstr "Сжатое скольжение влево"
 
 #: Generated by update_pot.sh
-msgid "Squeezed Slide Right"       
-msgstr ""
+msgid "Squeezed Slide Right"
+msgstr "Сжатое скольжение вправо"
 
 #: Generated by update_pot.sh
-msgid "Squeezed Slide Up"          
-msgstr ""
+msgid "Squeezed Slide Up"
+msgstr "Сжатое скольжение вверх"
 
 #: Generated by update_pot.sh
-msgid "Unmagnify"                  
-msgstr ""
+msgid "Unmagnify"
+msgstr "Размагничивание"
 
 #: Generated by update_pot.sh
-msgid "Wiggle"                     
-msgstr ""
+msgid "Wiggle"
+msgstr "Потряхивание"
 
 #: Generated by update_pot.sh
-msgid "Zoom In"                    
-msgstr ""
+msgid "Zoom In"
+msgstr "Приближение"
 
 #: Generated by update_pot.sh
-msgid "Zoom Out"                   
-msgstr ""
+msgid "Zoom Out"
+msgstr "Отдаление"
 
 #: Generated by update_pot.sh
-msgid "Add animations to different items and customize them.\n\nPlease reset the extension after updating. The Extension will stop when upgraded to an incompatible version. In that case an Update tab is created to easily reset the extension. A Reset button is also always present in preferences -> About Tab.\n A Default shortcut combination of Super Key + t is provided to temporarily disable the extension until GNOME Shell restarts. \n\nSome effects might not work properly on wayland, for which a workaround is provided on preferences -> Tweaks tab. \nHowever, some animations might not work properly." 
+msgid ""
+"Add animations to different items and customize them.\n"
+"\n"
+"Please reset the extension after updating. The Extension will stop when "
+"upgraded to an incompatible version. In that case an Update tab is created "
+"to easily reset the extension. A Reset button is also always present in "
+"preferences -> About Tab.\n"
+" A Default shortcut combination of Super Key + t is provided to temporarily "
+"disable the extension until GNOME Shell restarts. \n"
+"\n"
+"Some effects might not work properly on wayland, for which a workaround is "
+"provided on preferences -> Tweaks tab. \n"
+"However, some animations might not work properly."
 msgstr ""
+"Добавляйте эффекты анимации для различных событий и настраивайте их по "
+"своему вкусу.\n"
+"\n"
+"Необходимо сбросить настройки после обновления. Дополнение будет остановлено "
+"при обновлении до несовместимой версии. В этом случае будет доступна вкладка "
+"\"Обновление\" для быстрого доступа к сбросу настроек. Также кнопка Сброса "
+"настроек всегда доступна в настройках на вкладке \"О приложении\".\n"
+"Комбинация клавиш по умолчанию [ Super Key + t ] используется для временного "
+"отключения дополнения до перезапуска GNOME Shell.\n"
+"\n"
+"Некоторые эффекты могут некорректно работать под Wayland, на вкладке "
+"\"Настройки\" предусмотрен параметр для решения этой проблемы.\n"
+"Однако, некоторые эффекты всё-же могут работать некорректно."
+
+#~ msgid "Maximize"
+#~ msgstr "Развернуть"
+
+#~ msgid "Pivot Point X\t\t\t[\t-500  -  500\t%\t\t]"
+#~ msgstr "Опорная точка X\t\t\t[\t\t± 500\t%\t\t]"
+
+#~ msgid "Pivot Point Y\t\t\t[\t-500  -  500\t%\t\t]"
+#~ msgstr "Опорная точка Y\t\t\t[\t\t± 500\t%\t\t]"
+
+#~ msgid "Ending Width\t\t\t[\t0  -  200\t%\t\t]"
+#~ msgstr "Конечная ширина\t\t\t[\t\t0  -  200\t%\t\t]"
+
+#~ msgid "Ending Height\t\t\t[\t0  -  200\t%\t\t]"
+#~ msgstr "Конечная высота\t\t\t[\t\t0  -  200\t%\t\t]"
+
+#~ msgid "Time { in ms )"
+#~ msgstr "Время (мс)"
+
+#~ msgid "More"
+#~ msgstr "Дополнительно"
+
+#~ msgid "Apps"
+#~ msgstr "Приложения"
+
+#~ msgid "Animation"
+#~ msgstr "анимации"

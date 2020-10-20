@@ -1,6 +1,6 @@
 /*
 
-Version 11.06
+Version 12.00
 =============
 
 Effect Format  [  |  S    Name     C       PPX       PPY       CX        CY        CZ        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN  ]

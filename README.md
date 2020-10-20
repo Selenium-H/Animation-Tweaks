@@ -66,6 +66,14 @@ However, some animations might not work properly.
 </p>
 
 <h1 align="center">
+  Animation Customizations
+</h1>
+
+<p align="center">
+<img src = /Screenshots/Image_11.png >
+</p>
+
+<h1 align="center">
   Installations
 </h1>
 
@@ -95,4 +103,4 @@ This extension is inspired from
 [Files View Extension](https://extensions.gnome.org/extension/1395/files-view/) by abakkk.
 [Coverflow Alt-Tab Extension](https://extensions.gnome.org/extension/97/coverflow-alt-tab/) by p91paul.
 
-Thanks to @JasonLG1979.
+Thanks to @JasonLG1979, @vantu5z.

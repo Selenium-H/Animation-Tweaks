@@ -7,7 +7,7 @@
 </h1>
 
 <p align="center">
-Version 12 (Beta)
+Version 13 (Beta)
 </p>
 
 <p align="center">
@@ -65,12 +65,24 @@ However, some animations might not work properly.
 <img src = /Screenshots/Image_10.png >
 </p>
 
+<p align="center">
+<img src = /Screenshots/Image_11.png >
+</p>
+
 <h1 align="center">
   Animation Customizations
 </h1>
 
 <p align="center">
-<img src = /Screenshots/Image_11.png >
+<img src = /Screenshots/Image_12.png >
+</p>
+
+<h1 align="center">
+  Modal Dialog Position Correction
+</h1>
+
+<p align="center">
+<img src = /Screenshots/Image_13.png >
 </p>
 
 <h1 align="center">

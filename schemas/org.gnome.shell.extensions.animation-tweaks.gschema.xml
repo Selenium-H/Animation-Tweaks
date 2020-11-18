@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- 
-Version 11.04
+Version 12.10
 =============
 
-Effect Format  [  |  S    Name     C       PPX       PPY       CX        CY        CZ        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN  ]
+Effect Format  [  |  S    Name     C       PPX       PPY       CX        CY        DL        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN  ]
 
 Read the effectParameters.txt File for details.
 
@@ -29,7 +29,7 @@ Read the effectParameters.txt File for details.
     </key>
     
     <key name="normal-open" type="as">
-    <!-- |  S    Name                    C       PPX       PPY       CX        CY        CZ        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN -->
+    <!-- |  S    Name                    C       PPX       PPY       CX        CY        DL        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN -->
       <default>[                         
         '|','F', 'Scale Down',           '2',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.001',  '0',      '1.0',    '0.5',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_CUBIC',
                                                  '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.300',  '255',    '1.0',    '1.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_CUBIC'  
@@ -39,7 +39,7 @@ Read the effectParameters.txt File for details.
     </key>
     
     <key name="dialog-open" type="as">
-    <!-- |  S    Name                    C       PPX       PPY       CX        CY        CZ        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN -->
+    <!-- |  S    Name                    C       PPX       PPY       CX        CY        DL        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN -->
       <default>[
         '|','F', 'Fold Out Sideways',    '2',    '0.5',    '0.0',    '0.0',    '0.0',    '0.0',    '0.001',  '255',    '0.0',    '1.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_CUBIC',
                                                  '0.5',    '0.0',    '0.0',    '0.0',    '0.0',    '0.300',  '255',    '1.0',    '1.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_CUBIC'  
@@ -49,7 +49,7 @@ Read the effectParameters.txt File for details.
     </key>
 
     <key name="modaldialog-open" type="as">
-    <!-- |  S    Name                    C       PPX       PPY       CX        CY        CZ        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN -->
+    <!-- |  S    Name                    C       PPX       PPY       CX        CY        DL        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN -->
       <default>[
         '|','F', 'Slide Down',           '2',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.001',  '0',      '1.0',    '1.0',    '0.0',    '-0.2',   '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_CUBIC',
                                                  '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.300',  '255',    '1.0',    '1.0',    '0.0',    '0.2',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_CUBIC' 
@@ -59,7 +59,7 @@ Read the effectParameters.txt File for details.
     </key>    
     
     <key name="dropdownmenu-open" type="as">
-    <!-- |  S    Name                    C       PPX       PPY       CX        CY        CZ        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN -->
+    <!-- |  S    Name                    C       PPX       PPY       CX        CY        DL        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN -->
       <default>[
         '|','T', 'Scale Down',           '2',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.001',  '0',      '1.0',    '0.5',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_CUBIC',
                                                  '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.250',  '255',    '1.0',    '1.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_CUBIC'  
@@ -69,7 +69,7 @@ Read the effectParameters.txt File for details.
     </key>
     
     <key name="popupmenu-open" type="as">
-    <!-- |  S    Name                    C       PPX       PPY       CX        CY        CZ        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN -->
+    <!-- |  S    Name                    C       PPX       PPY       CX        CY        DL        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN -->
       <default>[
         '|','T', 'Scale Down',           '2',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.001',  '0',      '1.0',    '0.5',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_CUBIC',
                                                  '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.250',  '255',    '1.0',    '1.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_CUBIC'  
@@ -79,7 +79,7 @@ Read the effectParameters.txt File for details.
     </key>
 
     <key name="combo-open" type="as">
-    <!-- |  S    Name                    C       PPX       PPY       CX        CY        CZ        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN -->
+    <!-- |  S    Name                    C       PPX       PPY       CX        CY        DL        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN -->
       <default>[
         '|','T', 'Scale Down',           '2',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.001',  '0',      '1.0',    '0.5',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_CUBIC',
                                                  '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.250',  '255',    '1.0',    '1.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_CUBIC'  
@@ -89,7 +89,7 @@ Read the effectParameters.txt File for details.
     </key>
     
     <key name="splashscreen-open" type="as">
-    <!-- |  S    Name                    C       PPX       PPY       CX        CY        CZ        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN -->
+    <!-- |  S    Name                    C       PPX       PPY       CX        CY        DL        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN -->
       <default>[
         '|','T', 'Zoom In',              '2',    '0.5',    '0.5',    '0.0',    '0.0',    '0.0',    '0.001',  '0',      '0.8',    '0.8',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_CUBIC',
                                                  '0.5',    '0.5',    '0.0',    '0.0',    '0.0',    '0.250',  '255',    '1.0',    '1.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_CUBIC' 
@@ -99,7 +99,7 @@ Read the effectParameters.txt File for details.
     </key>
 
     <key name="tooltip-open" type="as">
-    <!-- |  S    Name                    C       PPX       PPY       CX        CY        CZ        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN -->
+    <!-- |  S    Name                    C       PPX       PPY       CX        CY        DL        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN -->
       <default>[
         '|','T', 'Slide Up',             '2',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.001',  '0',      '1.0',    '1.0',    '0.0',    '0.1',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_CUBIC',
                                                  '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.300',  '255',    '1.0',    '1.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_CUBIC'  
@@ -109,7 +109,7 @@ Read the effectParameters.txt File for details.
     </key>
     
     <key name="overrideother-open" type="as">
-    <!-- |  S    Name                    C       PPX       PPY       CX        CY        CZ        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN -->
+    <!-- |  S    Name                    C       PPX       PPY       CX        CY        DL        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN -->
       <default>[
         '|','T', 'Scale Down',           '2',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.001',  '0',      '1.0',    '0.5',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_CUBIC',
                                                  '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.250',  '255',    '1.0',    '1.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_CUBIC'  
@@ -119,7 +119,7 @@ Read the effectParameters.txt File for details.
     </key>
     
     <key name="notificationbanner-open" type="as">
-    <!-- |  S    Name                    C       PPX       PPY       CX        CY        CZ        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN -->
+    <!-- |  S    Name                    C       PPX       PPY       CX        CY        DL        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN -->
       <default>[
         '|','F', 'Fade In',              '2',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.001',  '0',      '1.0',    '1.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_CUBIC',
                                                  '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.300',  '255',    '1.0',    '1.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_CUBIC'  
@@ -129,7 +129,7 @@ Read the effectParameters.txt File for details.
     </key>
     
     <key name="padosd-open" type="as">
-    <!-- |  S    Name                    C       PPX       PPY       CX        CY        CZ        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN -->
+    <!-- |  S    Name                    C       PPX       PPY       CX        CY        DL        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN -->
       <default>[
         '|','F', 'Slide Up',             '3',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.001',  '0',      '1.0',    '1.0',    '0.0',    '0.2',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_CUBIC',
                                                  '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.300',  '255',    '1.0',    '1.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_CUBIC',
@@ -140,7 +140,7 @@ Read the effectParameters.txt File for details.
     </key>
     
     <key name="toppanelpopupmenu-open" type="as">
-    <!-- |  S    Name                    C       PPX       PPY       CX        CY        CZ        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN -->
+    <!-- |  S    Name                    C       PPX       PPY       CX        CY        DL        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN -->
       <default>[
         '|','F', 'Scale Down',           '2',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.001',  '0',      '1.0',    '0.5',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_CUBIC',
                                                  '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.250',  '255',    '1.0',    '1.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_CUBIC'  
@@ -150,7 +150,7 @@ Read the effectParameters.txt File for details.
     </key>
 
     <key name="desktoppopupmenu-open" type="as">
-    <!-- |  S    Name                    C       PPX       PPY       CX        CY        CZ        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN -->
+    <!-- |  S    Name                    C       PPX       PPY       CX        CY        DL        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN -->
       <default>[
         '|','F', 'Scale Down',           '2',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.001',  '0',      '1.0',    '0.5',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_CUBIC',
                                                  '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.250',  '255',    '1.0',    '1.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_CUBIC'  
@@ -168,7 +168,7 @@ Read the effectParameters.txt File for details.
     </key>
  
     <key name="normal-close" type="as">
-    <!-- |  S    Name                    C       PPX       PPY       CX        CY        CZ        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN -->
+    <!-- |  S    Name                    C       PPX       PPY       CX        CY        DL        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN -->
       <default>[
         '|','F', 'Scale Up',             '1',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.300',  '0',      '1.0',    '0.5',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_IN_CUBIC'
       ]</default>
@@ -177,7 +177,7 @@ Read the effectParameters.txt File for details.
     </key>
     
     <key name="dialog-close" type="as">
-    <!-- |  S    Name                    C       PPX       PPY       CX        CY        CZ        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN -->
+    <!-- |  S    Name                    C       PPX       PPY       CX        CY        DL        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN -->
       <default>[
         '|','F', 'Fold In Sideways',     '1',    '0.5',    '0.0',    '0.0',    '0.0',    '0.0',    '0.300',  '255',    '0.0',    '1.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_CUBIC'
       ]</default>
@@ -186,7 +186,7 @@ Read the effectParameters.txt File for details.
     </key>
     
     <key name="modaldialog-close" type="as">
-    <!-- |  S    Name                    C       PPX       PPY       CX        CY        CZ        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN -->
+    <!-- |  S    Name                    C       PPX       PPY       CX        CY        DL        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN -->
       <default>[
         '|','F', 'Slide Up',             '1',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.300',  '0',      '1.0',    '1.0',    '0.0',    '-0.2',   '0.0',    '0.0',    '0.0',    '0.0',    'EASE_IN_CUBIC'
       ]</default>
@@ -195,7 +195,7 @@ Read the effectParameters.txt File for details.
     </key>
  
     <key name="notificationbanner-close" type="as">
-    <!-- |  S    Name                    C       PPX       PPY       CX        CY        CZ        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN -->
+    <!-- |  S    Name                    C       PPX       PPY       CX        CY        DL        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN -->
       <default>[
         '|','F', 'Fade Out',             '1',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.300',  '0',      '1.0',    '1.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_CUBIC'
       ]</default>
@@ -204,7 +204,7 @@ Read the effectParameters.txt File for details.
     </key>
        
     <key name="padosd-close" type="as">
-    <!-- |  S    Name                    C       PPX       PPY       CX        CY        CZ        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN -->
+    <!-- |  S    Name                    C       PPX       PPY       CX        CY        DL        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN -->
       <default>[
         '|','F', 'Scale Up',             '1',    '0.0',    '1.0',    '0.0',    '0.0',    '0.0',    '0.300',  '255',    '1.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_CUBIC'
       ]</default>
@@ -213,16 +213,16 @@ Read the effectParameters.txt File for details.
     </key>    
     
     <key name="toppanelpopupmenu-close" type="as">
-    <!-- |  S    Name                    C       PPX       PPY       CX        CY        CZ        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN -->
+    <!-- |  S    Name                    C       PPX       PPY       CX        CY        DL        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN -->
       <default>[
         '|','F', 'Scale Up',             '1',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.300',  '0',      '1.0',    '0.5',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_IN_CUBIC'
       ]</default>
       <summary>Top Panel Pop Up Menu</summary>
       <description>Animation settings for Top Panel Pop Up Menu closing</description>
     </key>     
- 
-     <key name="desktoppopupmenu-close" type="as">
-    <!-- |  S    Name                    C       PPX       PPY       CX        CY        CZ        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN -->
+
+    <key name="desktoppopupmenu-close" type="as">
+    <!-- |  S    Name                    C       PPX       PPY       CX        CY        DL        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN -->
       <default>[
         '|','F', 'Scale Up',             '1',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.300',  '0',      '1.0',    '0.5',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_IN_CUBIC'
       ]</default>
@@ -239,7 +239,7 @@ Read the effectParameters.txt File for details.
     </key>
     
     <key name="normal-minimize" type="as">
-    <!-- |  S    Name                    C       PPX       PPY       CX        CY        CZ        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN -->
+    <!-- |  S    Name                    C       PPX       PPY       CX        CY        DL        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN -->
       <default>[
         '|','F', 'Slide Down',           '1',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.300',  '0',      '1.0',    '1.0',    '0.0',    '0.2',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_IN_CUBIC'
       ]</default>
@@ -248,7 +248,7 @@ Read the effectParameters.txt File for details.
     </key>
     
     <key name="dialog-minimize" type="as">
-    <!-- |  S    Name                    C       PPX       PPY       CX        CY        CZ        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN -->
+    <!-- |  S    Name                    C       PPX       PPY       CX        CY        DL        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN -->
       <default>[
         '|','F', 'Slide Down',           '1',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.300',  '0',      '1.0',    '1.0',    '0.0',    '0.2',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_IN_CUBIC'
       ]</default>
@@ -257,7 +257,7 @@ Read the effectParameters.txt File for details.
     </key>
 
     <key name="modaldialog-minimize" type="as">
-    <!-- |  S    Name                    C       PPX       PPY       CX        CY        CZ        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN -->
+    <!-- |  S    Name                    C       PPX       PPY       CX        CY        DL        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN -->
       <default>[
         '|','F', 'Slide Down',           '1',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.300',  '0',      '1.0',    '1.0',    '0.0',    '0.2',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_IN_CUBIC'
       ]</default>
@@ -274,7 +274,7 @@ Read the effectParameters.txt File for details.
     </key>
     
     <key name="normal-unminimize" type="as">
-    <!-- |  S    Name                    C       PPX       PPY       CX        CY        CZ        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN -->
+    <!-- |  S    Name                    C       PPX       PPY       CX        CY        DL        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN -->
       <default>[
         '|','F', 'Slide Up',             '2',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.001',  '0',      '1.0',    '1.0',    '0.0',    '0.2',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_CUBIC',
                                                  '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.300',  '255',    '1.0',    '1.0',    '0.0',    '-0.2',   '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_CUBIC'  
@@ -284,7 +284,7 @@ Read the effectParameters.txt File for details.
     </key>
 
     <key name="dialog-unminimize" type="as">
-    <!-- |  S    Name                    C       PPX       PPY       CX        CY        CZ        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN -->
+    <!-- |  S    Name                    C       PPX       PPY       CX        CY        DL        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN -->
       <default>[
         '|','F', 'Slide Up',             '2',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.001',  '0',      '1.0',    '1.0',    '0.0',    '0.2',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_CUBIC',
                                                  '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.300',  '255',    '1.0',    '1.0',    '0.0',    '-0.2',   '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_CUBIC'  
@@ -294,7 +294,7 @@ Read the effectParameters.txt File for details.
     </key>
     
     <key name="modaldialog-unminimize" type="as">
-    <!-- |  S    Name                    C       PPX       PPY       CX        CY        CZ        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN -->
+    <!-- |  S    Name                    C       PPX       PPY       CX        CY        DL        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN -->
       <default>[
         '|','F', 'Slide Up',             '2',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.001',  '0',      '1.0',    '1.0',    '0.0',    '0.2',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_CUBIC',
                                                  '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.300',  '255',    '1.0',    '1.0',    '0.0',    '-0.2',   '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_CUBIC' 
@@ -312,7 +312,7 @@ Read the effectParameters.txt File for details.
     </key>
 
     <key name="normal-focus" type="as">
-    <!-- |  S    Name                    C       PPX       PPY       CX        CY        CZ        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN -->
+    <!-- |  S    Name                    C       PPX       PPY       CX        CY        DL        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN -->
       <default>[
         '|','F', 'Inflate',              '2',    '0.5',    '0.5',    '0.0',    '0.0',    '0.0',    '0.025',  '255',    '1.02',   '1.02',   '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_CUBIC',
                                                  '0.5',    '0.5',    '0.0',    '0.0',    '0.0',    '0.025',  '255',    '1.0',    '1.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_IN_CUBIC'                                        
@@ -322,7 +322,7 @@ Read the effectParameters.txt File for details.
     </key>
 
     <key name="dialog-focus" type="as">
-    <!-- |  S    Name                    C       PPX       PPY       CX        CY        CZ        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN -->
+    <!-- |  S    Name                    C       PPX       PPY       CX        CY        DL        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN -->
       <default>[
         '|','F', 'Inflate',              '2',    '0.5',    '0.5',    '0.0',    '0.0',    '0.0',    '0.025',  '255',    '1.02',   '1.02',   '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_CUBIC',
                                                  '0.5',    '0.5',    '0.0',    '0.0',    '0.0',    '0.025',  '255',    '1.0',    '1.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_IN_CUBIC'                                        
@@ -332,7 +332,7 @@ Read the effectParameters.txt File for details.
     </key>
     
     <key name="modaldialog-focus" type="as">
-    <!-- |  S    Name                    C       PPX       PPY       CX        CY        CZ        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN -->
+    <!-- |  S    Name                    C       PPX       PPY       CX        CY        DL        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN -->
       <default>[
         '|','F', 'Inflate',              '2',    '0.5',    '0.5',    '0.0',    '0.0',    '0.0',    '0.025',  '255',    '1.02',   '1.02',   '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_CUBIC',
                                                  '0.5',    '0.5',    '0.0',    '0.0',    '0.0',    '0.025',  '255',    '1.0',    '1.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_IN_CUBIC'
@@ -349,8 +349,8 @@ Read the effectParameters.txt File for details.
       <description>Defocussing effect animation switch</description>
     </key>
 
-   <key name="normal-defocus" type="as">
-    <!-- |  S    Name                    C       PPX       PPY       CX        CY        CZ        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN -->
+    <key name="normal-defocus" type="as">
+    <!-- |  S    Name                    C       PPX       PPY       CX        CY        DL        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN -->
       <default>[
         '|','F', 'Deflate',              '2',    '0.5',    '0.5',    '0.0',    '0.0',    '0.0',    '0.025',  '255',    '0.97',   '0.97',   '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_CUBIC',
                                                  '0.5',    '0.5',    '0.0',    '0.0',    '0.0',    '0.025',  '255',    '1.0',    '1.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_IN_CUBIC'
@@ -360,7 +360,7 @@ Read the effectParameters.txt File for details.
     </key>
 
     <key name="dialog-defocus" type="as">
-    <!-- |  S    Name                    C       PPX       PPY       CX        CY        CZ        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN -->
+    <!-- |  S    Name                    C       PPX       PPY       CX        CY        DL        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN -->
       <default>[
         '|','F', 'Deflate',              '2',    '0.5',    '0.5',    '0.0',    '0.0',    '0.0',    '0.025',  '255',    '0.97',   '0.97',   '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_CUBIC',
                                                  '0.5',    '0.5',    '0.0',    '0.0',    '0.0',    '0.025',  '255',    '1.0',    '1.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_IN_CUBIC'
@@ -370,7 +370,7 @@ Read the effectParameters.txt File for details.
     </key>
     
     <key name="modaldialog-defocus" type="as">
-    <!-- |  S    Name                    C       PPX       PPY       CX        CY        CZ        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN -->
+    <!-- |  S    Name                    C       PPX       PPY       CX        CY        DL        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN -->
       <default>[
         '|','F', 'Deflate',              '2',    '0.5',    '0.5',    '0.0',    '0.0',    '0.0',    '0.025',  '255',    '0.97',   '0.97',   '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_CUBIC',
                                                  '0.5',    '0.5',    '0.0',    '0.0',    '0.0',    '0.025',  '255',    '1.0',    '1.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_IN_CUBIC'
@@ -388,7 +388,7 @@ Read the effectParameters.txt File for details.
     </key>
 
     <key name="normal-movestart" type="as">
-    <!-- |  S    Name                    C       PPX       PPY       CX        CY        CZ        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN -->
+    <!-- |  S    Name                    C       PPX       PPY       CX        CY        DL        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN -->
       <default>[
         '|','F', 'Fade',                 '2',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.300',  '220',    '.9999',  '.9999',  '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_CUBIC',
                                                  '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.300',  '255',    '1.0',    '1.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_CUBIC' 
@@ -398,7 +398,7 @@ Read the effectParameters.txt File for details.
     </key>
 
     <key name="dialog-movestart" type="as">
-    <!-- |  S    Name                    C       PPX       PPY       CX        CY        CZ        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN -->
+    <!-- |  S    Name                    C       PPX       PPY       CX        CY        DL        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN -->
       <default>[
         '|','F', 'Fade',                 '2',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.300',  '220',    '1.0',    '1.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_CUBIC',
                                                  '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.300',  '255',    '1.0',    '1.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_CUBIC'   
@@ -408,7 +408,7 @@ Read the effectParameters.txt File for details.
     </key>
     
     <key name="modaldialog-movestart" type="as">
-    <!-- |  S    Name                    C       PPX       PPY       CX        CY        CZ        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN -->
+    <!-- |  S    Name                    C       PPX       PPY       CX        CY        DL        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN -->
       <default>[
         '|','F', 'Fade',                 '2',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.300',  '220',    '1.0',    '1.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_CUBIC',
                                                  '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.300',  '255',    '1.0',    '1.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_CUBIC'      
@@ -437,6 +437,41 @@ Read the effectParameters.txt File for details.
       ]</default>
       <summary>List of Applicaions names for custom profiles</summary>
       <description>List of Applicaions names for custom profiles</description>
+    </key>
+
+    <!--  ================================================================================  Profiles - Modal Dialog  ================================================================================================= -->
+
+    <key name="use-modaldialog-position-profiles" type="b">
+      <default>false</default>
+      <summary>Correct Modal Dialog Position</summary>
+      <description>Correct Modal Dialog Position</description>
+    </key>
+
+    <key name="autodetect-misplaced-modal-dialogs" type="b">
+      <default>false</default>
+      <summary>Autodetect misplaced modal dialogs</summary>
+      <description>Autodetect misplaced modal dialogs</description>
+    </key>
+
+    <key name="application-modaldialog-list" type="as">
+      <default>[
+      ]</default>
+      <summary>List of Applicaion's modal dialogs for custom profiles</summary>
+      <description>List of Applicaion's modal dialogs for custom profiles</description>
+    </key>
+
+    <key name="modal-dialog-name-list" type="as">
+      <default>[
+      ]</default>
+      <summary>Modal Dialog Position Profiles</summary>
+      <description>Modal Dialog Position Profiles</description>
+    </key>
+    
+    <key name="modal-dialog-position-profiles" type="as">
+      <default>[
+      ]</default>
+      <summary>Modal Dialog Position Profiles</summary>
+      <description>Modal Dialog Position Profiles</description>
     </key>
 
     <!--  ===================================================================================    Profiles - Extension   ============================================================================================= -->
@@ -475,10 +510,16 @@ Read the effectParameters.txt File for details.
       <description>Shortcut key combiation to disable extension</description>
     </key>
 
+    <key name="show-delay"   type="b">
+      <default>false</default>
+      <summary>Show delay time in preferences</summary>
+      <description>Show Delay Time in preferences</description>
+    </key>
+
     <!--  =============================================================================   Extension Variables  =========================================================================================== -->
 
     <key name="current-version" type="i">
-      <default>10</default>
+      <default>12</default>
       <summary>Version of Current Extension</summary>
       <description>Provided to ensure that extension is stopped incase of autoupdate from previous version to prevent unwanted effects</description>
     </key>

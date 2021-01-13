@@ -182,10 +182,6 @@ const EffectsManager = new Lang.Class({
         if(actor.meta_window.is_monitor_sized()) {
           actor.set_position(0,0);
         }
-        else {
-          actor.x = (actor.meta_window.maximized_horizontally)  ? 0                                                                    : actor.x; 
-          actor.y = (actor.meta_window.maximized_vertically)    ? (Main.layoutManager.panelBox.y + Main.layoutManager.panelBox.height) : actor.y;    
-        }
         break;
         
       case "closeWindowT" :

@@ -1,6 +1,6 @@
 /*
 
-Version 12.10
+Version 12.11
 =============
 
 Effect Format  [  |  S    Name     C       PPX       PPY       CX        CY        DL        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN  ]
@@ -48,16 +48,14 @@ function init() {
 
 function buildPrefsWidget() {
 
-  let widget    = new Prefs_AnimationTweaksExtension();
-  let switcher  = new Gtk.StackSwitcher({halign: Gtk.Align.CENTER, visible: true, stack: widget});
-  
-  GLib.timeout_add(GLib.PRIORITY_DEFAULT, 0, ()=> {
-    widget.get_toplevel().get_titlebar().custom_title = switcher;
+  let widget = new Prefs_AnimationTweaksExtension();   
+  GLib.timeout_add(GLib.PRIORITY_DEFAULT, 0, ()=> {    
+    new ExtensionPreferencesWindow_AnimationTweaksExtension( widget );
     return false;
   });
-  
-  widget.show_all();
-  return widget;
+ 
+  widget.show_all();  
+  return widget;  
   
 }
 
@@ -94,9 +92,192 @@ function reloadApplicationProfiles() {
 
 }
 
-const AboutPage_AnimationTweaksExtension =  new GObject.Class({
+const ExtensionPreferencesWindow_AnimationTweaksExtension = new GObject.Class({
 
-  Name: 'AboutPage_AnimationTweaksExtension',
+  Name: 'ExtensionPreferencesWindow_AnimationTweaksExtension',
+
+  _init: function( widget ) {
+  
+    this.toplevel  = widget.get_toplevel();
+    this.headerBar = this.toplevel.get_titlebar();
+    this.headerBar.custom_title = new Gtk.StackSwitcher({expand:true, halign: Gtk.Align.CENTER, visible: true, stack: widget});
+    this.createAppMenu();  
+    this.createRefreshButton();  
+    
+  },
+  
+  createAppMenu: function( ) {
+      
+    let preferencesDialogAction = new Gio.SimpleAction({ name: 'app.preferences'});  
+    let helpDialogAction        = new Gio.SimpleAction({ name: 'app.help'});
+    let aboutDialogAction       = new Gio.SimpleAction({ name: 'app.about'});
+    let actionGroup             = new Gio.SimpleActionGroup();
+    let menu                    = new Gio.Menu();
+    let appMenu                 = new Gtk.PopoverMenu();
+    let appMenuButton           = new Gtk.MenuButton({ popover: appMenu, image: new Gtk.Image({ gicon: new Gio.ThemedIcon({ name: "open-menu-symbolic" }), icon_size: Gtk.IconSize.BUTTON, visible: true, }), visible:true});
+    
+    actionGroup.add_action(aboutDialogAction)
+    actionGroup.add_action(helpDialogAction)
+    actionGroup.add_action(preferencesDialogAction)
+
+    menu.append(_("Preferences"),               "app.preferences"       );
+    menu.append(_("Help"),                      "app.help"              );
+    menu.append(_("About")+" Animation Tweaks", "app.about"             );
+
+    appMenu.bind_model(menu, "app"); 
+        
+    this.headerBar.pack_end(appMenuButton);
+    this.toplevel.insert_action_group('app', actionGroup);    
+    
+    preferencesDialogAction.connect('activate', ()=> {
+      let dialog = new Gtk.Dialog({ title: _("Preferences"),transient_for: this.toplevel,use_header_bar: true, modal: true });
+      let vbox                  = new Gtk.Box({ orientation: Gtk.Orientation.VERTICAL, margin: 30 });    
+      this.resetExtensionButton = new ExtensionResetButton_AnimationTweaksExtension(this.toplevel );
+      vbox.pack_start(this.resetExtensionButton, false, false, 0);
+      dialog.get_content_area().pack_start(vbox, false, false, 0);  
+      dialog.show_all();  
+    });
+
+    helpDialogAction.connect('activate', ()=> {
+      let dialog    = new Gtk.Dialog({ title: _("Help"), transient_for: this.toplevel, use_header_bar: true, modal: true });
+      let vbox      = new Gtk.Box({ orientation: Gtk.Orientation.VERTICAL, margin: 30 });    
+      let firstInfo = new Gtk.Label({ justify: 0, use_markup: true, label: _(Metadata.description)});  
+      vbox.pack_start(firstInfo,            false, false, 0);
+      dialog.get_content_area().pack_start(vbox, false, false, 0);  
+      dialog.show_all();  
+    });    
+
+    aboutDialogAction.connect('activate', ()=> {  
+      let aboutDialog = new Gtk.AboutDialog({ transient_for: this.toplevel, modal: true, logo: (new Gtk.Image({ file: Extension.dir.get_child('eicon.png').get_path(), pixel_size: 128 })).get_pixbuf(), program_name: Extension.metadata.name, version: Extension.metadata.version.toString()+_(Extension.metadata.status), comments: _(Extension.metadata.comment), license_type: 3    } );
+      aboutDialog.get_header_bar().get_custom_title().visible = true;
+      aboutDialog.show_all();      
+    });
+    
+    appMenu.connect("button-release-event", ()=> {
+      appMenu.popdown();
+    });
+            
+  },
+  
+  createRefreshButton: function() {
+  
+    let refreshButton = new Gtk.Button({ image: new Gtk.Image({ gicon: new Gio.ThemedIcon({ name: "view-refresh-symbolic" }), icon_size: Gtk.IconSize.BUTTON, visible: true, }), visible:true}); 
+    refreshButton.connect('clicked', ()=> {
+      reloadExtension();
+    });
+    this.headerBar.pack_start(refreshButton);
+
+  },  
+  
+});
+
+const ExtensionResetButton_AnimationTweaksExtension =  new GObject.Class({
+
+  Name: 'ExtensionResetButton_AnimationTweaksExtension',
+
+  _init: function( object ) {
+    
+    this.resetExtensionButton = new Gtk.Button({label: _("Reset Animation Tweaks Extension"),halign:Gtk.Align.CENTER});
+    this.resetExtensionButton.connect('clicked', ()=> { this.resetExtension( object, "updateDone", true ) });    
+    return this.resetExtensionButton;
+    
+  },
+  
+  resetExtension: function( object, functionToBeCalledAtTheEnd, parameter ) {
+  
+    let dialog = new Gtk.MessageDialog({ transient_for: object.get_toplevel ? object.get_toplevel() : object, modal: true });  
+    dialog.set_default_response(Gtk.ResponseType.OK);
+    dialog.add_button(Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL);
+    dialog.add_button(Gtk.STOCK_OK, Gtk.ResponseType.OK);
+    dialog.set_markup("<big><b>"+_("Reset Animation Tweaks to defaults?")+"</b></big>");
+    dialog.get_message_area().pack_start(new Gtk.Label({ wrap: true, justify: 3, use_markup: true, label: _("Resetting the extension will discard the current preferences configuration and restore default one.")}), true, true, 0);
+    dialog.connect('response', Lang.bind(this, function(dialog, id) {
+      if(id != Gtk.ResponseType.OK) {
+        dialog.destroy();  
+        return;
+      }
+      
+      settings.reset('normal-open');
+      settings.reset('normal-close');
+      settings.reset('normal-minimize');
+      settings.reset('normal-unminimize');
+      settings.reset('normal-movestart');
+      settings.reset('normal-focus');
+      settings.reset('normal-defocus');
+
+      settings.reset('dialog-open');
+      settings.reset('dialog-close');
+      settings.reset('dialog-minimize');
+      settings.reset('dialog-unminimize');
+      settings.reset('dialog-movestart');
+      settings.reset('dialog-focus');
+      settings.reset('dialog-defocus');
+
+      settings.reset('modaldialog-open');
+      settings.reset('modaldialog-close');
+      settings.reset('modaldialog-minimize');
+      settings.reset('modaldialog-unminimize');
+      settings.reset('modaldialog-movestart');
+      settings.reset('modaldialog-focus');    
+      settings.reset('modaldialog-defocus');    
+    
+      settings.reset('dropdownmenu-open');
+      settings.reset('popupmenu-open');
+      settings.reset('combo-open');
+      settings.reset('splashscreen-open');
+      settings.reset('tooltip-open');
+      settings.reset('overrideother-open');
+    
+      settings.reset("notificationbanner-open");
+      settings.reset("notificationbanner-close");
+    
+      settings.reset("padosd-open");
+      settings.reset("padosd-close");
+    
+      settings.reset("toppanelpopupmenu-open");
+      settings.reset("toppanelpopupmenu-close"); 
+    
+      settings.reset("desktoppopupmenu-open");
+      settings.reset("desktoppopupmenu-close");    
+      
+      settings.reset("windowmenu-open");
+      settings.reset("windowmenu-close");              
+    
+      settings.reset('opening-effect');
+      settings.reset('closing-effect');
+      settings.reset("minimizing-effect");
+      settings.reset("unminimizing-effect");
+      settings.reset("moving-effect");
+      settings.reset("focussing-effect");
+      settings.reset("defocussing-effect");
+         
+      settings.reset("use-application-profiles");
+      settings.reset("application-list");
+      settings.reset("name-list");
+      
+      settings.reset('wayland');
+      settings.reset("padosd-hide-timeout");
+      settings.reset("notificationbanner-pos");
+    
+      settings.reset('current-version');
+      
+      dialog.destroy();
+      if(object[functionToBeCalledAtTheEnd]) {
+        object[functionToBeCalledAtTheEnd]( parameter );
+      }
+      reloadExtension();
+      
+    }));
+    
+    dialog.show_all();
+   
+  },
+  
+})
+
+const UpdatePage_AnimationTweaksExtension =  new GObject.Class({
+
+  Name: 'UpdatePage_AnimationTweaksExtension',
   Extends: Gtk.ScrolledWindow,
 
   _init: function(params) {
@@ -107,146 +288,52 @@ const AboutPage_AnimationTweaksExtension =  new GObject.Class({
     
   keepPreferences: function(dialog) {
   
-    settings.set_int("current-version", Metadata.version);
+    settings.set_double("current-version", Metadata.version);
     reloadExtension();
     this.updateDone();
     dialog.destroy();
     
   },
-  
-  resetExtension: function() {
-  
-    settings.reset('normal-open');
-    settings.reset('normal-close');
-    settings.reset('normal-minimize');
-    settings.reset('normal-unminimize');
-    settings.reset('normal-movestart');
-    settings.reset('normal-focus');
-    settings.reset('normal-defocus');
-
-    settings.reset('dialog-open');
-    settings.reset('dialog-close');
-    settings.reset('dialog-minimize');
-    settings.reset('dialog-unminimize');
-    settings.reset('dialog-movestart');
-    settings.reset('dialog-focus');
-    settings.reset('dialog-defocus');
-
-    settings.reset('modaldialog-open');
-    settings.reset('modaldialog-close');
-    settings.reset('modaldialog-minimize');
-    settings.reset('modaldialog-unminimize');
-    settings.reset('modaldialog-movestart');
-    settings.reset('modaldialog-focus');    
-    settings.reset('modaldialog-defocus');    
-    
-    settings.reset('dropdownmenu-open');
-    settings.reset('popupmenu-open');
-    settings.reset('combo-open');
-    settings.reset('splashscreen-open');
-    settings.reset('tooltip-open');
-    settings.reset('overrideother-open');
-    
-    settings.reset("notificationbanner-open");
-    settings.reset("notificationbanner-close");
-    
-    settings.reset("padosd-open");
-    settings.reset("padosd-close");
-    
-    settings.reset("toppanelpopupmenu-open");
-    settings.reset("toppanelpopupmenu-close"); 
-    
-    settings.reset("desktoppopupmenu-open");
-    settings.reset("desktoppopupmenu-close");        
-    
-    settings.reset('opening-effect');
-    settings.reset('closing-effect');
-    settings.reset("minimizing-effect");
-    settings.reset("unminimizing-effect");
-    settings.reset("moving-effect");
-    settings.reset("focussing-effect");
-    settings.reset("defocussing-effect");
-        
-    settings.reset("use-application-profiles");
-    settings.reset("application-list");
-    settings.reset("name-list");
-    
-    settings.reset("use-modaldialog-position-profiles");
-    settings.reset("autodetect-misplaced-modal-dialogs");
-    settings.reset("application-modaldialog-list");
-    settings.reset("modal-dialog-name-list");
-    settings.reset("modal-dialog-position-profiles");
-   
-    settings.reset('wayland');
-    settings.reset("padosd-hide-timeout");
-    settings.reset("notificationbanner-pos");
-    
-    settings.set_int("current-version", Metadata.version);
-    
-    reloadExtension();
-    
-  },
-    
-  showInfo: function(mode=false){
+     
+  displayPrefs: function(){
   
     this.vbox                 = new Gtk.Box({ orientation: Gtk.Orientation.VERTICAL, margin: 30 });
     let imageBox              = new Gtk.Box();
     let image                 = new Gtk.Image({ file: Extension.dir.get_child('eicon.png').get_path(), pixel_size: 96 });
     
-    this.firstInfo            = new Gtk.Label({ wrap: true, justify: 2, use_markup: true, label: "<big><b>" + Metadata.name + "</b></big>\n" +"<small>Version  "+ Metadata.version +" "+Metadata.status+"</small>\n\n" +_(Metadata.description)+"\n\n\n\n\n<span size=\"small\">"+_("This program comes with ABSOLUTELY NO WARRANTY.\nSee the")+" <a href=\"https://www.gnu.org/licenses/old-licenses/gpl-2.0.html\">GNU General Public License, version 2 or later</a>"+_("for details.")+"</span>\n"});  
-    this.resetExtensionButton = new Gtk.Button({label: _("Reset Animation Tweaks Extension"),halign:Gtk.Align.CENTER});
-    
-    this.resetExtensionButton.connect('clicked', ()=> {this.resetExtension(); this.updateDone(mode);});
+    this.firstInfo            = new Gtk.Label({ wrap: true, justify: 2, use_markup: true, label: _("Extension is upgraded to Version  ")+ Metadata.version+"\n\n" + _("A Reset to default preferences is needed if upgrading from a version older than version 10 or unable to reset during previous upgrade to version 10. Please Reset the extension by clicking the button below.")+"\n\n"});  
+    this.resetExtensionButton = new ExtensionResetButton_AnimationTweaksExtension( this );
 
     imageBox.set_center_widget(image);
     this.vbox.pack_start(imageBox,                  false, false, 0);
     this.vbox.pack_start(this.firstInfo,            false, false, 0);
     this.vbox.pack_start(this.resetExtensionButton, false, false, 0);
     this.add(this.vbox);
-
-    if(mode != false) {
-      this.secondInfo = new Gtk.Label({ wrap: true, justify: 2, use_markup: true, label: "\n\n"+_("If already upgraded to Version 10 or higher and it's working fine, you can keep the preferences as it is.\nIn that case click on the button below. Otherwise click the above button to reset.")+"\n\n"});
-      this.firstInfo.label =  _("Extension is upgraded to Version  ")+ Metadata.version+"\n\n" + _("A Reset to default preferences is needed if upgrading from a version older than version 10 or unable to reset during previous upgrade to version 10. Please Reset the extension by clicking the button below.")+"\n\n";
-      this.upgradeFormVersion10 = new Gtk.Button({label: _("Upgrade From Version 10 or newer."),halign:Gtk.Align.CENTER});
-      this.upgradeFormVersion10.connect('clicked', ()=> this.showVersion10Options());
-      
-      this.vbox.pack_start(this.secondInfo,           false, false, 0);
-      this.vbox.pack_start(this.upgradeFormVersion10, false, false, 0);   
-    }
     
+    this.secondInfo = new Gtk.Label({ wrap: true, justify: 2, use_markup: true, label: "\n\n"+_("If already upgraded to Version 10 or higher and it's working fine, you can keep the preferences as it is.\nIn that case click on the button below. Otherwise click the above button to reset.")+"\n\n"});
+    this.upgradeFormVersion10 = new Gtk.Button({label: _("Upgrade From Version 10 or newer."),halign:Gtk.Align.CENTER});
+    this.upgradeFormVersion10.connect('clicked', ()=> this.showVersion10Options());
+      
+    this.vbox.pack_start(this.secondInfo,           false, false, 0);
+    this.vbox.pack_start(this.upgradeFormVersion10, false, false, 0);   
+ 
   },
 
   showVersion10Options: function() {
   
-    let dialog = new Gtk.Dialog({ title: _("Upgrade From Version 10 or newer"),transient_for: this.get_toplevel(),use_header_bar: true,modal: true });
-  
+    let dialog = new Gtk.MessageDialog({ transient_for: this.get_toplevel(), modal: true });  
     dialog.set_default_response(Gtk.ResponseType.OK);
     dialog.add_button(Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL);
- 
-    let textBox = new Gtk.Box({ orientation: Gtk.Orientation.VERTICAL });
-    let text    = new Gtk.Label({ wrap: true, justify: 2, use_markup: true, label: "<big><b>"+_("Please make sure")+"</b></big>"});
-    let text1   = new Gtk.Label({ wrap: true, justify: 3, use_markup: true, label: "\n\n"+_("You are upgrading from version 10 or newer of this extension to current version.\nAlready Reset the extension during previous upgrade.\nThe extension is working fine.")});
-    let text2   = new Gtk.Label({ wrap: true, justify: 2, use_markup: true, label: "\n\n<big><b>"+_("Otherwise click Cancel to go back and reset.")+"</b></big>"});
-    let upgradeFormVersion10Button = new Gtk.Button({label: _("Keep Preferences and Upgrade"),halign:Gtk.Align.CENTER });
-    upgradeFormVersion10Button.connect('clicked', ()=> this.keepPreferences(dialog));
-    textBox.pack_start(text,  false, false, 0);
-    textBox.pack_start(text1, false, false, 0);
-    textBox.pack_start(text2, false, false, 0);
-    
-    let vbox = new Gtk.Box({orientation: Gtk.Orientation.VERTICAL,margin: 5});
-    vbox.pack_start(textBox, true, true, 0);
-    vbox.pack_start(upgradeFormVersion10Button, false, false, 0);
-
-    dialog.get_content_area().pack_start(vbox, true, true, 0);
+    dialog.add_button(Gtk.STOCK_OK, Gtk.ResponseType.OK);
+    dialog.set_markup("<big><b>"+_("Keep Preferences and Upgrade?")+"</b></big>");
+    dialog.get_message_area().pack_start(new Gtk.Label({ wrap: true, justify: 3, use_markup: true, label: _("\nPlease make sure that\n\nYou are upgrading from version 10 or newer of this extension to current version.\nAlready Reset the extension during previous upgrade.\nThe extension is working fine.\n\n"+_("Otherwise click Cancel to go back and reset."))}), true, true, 0);
     dialog.connect('response', Lang.bind(this, function(dialog, id) {
       if(id != Gtk.ResponseType.OK) {
-        dialog.destroy();
+        dialog.destroy();  
         return;
       }
-
-      dialog.destroy();
-    }));
-    
+      this.keepPreferences(dialog)
+    }));    
     dialog.show_all();
     
   },
@@ -262,7 +349,7 @@ const AboutPage_AnimationTweaksExtension =  new GObject.Class({
     this.upgradeFormVersion10.destroy();
     
     this.firstInfo.label =_("Version  ")+ Metadata.version+"\n\n <big><b> "+_("Upgraded Successfully")+"</b></big>";
-    settings.set_int("current-version", parseInt(Metadata.version));
+    settings.set_double("current-version", parseInt(Metadata.version));
   
   },
   
@@ -272,7 +359,7 @@ const AnimationSettingsForItem_AnimationTweaksExtension = new GObject.Class({
 
   Name: 'AnimationSettingsForItem_AnimationTweaksExtension',
 
-  _init( itemType, windowType, action, grid, posY, topLevel, thisIsPairedEffect = false ) {
+  _init( itemType, windowType, action, keysSensitiveTo, grid, posY, topLevel, thisIsPairedEffect = false ) {
    
     this.action         =  action;
     this.itemType       =  itemType;
@@ -282,26 +369,29 @@ const AnimationSettingsForItem_AnimationTweaksExtension = new GObject.Class({
     this.allEffectsList =  new EffectsList_AnimationTweaksExtension(this.itemType+"-"+this.action+"-effects-list");   
     this.appProfile     =  new EffectsList_AnimationTweaksExtension(this.KEY);
     this.eStr           =  this.eStr = this.appProfile.getEffectAt(this.appIndex);
+    this.posY           = posY;
+    this.grid           = grid;
+    this.visible        = false;
     
     this.prefsLabel     =  new Gtk.Label({xalign: 1, label:_(settings.settings_schema.get_key(this.KEY).get_summary()), halign: Gtk.Align.START});
     this.prefsCombo     =  new Gtk.ComboBoxText({hexpand: false,vexpand:false});
-    this.tweakButton    =  new Gtk.Button({label: "☰",halign:Gtk.Align.START});
+    this.tweakButton    =  new Gtk.Button({ image: new Gtk.Image({ gicon: new Gio.ThemedIcon({ name: "emblem-system-symbolic"}), icon_size: Gtk.IconSize.BUTTON, visible: true }), halign:Gtk.Align.START});
     this.delaySetting   =      Gtk.SpinButton.new_with_range(0,10000,10);
     this.timeSetting    =      Gtk.SpinButton.new_with_range(10,10000,10);
-    this.prefsSwitch    =  new Gtk.Switch({hexpand: false,vexpand:false,active: (this.eStr[0]=='T')? true:false,halign:Gtk.Align.CENTER});
-    this.prefsSwitchBox =  new Gtk.Box({ orientation: Gtk.Orientation.VERTICAL, margin: 0,hexpand:true});
-    
+    this.prefsSwitch    =  new Gtk.Switch({hexpand: false,vexpand:false,active: (this.eStr[0]=='T') ? true : false,halign:Gtk.Align.CENTER});
+    this.prefsSwitchBox =  new Gtk.Box({ orientation: Gtk.Orientation.VERTICAL, margin: 0,hexpand:true});    
     this.prefsSwitchBox.add(this.prefsSwitch);
-    let pos = 0;
-    grid.attach(this.prefsLabel,     pos++, posY, 1, 1);
-    grid.attach(this.prefsCombo,     pos++, posY, 1, 1);
-    grid.attach(this.tweakButton,    pos++, posY, 1, 1);
-    if(settings.get_boolean("show-delay") == true) {
-      grid.attach(this.delaySetting,   pos++, posY, 1, 1);  
-    }
-    grid.attach(this.timeSetting,    pos++, posY, 1, 1);
-    grid.attach(this.prefsSwitchBox, pos++, posY, 1, 1);
     
+    let pos = 0;      
+    this.grid.sensitive = true;
+    this.grid.attach(this.prefsLabel,     pos++, this.posY, 1, 1);
+    this.grid.attach(this.prefsCombo,     pos++, this.posY, 1, 1);
+    this.grid.attach(this.tweakButton,    pos++, this.posY, 1, 1);
+    if(settings.get_boolean("show-delay") == true) {
+        this.grid.attach(this.delaySetting,   pos++, this.posY, 1, 1);  
+    }
+    this.grid.attach(this.timeSetting,    pos++, this.posY, 1, 1);
+    this.grid.attach(this.prefsSwitchBox, pos++, this.posY, 1, 1);
     this.allEffectsList.loadEffectsListToComboBox(this.prefsCombo);
     
     this.prefsCombo.connect('changed',         (widget) => this.selectEffectFromList(widget.get_active()));
@@ -313,7 +403,26 @@ const AnimationSettingsForItem_AnimationTweaksExtension = new GObject.Class({
     settings.connect("changed::"+this.KEY,     (      ) => this.updateValues(this.appIndex));
     this.updateValues(this.appIndex);
     
-
+    switch(keysSensitiveTo.length) {
+      case 1:
+        this.prefsSwitch.sensitive = settings.get_boolean(keysSensitiveTo[0]);
+        settings.connect("changed::"+keysSensitiveTo[0], () => {
+          this.prefsSwitch.sensitive = settings.get_boolean(keysSensitiveTo[0]);
+        });
+        break;
+      case 2:
+        this.prefsSwitch.sensitive = settings.get_boolean(keysSensitiveTo[0]) && settings.get_boolean(keysSensitiveTo[1]) ;
+        settings.connect("changed::"+keysSensitiveTo[0], () => {
+          this.prefsSwitch.sensitive = settings.get_boolean(keysSensitiveTo[0]) && settings.get_boolean(keysSensitiveTo[1]) ;
+        });
+        settings.connect("changed::"+keysSensitiveTo[1], () => {
+          this.prefsSwitch.sensitive = settings.get_boolean(keysSensitiveTo[0]) && settings.get_boolean(keysSensitiveTo[1]) ;
+        });
+        break;
+      default:
+        break;
+    }
+    
   },
   
   changeEffectDelay: function(value) {
@@ -356,7 +465,7 @@ const AnimationSettingsForItem_AnimationTweaksExtension = new GObject.Class({
     dialog.show_all();
 
   },
-    
+
   selectEffectFromList: function(selectedIndex) {
 
     if(this.updatingProfiles==true || this.appIndex ==-1 ) {
@@ -402,6 +511,7 @@ const AnimationSettingsForItem_AnimationTweaksExtension = new GObject.Class({
     this.appIndex = appIndex;
     
     this.eStr = (this.appIndex == -1)? this.appProfile.getEffectAt(0) : this.appProfile.getEffectAt(this.appIndex);
+    this.grid.sensitive = (this.appIndex == -1)? false:true;
 
     this.prefsSwitch.active = (this.eStr[0]=="T")? true:false;
     this.prefsCombo.set_active(this.allEffectsList.getIndexOf(this.eStr[1]));
@@ -419,234 +529,14 @@ const AnimationSettingsForItemProfile_AnimationTweaksExtension = new GObject.Cla
   Name: 'AnimationSettingsForItemProfile_AnimationTweaksExtension',
   Extends: AnimationSettingsForItem_AnimationTweaksExtension,
   
-  _init(itemType,windowType,action,grid,posY,topLevel,thisIsPairedEffect=false) {
+  _init(itemType,windowType,action,keysSensitiveTo,grid,posY,topLevel,thisIsPairedEffect=false) {
   
-    this.parent(itemType,windowType,action,grid,posY,topLevel,thisIsPairedEffect);
+    this.parent(itemType,windowType,action,keysSensitiveTo,grid,posY,topLevel,thisIsPairedEffect);
     this.prefsLabel.label = _(this.action.charAt(0).toUpperCase()+this.action.slice(1));
     this.updateValues(-1);
   
   },
   
-});
-
-AnimationSettingsForItemPositionProfile_AnimationTweaksExtension = new GObject.Class({
-
-  Name: 'AnimationSettingsForItemPositionProfile_AnimationTweaksExtension',
-    
-  _init( grid, posY ) {
-  
-    this.modalDialogNameList            = settings.get_strv("modal-dialog-name-list");
-    this.modalDialogPositionProfiles    = settings.get_strv("modal-dialog-position-profiles")
-    
-    this.grid = grid;
-    this.posY = posY;
-
-    this.positionProfileEntryIndex = -1;
-    this.modalDialogName   =  [];
-    this.monitorName   =  [];
-    this.errorInPositionX  =  [];
-    this.errorInPositionY  =  [];
-    this.prefsCombo        =  [];
-    this.pStr              =  [];
-    
-    this.correctionModes = [ "A", "F", "G", "I", "R"];
-    
-    this.heading();
-    this.maxLen = this.findModalAppFromList();
-    let len = this.maxLen;
-    
-    while(len >= 0) {
-      this.addPositionProfileEntry();
-      len--;
-    }
-    
-    GLib.timeout_add(GLib.PRIORITY_DEFAULT, SETTINGS_APPLY_DELAY_TIME, ()=> {
-      this.refreshSettings("");
-
-    });
-
-  },
-
-  addPositionProfileEntry() {
-
-    this.positionProfileEntryIndex++; 
-    
-    this.pStr[this.positionProfileEntryIndex]=[];
-    this.modalDialogName[this.positionProfileEntryIndex] = new Gtk.Label({xalign: 1, label:"", halign: Gtk.Align.START, visible:false});
-    this.monitorName[this.positionProfileEntryIndex] = new Gtk.Label({xalign: 1, label:"", halign: Gtk.Align.CENTER, visible:false});
-    this.errorInPositionX[this.positionProfileEntryIndex] = Gtk.SpinButton.new_with_range(-10000,10000,1);
-    this.errorInPositionY[this.positionProfileEntryIndex] = Gtk.SpinButton.new_with_range(-10000,10000,1);
-    this.prefsCombo[this.positionProfileEntryIndex]     =  new Gtk.ComboBoxText({hexpand: false,vexpand:false});
-    
-    this.prefsCombo[this.positionProfileEntryIndex].append("A",  _("Always correct position"));
-    this.prefsCombo[this.positionProfileEntryIndex].append("F",  _("Once after opening Application"));
-    this.prefsCombo[this.positionProfileEntryIndex].append("G",  _("Once after extension reloads"));
-    this.prefsCombo[this.positionProfileEntryIndex].append("I",  _("Never correct position"));
-    this.prefsCombo[this.positionProfileEntryIndex].append("R",  _("Recorrect"));
-    
-    let pos = 0;
-    this.grid.attach(this.modalDialogName[this.positionProfileEntryIndex],     pos++, this.posY, 1, 1);
-    this.grid.attach(this.monitorName[this.positionProfileEntryIndex],     pos++, this.posY, 1, 1);
-    this.grid.attach(this.errorInPositionX[this.positionProfileEntryIndex],    pos++, this.posY, 1, 1);
-    this.grid.attach(this.errorInPositionY[this.positionProfileEntryIndex],    pos++, this.posY, 1, 1);
-    this.grid.attach(this.prefsCombo[this.positionProfileEntryIndex],      pos++, this.posY, 1, 1);
-    
-    this.updatingProfiles=true;
-    let n = this.positionProfileEntryIndex;
-    this.errorInPositionX[this.positionProfileEntryIndex].connect('notify::value',  (spin  ) => this.changePosition(spin, n));
-    this.errorInPositionY[this.positionProfileEntryIndex].connect('notify::value',  (spin  ) => this.changePosition(spin, n));
-    this.prefsCombo[this.positionProfileEntryIndex].connect('changed', () => this.changeCorrectionRule(n));
-     
-    this.updatingProfiles=false; 
-      
-    this.posY++;
-      
-  },
-  
-  changePosition: function(spin, index) {
-  
-    if(this.updatingProfiles==true || this.appIndex ==-1 || this.pStr[index].length != POSITION_PROFILE_LENGTH) {
-      return;
-    }
-    
-    this.errorInPositionX[index].set_value(spin);
-    this.errorInPositionY[index].set_value(spin);
-      
-    this.pStr[index][1] = this.errorInPositionX[index].get_value_as_int().toString();
-    this.pStr[index][2] = this.errorInPositionY[index].get_value_as_int().toString();
-    let index1 = this.modalDialogPositionProfiles.indexOf(this.pStr[index][0]);
-    this.modalDialogPositionProfiles[index1+1] = this.pStr[index][1];
-    this.modalDialogPositionProfiles[index1+2] = this.pStr[index][2];
-    settings.set_strv("modal-dialog-position-profiles", this.modalDialogPositionProfiles)
-    reloadApplicationProfiles();
-    
-  
-  },
- 
-  changeCorrectionRule: function(index) {
-  
-      if(this.updatingProfiles==true || this.appIndex ==-1 || this.pStr[index].length != POSITION_PROFILE_LENGTH) {
-        return;
-      }
-
-      let index1 = this.modalDialogPositionProfiles.indexOf(this.pStr[index][0]);
-      this.pStr[index][3] =  this.correctionModes[this.prefsCombo[index].get_active()];
-      this.modalDialogPositionProfiles[index1+3] = this.pStr[index][3];
-      settings.set_strv("modal-dialog-position-profiles", this.modalDialogPositionProfiles)
-      reloadApplicationProfiles();
- 
-  },  
-    
-  findModalAppFromList() {
-  
-    let counts =  [];
-    
-    for(let i=0;i<this.modalDialogNameList.length;i++){
-      counts[i] = 0;
-    }
-    
-    len = this.modalDialogPositionProfiles.length-POSITION_PROFILE_LENGTH;
-    
-    while(len >= 0){
-
-      for(let i=0;i<this.modalDialogNameList.length;i++) {
-        let thisApp = this.modalDialogPositionProfiles[len].substring(0,this.modalDialogNameList[i].length);
-        if(thisApp == this.modalDialogNameList[i]) {
-          counts[i]++; 
-        }
-      }
-      
-      len = len - POSITION_PROFILE_LENGTH;
-    }
-    
-    let max = counts[0];
-    
-    for(let i=0;i<counts.length;i++) {
-      if(counts[i] > max) {
-        max = counts[i];
-      }
-    }
-    
-    return max;
-
-  },
-  
-  heading: function() {
-  
-    this.grid.attach((this.dialogNameHeading = new Gtk.Label({ xalign: 1, label: _("Modal Dialog") ,halign: Gtk.Align.CENTER })) ,0  ,this.posY ,1  ,1);
-    this.grid.attach((this.monitorHeading    = new Gtk.Label({ xalign: 1, label: _("Monitor") ,halign: Gtk.Align.CENTER })) ,     1  ,this.posY ,1  ,1);
-    this.grid.attach((this.adjustedXHeading  = new Gtk.Label({ xalign: 1, label: _("Adjusted X"),halign: Gtk.Align.CENTER }))    ,2  ,this.posY ,1  ,1);
-    this.grid.attach((this.adjustedYHeading  = new Gtk.Label({ xalign: 1, label: _("Adjusted Y"),halign: Gtk.Align.CENTER }))    ,3  ,this.posY ,1  ,1);
-    this.grid.attach((this.statusHeading     = new Gtk.Label({ xalign: 1, label: _("Status"),     halign: Gtk.Align.CENTER }))   ,4  ,this.posY ,1  ,1);
-    this.posY++;
-    
-  },
-  
-  refreshSettings (appName) {
-  
-    this.appName = appName;
-    this.positionProfileEntryIndex = this.maxLen;
-    
-    while(this.positionProfileEntryIndex >= 0){
-  
-      this.modalDialogName[this.positionProfileEntryIndex].hide();
-      this.monitorName[this.positionProfileEntryIndex].hide();
-      this.errorInPositionX[this.positionProfileEntryIndex].hide();
-      this.errorInPositionY[this.positionProfileEntryIndex].hide();
-      this.prefsCombo[this.positionProfileEntryIndex].hide();
-      
-      this.positionProfileEntryIndex--;
-    }
-              
-      this.dialogNameHeading.hide();
-      this.monitorHeading.hide();
-      this.adjustedXHeading.hide();
-      this.adjustedYHeading.hide();
-      this.statusHeading.hide();
-      
-    if(appName.length == 0) {
-      return;
-    }
-    
-    len = this.modalDialogPositionProfiles.length-POSITION_PROFILE_LENGTH;
-    
-    while(len >= 0){
-
-      if(this.modalDialogPositionProfiles[len].substring(0,this.appName.length) == this.appName) {
-        this.updateValues([this.modalDialogPositionProfiles[len], this.modalDialogPositionProfiles[len+1], this.modalDialogPositionProfiles[len+2], this.modalDialogPositionProfiles[len+3], this.modalDialogPositionProfiles[len+4]] );
-      }
-      
-      len = len - POSITION_PROFILE_LENGTH;
-    }
-
-  },
-  
-  updateValues (eStr) {
-    
-    this.positionProfileEntryIndex++; 
-    this.pStr[this.positionProfileEntryIndex]= eStr;
-    this.modalDialogName[this.positionProfileEntryIndex].label = eStr[0].substring(eStr[0].indexOf("]")+1,eStr[0].length );
-    this.monitorName[this.positionProfileEntryIndex].label = eStr[0].substring(eStr[0].indexOf("[")+1,eStr[0].indexOf("]") );
-    this.updatingProfiles=true;
-    this.errorInPositionX[this.positionProfileEntryIndex].set_value(parseInt(eStr[1]));
-    this.errorInPositionY[this.positionProfileEntryIndex].set_value(parseInt(eStr[2]));
-    this.prefsCombo[this.positionProfileEntryIndex].set_active(this.correctionModes.indexOf(eStr[3]));
-    this.updatingProfiles=false;
-
-    this.modalDialogName[this.positionProfileEntryIndex].show();
-    this.monitorName[this.positionProfileEntryIndex].show();
-    this.errorInPositionX[this.positionProfileEntryIndex].show();
-    this.errorInPositionY[this.positionProfileEntryIndex].show();
-    this.prefsCombo[this.positionProfileEntryIndex].show();
-
-    this.dialogNameHeading.show();
-    this.monitorHeading.show();
-    this.adjustedXHeading.show();
-    this.adjustedYHeading.show();
-    this.statusHeading.show();
-
-  },
-    
 });
 
 const Prefs_AnimationTweaksExtension = new GObject.Class({
@@ -659,28 +549,20 @@ const Prefs_AnimationTweaksExtension = new GObject.Class({
     this.actionPrefs  = new PrefsWindowForAction_AnimationTweaksExtension();    
     this.profilePrefs = new PrefsWindowForProfiles_AnimationTweaksExtension();
     this.tweaksPrefs  = new PrefsWindowForTweaks_AnimationTweaksExtension();
-    this.aboutPage    = new AboutPage_AnimationTweaksExtension();
-    
-    let previousVersion = settings.get_int("current-version");
-    
+    this.updatePage   = new UpdatePage_AnimationTweaksExtension();
+
     this.parent({ transition_type: 6  ,transition_duration: 200 });
     
-    ( previousVersion < Metadata.version ) ? this.add_titled( this.aboutPage, "Update", _("Update") ) : null;  
-    
+    if( settings.get_double("current-version") < Metadata.version ) {
+      this.add_titled( this.updatePage, "Update", _("Update") );
+      this.updatePage.displayPrefs();
+    }
     this.add_titled(this.actionPrefs,  "Actions",  _("Actions") );
     this.add_titled(this.profilePrefs, "Profiles", _("Profiles"));
     this.add_titled(this.tweaksPrefs,  "Tweaks",   _("Tweaks")  );
-    
-    if( previousVersion == Metadata.version ) {
-      this.add_titled( this.aboutPage, "About", _("About") );
-      this.aboutPage.showInfo();
-    }
-    else {
-      this.aboutPage.showInfo(true);
-    }
       
     this.tweaksPrefs.displayPrefs();
-
+    
   },
 
 });
@@ -1400,7 +1282,6 @@ const PrefsWindowForApps_AnimationTweaksExtension = new GObject.Class({
       this.AppIcon.gicon = appInfo.get_icon();
       index++;
     }
-    
     else {
       this.AppLabel.label = "<big><b>"+_("No Application Selected")+" - "+this.prefsName+"</b></big>";
     }
@@ -1475,8 +1356,7 @@ const PrefsWindowForApps_AnimationTweaksExtension = new GObject.Class({
     this.treeView.append_column(appColumn);
     appColumn.set_fixed_width(300);
     listBox.add(this.treeView);
-    listBox.set_min_content_width(200);    
-    
+    listBox.set_min_content_width(200); 
     
     let addButton = new Gtk.Button({label: "     "+_("Add")+"    ", halign:Gtk.Align.START});
     addButton.connect('clicked', Lang.bind(this, this.addApp));
@@ -1573,83 +1453,14 @@ const PrefsWindowForApps_AnimationTweaksExtension = new GObject.Class({
     this.emptyLine(pos++);
     this.heading(pos++);
     this.applicationProfilesStateSwitch("use-application-profiles");
-    this.appNormalOpenPrefs       =  new AnimationSettingsForItemProfile_AnimationTweaksExtension("window", "normal", "open",       this.gridWin, pos++, this);
-    this.appNormalClosePrefs      =  new AnimationSettingsForItemProfile_AnimationTweaksExtension("window", "normal", "close",      this.gridWin, pos++, this);
-    this.appNormalMinimizePrefs   =  new AnimationSettingsForItemProfile_AnimationTweaksExtension("window", "normal", "minimize",   this.gridWin, pos++, this);
-    this.appNormalUnminimizePrefs =  new AnimationSettingsForItemProfile_AnimationTweaksExtension("window", "normal", "unminimize", this.gridWin, pos++, this); 
-    
+    this.appNormalOpenPrefs       =  new AnimationSettingsForItemProfile_AnimationTweaksExtension("window", "normal", "open",       ["opening-effect", "use-application-profiles"], this.gridWin, pos++, this);
+    this.appNormalClosePrefs      =  new AnimationSettingsForItemProfile_AnimationTweaksExtension("window", "normal", "close",      ["closing-effect", "use-application-profiles"], this.gridWin, pos++, this);
+    this.appNormalMinimizePrefs   =  new AnimationSettingsForItemProfile_AnimationTweaksExtension("window", "normal", "minimize",   ["minimizing-effect", "use-application-profiles"], this.gridWin, pos++, this);
+    this.appNormalUnminimizePrefs =  new AnimationSettingsForItemProfile_AnimationTweaksExtension("window", "normal", "unminimize", ["unminimizing-effect", "use-application-profiles"], this.gridWin, pos++, this); 
+    this.emptyLine(pos++);
     this.treeView.connect("cursor-changed",()=>this.appViewChange());
     
   },
-
-});
-
-const PrefsWindowForModalDialogPositions_AnimationTweaksExtension = new GObject.Class({
-
-  Name: 'PrefsWindowForModalDialogPositions_AnimationTweaksExtension',
-  Extends: PrefsWindowForApps_AnimationTweaksExtension,
-
-  _init: function() {  
-  
-    this.parent();
-    
-  },
-  
-  displayPrefs: function() {
-  
-    this.APPLICATION_LIST_KEY = "application-modaldialog-list";
-    this.NAME_LIST_KEY        = "modal-dialog-name-list";
-    this.addDefaultEffects    = false;  
-    this.prefsName            = _("Corrected Position");
-
-    this.makeList();
-    this.refreshList();
-    this.showPrefs();
-  
-  },
-    
-  showPrefs: function() {
-    
-    let pos = 0;
-    
-    this.AppLabel     = new Gtk.Label({ xalign:  1, use_markup: true, halign: Gtk.Align.CENTER });
-    this.AppIcon      = new Gtk.Image({ gicon:null, pixel_size: 96 });
-    this.iconImageBox = new Gtk.Box();
-    this.iconImageBox.set_center_widget(this.AppIcon);
-    
-    this.AppLabel.label = "<big><b>"+_("No Application Selected")+" - "+this.prefsName+"</b></big>";
-    this.emptyLine(pos++);
-    this.gridWin.attach(this.iconImageBox, 0, pos++, 7, 1); 
-    this.gridWin.attach(this.AppLabel,     0, pos++, 7, 1);    
-    this.emptyLine(pos++);
-    
-    this.applicationProfilesStateSwitch("use-modaldialog-position-profiles");
-    this.prefsWA("autodetect-misplaced-modal-dialogs",               1, pos++, this.profilesOptionTopGrid, 1);
-    this.positionSettings = new AnimationSettingsForItemPositionProfile_AnimationTweaksExtension( this.gridWin, pos);
-    this.treeView.connect("cursor-changed",()=>this.positionSettings.refreshSettings(this.appViewChange()));
-    
-  },
-  
-  prefsWA: function(KEY,posX,posY,sbox,space=1) {
-  
-    let SettingLabel0  = new Gtk.Label({ xalign:  1, label:_(settings.settings_schema.get_key(KEY).get_summary()),halign: Gtk.Align.START });
-    let SettingSwitch0 = new Gtk.Switch({hexpand: false, active: settings.get_boolean(KEY), halign: Gtk.Align.START});
-    let prefsSwitchBox = new Gtk.Box({ orientation: Gtk.Orientation.VERTICAL, margin: 0,hexpand:true});
-        
-    SettingSwitch0.connect("notify::active", Lang.bind(this, function(button) {
-      settings.set_boolean(KEY, button.active);
-      reloadExtension();
-    }));
-
-    settings.connect("changed::"+KEY, () => {
-      SettingSwitch0.set_active(settings.get_boolean(KEY));
-    });
-   
-    prefsSwitchBox.add(SettingSwitch0);
-    sbox.attach(SettingLabel0,  posX,       posY, 1, 1);
-    sbox.attach(prefsSwitchBox, posX+space, posY, 1, 1);
-    
-  },  
 
 });
 
@@ -1669,14 +1480,15 @@ const PrefsWindowForClosing_AnimationTweaksExtension = new GObject.Class({
     this.prefsWA("closing-effect",        0,  0,  this.switchBox0    );
     this.heading(1);
     let pos = 2;
-    new AnimationSettingsForItem_AnimationTweaksExtension("window",             "normal",             "close", this, pos++,this);
-    new AnimationSettingsForItem_AnimationTweaksExtension("window",             "dialog",             "close", this, pos++,this);
-    new AnimationSettingsForItem_AnimationTweaksExtension("window",             "modaldialog",        "close", this, pos++,this);
+    new AnimationSettingsForItem_AnimationTweaksExtension("window",             "normal",             "close", ["closing-effect"], this, pos++,this);
+    new AnimationSettingsForItem_AnimationTweaksExtension("window",             "dialog",             "close", ["closing-effect"], this, pos++,this);
+    new AnimationSettingsForItem_AnimationTweaksExtension("other",              "modaldialog",        "close", ["closing-effect"], this, pos++,this);
     this.emptyLine(pos++);
-    new AnimationSettingsForItem_AnimationTweaksExtension("notificationbanner", "notificationbanner", "close", this, pos++,this);
-    new AnimationSettingsForItem_AnimationTweaksExtension("padosd",             "padosd",             "close", this, pos++,this);
-    new AnimationSettingsForItem_AnimationTweaksExtension("other",              "toppanelpopupmenu",  "close", this, pos++,this);
-    new AnimationSettingsForItem_AnimationTweaksExtension("other",              "desktoppopupmenu",   "close", this, pos++,this);
+    new AnimationSettingsForItem_AnimationTweaksExtension("notificationbanner", "notificationbanner", "close", [],               this, pos++,this);
+    new AnimationSettingsForItem_AnimationTweaksExtension("padosd",             "padosd",             "close", [],               this, pos++,this);
+    new AnimationSettingsForItem_AnimationTweaksExtension("other",              "toppanelpopupmenu",  "close", [],               this, pos++,this);
+    new AnimationSettingsForItem_AnimationTweaksExtension("other",              "desktoppopupmenu",   "close", [],               this, pos++,this);
+    new AnimationSettingsForItem_AnimationTweaksExtension("other",              "windowmenu",         "close", [],               this, pos++,this);
     
   },
   
@@ -1708,14 +1520,14 @@ const PrefsWindowForFocus_AnimationTweaksExtension = new GObject.Class({
     this.prefsWA("focussing-effect",   0, 0, this.switchBox0);
     this.heading(0, this.switchBox1);
    
-    new AnimationSettingsForItem_AnimationTweaksExtension("window", "normal",      "focus",      this.switchBox1, 1,  this      );
-    new AnimationSettingsForItem_AnimationTweaksExtension("window", "dialog",      "focus",      this.switchBox1, 2,  this      );
-    new AnimationSettingsForItem_AnimationTweaksExtension("window", "modaldialog", "focus",      this.switchBox1, 3,  this      );    
+    new AnimationSettingsForItem_AnimationTweaksExtension("window", "normal",      "focus", ["focussing-effect"], this.switchBox1, 1,  this      );
+    new AnimationSettingsForItem_AnimationTweaksExtension("window", "dialog",      "focus", ["focussing-effect"], this.switchBox1, 2,  this      );
+    new AnimationSettingsForItem_AnimationTweaksExtension("window", "modaldialog", "focus", ["focussing-effect"], this.switchBox1, 3,  this      );    
     
     this.prefsWA("defocussing-effect",  0, 0, this.switchBox2);
-    new AnimationSettingsForItem_AnimationTweaksExtension("window", "normal",      "defocus",    this.switchBox3, 0,  this      );
-    new AnimationSettingsForItem_AnimationTweaksExtension("window", "dialog",      "defocus",    this.switchBox3, 1,  this      );
-    new AnimationSettingsForItem_AnimationTweaksExtension("window", "modaldialog", "defocus",    this.switchBox3, 2,  this      );
+    new AnimationSettingsForItem_AnimationTweaksExtension("window", "normal",      "defocus", ["defocussing-effect"], this.switchBox3, 0,  this      );
+    new AnimationSettingsForItem_AnimationTweaksExtension("window", "dialog",      "defocus", ["defocussing-effect"], this.switchBox3, 1,  this      );
+    new AnimationSettingsForItem_AnimationTweaksExtension("window", "modaldialog", "defocus", ["defocussing-effect"], this.switchBox3, 2,  this      );
 
   },
   
@@ -1745,12 +1557,12 @@ const PrefsWindowForMinimize_AnimationTweaksExtension = new GObject.Class({
     
     this.prefsWA("minimizing-effect",   0, 0, this.switchBox0);
     this.heading(0, this.switchBox1);
-    new AnimationSettingsForItem_AnimationTweaksExtension("window", "normal",      "minimize",   this.switchBox1, 1,  this      );
-    new AnimationSettingsForItem_AnimationTweaksExtension("window", "dialog",      "minimize",   this.switchBox1, 2,  this      ); 
+    new AnimationSettingsForItem_AnimationTweaksExtension("window", "normal",      "minimize", ["minimizing-effect"],  this.switchBox1, 1,  this      );
+    new AnimationSettingsForItem_AnimationTweaksExtension("window", "dialog",      "minimize", ["minimizing-effect"],  this.switchBox1, 2,  this      ); 
     
     this.prefsWA("unminimizing-effect", 0, 0, this.switchBox2);
-    new AnimationSettingsForItem_AnimationTweaksExtension("window", "normal",      "unminimize", this.switchBox3, 0,  this      );
-    new AnimationSettingsForItem_AnimationTweaksExtension("window", "dialog",      "unminimize", this.switchBox3, 1,  this      );
+    new AnimationSettingsForItem_AnimationTweaksExtension("window", "normal",      "unminimize", ["unminimizing-effect"], this.switchBox3, 0,  this      );
+    new AnimationSettingsForItem_AnimationTweaksExtension("window", "dialog",      "unminimize", ["unminimizing-effect"], this.switchBox3, 1,  this      );
 
   },
   
@@ -1774,9 +1586,9 @@ const PrefsWindowForMore_AnimationTweaksExtension = new GObject.Class({
     
     this.prefsWA("moving-effect",   0, 0, this.switchBox0);
     this.heading(0, this.switchBox1);
-    new AnimationSettingsForItem_AnimationTweaksExtension("window", "normal",      "movestart",  this.switchBox1, 1, this, true);
-    new AnimationSettingsForItem_AnimationTweaksExtension("window", "dialog",      "movestart",  this.switchBox1, 2, this, true);   
-    new AnimationSettingsForItem_AnimationTweaksExtension("window", "modaldialog", "movestart",  this.switchBox1, 3, this, true);    
+    new AnimationSettingsForItem_AnimationTweaksExtension("window", "normal",      "movestart", ["moving-effect"], this.switchBox1, 1, this, true);
+    new AnimationSettingsForItem_AnimationTweaksExtension("window", "dialog",      "movestart", ["moving-effect"], this.switchBox1, 2, this, true);   
+    new AnimationSettingsForItem_AnimationTweaksExtension("window", "modaldialog", "movestart", ["moving-effect"], this.switchBox1, 3, this, true);    
 
   },
   
@@ -1798,20 +1610,21 @@ const PrefsWindowForOpening_AnimationTweaksExtension = new GObject.Class({
     
     this.prefsWA("opening-effect", 0, pos++, this.switchBox0); 
     this.heading(pos++);
-    new AnimationSettingsForItem_AnimationTweaksExtension("window",             "normal",             "open", this, pos++, this);
-    new AnimationSettingsForItem_AnimationTweaksExtension("window",             "dialog",             "open", this, pos++, this);
-    new AnimationSettingsForItem_AnimationTweaksExtension("window",             "modaldialog",        "open", this, pos++, this);
-    new AnimationSettingsForItem_AnimationTweaksExtension("other",              "dropdownmenu",       "open", this, pos++, this);
-    new AnimationSettingsForItem_AnimationTweaksExtension("other",              "popupmenu",          "open", this, pos++, this);    
-    new AnimationSettingsForItem_AnimationTweaksExtension("other",              "combo",              "open", this, pos++, this);    
-    new AnimationSettingsForItem_AnimationTweaksExtension("other",              "tooltip",            "open", this, pos++, this);    
-    new AnimationSettingsForItem_AnimationTweaksExtension("other",              "splashscreen",       "open", this, pos++, this);    
-    new AnimationSettingsForItem_AnimationTweaksExtension("other",              "overrideother",      "open", this, pos++, this);   
+    new AnimationSettingsForItem_AnimationTweaksExtension("window",             "normal",             "open", ["opening-effect"], this, pos++, this);
+    new AnimationSettingsForItem_AnimationTweaksExtension("window",             "dialog",             "open", ["opening-effect"], this, pos++, this);
+    new AnimationSettingsForItem_AnimationTweaksExtension("other",              "modaldialog",        "open", ["opening-effect"], this, pos++, this);
+    new AnimationSettingsForItem_AnimationTweaksExtension("other",              "dropdownmenu",       "open", ["opening-effect"], this, pos++, this);
+    new AnimationSettingsForItem_AnimationTweaksExtension("other",              "popupmenu",          "open", ["opening-effect"], this, pos++, this);    
+    new AnimationSettingsForItem_AnimationTweaksExtension("other",              "combo",              "open", ["opening-effect"], this, pos++, this);    
+    new AnimationSettingsForItem_AnimationTweaksExtension("other",              "tooltip",            "open", ["opening-effect"], this, pos++, this);    
+    new AnimationSettingsForItem_AnimationTweaksExtension("other",              "splashscreen",       "open", ["opening-effect"], this, pos++, this);    
+    new AnimationSettingsForItem_AnimationTweaksExtension("other",              "overrideother",      "open", ["opening-effect"], this, pos++, this);   
     this.emptyLine(pos++); 
-    new AnimationSettingsForItem_AnimationTweaksExtension("notificationbanner", "notificationbanner", "open", this, pos++, this); 
-    new AnimationSettingsForItem_AnimationTweaksExtension("padosd",             "padosd",             "open", this, pos++, this);   
-    new AnimationSettingsForItem_AnimationTweaksExtension("other",              "toppanelpopupmenu",  "open", this, pos++, this);       
-    new AnimationSettingsForItem_AnimationTweaksExtension("other",              "desktoppopupmenu",   "open", this, pos++, this);       
+    new AnimationSettingsForItem_AnimationTweaksExtension("notificationbanner", "notificationbanner", "open", [], this, pos++, this); 
+    new AnimationSettingsForItem_AnimationTweaksExtension("padosd",             "padosd",             "open", [], this, pos++, this);   
+    new AnimationSettingsForItem_AnimationTweaksExtension("other",              "toppanelpopupmenu",  "open", [], this, pos++, this);       
+    new AnimationSettingsForItem_AnimationTweaksExtension("other",              "desktoppopupmenu",   "open", [], this, pos++, this);       
+    new AnimationSettingsForItem_AnimationTweaksExtension("other",              "windowmenu",         "open", [], this, pos++, this);           
     
   },
 
@@ -1826,20 +1639,16 @@ const PrefsWindowForProfiles_AnimationTweaksExtension = new GObject.Class({
   
     this.parent({});
           
-    this.appProfilesPrefs         = new PrefsWindowForApps_AnimationTweaksExtension();
-    this.modalDialogPositionPrefs = new PrefsWindowForModalDialogPositions_AnimationTweaksExtension(); 
-    this.extensionProfilesPrefs   = new PrefsWindowForExtensionProfiles_AnimationTweaksExtension();
+    this.appProfilesPrefs       = new PrefsWindowForApps_AnimationTweaksExtension();
+    this.extensionProfilesPrefs = new PrefsWindowForExtensionProfiles_AnimationTweaksExtension();
 
     this.append_page(this.appProfilesPrefs,         new Gtk.Label({ label: _("Application Profiles")}) );
-    this.append_page(this.modalDialogPositionPrefs, new Gtk.Label({ label: _("Modal Dialog")+" "+_("Position")}));
     this.append_page(this.extensionProfilesPrefs,   new Gtk.Label({ label: _("Extension Profiles")})   );
 
-    this.child_set_property(this.appProfilesPrefs,         "tab-expand", true);
-    this.child_set_property(this.modalDialogPositionPrefs, "tab-expand", true);
-    this.child_set_property(this.extensionProfilesPrefs,   "tab-expand", true);
+    this.child_set_property(this.appProfilesPrefs,       "tab-expand", true);
+    this.child_set_property(this.extensionProfilesPrefs, "tab-expand", true);
 
     this.appProfilesPrefs.displayPrefs();
-    this.modalDialogPositionPrefs.displayPrefs();
     this.extensionProfilesPrefs.displayPrefs();
     
   },
@@ -1891,13 +1700,7 @@ const PrefsWindowForExtensionProfiles_AnimationTweaksExtension = new GObject.Cla
     settings.set_boolean("use-application-profiles", profileClass.useApplicationProfiles);
     settings.set_strv("name-list",                   profileClass.nameList);
     settings.set_strv("application-list",            profileClass.appList);
-    
-    ( profileClass.useModalDialogPositionProfiles  ) ? settings.set_boolean("use-modaldialog-position-profiles",  profileClass.useModalDialogPositionProfiles ) : null;
-    ( profileClass.modalDialogNameList             ) ? settings.set_strv("modal-dialog-name-list",                profileClass.modalDialogNameList )            : null;
-    ( profileClass.modalDialogPositionProfiles     ) ? settings.set_strv("modal-dialog-position-profiles",        profileClass.modalDialogPositionProfiles )    : null;
-    ( profileClass.autodetectMisplacedModalDialogs ) ? settings.set_boolean("autodetect-misplaced-modal-dialogs", profileClass.autodetectMisplacedModalDialogs) : null;
-    ( profileClass.appModalDialogList              ) ? settings.set_strv("application-modaldialog-list",          profileClass.appModalDialogList )             : null;
-    
+        
     settings.set_strv("normal-open",       profileClass.normalWindowopenProfileRaw); 
     settings.set_strv("normal-close",      profileClass.normalWindowcloseProfileRaw);
     settings.set_strv("normal-minimize",   profileClass.normalWindowminimizeProfileRaw);
@@ -2011,7 +1814,7 @@ const PrefsWindowForExtensionProfiles_AnimationTweaksExtension = new GObject.Cla
   loadExtensionProfiles: function() {
   
     this.profileName = settings.get_string("profile-name");
-    this.version     = settings.get_int("current-version");
+    this.version     = settings.get_double("current-version");
   
     this.openingEffectEnabled       = settings.get_boolean("opening-effect");
     this.closingingEffectEnabled    = settings.get_boolean("closing-effect");
@@ -2024,13 +1827,7 @@ const PrefsWindowForExtensionProfiles_AnimationTweaksExtension = new GObject.Cla
     this.useApplicationProfiles = settings.get_boolean("use-application-profiles");
     this.nameList = settings.get_strv("name-list");
     this.appList  = settings.get_strv("application-list");
-    
-    this.useModalDialogPositionProfiles  = settings.get_boolean("use-modaldialog-position-profiles");
-    this.modalDialogNameList             = settings.get_strv("modal-dialog-name-list");
-    this.modalDialogPositionProfiles     = settings.get_strv("modal-dialog-position-profiles")
-    this.autodetectMisplacedModalDialogs = settings.get_boolean("autodetect-misplaced-modal-dialogs");
-    this.appModalDialogList              = settings.get_strv("application-modaldialog-list");
-      
+
     this.normalWindowopenProfileRaw       = settings.get_strv("normal-open"); 
     this.normalWindowcloseProfileRaw      = settings.get_strv("normal-close");
     this.normalWindowminimizeProfileRaw   = settings.get_strv("normal-minimize");
@@ -2075,6 +1872,9 @@ const PrefsWindowForExtensionProfiles_AnimationTweaksExtension = new GObject.Cla
     this.desktoppopupmenuWindowopenProfile  = settings.get_strv("desktoppopupmenu-open"); 
     this.desktoppopupmenuWindowcloseProfile = settings.get_strv("desktoppopupmenu-close");        
       
+    this.windowmenuWindowopenProfile  = settings.get_strv("windowmenu-open"); 
+    this.windowmenuWindowcloseProfile = settings.get_strv("windowmenu-close");        
+
     this.waylandWorkaroundEnabled = settings.get_boolean("wayland");
     this.padOSDHideTime           = settings.get_int("padosd-hide-timeout");
     this.showDelay                = settings.get_boolean("show-delay");
@@ -2155,12 +1955,6 @@ const PrefsWindowForExtensionProfiles_AnimationTweaksExtension = new GObject.Cla
                        + "this.nameList="+this.stringifyParameters(this.nameList)
                        + "this.appList="+this.stringifyParameters(this.appList)
    
-                       + "this.useModalDialogPositionProfiles="+this.useModalDialogPositionProfiles+";\n" 
-                       + "this.modalDialogNameList="+this.stringifyParameters(this.modalDialogNameList)
-                       + "this.modalDialogPositionProfiles="+this.stringifyParameters(this.modalDialogPositionProfiles)
-                       + "this.autodetectMisplacedModalDialogs="+this.autodetectMisplacedModalDialogs+";\n"    
-                       + "this.appModalDialogList="+this.stringifyParameters(this.appModalDialogList)
-    
                        + "this.normalWindowopenProfileRaw="+this.stringifyParameters(this.normalWindowopenProfileRaw)
                        + "this.normalWindowcloseProfileRaw="+this.stringifyParameters(this.normalWindowcloseProfileRaw)
                        + "this.normalWindowminimizeProfileRaw="+this.stringifyParameters(this.normalWindowminimizeProfileRaw)
@@ -2204,6 +1998,9 @@ const PrefsWindowForExtensionProfiles_AnimationTweaksExtension = new GObject.Cla
 
                        + "this.desktoppopupmenuWindowopenProfile="+this.stringifyParameters(this.desktoppopupmenuWindowopenProfile)
                        + "this.desktoppopupmenuWindowcloseProfile="+this.stringifyParameters(this.desktoppopupmenuWindowcloseProfile)
+                       
+                       + "this.windowmenuWindowopenProfile="+this.stringifyParameters(this.windowmenuWindowopenProfile)
+                       + "this.windowmenuWindowcloseProfile="+this.stringifyParameters(this.windowmenuWindowcloseProfile)                       
       
                        + "this.waylandWorkaroundEnabled="+this.waylandWorkaroundEnabled+";\n"
                        + "this.padOSDHideTime="+this.padOSDHideTime+";\n"

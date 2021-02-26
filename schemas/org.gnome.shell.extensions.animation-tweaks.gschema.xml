@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- 
-Version 12.10
+Version 12.11
 =============
 
 Effect Format  [  |  S    Name     C       PPX       PPY       CX        CY        DL        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN  ]
@@ -51,8 +51,8 @@ Read the effectParameters.txt File for details.
     <key name="modaldialog-open" type="as">
     <!-- |  S    Name                    C       PPX       PPY       CX        CY        DL        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN -->
       <default>[
-        '|','F', 'Slide Down',           '2',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.001',  '0',      '1.0',    '1.0',    '0.0',    '-0.2',   '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_CUBIC',
-                                                 '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.300',  '255',    '1.0',    '1.0',    '0.0',    '0.2',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_CUBIC' 
+        '|','F', 'Slide Down',           '2',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.001',  '0',      '1.0',    '1.0',    '0.0',    '-0.1',   '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_CUBIC',
+                                                 '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.300',  '255',    '1.0',    '1.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_CUBIC'  
       ]</default>
       <summary>Modal Dialog</summary>
       <description>Animation settings for Modal Dialog Windows opening</description>
@@ -159,6 +159,16 @@ Read the effectParameters.txt File for details.
       <description>Animation settings for Desktop Pop up Menu opening</description>
     </key>    
 
+    <key name="windowmenu-open" type="as">
+    <!-- |  S    Name                    C       PPX       PPY       CX        CY        DL        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN -->
+      <default>[
+        '|','F', 'Scale Down',           '2',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.001',  '0',      '1.0',    '0.5',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_CUBIC',
+                                                 '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.250',  '255',    '1.0',    '1.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_CUBIC'  
+      ]</default>
+      <summary>Window Menu</summary>
+      <description>Animation settings for Window Menu opening</description>
+    </key>    
+
     <!--  ==================================================================================  Actions - Close   =================================================================================================== -->
     
     <key name="closing-effect" type="b">
@@ -228,6 +238,15 @@ Read the effectParameters.txt File for details.
       ]</default>
       <summary>Desktop Pop Up Menu</summary>
       <description>Animation settings for Desktop Pop Up Menu closing</description>
+    </key>     
+
+    <key name="windowmenu-close" type="as">
+    <!-- |  S    Name                    C       PPX       PPY       CX        CY        DL        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN -->
+      <default>[
+        '|','F', 'Scale Up',             '1',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.300',  '0',      '1.0',    '0.5',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_IN_CUBIC'
+      ]</default>
+      <summary>Window Menu</summary>
+      <description>Animation settings for Window Menu closing</description>
     </key>     
     
     <!--  ==================================================================================  Actions - Minimize  ================================================================================================== -->
@@ -439,41 +458,6 @@ Read the effectParameters.txt File for details.
       <description>List of Applicaions names for custom profiles</description>
     </key>
 
-    <!--  ================================================================================  Profiles - Modal Dialog  ================================================================================================= -->
-
-    <key name="use-modaldialog-position-profiles" type="b">
-      <default>false</default>
-      <summary>Correct Modal Dialog Position</summary>
-      <description>Correct Modal Dialog Position</description>
-    </key>
-
-    <key name="autodetect-misplaced-modal-dialogs" type="b">
-      <default>false</default>
-      <summary>Autodetect misplaced modal dialogs</summary>
-      <description>Autodetect misplaced modal dialogs</description>
-    </key>
-
-    <key name="application-modaldialog-list" type="as">
-      <default>[
-      ]</default>
-      <summary>List of Applicaion's modal dialogs for custom profiles</summary>
-      <description>List of Applicaion's modal dialogs for custom profiles</description>
-    </key>
-
-    <key name="modal-dialog-name-list" type="as">
-      <default>[
-      ]</default>
-      <summary>Modal Dialog Position Profiles</summary>
-      <description>Modal Dialog Position Profiles</description>
-    </key>
-    
-    <key name="modal-dialog-position-profiles" type="as">
-      <default>[
-      ]</default>
-      <summary>Modal Dialog Position Profiles</summary>
-      <description>Modal Dialog Position Profiles</description>
-    </key>
-
     <!--  ===================================================================================    Profiles - Extension   ============================================================================================= -->
 
     <key name="profile-name" type="s">
@@ -518,8 +502,8 @@ Read the effectParameters.txt File for details.
 
     <!--  =============================================================================   Extension Variables  =========================================================================================== -->
 
-    <key name="current-version" type="i">
-      <default>12</default>
+    <key name="current-version" type="d">
+      <default>12.11</default>
       <summary>Version of Current Extension</summary>
       <description>Provided to ensure that extension is stopped incase of autoupdate from previous version to prevent unwanted effects</description>
     </key>

@@ -1,4 +1,8 @@
 /*
+
+Version 12.11
+=============
+
 ANIMATION TWEAKS GNOME EXTENSION PROFILES
 =========================================
 
@@ -11,8 +15,8 @@ This file is automatically moodified by prefs.js to when extension profiles are 
 var AnimationTweaksExtensionProfileDefault=class AnimationTweaksExtensionProfileDefault{
 constructor(){
 this.animationTweaksExtensionProfileName="Default";
-this.firstUse=true;
-this.version=12;
+this.firstUse=false;
+this.version=12.11;
 this.openingEffectEnabled=true;
 this.closingingEffectEnabled=false;
 this.minimizingEffectEnabled=false;
@@ -37,7 +41,7 @@ this.dialogWindowunminimizeProfileRaw=["|","F","Slide Up","2","0.0","0.0","0.0",
 this.dialogWindowmovestartProfileRaw=["|","F","Fade","2","0.0","0.0","0.0","0.0","0.0","0.300","220","1.0","1.0","0.0","0.0","0.0","0.0","0.0","0.0","EASE_OUT_CUBIC","0.0","0.0","0.0","0.0","0.0","0.300","255","1.0","1.0","0.0","0.0","0.0","0.0","0.0","0.0","EASE_OUT_CUBIC"];
 this.dialogWindowfocusProfileRaw=["|","F","Inflate","2","0.5","0.5","0.0","0.0","0.0","0.025","255","1.02","1.02","0.0","0.0","0.0","0.0","0.0","0.0","EASE_OUT_CUBIC","0.5","0.5","0.0","0.0","0.0","0.025","255","1.0","1.0","0.0","0.0","0.0","0.0","0.0","0.0","EASE_IN_CUBIC"];
 this.dialogWindowdefocusProfileRaw=["|","F","Deflate","2","0.5","0.5","0.0","0.0","0.0","0.025","255","0.97","0.97","0.0","0.0","0.0","0.0","0.0","0.0","EASE_OUT_CUBIC","0.5","0.5","0.0","0.0","0.0","0.025","255","1.0","1.0","0.0","0.0","0.0","0.0","0.0","0.0","EASE_IN_CUBIC"];
-this.modaldialogWindowopenProfileRaw=["|","F","Slide Down","2","0.0","0.0","0.0","0.0","0.0","0.001","0","1.0","1.0","0.0","-0.2","0.0","0.0","0.0","0.0","EASE_OUT_CUBIC","0.0","0.0","0.0","0.0","0.0","0.300","255","1.0","1.0","0.0","0.2","0.0","0.0","0.0","0.0","EASE_OUT_CUBIC"];
+this.modaldialogWindowopenProfileRaw=["|","F","Slide Down","2","0.0","0.0","0.0","0.0","0.0","0.001","0","1.0","1.0","0.0","-0.1","0.0","0.0","0.0","0.0","EASE_OUT_CUBIC","0.0","0.0","0.0","0.0","0.0","0.300","255","1.0","1.0","0.0","0.0","0.0","0.0","0.0","0.0","EASE_OUT_CUBIC"];
 this.modaldialogWindowcloseProfileRaw=["|","F","Slide Up","1","0.0","0.0","0.0","0.0","0.0","0.300","0","1.0","1.0","0.0","-0.2","0.0","0.0","0.0","0.0","EASE_IN_CUBIC"];
 this.modaldialogWindowminimizeProfileRaw=["|","F","Slide Down","1","0.0","0.0","0.0","0.0","0.0","0.300","0","1.0","1.0","0.0","0.2","0.0","0.0","0.0","0.0","EASE_IN_CUBIC"];
 this.modaldialogWindowunminimizeProfileRaw=["|","F","Slide Up","2","0.0","0.0","0.0","0.0","0.0","0.001","0","1.0","1.0","0.0","0.2","0.0","0.0","0.0","0.0","EASE_OUT_CUBIC","0.0","0.0","0.0","0.0","0.0","0.300","255","1.0","1.0","0.0","-0.2","0.0","0.0","0.0","0.0","EASE_OUT_CUBIC"];
@@ -52,13 +56,16 @@ this.tooltipWindowopenProfile=["|","T","Slide Up","2","0.0","0.0","0.0","0.0","0
 this.overrideotherWindowopenProfile=["|","T","Scale Down","2","0.0","0.0","0.0","0.0","0.0","0.001","0","1.0","0.5","0.0","0.0","0.0","0.0","0.0","0.0","EASE_OUT_CUBIC","0.0","0.0","0.0","0.0","0.0","0.250","255","1.0","1.0","0.0","0.0","0.0","0.0","0.0","0.0","EASE_OUT_CUBIC"];
 this.notificationbannerWindowopenProfile=["|","F","Fade In","2","0.0","0.0","0.0","0.0","0.0","0.001","0","1.0","1.0","0.0","0.0","0.0","0.0","0.0","0.0","EASE_OUT_CUBIC","0.0","0.0","0.0","0.0","0.0","0.300","255","1.0","1.0","0.0","0.0","0.0","0.0","0.0","0.0","EASE_OUT_CUBIC"];
 this.notificationbannerWindowcloseProfile=["|","F","Fade Out","1","0.0","0.0","0.0","0.0","0.0","0.300","0","1.0","1.0","0.0","0.0","0.0","0.0","0.0","0.0","EASE_OUT_CUBIC"];
-this.notificationBannerAlignment="3"
+this.notificationBannerAlignment="3";
 this.padosdWindowopenProfile=["|","F","Slide Up","3","0.0","0.0","0.0","0.0","0.0","0.001","0","1.0","1.0","0.0","0.2","0.0","0.0","0.0","0.0","EASE_OUT_CUBIC","0.0","0.0","0.0","0.0","0.0","0.300","255","1.0","1.0","0.0","0.0","0.0","0.0","0.0","0.0","EASE_OUT_CUBIC","0.0","0.0","0.0","0.0","0.0","0.300","255","1.0","1.0","0.0","0.0","0.0","0.0","0.0","0.0","EASE_OUT_CUBIC"];
 this.padosdWindowcloseProfile=["|","F","Scale Up","1","0.0","1.0","0.0","0.0","0.0","0.300","255","1.0","0.0","0.0","0.0","0.0","0.0","0.0","0.0","EASE_OUT_CUBIC"];
 this.toppanelpopupmenuWindowopenProfile=["|","F","Scale Down","2","0.0","0.0","0.0","0.0","0.0","0.001","0","1.0","0.5","0.0","0.0","0.0","0.0","0.0","0.0","EASE_OUT_CUBIC","0.0","0.0","0.0","0.0","0.0","0.250","255","1.0","1.0","0.0","0.0","0.0","0.0","0.0","0.0","EASE_OUT_CUBIC"];
 this.toppanelpopupmenuWindowcloseProfile=["|","F","Scale Up","1","0.0","0.0","0.0","0.0","0.0","0.300","0","1.0","0.5","0.0","0.0","0.0","0.0","0.0","0.0","EASE_IN_CUBIC"];
 this.desktoppopupmenuWindowopenProfile=["|","F","Scale Down","2","0.0","0.0","0.0","0.0","0.0","0.001","0","1.0","0.5","0.0","0.0","0.0","0.0","0.0","0.0","EASE_OUT_CUBIC","0.0","0.0","0.0","0.0","0.0","0.250","255","1.0","1.0","0.0","0.0","0.0","0.0","0.0","0.0","EASE_OUT_CUBIC"];
 this.desktoppopupmenuWindowcloseProfile=["|","F","Scale Up","1","0.0","0.0","0.0","0.0","0.0","0.300","0","1.0","0.5","0.0","0.0","0.0","0.0","0.0","0.0","EASE_IN_CUBIC"];
+this.windowmenuWindowopenProfile=["|","F","Scale Down","2","0.0","0.0","0.0","0.0","0.0","0.001","0","1.0","0.5","0.0","0.0","0.0","0.0","0.0","0.0","EASE_OUT_CUBIC","0.0","0.0","0.0","0.0","0.0","0.250","255","1.0","1.0","0.0","0.0","0.0","0.0","0.0","0.0","EASE_OUT_CUBIC"];
+this.windowmenuWindowcloseProfile=["|","F","Scale Up","1","0.0","0.0","0.0","0.0","0.0","0.300","0","1.0","0.5","0.0","0.0","0.0","0.0","0.0","0.0","EASE_IN_CUBIC"];
 this.waylandWorkaroundEnabled=false;
-this.padOSDHideTime= 1500;
+this.padOSDHideTime=1500;
+this.showDelay=false;
 }}//EndOfAnimationTweaksExtensionProfileDefault

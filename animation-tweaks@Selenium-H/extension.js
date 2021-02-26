@@ -1,6 +1,6 @@
 /*
 
-Version 12.10
+Version 12.11
 =============
 
 Credits:
@@ -30,9 +30,11 @@ const GLib               = imports.gi.GLib;
 const Main               = imports.ui.main;
 const Meta               = imports.gi.Meta;
 const Shell              = imports.gi.Shell;
+const WindowMenu         = imports.ui.windowMenu;
 
 const defaultUpdateShowingNotification = Main.messageTray._updateShowingNotification;
 const defaultHideNotification          = Main.messageTray._hideNotification;
+const defaultShowWindowMenu            = Main.wm._windowMenuManager.showWindowMenuForWindow;
 
 const defaultBoxPointerOpenAnimationFunction  = Main.panel.statusArea.dateMenu.menu._boxPointer.open;
 const defaultBoxPointerCloseAnimationFunction = Main.panel.statusArea.dateMenu.menu._boxPointer.close;
@@ -118,15 +120,6 @@ const EffectsManager_AnimationTweaksExtension = class EffectsManager_AnimationTw
           [ parameters.sucess, parameters.geom ] = window.get_icon_geometry(); 
           [ parameters.effectName, parameters.itemType, parameters.subeffectNo, eParams[0], eParams[1] ] = [ eParams[1], "normal", 0, parameters.actor.x, parameters.actor.y ];
           this.driveWindowAnimation( eParams, parameters ); 
-          if( this.useModalDialogPositionProfiles && this.modalDialogNameList.indexOf(parameters.appName) >= 0) {
-            let len = this.modalDialogPositionProfiles.length-5;
-            while(len >= 0) {
-              if(this.modalDialogPositionProfiles[len].substring(0, this.modalDialogPositionProfiles[len].indexOf("[")) == parameters.appName && this.modalDialogPositionProfiles[len+3] == "F1" ) {
-                this.modalDialogPositionProfiles[len+3] = "F";
-              }
-              len -= 5;
-            }
-          }
         }
         return;
 
@@ -146,26 +139,17 @@ const EffectsManager_AnimationTweaksExtension = class EffectsManager_AnimationTw
       case Meta.WindowType.MODAL_DIALOG:
         parameters.appName = Shell.WindowTracker.get_default().get_window_app(window).get_name();
         parameters.profileIndex = (this.useApplicationProfiles && useApplicationProfilesForThisAction)*(this.nameList.indexOf(parameters.appName)+1);
-
-        let index = this.modalDialogPositionProfiles.indexOf(parameters.appName+"["+currentMonitorIndex+"]"+window.title);
-        if( index >= 0 && this.modalDialogPositionProfiles[index+3] == "R") {
-          this.modalDialogPositionProfiles[index+1] = (parameters.actor.x - parseInt(this.modalDialogPositionProfiles[index+1])).toString();
-          this.modalDialogPositionProfiles[index+2] = (parameters.actor.y - parseInt(this.modalDialogPositionProfiles[index+2])).toString();
-          this.modalDialogPositionProfiles[index+3] = "A";
-          (this.modalDialogPositionProfiles[index+2] != "0" || this.modalDialogPositionProfiles[index+1] != "0") ? extensionSettings.set_strv("modal-dialog-position-profiles", this.modalDialogPositionProfiles) : this.modalDialogPositionProfiles.splice(index, 5);              
-        }                
-    
         eParams = this.modaldialogWindowcloseProfile[parameters.profileIndex].slice(0);
-        if(eParams[0] == "T" ) {
+        if(eParams[0] == "T" ) {        
           Main.wm._destroying.delete( parameters.actor );
           parameters.actor.remove_all_transitions();            
           [ parameters.sucess, parameters.geom ] = window.get_icon_geometry(); 
-          [ parameters.effectName, parameters.itemType, parameters.subeffectNo, eParams[0], eParams[1] ] = [ eParams[1], "modaldialog", 0, parameters.actor.x, parameters.actor.y ];
-          parameters.actor._parentDestroyId = window.get_transient_for().connect('unmanaged', () => {
-           parameters.actor.remove_all_transitions();
+          [ parameters.effectName, parameters.itemType, parameters.subeffectNo, parameters.listType, eParams[0], eParams[1] ] = [ eParams[1], "modaldialog", 0, "other", parameters.actor.x, parameters.actor.y ];          
+          parameters.actor._parentDestroyId = (window.get_transient_for() != null) ? window.get_transient_for().connect('unmanaged', () => {
+            parameters.actor.remove_all_transitions();
             this.animationDone( parameters );
-          });
-          this.driveWindowAnimation( eParams, parameters );      
+          }) : 0;
+          this.driveOtherAnimation( eParams, parameters );      
         }
         return;     
         
@@ -409,8 +393,9 @@ const EffectsManager_AnimationTweaksExtension = class EffectsManager_AnimationTw
             [eParams[0], eParams[12], eParams[1], eParams[13]] = [0, "C"+eParams[12], 0, "C"+eParams[13]];
           }
           else {
-            [ eParams[0], eParams[12] ] = (window.maximized_horizontally) ? [ 0,                                                                    "C"+eParams[12]]: [ parameters.actor.x, eParams[12]]; 
-            [ eParams[1], eParams[13] ] = (window.maximized_vertically)   ? [ (Main.layoutManager.panelBox.y + Main.layoutManager.panelBox.height), "C"+eParams[13]]: [ parameters.actor.y, eParams[13]];
+            let rect = window.get_frame_rect();
+            [ eParams[0], eParams[12] ] = (window.maximized_horizontally) ? [ rect.x, "C"+eParams[12]]: [ parameters.actor.x, eParams[12]]; 
+            [ eParams[1], eParams[13] ] = (window.maximized_vertically)   ? [ rect.y, "C"+eParams[13]]: [ parameters.actor.y, eParams[13]];
           } 
           this.driveWindowAnimation( eParams, parameters );  
         }
@@ -436,43 +421,8 @@ const EffectsManager_AnimationTweaksExtension = class EffectsManager_AnimationTw
         if(eParams[0] == "T" ) {        
           parameters.actor.set_opacity(0);
           parameters.actor.remove_all_transitions();
-          [ parameters.sucess, parameters.geom ] = window.get_icon_geometry(); 
-          [ parameters.effectName, parameters.itemType, parameters.listType ] = [ eParams[1], "modaldialog", "window" ];
-          if( this.useModalDialogPositionProfiles && this.modalDialogNameList.indexOf(parameters.appName ) >= 0) {
-            let index = this.modalDialogPositionProfiles.indexOf(parameters.appName +"["+currentMonitorIndex+"]"+window.title); 
-            if(index < 0 && this.autodetectMisplacedModalDialogs) {
-              this.modalDialogPositionProfiles.push(parameters.appName +"["+currentMonitorIndex+"]"+window.title);
-              this.modalDialogPositionProfiles.push(parameters.actor.x.toString());
-              this.modalDialogPositionProfiles.push(parameters.actor.y.toString());
-              this.modalDialogPositionProfiles.push("R");
-              this.modalDialogPositionProfiles.push("A");
-              [eParams[0],eParams[1]] = [parameters.actor.x,parameters.actor.y];
-            }
-            else if (this.modalDialogPositionProfiles[index + 3] == "R"){
-              this.modalDialogPositionProfiles[index+1] = (parameters.actor.x);
-              this.modalDialogPositionProfiles[index+2] = (parameters.actor.y);
-              [eParams[0],eParams[1]] = [parameters.actor.x,parameters.actor.y];
-            } 
-            else if (this.modalDialogPositionProfiles[index + 3] == "I" || this.modalDialogPositionProfiles[index + 3] == "G1" || this.modalDialogPositionProfiles[index + 3] == "F1"){
-              [eParams[0],eParams[1]] = [parameters.actor.x, parameters.actor.y];
-            }
-            else {
-              if(this.modalDialogPositionProfiles[index + 3] == "G") { 
-                this.modalDialogPositionProfiles[index + 3] = "G1";
-              }
-              else if(this.modalDialogPositionProfiles[index + 3] == "F") { 
-                this.modalDialogPositionProfiles[index + 3] = "F1";
-              }  
-              eParams[12] = "C"+eParams[12];
-              eParams[13] = "C"+eParams[13];
-              eParams[0] = parameters.actor.x + parseInt(this.modalDialogPositionProfiles[index+1]);
-              eParams[1] = parameters.actor.y + parseInt(this.modalDialogPositionProfiles[index+2]);
-            }
-          }
-          else {
-            [eParams[0],eParams[1]] = [parameters.actor.x, parameters.actor.y];
-          }
-          this.driveWindowAnimation( eParams, parameters );  
+          [ parameters.effectName, parameters.itemType ] = [ eParams[1], "modaldialog"];
+          this.driveOtherAnimation( eParams, parameters );  
         }
         return;
 
@@ -761,6 +711,7 @@ const EffectsManager_AnimationTweaksExtension = class EffectsManager_AnimationTw
 
       case "opendesktoppopupmenu":
       case "opentoppanelpopupmenu":
+      case "openwindowmenu":            
         parameters.actor._muteInput = false; 
         if(parameters.itemObject) {
           parameters.itemObject();
@@ -770,6 +721,7 @@ const EffectsManager_AnimationTweaksExtension = class EffectsManager_AnimationTw
         
       case "closedesktoppopupmenu":
       case "closetoppanelpopupmenu":
+      case "closewindowmenu":      
         this.refreshItemActor(parameters.actor, "hide", "hide");         
         if(parameters.itemObject) {
           parameters.itemObject();
@@ -900,7 +852,7 @@ const EffectsManager_AnimationTweaksExtension = class EffectsManager_AnimationTw
   }
     
   driveBoxPointerCloseAnimation(animate, onComplete, currentMonitorIndex = global.display.get_current_monitor()) { 
- 
+    
     if (!this.visible)
       return;
      
@@ -996,6 +948,55 @@ const EffectsManager_AnimationTweaksExtension = class EffectsManager_AnimationTw
     });
     
   }  
+
+  driveWindowMenuCloseAnimation(animate, onComplete, currentMonitorIndex = global.display.get_current_monitor()) { 
+    
+    if (!this.visible)
+      return;
+     
+    this._muteInput = true;
+    this.remove_all_transitions();    
+    let eParams = effectsManager.windowmenuWindowcloseProfile[0];
+    effectsManager.driveOtherAnimation( eParams, {
+      actor:        this,
+      action:       "close",
+      appName:      "",
+      profileIndex: 0, 
+      sucess:       false, 
+      geom:         null,
+      effectName:   eParams[1],
+      itemType:     "windowmenu", 
+      listType:     "other",
+      subeffectNo:  0, 
+      xRes:         Main.layoutManager.monitors[currentMonitorIndex].width, 
+      yRes:         Main.layoutManager.monitors[currentMonitorIndex].height,  
+      itemObject:   onComplete      
+    });
+
+  }
+
+  driveWindowMenuOpenAnimation ( animate, onComplete, currentMonitorIndex = global.display.get_current_monitor() ) { 
+    
+    this.show();
+    this.set_opacity(0);
+    let eParams = effectsManager.windowmenuWindowopenProfile[0];
+    effectsManager.driveOtherAnimation( eParams, {
+      actor:        this,
+      action:       "open",
+      appName:      "",
+      profileIndex: 0, 
+      sucess:       false, 
+      geom:         null,
+      effectName:   eParams[1],
+      itemType:     "windowmenu", 
+      listType:     "other",
+      subeffectNo:  0, 
+      xRes:         Main.layoutManager.monitors[currentMonitorIndex].width, 
+      yRes:         Main.layoutManager.monitors[currentMonitorIndex].height,  
+      itemObject:   onComplete      
+    });
+
+  }
 
   driveNotificationBannerAnimation ( action, subEffectNo=0, eParams, xRes, yRes ) { 
  
@@ -1283,23 +1284,7 @@ const EffectsManager_AnimationTweaksExtension = class EffectsManager_AnimationTw
   
     this.useApplicationProfiles = extensionSettings.get_boolean("use-application-profiles");
     this.nameList = extensionSettings.get_strv("name-list");
-
-    this.useModalDialogPositionProfiles  = extensionSettings.get_boolean("use-modaldialog-position-profiles");
-    this.modalDialogNameList             = extensionSettings.get_strv("modal-dialog-name-list");
-    this.modalDialogPositionProfiles     = extensionSettings.get_strv("modal-dialog-position-profiles")
-    this.autodetectMisplacedModalDialogs = extensionSettings.get_boolean("autodetect-misplaced-modal-dialogs");
-
-    let len = this.modalDialogPositionProfiles.length-2;
-    while(len >= 0) {
-      if(this.modalDialogPositionProfiles[len+3] == "F1" ) {
-        this.modalDialogPositionProfiles[len] = "F";
-      }
-      if(this.modalDialogPositionProfiles[len+3] == "G1" ) {
-        this.modalDialogPositionProfiles[len] = "G";
-      }
-      len -= 5;
-    }
-      
+    
     let normalWindowopenProfileRaw       = extensionSettings.get_strv("normal-open"); 
     let normalWindowcloseProfileRaw      = extensionSettings.get_strv("normal-close");
     let normalWindowminimizeProfileRaw   = extensionSettings.get_strv("normal-minimize");
@@ -1342,7 +1327,10 @@ const EffectsManager_AnimationTweaksExtension = class EffectsManager_AnimationTw
     this.toppanelpopupmenuWindowcloseProfile = [extensionSettings.get_strv("toppanelpopupmenu-close")]; 
     
     this.desktoppopupmenuWindowopenProfile  = [extensionSettings.get_strv("desktoppopupmenu-open")]; 
-    this.desktoppopupmenuWindowcloseProfile = [extensionSettings.get_strv("desktoppopupmenu-close")];     
+    this.desktoppopupmenuWindowcloseProfile = [extensionSettings.get_strv("desktoppopupmenu-close")];  
+    
+    this.windowmenuWindowopenProfile  = [extensionSettings.get_strv("windowmenu-open")]; 
+    this.windowmenuWindowcloseProfile = [extensionSettings.get_strv("windowmenu-close")];         
     
     this.waylandWorkaroundEnabled = extensionSettings.get_boolean("wayland");
     this.padOSDHideTime           = extensionSettings.get_int("padosd-hide-timeout");
@@ -1393,14 +1381,17 @@ const EffectsManager_AnimationTweaksExtension = class EffectsManager_AnimationTw
 
     this.desktoppopupmenuWindowopenProfile[0].splice(0,1);
     this.desktoppopupmenuWindowcloseProfile[0].splice(0,1);
-
-    this.updateAddPadOSDEffects(             this.padosdWindowopenProfile[0][0],             this.padosdWindowcloseProfile[0][0]             ); 
-    this.updateAddNotificationBannerEffects( this.notificationbannerWindowopenProfile[0][0], this.notificationbannerWindowcloseProfile[0][0] );
-    this.updateAddTopPanelPopUpMenuEffects(  this.toppanelpopupmenuWindowopenProfile[0][0], this.toppanelpopupmenuWindowcloseProfile[0][0]   );
-    this.updateAddDesktopPopUpMenuEffects(   this.desktoppopupmenuWindowopenProfile[0][0],   this.desktoppopupmenuWindowcloseProfile[0][0]   );
+    
+    this.windowmenuWindowopenProfile[0].splice(0,1);
+    this.windowmenuWindowcloseProfile[0].splice(0,1);
+    
+    this.updateAddPadOSDEffects(this.padosdWindowopenProfile[0][0],                         this.padosdWindowcloseProfile[0][0]             ); 
+    this.updateAddNotificationBannerEffects(this.notificationbannerWindowopenProfile[0][0], this.notificationbannerWindowcloseProfile[0][0] );
+    this.updateAddTopPanelPopUpMenuEffects(this.toppanelpopupmenuWindowopenProfile[0][0],   this.toppanelpopupmenuWindowcloseProfile[0][0]  );
+    this.updateAddDesktopPopUpMenuEffects(this.desktoppopupmenuWindowopenProfile[0][0],     this.desktoppopupmenuWindowcloseProfile[0][0]   );
+    this.updateAddWindowMenuEffects(this.windowmenuWindowopenProfile[0][0],                 this.windowmenuWindowcloseProfile[0][0]         );
         
     if(this.useApplicationProfiles) {
-    
       let listLength = this.nameList.length;
       for(let i=0;i<listLength;i++) { 
         this.normalWindowopenProfile[i+1]       = this.getEffectFor(this.nameList[i],normalWindowopenProfileRaw);
@@ -1419,7 +1410,6 @@ const EffectsManager_AnimationTweaksExtension = class EffectsManager_AnimationTw
         this.modaldialogWindowunminimizeProfile[i+1] = this.getEffectFor(this.nameList[i],modaldialogWindowunminimizeProfileRaw); 
       }    
     }
-
   }
 
   overriddenHideNotification ( animate, currentMonitorIndex = global.display.get_current_monitor() ) {
@@ -1449,6 +1439,50 @@ const EffectsManager_AnimationTweaksExtension = class EffectsManager_AnimationTw
     }
   
   }
+  
+  overriddenShowWindowMenuForWindow(window, type, rect) {
+        
+        if (!Main.sessionMode.hasWmMenus)
+            return;
+
+        if (type != Meta.WindowMenuType.WM)
+            throw new Error('Unsupported window menu type');
+        let menu = new WindowMenu.WindowMenu(window, this._sourceActor);
+        menu._boxPointer.open  = (effectsManager.windowmenuWindowopenProfile[0][0]  == "T") ? effectsManager.driveWindowMenuOpenAnimation  : menu._boxPointer.open;
+        menu._boxPointer.close = (effectsManager.windowmenuWindowcloseProfile[0][0] == "T") ? effectsManager.driveWindowMenuCloseAnimation : menu._boxPointer.close;
+        
+        this._manager.addMenu(menu);
+
+        menu.connect('activate', () => {
+            window.check_alive(global.get_current_time());
+        });
+        let destroyId = window.connect('unmanaged', () => {
+            menu.close();
+        });
+
+        this._sourceActor.set_size(Math.max(1, rect.width), Math.max(1, rect.height));
+        this._sourceActor.set_position(rect.x, rect.y);
+        this._sourceActor.show();
+
+        menu.open(/*BoxPointer.PopupAnimation.FADE*/);
+        menu.actor.navigate_focus(null, 0/*St.DirectionType.TAB_FORWARD*/, false);
+        menu.connect('open-state-changed', (menu_, isOpen) => {
+            if (isOpen)
+                return;
+
+            this._sourceActor.hide();
+            
+            if(effectsManager.windowmenuWindowcloseProfile[0][0] == "T") {
+              menu.close(true);
+              menu.connect("menu-closed", ()=>menu.destroy());
+            }
+            else {
+              menu.destroy();
+            }
+            window.disconnect(destroyId);
+        });
+
+    }  
 
   overriddenUpdateShowingNotification ( currentMonitorIndex = global.display.get_current_monitor() ) {
   
@@ -1590,14 +1624,14 @@ const EffectsManager_AnimationTweaksExtension = class EffectsManager_AnimationTw
 
   startEffectsManager () {
 
+    this.panelBoxSignalHandlers = [];
     this.extensionDisableShortcut();
    
-    if(extensionSettings.get_int("current-version") <= 10) {    
+    if(extensionSettings.get_double("current-version") <= 10) {    
       Main.notify("Animation Tweaks","Extension is updated. A reset is needed. Please reset the extension");
       return;
     }
 
-    this.panelBoxSignalHandlers = [];
     this.loadPreferences();
      
     this.onOpeningSig      = (this.openingEffectEnabled)      ? global.window_manager.connect("map",        (swm,actor) => this.addWindowOpeningEffects(actor,      global.display.get_current_monitor(), true)) : null;
@@ -1615,7 +1649,7 @@ const EffectsManager_AnimationTweaksExtension = class EffectsManager_AnimationTw
       this.onMovingStartSig = global.display.connect('grab-op-begin', (display, screen, window, op)=> this.addWindowStartMovingEffects(window, op, global.display.get_current_monitor()));
       this.onMovingEndSig   = global.display.connect('grab-op-end',   (display, screen, window, op)=> this.addWindowStopMovingEffects(window,  op, global.display.get_current_monitor()));
     }
-       
+           
   }
 
   updateAddDesktopPopUpMenuEffects ( openStatus = "F", closeStatus = "F" ) {
@@ -1642,10 +1676,10 @@ const EffectsManager_AnimationTweaksExtension = class EffectsManager_AnimationTw
   
   updateAddPadOSDEffects ( openStatus = "F", closeStatus = "F" ) {
   
-    ( openStatus =="T" || closeStatus =="T" ) ? Main.osdWindowManager._showOsdWindow = this.driveOSDAnimation : defaultPadOSDShow;
+    Main.osdWindowManager._showOsdWindow = ( openStatus =="T" || closeStatus =="T" ) ? this.driveOSDAnimation : defaultPadOSDShow;
 
   }
-  
+
   updateAddTopPanelPopUpMenuEffects ( openStatus = "F", closeStatus = "F" ) {
         
     this.connectPanelMenusAndOverrideBoxPinterAnimationFunctions(openStatus, closeStatus);
@@ -1663,6 +1697,12 @@ const EffectsManager_AnimationTweaksExtension = class EffectsManager_AnimationTw
     }    
          
   }
+  
+  updateAddWindowMenuEffects ( openStatus = "F", closeStatus = "F" ) {
+  
+    Main.wm._windowMenuManager.showWindowMenuForWindow = ( openStatus =="T" || closeStatus =="T" ) ? this.overriddenShowWindowMenuForWindow : defaultShowWindowMenu;
+
+  }  
 
   destroy () {
 

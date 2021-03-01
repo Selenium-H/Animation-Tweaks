@@ -7,7 +7,7 @@
 </h1>
 
 <p align="center">
-Version 12.11 (Alpha)
+Version 12.12 (Ongoing)
 </p>
 
 <p align="center">
@@ -75,14 +75,6 @@ However, some animations might not work properly.
 
 <p align="center">
 <img src = /Screenshots/Image_12.png >
-</p>
-
-<h1 align="center">
-  Modal Dialog Position Correction
-</h1>
-
-<p align="center">
-<img src = /Screenshots/Image_13.png >
 </p>
 
 <h1 align="center">

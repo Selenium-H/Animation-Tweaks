@@ -1,6 +1,6 @@
 /*
 
-Version 12.11
+Version 12.12
 =============
 
 Effect Format  [  |  S    Name     C       PPX       PPY       CX        CY        DL        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN  ]
@@ -195,8 +195,7 @@ const ExtensionResetButton_AnimationTweaksExtension =  new GObject.Class({
       if(id != Gtk.ResponseType.OK) {
         dialog.destroy();  
         return;
-      }
-      
+      }      
       settings.reset('normal-open');
       settings.reset('normal-close');
       settings.reset('normal-minimize');
@@ -204,7 +203,6 @@ const ExtensionResetButton_AnimationTweaksExtension =  new GObject.Class({
       settings.reset('normal-movestart');
       settings.reset('normal-focus');
       settings.reset('normal-defocus');
-
       settings.reset('dialog-open');
       settings.reset('dialog-close');
       settings.reset('dialog-minimize');
@@ -212,7 +210,6 @@ const ExtensionResetButton_AnimationTweaksExtension =  new GObject.Class({
       settings.reset('dialog-movestart');
       settings.reset('dialog-focus');
       settings.reset('dialog-defocus');
-
       settings.reset('modaldialog-open');
       settings.reset('modaldialog-close');
       settings.reset('modaldialog-minimize');
@@ -220,29 +217,24 @@ const ExtensionResetButton_AnimationTweaksExtension =  new GObject.Class({
       settings.reset('modaldialog-movestart');
       settings.reset('modaldialog-focus');    
       settings.reset('modaldialog-defocus');    
-    
       settings.reset('dropdownmenu-open');
       settings.reset('popupmenu-open');
       settings.reset('combo-open');
       settings.reset('splashscreen-open');
       settings.reset('tooltip-open');
       settings.reset('overrideother-open');
-    
       settings.reset("notificationbanner-open");
       settings.reset("notificationbanner-close");
-    
       settings.reset("padosd-open");
       settings.reset("padosd-close");
-    
       settings.reset("toppanelpopupmenu-open");
       settings.reset("toppanelpopupmenu-close"); 
-    
       settings.reset("desktoppopupmenu-open");
       settings.reset("desktoppopupmenu-close");    
-      
       settings.reset("windowmenu-open");
-      settings.reset("windowmenu-close");              
-    
+      settings.reset("windowmenu-close");        
+      settings.reset("endsessiondialog-open");
+      settings.reset("endsessiondialog-close");                  
       settings.reset('opening-effect');
       settings.reset('closing-effect');
       settings.reset("minimizing-effect");
@@ -250,25 +242,19 @@ const ExtensionResetButton_AnimationTweaksExtension =  new GObject.Class({
       settings.reset("moving-effect");
       settings.reset("focussing-effect");
       settings.reset("defocussing-effect");
-         
       settings.reset("use-application-profiles");
       settings.reset("application-list");
       settings.reset("name-list");
-      
       settings.reset('wayland');
       settings.reset("padosd-hide-timeout");
       settings.reset("notificationbanner-pos");
-    
       settings.reset('current-version');
-      
       dialog.destroy();
       if(object[functionToBeCalledAtTheEnd]) {
         object[functionToBeCalledAtTheEnd]( parameter );
       }
       reloadExtension();
-      
     }));
-    
     dialog.show_all();
    
   },
@@ -288,7 +274,7 @@ const UpdatePage_AnimationTweaksExtension =  new GObject.Class({
     
   keepPreferences: function(dialog) {
   
-    settings.set_double("current-version", Metadata.version);
+    settings.reset('current-version');
     reloadExtension();
     this.updateDone();
     dialog.destroy();
@@ -349,7 +335,7 @@ const UpdatePage_AnimationTweaksExtension =  new GObject.Class({
     this.upgradeFormVersion10.destroy();
     
     this.firstInfo.label =_("Version  ")+ Metadata.version+"\n\n <big><b> "+_("Upgraded Successfully")+"</b></big>";
-    settings.set_double("current-version", parseInt(Metadata.version));
+    settings.reset('current-version');
   
   },
   
@@ -1489,6 +1475,7 @@ const PrefsWindowForClosing_AnimationTweaksExtension = new GObject.Class({
     new AnimationSettingsForItem_AnimationTweaksExtension("other",              "toppanelpopupmenu",  "close", [],               this, pos++,this);
     new AnimationSettingsForItem_AnimationTweaksExtension("other",              "desktoppopupmenu",   "close", [],               this, pos++,this);
     new AnimationSettingsForItem_AnimationTweaksExtension("other",              "windowmenu",         "close", [],               this, pos++,this);
+    new AnimationSettingsForItem_AnimationTweaksExtension("other",              "endsessiondialog",   "close", [],               this, pos++,this);
     
   },
   
@@ -1625,6 +1612,7 @@ const PrefsWindowForOpening_AnimationTweaksExtension = new GObject.Class({
     new AnimationSettingsForItem_AnimationTweaksExtension("other",              "toppanelpopupmenu",  "open", [], this, pos++, this);       
     new AnimationSettingsForItem_AnimationTweaksExtension("other",              "desktoppopupmenu",   "open", [], this, pos++, this);       
     new AnimationSettingsForItem_AnimationTweaksExtension("other",              "windowmenu",         "open", [], this, pos++, this);           
+    new AnimationSettingsForItem_AnimationTweaksExtension("other",              "endsessiondialog",   "open", [], this, pos++, this);           
     
   },
 
@@ -1874,6 +1862,9 @@ const PrefsWindowForExtensionProfiles_AnimationTweaksExtension = new GObject.Cla
       
     this.windowmenuWindowopenProfile  = settings.get_strv("windowmenu-open"); 
     this.windowmenuWindowcloseProfile = settings.get_strv("windowmenu-close");        
+    
+    this.endsessiondialogWindowopenProfile  = settings.get_strv("endsessiondialog-open"); 
+    this.endsessiondialogWindowcloseProfile = settings.get_strv("endsessiondialog-close");       
 
     this.waylandWorkaroundEnabled = settings.get_boolean("wayland");
     this.padOSDHideTime           = settings.get_int("padosd-hide-timeout");
@@ -2001,6 +1992,9 @@ const PrefsWindowForExtensionProfiles_AnimationTweaksExtension = new GObject.Cla
                        
                        + "this.windowmenuWindowopenProfile="+this.stringifyParameters(this.windowmenuWindowopenProfile)
                        + "this.windowmenuWindowcloseProfile="+this.stringifyParameters(this.windowmenuWindowcloseProfile)                       
+      
+                       + "this.endsessiondialogWindowopenProfile="+this.stringifyParameters(this.endsessiondialogWindowopenProfile)
+                       + "this.endsessiondialogWindowcloseProfile="+this.stringifyParameters(this.endsessiondialogWindowcloseProfile)       
       
                        + "this.waylandWorkaroundEnabled="+this.waylandWorkaroundEnabled+";\n"
                        + "this.padOSDHideTime="+this.padOSDHideTime+";\n"

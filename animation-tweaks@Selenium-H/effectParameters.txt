@@ -1,4 +1,4 @@
-Version 12.10
+Version 12.12
 =============
 
 Effect Format  [  |  S    Name     C       PPX       PPY       CX        CY        DL        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN  ]
@@ -125,7 +125,7 @@ Non-float values that extension uses to correct position
 --------------------------------------------------------
 
 C_  =  Position that is modified by a prefix 'C' tells the extension to correct the position during the start of animation.
-       This is done automatically when the extension detects misposition incase of modal doalogs. 
+       This is done automatically when the extension detects misposition of widgets. 
        For example - Original value of parameter PX = -0.2 could be changed to C-0.2. 
                      This will make the extension save the corrected positions coordinates in eParams[0] and eParams[1].
                      Which will corrected the initial position during animation.
@@ -144,7 +144,7 @@ Effect Array   [  |  S    Name                    C       PPX       PPY       CX
 Starting    -->  '|','F'  'Fade',                 '2',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.300',  '220',    '1.0',    '1.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',   '0.0',     'EASE_OUT_CUBIC',  
 Stopping    -->                                           '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.300',  '255',    '1.0',    '1.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',   '0.0',     'EASE_OUT_CUBIC'   
                                                         
-When window movement starts driveOtherEffects function is called with temporarily initializing C = 2/2 = 1, only executes first half of Effect Array 
+When window movement starts driveOtherEffects function is called with temporarily initializing C = 2/2 = 1, only executes first half of Effect Array. 
 When window movement stops  driveOtherEffects function is called with subEffectNo = C/2, only executes second half of Effect Array
 
   

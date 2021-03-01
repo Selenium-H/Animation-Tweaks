@@ -1,8 +1,4 @@
 /*
-
-Version 12.11
-=============
-
 ANIMATION TWEAKS GNOME EXTENSION PROFILES
 =========================================
 
@@ -16,7 +12,7 @@ var AnimationTweaksExtensionProfileDefault=class AnimationTweaksExtensionProfile
 constructor(){
 this.animationTweaksExtensionProfileName="Default";
 this.firstUse=false;
-this.version=12.11;
+this.version=12.12;
 this.openingEffectEnabled=true;
 this.closingingEffectEnabled=false;
 this.minimizingEffectEnabled=false;
@@ -65,6 +61,8 @@ this.desktoppopupmenuWindowopenProfile=["|","F","Scale Down","2","0.0","0.0","0.
 this.desktoppopupmenuWindowcloseProfile=["|","F","Scale Up","1","0.0","0.0","0.0","0.0","0.0","0.300","0","1.0","0.5","0.0","0.0","0.0","0.0","0.0","0.0","EASE_IN_CUBIC"];
 this.windowmenuWindowopenProfile=["|","F","Scale Down","2","0.0","0.0","0.0","0.0","0.0","0.001","0","1.0","0.5","0.0","0.0","0.0","0.0","0.0","0.0","EASE_OUT_CUBIC","0.0","0.0","0.0","0.0","0.0","0.250","255","1.0","1.0","0.0","0.0","0.0","0.0","0.0","0.0","EASE_OUT_CUBIC"];
 this.windowmenuWindowcloseProfile=["|","F","Scale Up","1","0.0","0.0","0.0","0.0","0.0","0.300","0","1.0","0.5","0.0","0.0","0.0","0.0","0.0","0.0","EASE_IN_CUBIC"];
+this.endsessiondialogWindowopenProfile=["|","F","Scale Down","2","0.0","0.0","0.0","0.0","0.0","0.001","0","1.0","0.5","0.0","0.0","0.0","0.0","0.0","0.0","EASE_OUT_CUBIC","0.0","0.0","0.0","0.0","0.0","0.250","255","1.0","1.0","0.0","0.0","0.0","0.0","0.0","0.0","EASE_OUT_CUBIC"];
+this.endsessiondialogWindowcloseProfile=["|","F","Scale Up","1","0.0","0.0","0.0","0.0","0.0","0.300","0","1.0","0.5","0.0","0.0","0.0","0.0","0.0","0.0","EASE_IN_CUBIC"];
 this.waylandWorkaroundEnabled=false;
 this.padOSDHideTime=1500;
 this.showDelay=false;

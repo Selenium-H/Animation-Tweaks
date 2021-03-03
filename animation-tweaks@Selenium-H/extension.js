@@ -1,6 +1,6 @@
 /*
 
-Version 12.12
+Version 12.13
 =============
 
 Credits:
@@ -540,7 +540,7 @@ const EffectsManager_AnimationTweaksExtension = class EffectsManager_AnimationTw
     
   }
   
-  addWindowStopMovingEffects ( window, op, currentMonitorIndex=0, useApplicationProfilesForThisAction = false ) { 
+  addWindowStopMovingEffects ( window, op, currentMonitorIndex = 0, useApplicationProfilesForThisAction = false ) { 
 
     let eParams = [];
     let parameters = {
@@ -561,44 +561,42 @@ const EffectsManager_AnimationTweaksExtension = class EffectsManager_AnimationTw
 
     if(window != null && op == 1 && !Main.overview._shown ) {
     
-      parameters.actor = window.get_compositor_private();
-      window = parameters.actor.meta_window;
+      parameters.actor        = window.get_compositor_private();
+      window                  = parameters.actor.meta_window;
       parameters.appName      = Shell.WindowTracker.get_default().get_window_app(window).get_name();
       parameters.profileIndex = (this.useApplicationProfiles && useApplicationProfilesForThisAction)*(this.nameList.indexOf(parameters.appName)+1);
-      
+           
       switch(window.window_type) {
     
         case Meta.WindowType.NORMAL:
           eParams = this.normalWindowmovestopProfile[parameters.profileIndex].slice(0);
-          if(eParams[0] == "T" ) {
-            parameters.actor.remove_all_transitions();
-            [ parameters.effectName, parameters.itemType, parameters.subeffectNo ] = [ eParams[1], "normal", eParams[2]/2 ];        
-            this.driveOtherAnimation( eParams, parameters ); 
-          }
+          [ parameters.effectName, parameters.itemType, parameters.subeffectNo ] = [ eParams[1], "normal", eParams[2]/2 ];        
           break;
 
         case Meta.WindowType.DIALOG:
           eParams = this.dialogWindowmovestopProfile[parameters.profileIndex].slice(0);          
-          if(eParams[0] == "T" ) {
-            parameters.actor.remove_all_transitions();
-            [ parameters.effectName, parameters.itemType, parameters.subeffectNo ] = [ eParams[1], "dialog", eParams[2]/2 ];        
-            this.driveOtherAnimation( eParams, parameters ); 
-          }
+          [ parameters.effectName, parameters.itemType, parameters.subeffectNo ] = [ eParams[1], "dialog", eParams[2]/2 ];        
           break;
 
         case Meta.WindowType.MODAL_DIALOG:
           eParams = this.modaldialogWindowmovestopProfile[parameters.profileIndex].slice(0);          
-          if(eParams[0] == "T" ) {
-            parameters.actor.remove_all_transitions();
-            [ parameters.effectName, parameters.itemType, parameters.subeffectNo ] = [ eParams[1], "modaldialog", eParams[2]/2 ];        
-            this.driveOtherAnimation( eParams, parameters ); 
-          }
+          [ parameters.effectName, parameters.itemType, parameters.subeffectNo ] = [ eParams[1], "modaldialog", eParams[2]/2 ];        
 
         default:
-          break;
+          return;
 
       }
 
+      if(eParams[0] == "T" ) {
+        if((window.maximized_horizontally || window.maximized_vertically)) {
+          GLib.timeout_add(GLib.PRIORITY_DEFAULT, 300, ()=> this.driveOtherAnimation( eParams, parameters )); 
+        }
+        else {
+          parameters.actor.remove_all_transitions();
+          this.driveOtherAnimation( eParams, parameters ); 
+        }
+      }
+      
     }   
  
   }

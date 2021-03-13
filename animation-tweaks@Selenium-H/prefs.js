@@ -1,6 +1,6 @@
 /*
 
-Version 12.12
+Version 12.14
 =============
 
 Effect Format  [  |  S    Name     C       PPX       PPY       CX        CY        DL        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN  ]
@@ -31,8 +31,7 @@ const _                 = Gettext.domain("animation-tweaks").gettext;
 const TWEEN_PARAMETERS_LENGTH = 16;
 const POSITION_PROFILE_LENGTH = 5;
 
-const PROFILE_FILE_NAME       = "animationTweaksExtensionProfiles.js"; 
-
+const PROFILE_FILE_NAME = "animationTweaksExtensionProfiles.js"; 
 const SETTINGS_APPLY_DELAY_TIME = 500;   
     
 let settings = null;
@@ -120,9 +119,9 @@ const ExtensionPreferencesWindow_AnimationTweaksExtension = new GObject.Class({
     actionGroup.add_action(helpDialogAction)
     actionGroup.add_action(preferencesDialogAction)
 
-    menu.append(_("Preferences"),               "app.preferences"       );
-    menu.append(_("Help"),                      "app.help"              );
-    menu.append(_("About")+" Animation Tweaks", "app.about"             );
+    menu.append(_("Preferences"),               "app.preferences");
+    menu.append(_("Help"),                      "app.help"       );
+    menu.append(_("About")+" Animation Tweaks", "app.about"      );
 
     appMenu.bind_model(menu, "app"); 
         
@@ -266,14 +265,77 @@ const UpdatePage_AnimationTweaksExtension =  new GObject.Class({
   Name: 'UpdatePage_AnimationTweaksExtension',
   Extends: Gtk.ScrolledWindow,
 
-  _init: function(params) {
+  _init: function(profilesObject) {
   
     this.parent();
+    this.profilesObject = profilesObject;
     
   },
-    
+  
+  convertTimeToInteger: function() {  // Upgrade from 12.13 to 12.14 
+  
+    this.convertTimeToIntegerFor('normal-open');
+    this.convertTimeToIntegerFor('normal-close');
+    this.convertTimeToIntegerFor('normal-minimize');
+    this.convertTimeToIntegerFor('normal-unminimize');
+    this.convertTimeToIntegerFor('normal-movestart');
+    this.convertTimeToIntegerFor('normal-focus');
+    this.convertTimeToIntegerFor('normal-defocus');
+    this.convertTimeToIntegerFor('dialog-open');
+    this.convertTimeToIntegerFor('dialog-close');
+    this.convertTimeToIntegerFor('dialog-minimize');
+    this.convertTimeToIntegerFor('dialog-unminimize');
+    this.convertTimeToIntegerFor('dialog-movestart');
+    this.convertTimeToIntegerFor('dialog-focus');
+    this.convertTimeToIntegerFor('dialog-defocus');
+    this.convertTimeToIntegerFor('modaldialog-open');
+    this.convertTimeToIntegerFor('modaldialog-close');
+    this.convertTimeToIntegerFor('modaldialog-minimize');
+    this.convertTimeToIntegerFor('modaldialog-unminimize');
+    this.convertTimeToIntegerFor('modaldialog-movestart');
+    this.convertTimeToIntegerFor('modaldialog-focus');    
+    this.convertTimeToIntegerFor('modaldialog-defocus');    
+    this.convertTimeToIntegerFor('dropdownmenu-open');
+    this.convertTimeToIntegerFor('popupmenu-open');
+    this.convertTimeToIntegerFor('combo-open');
+    this.convertTimeToIntegerFor('splashscreen-open');
+    this.convertTimeToIntegerFor('tooltip-open');
+    this.convertTimeToIntegerFor('overrideother-open');
+    this.convertTimeToIntegerFor("notificationbanner-open");
+    this.convertTimeToIntegerFor("notificationbanner-close");
+    this.convertTimeToIntegerFor("padosd-open");
+    this.convertTimeToIntegerFor("padosd-close");
+    this.convertTimeToIntegerFor("toppanelpopupmenu-open");
+    this.convertTimeToIntegerFor("toppanelpopupmenu-close"); 
+    this.convertTimeToIntegerFor("desktoppopupmenu-open");
+    this.convertTimeToIntegerFor("desktoppopupmenu-close");    
+    this.convertTimeToIntegerFor("windowmenu-open");
+    this.convertTimeToIntegerFor("windowmenu-close");        
+    this.convertTimeToIntegerFor("endsessiondialog-open");
+    this.convertTimeToIntegerFor("endsessiondialog-close");                  
+  
+  },
+  
+  convertTimeToIntegerFor: function(key) {
+
+    let eStr = settings.get_strv(key);
+
+    for (let cIndex = 9;cIndex<eStr.length;cIndex=cIndex+TWEEN_PARAMETERS_LENGTH) {
+      if(eStr[cIndex].indexOf(".") > -1) {
+        eStr[cIndex] = (parseFloat(eStr[cIndex])*1000).toString();
+      }
+      else {
+        return;
+      }
+    }
+    settings.set_strv(key, eStr);
+  
+  },
+  
   keepPreferences: function(dialog) {
   
+    this.convertTimeToInteger();
+    this.profilesObject.extensionProfilesPrefs.saveCurrentProfile();
     settings.reset('current-version');
     reloadExtension();
     this.updateDone();
@@ -283,9 +345,9 @@ const UpdatePage_AnimationTweaksExtension =  new GObject.Class({
      
   displayPrefs: function(){
   
-    this.vbox                 = new Gtk.Box({ orientation: Gtk.Orientation.VERTICAL, margin: 30 });
-    let imageBox              = new Gtk.Box();
-    let image                 = new Gtk.Image({ file: Extension.dir.get_child('eicon.png').get_path(), pixel_size: 96 });
+    this.vbox    = new Gtk.Box({ orientation: Gtk.Orientation.VERTICAL, margin: 30 });
+    let imageBox = new Gtk.Box();
+    let image    = new Gtk.Image({ file: Extension.dir.get_child('eicon.png').get_path(), pixel_size: 96 });
     
     this.firstInfo            = new Gtk.Label({ wrap: true, justify: 2, use_markup: true, label: _("Extension is upgraded to Version  ")+ Metadata.version+"\n\n" + _("A Reset to default preferences is needed if upgrading from a version older than version 10 or unable to reset during previous upgrade to version 10. Please Reset the extension by clicking the button below.")+"\n\n"});  
     this.resetExtensionButton = new ExtensionResetButton_AnimationTweaksExtension( this );
@@ -318,7 +380,7 @@ const UpdatePage_AnimationTweaksExtension =  new GObject.Class({
         dialog.destroy();  
         return;
       }
-      this.keepPreferences(dialog)
+      this.keepPreferences(dialog);
     }));    
     dialog.show_all();
     
@@ -429,7 +491,7 @@ const AnimationSettingsForItem_AnimationTweaksExtension = new GObject.Class({
     }
 
     this.eStr = this.appProfile.getEffectAt(this.appIndex);
-    this.appProfile.modifyEffectForWindowAction(this.appIndex,this.allEffectsList.setEffectTime(value, this.eStr));
+    this.appProfile.modifyEffectForWindowAction(this.appIndex, this.allEffectsList.setEffectTime(value, this.eStr));
    
   },
   
@@ -535,7 +597,7 @@ const Prefs_AnimationTweaksExtension = new GObject.Class({
     this.actionPrefs  = new PrefsWindowForAction_AnimationTweaksExtension();    
     this.profilePrefs = new PrefsWindowForProfiles_AnimationTweaksExtension();
     this.tweaksPrefs  = new PrefsWindowForTweaks_AnimationTweaksExtension();
-    this.updatePage   = new UpdatePage_AnimationTweaksExtension();
+    this.updatePage   = new UpdatePage_AnimationTweaksExtension(this.profilePrefs);
 
     this.parent({ transition_type: 6  ,transition_duration: 200 });
     
@@ -648,10 +710,10 @@ const EffectsList_AnimationTweaksExtension = new GObject.Class({
 
   getTotalDelayOf: function(eStr) {
 
-    let cIndex    = 8;
+    let cIndex = 8;
 
     for (cIndex;cIndex<eStr.length;cIndex=cIndex+TWEEN_PARAMETERS_LENGTH) {
-      if(eStr[cIndex]>"0.010") {
+      if(eStr[cIndex]>"10") {
         return parseFloat(eStr[cIndex-1]);
       }   
     }
@@ -660,14 +722,11 @@ const EffectsList_AnimationTweaksExtension = new GObject.Class({
 
   getTotalTimeOf: function(eStr) {
 
-    let cIndex    = 8;
     let totalTime = 0; 
-
-    for (cIndex;cIndex<eStr.length;cIndex=cIndex+TWEEN_PARAMETERS_LENGTH) {
-      totalTime += (eStr[cIndex]>"0.010") ? parseFloat(eStr[cIndex]) : 0;
+    for (let cIndex = 8;cIndex<eStr.length;cIndex=cIndex+TWEEN_PARAMETERS_LENGTH) {
+      totalTime += (eStr[cIndex]>"10") ? parseFloat(eStr[cIndex]) : 0;
     }
-  
-    return totalTime*1000;
+    return totalTime;
 
   },  
   
@@ -813,12 +872,10 @@ const EffectsList_AnimationTweaksExtension = new GObject.Class({
     
   },
 
-  setEffectDelay: function(value,eStr) {
+  setEffectDelay: function(value, eStr) {
 
-    let cIndex    = 8;
-
-    for (let pIndex = cIndex;pIndex <eStr.length;pIndex=pIndex+TWEEN_PARAMETERS_LENGTH) {
-      if(eStr[pIndex] > "0.010") {
+    for (let pIndex = 8; pIndex < eStr.length; pIndex = pIndex+TWEEN_PARAMETERS_LENGTH) {
+      if(eStr[pIndex] > "10") {
         eStr[pIndex-1] = value.toString();
         return eStr;    
       }
@@ -828,15 +885,13 @@ const EffectsList_AnimationTweaksExtension = new GObject.Class({
   
   setEffectTime: function(value,eStr) {
 
-    let cIndex    = 8;
     let totalTime = this.getTotalTimeOf(eStr); 
 
-    for (let pIndex = cIndex;pIndex <eStr.length;pIndex=pIndex+TWEEN_PARAMETERS_LENGTH) {
-      if(eStr[pIndex] > "0.010"){
-        eStr[pIndex] = (((parseFloat(eStr[pIndex])*value)/totalTime).toPrecision(3)>="0.020") ? ((parseFloat(eStr[pIndex])*value)/totalTime).toPrecision(3).toString() : "0.020";
+    for (let pIndex = 8; pIndex < eStr.length; pIndex = pIndex+TWEEN_PARAMETERS_LENGTH) {
+      if(eStr[pIndex] > "10") {
+        eStr[pIndex] = (((parseInt(eStr[pIndex])*value)/totalTime)>= 20) ? ((parseInt(eStr[pIndex])*value)/totalTime).toString() : "20";
       }
-    }  
-  
+    }    
     return eStr;
 
   },
@@ -883,7 +938,7 @@ const EffectsTweaks_AnimationTweaksExtension =  new GObject.Class({
       this.tweakParameter(         ++i, _("Rotation Center X")+"\t\t"+"["+"\t"+_("0  -  100")+"\t%\t\t"+"]",                  ++pos, 0,     100,     100                            );
       this.tweakParameter(         ++i, _("Rotation Center Y")+"\t\t"+"["+"\t"+_("0  -  100")+"\t%\t\t"+"]",                  ++pos, 0,     100,     100                            );
       this.tweakParameter(         ++i, _("Delay")+"\t\t\t\t\t"+"["+"\t"+_("in milliseconds")+"\t"+"]",                       ++pos, 0,     10000,   1                              ); 
-      this.tweakParameter(         ++i, _("Time")+"\t\t\t\t\t"+"["+"\t"+_("in milliseconds")+"\t"+"]",                        ++pos, 1,     10000,   1000                           ); 
+      this.tweakParameter(         ++i, _("Time")+"\t\t\t\t\t"+"["+"\t"+_("in milliseconds")+"\t"+"]",                        ++pos, 1,     10000,   1                              ); 
       this.tweakParameter(         ++i, _("Ending Opacity")+"\t\t"+"["+"\t"+_("0  -  255")+"\t\t\t"+"]",                      ++pos, 0,     255,     1                              );
       this.tweakParameterDim(      ++i, _("Ending Width")+"\t\t\t"+"["+"\t"+_("0  -  200")+"\t%\t\t"+"]",                     ++pos, 0,     200,     100, ["MW"]                    );
       this.tweakParameterDim(      ++i, _("Ending Height")+"\t\t\t"+"["+"\t"+_("0  -  200")+"\t%\t\t"+"]",                    ++pos, 0,     200,     100, ["MH"]                    );
@@ -1140,6 +1195,10 @@ const PrefsWindowForAction_AnimationTweaksExtension = new GObject.Class({
     this.prefsWindowOpening = new Gtk.ScrolledWindow({hexpand: true,shadow_type: Gtk.ShadowType.IN});
     this.prefsWindowOpening.add(this.openingPrefs);
     this.prefsWindowOpening.set_min_content_height(700);
+
+    const cssProvider = new Gtk.CssProvider();
+    cssProvider.load_from_data('notebook > stack { background: rgba(0,0,0,0.0); }');
+    this.get_style_context().add_provider(cssProvider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
 
     this.append_page(this.prefsWindowOpening, new Gtk.Label({ label: _("Open")                         }));
     this.append_page(this.closingPrefs,       new Gtk.Label({ label: _("Close")                        }));    
@@ -1509,8 +1568,7 @@ const PrefsWindowForFocus_AnimationTweaksExtension = new GObject.Class({
    
     new AnimationSettingsForItem_AnimationTweaksExtension("window", "normal",      "focus", ["focussing-effect"], this.switchBox1, 1,  this      );
     new AnimationSettingsForItem_AnimationTweaksExtension("window", "dialog",      "focus", ["focussing-effect"], this.switchBox1, 2,  this      );
-    new AnimationSettingsForItem_AnimationTweaksExtension("window", "modaldialog", "focus", ["focussing-effect"], this.switchBox1, 3,  this      );    
-    
+    new AnimationSettingsForItem_AnimationTweaksExtension("window", "modaldialog", "focus", ["focussing-effect"], this.switchBox1, 3,  this      );     
     this.prefsWA("defocussing-effect",  0, 0, this.switchBox2);
     new AnimationSettingsForItem_AnimationTweaksExtension("window", "normal",      "defocus", ["defocussing-effect"], this.switchBox3, 0,  this      );
     new AnimationSettingsForItem_AnimationTweaksExtension("window", "dialog",      "defocus", ["defocussing-effect"], this.switchBox3, 1,  this      );
@@ -1630,6 +1688,10 @@ const PrefsWindowForProfiles_AnimationTweaksExtension = new GObject.Class({
     this.appProfilesPrefs       = new PrefsWindowForApps_AnimationTweaksExtension();
     this.extensionProfilesPrefs = new PrefsWindowForExtensionProfiles_AnimationTweaksExtension();
 
+    const cssProvider = new Gtk.CssProvider();
+    cssProvider.load_from_data('notebook > stack { background: rgba(0,0,0,0.0); }');
+    this.get_style_context().add_provider(cssProvider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
+
     this.append_page(this.appProfilesPrefs,         new Gtk.Label({ label: _("Application Profiles")}) );
     this.append_page(this.extensionProfilesPrefs,   new Gtk.Label({ label: _("Extension Profiles")})   );
 
@@ -1732,6 +1794,16 @@ const PrefsWindowForExtensionProfiles_AnimationTweaksExtension = new GObject.Cla
       
     settings.set_strv("desktoppopupmenu-open",  profileClass.desktoppopupmenuWindowopenProfile);
     settings.set_strv("desktoppopupmenu-close", profileClass.desktoppopupmenuWindowcloseProfile);     
+
+    if(profileClass.windowmenuWindowcloseProfile) {
+      settings.set_strv("windowmenu-open",  profileClass.windowmenuWindowcloseProfile);
+      settings.set_strv("windowmenu-close", profileClass.windowmenuWindowopenProfile);     
+    }
+
+    if(profileClass.endsessiondialogWindowopenProfile) {
+      settings.set_strv("endsessiondialog-open",  profileClass.endsessiondialogWindowopenProfile);
+      settings.set_strv("endsessiondialog-close", profileClass.endsessiondialogWindowcloseProfile);     
+    }
 
     settings.set_boolean("wayland",         profileClass.waylandWorkaroundEnabled);
     settings.set_int("padosd-hide-timeout", profileClass.padOSDHideTime);    
@@ -2110,7 +2182,7 @@ const PrefsWindowForTweaks_AnimationTweaksExtension = new GObject.Class({
   
   prefStr: function(KEY, posX, posY, options, items,space) {
   
-    let SettingCombo  = new Gtk.ComboBoxText();
+    let SettingCombo = new Gtk.ComboBoxText();
     let settingLabel = new Gtk.Label({xalign: 1, label: _(settings.settings_schema.get_key(KEY).get_summary()), halign: Gtk.Align.START});  
     
     for (let i=0;i<options.length;i++) {

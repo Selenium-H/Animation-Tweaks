@@ -1,6 +1,6 @@
 /*
 
-Version 12.13
+Version 12.14
 =============
 
 Credits:
@@ -164,8 +164,8 @@ const EffectsManager_AnimationTweaksExtension = class EffectsManager_AnimationTw
       itemObject   : null      
     };
    
-    if(this.focusWindow != null && this.doFocusAndDefocus == true && this.defocussingEffectEnabled == true && !Main.overview._shown ) {
-    
+    if(this.focusWindow != null && global.display.focus_window != null && this.doFocusAndDefocus == true && this.defocussingEffectEnabled == true && !Main.overview._shown ) {
+     
       parameters.actor = this.focusWindow.get_compositor_private();
       let window = parameters.actor.meta_window;
       parameters.appName = Shell.WindowTracker.get_default().get_window_app(window).get_name();
@@ -223,8 +223,8 @@ const EffectsManager_AnimationTweaksExtension = class EffectsManager_AnimationTw
       itemObject   : null      
     };
     
-    if((this.focusWindow = global.display.focus_window) != null && this.doFocusAndDefocus == true && this.focussingEffectEnabled   == true && !Main.overview._shown ) {
-        
+    if((this.focusWindow = global.display.focus_window) != null && parameters.actor != null && this.doFocusAndDefocus == true && this.focussingEffectEnabled   == true && !Main.overview._shown ) {
+      
       parametersFocus.actor = this.focusWindow.get_compositor_private();
       let window = parametersFocus.actor.meta_window;
       parametersFocus.appName = Shell.WindowTracker.get_default().get_window_app(window).get_name();
@@ -950,7 +950,7 @@ const EffectsManager_AnimationTweaksExtension = class EffectsManager_AnimationTw
     Main.messageTray.bannerAlignment = effectsManager.notificationBannerAlignment;
     Main.messageTray._bannerBin.ease({
       delay:            eParams[startIndex++],
-      duration:         eParams[startIndex++]*1000,
+      duration:         eParams[startIndex++],
       opacity:          eParams[startIndex++],
       scale_x:          eParams[startIndex++],
       scale_y:          eParams[startIndex++],    
@@ -1049,7 +1049,7 @@ const EffectsManager_AnimationTweaksExtension = class EffectsManager_AnimationTw
       let skippedPosIndex = startIndex+6;
       parameters.actor.ease({
         delay:             eParams[startIndex++],
-        duration:          eParams[startIndex++]*1000,
+        duration:          eParams[startIndex++],
         opacity:           eParams[startIndex++],
         scale_x:           eParams[startIndex++],
         scale_y:           eParams[startIndex++],         
@@ -1066,7 +1066,7 @@ const EffectsManager_AnimationTweaksExtension = class EffectsManager_AnimationTw
    
     parameters.actor.ease({
       delay:             eParams[startIndex++],
-      duration:          eParams[startIndex++]*1000,
+      duration:          eParams[startIndex++],
       opacity:           eParams[startIndex++],
       scale_x:           eParams[startIndex++],
       scale_y:           eParams[startIndex++],
@@ -1153,7 +1153,7 @@ const EffectsManager_AnimationTweaksExtension = class EffectsManager_AnimationTw
         
     parameters.actor.ease({
       delay:             eParams[startIndex++],
-      duration:          eParams[startIndex++]*1000,
+      duration:          eParams[startIndex++],
       opacity:           eParams[startIndex++],
       scale_x:           eParams[startIndex++],
       scale_y:           eParams[startIndex++],
@@ -1578,8 +1578,8 @@ const EffectsManager_AnimationTweaksExtension = class EffectsManager_AnimationTw
       }
     );  //this.extensionDisableShortcut(); END
     
-    if(extensionSettings.get_double("current-version") <= 10) {    
-      Main.notify("Animation Tweaks","Extension is updated. A reset is needed. Please reset the extension");
+    if(extensionSettings.get_double("current-version") < 12.14) {    
+      Main.notify("Animation Tweaks","Extension is updated. Please Complete the update process in the extension preferences.");
       return;
     }
             
@@ -1590,8 +1590,13 @@ const EffectsManager_AnimationTweaksExtension = class EffectsManager_AnimationTw
     this.pendingMinimize = new Set();
     this.loadProfilePrefs();
     
-    this.popUpMenuManagerSig = Main.layoutManager.uiGroup.connect("actor-added", ()=> {
-      this.updateShellWidgetAnimationFunctions(0);
+    this.popUpMenuManagerSig = Main.layoutManager.uiGroup.connect("actor-added", ( layoutManager, actor )=> {
+    
+      let childName = actor.toString();
+      if( childName.indexOf("background-menu") > -1 || childName.indexOf("panel-menu") > -1 || childName.indexOf("modalDialogGroup") > -1) {
+        this.updateShellWidgetAnimationFunctions(0);
+      }  
+        
     });    
      
     this.onOpeningSig      = (extensionSettings.get_boolean("opening-effect"))      ? global.window_manager.connect("map",        (swm,actor) => this.addWindowOpeningEffects(actor,      global.display.get_current_monitor(), true)) : null;

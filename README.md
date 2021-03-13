@@ -7,18 +7,14 @@
 </h1>
 
 <p align="center">
-Version 12.12 (Ongoing)
+Version 12.14 (Ongoing)
 </p>
 
 <p align="center">
 A GNOME Shell Extension to Tweak animations of different items and Customize them.
 </p>
 <p align="left">
-Please reset the extension after updating. The Extension will stop when upgraded to an incompatible version. In that case an Update tab is created to easily reset the extension. A Reset button is also always present in preferences -> About Tab.
-A Default shortcut combination of Super Key + t is provided to disable the extension. 
-  
-Some effects might not work properly on wayland, for which a workaround is provided on preferences -> Tweaks tab.
-However, some animations might not work properly.
+Please reset the extension after updating. The Extension will stop when upgraded to an incompatible version. In that case an Update tab is created to easily reset the extension. A Reset button is also always present in Preferences option in the Application menu of the extension preferences window. A Default shortcut combination of Super Key + t is provided to disable the extension. Some effects might not work properly on wayland, for which a workaround is provided on preferences -> Tweaks tab. However, some animations might not work properly.", 
 </p>
 
 <h1 align="center">

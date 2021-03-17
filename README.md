@@ -53,24 +53,12 @@ Please reset the extension after updating. The Extension will stop when upgraded
 <img src = /Screenshots/Image_08.png >
 </p>
 
-<p align="center">
-<img src = /Screenshots/Image_09.png >
-</p>
-
-<p align="center">
-<img src = /Screenshots/Image_10.png >
-</p>
-
-<p align="center">
-<img src = /Screenshots/Image_11.png >
-</p>
-
 <h1 align="center">
   Animation Customizations
 </h1>
 
 <p align="center">
-<img src = /Screenshots/Image_12.png >
+<img src = /Screenshots/Image_09.png >
 </p>
 
 <h1 align="center">

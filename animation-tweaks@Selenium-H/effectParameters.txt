@@ -1,4 +1,4 @@
-Version 12.12
+Version 12.15
 =============
 
 Effect Format  [  |  S    Name     C       PPX       PPY       CX        CY        DL        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN  ]
@@ -17,13 +17,13 @@ PPX - Pivot point X        | Can take values -5 - 5.                            
                            |                                                                |                                                                           |
 PPY - Pivot Point Y        | Can take values -5 - 5.                                        | Can be changed from -500 - 500.  Displayed in percentage in preferences.  |
                            |                                                                |                                                                           |
-CX  - Rotation center X    | Can take values 0 - 1. ( Depricated. Not Used any more. )      | Can be changed from 0 - 100.     Displayed in percentage in preferences.  | 
+CX  - Rotation center X    | ( Depricated. Not Used any more. Kept for compatiblity issue ) | Not Shown in preferences.                                                 | 
                            |                                                                |                                                                           |
-CY  - Rotation center Z    | Can take values 0 - 1. ( Depricated. Not Used any more. )      | Can be changed from 0 - 100.     Displayed in percentage in preferences.  |
+CY  - Rotation center Z    | ( Depricated. Not Used any more. Kept for compatiblity issue ) | Not Shown in preferences.                                                 |
                            |                                                                |                                                                           |
 DL  - Delay                | Can take values 0 - 10000 in millisecond.                      | Can be changed from 0 - 10000.   Displayed in millisecond in preferences. |
                            |                                                                |                                                                           |               
-T   - Time                 | Can take values 0 - 10 in seconds.                             | Can be changed from 0 - 10000.   Displayed in millisecond in preferences. |
+T   - Time                 | Can take values 0 - 10000 in millisecond.                      | Can be changed from 0 - 10000.   Displayed in millisecond in preferences. |
                            |                                                                |                                                                           |
 OP  - Opacity              | Can take values 0 - 255.                                       | Can be changed from 0 - 255.     Displayed same in preferences.           |
                            |                                                                |                                                                           |
@@ -74,9 +74,9 @@ Example of parameter stored and displayed in preferences -
 
 Effect Format  [  |  S    Name                    C       PPX       PPY       CX        CY        DL        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN  ]
 
-Values stored    '|','F', 'Slide Down',           '1',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.250',  '0',      '1.0',    '1.0',    '1.0',    '1.2',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_CUBIC'
+Values stored    '|','F', 'Slide Down',           '1',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '250',    '0',      '1.0',    '1.0',    '1.0',    '1.2',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_CUBIC'
 
-Values displayed in preferences                            0         0         0         0         0         250       0         100       100       100       120       0         0         0         0         EASE_OUT_CUBIC
+Values displayed in preferences                            0         0                             0         250       0         100       100       100       120       0         0         0         0         EASE_OUT_CUBIC
 
 
 Changed Parameters
@@ -87,15 +87,24 @@ CZ parameter is replaced by DL ( Delay )
 Delay Parameter ( DL )
 ----------------------
 
-The DL parameter before the first T parameter that is greater than 0.010, is considered the delay of the effect.  
+The DL parameter before the first T parameter that is greater than 10, is considered the delay of the effect. 
+The preferences ignore T values less than 15. Hence, the first T parameter that is greater than 10 and less than 16 can be used to set a dedicated delay parameter set.    
 For Example - 
 Effect Format  [  |  S    Name                    C       PPX       PPY       CX        CY        DL        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN  ]
 
-                 '|','Compressed Slide Down',     '3',    '0.0',    '0.0',    '0.0',    '0.0',    '0',     '0.001',  '255',    'MW',     'MH',     'MX',     'UY',     '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_CUBIC',
-                                                          '0.0',    '0.0',    '0.0',    '0.0',    '10',    '0.250',  '255',    'MW',     'MH',     'MX',     'IY',     '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_CUBIC', 
-                                                          '0.0',    '0.0',    '0.0',    '0.0',    '0',     '0.250',  '255',    '1.0',    '1.0',    'IX',     'IY',     '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_CUBIC'                                           
+                 '|','Scale Down',                '2',    '0.0',    '0.0',    '0.0',    '0.0',    '200',    '1',      '0',      '1.0',    '0.5',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_CUBIC',
+                                                          '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '300',    '255',    '1.0',    '1.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_CUBIC',  
 
-Delay of the above effect is 10. Any DL parameter before or after that should be made zero unless needed.  
+Delay of the above effect is 200. Time of the effect shown is 300ms 
+
+                 '|','Compressed Slide Down',     '4',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '1',      '0',      'MW',     'MH',     'MX',     'UY',     '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_CUBIC',
+                                            Second Set -> '0.0',    '0.0',    '0.0',    '0.0',    '400',    '15',     '255',    'MW',     'MH',     'MX',     'UY',     '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_CUBIC',
+                                            Third Set  -> '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '250',    '255',    'MW',     'MH',     'MX',     'IY',     '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_CUBIC', 
+                                            Forth Set  -> '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '250',    '255',    '1.0',    '1.0',    'IX',     'IY',     '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_CUBIC',                                           
+
+Delay of the above effect is 400. Time of the effect shown is 500ms. Actually, its 515ms.
+The second set is used as a dedicated delay parameter set. This is needed sometimes to properly set the initial parameters and apply delay accordingly. 
+Any DL parameter before or after that should be made zero unless needed.  
 Changing DL parameter at improper places in Effect Array may cause instabilities in animation. 
 
 A Delay entry is avialable in Preferences. To manage effect Delay time enable "Show delay time in preferences" option from Preferences -> Tweaks Tab.
@@ -141,8 +150,8 @@ Moving effect Array stores two animations in a single array as follows
 
 Effect Array   [  |  S    Name                    C       PPX       PPY       CX        CY        DL        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN  ]
 
-Starting    -->  '|','F'  'Fade',                 '2',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.300',  '220',    '1.0',    '1.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',   '0.0',     'EASE_OUT_CUBIC',  
-Stopping    -->                                           '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.300',  '255',    '1.0',    '1.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',   '0.0',     'EASE_OUT_CUBIC'   
+Starting    -->  '|','F'  'Fade',                 '2',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '300',    '220',    '1.0',    '1.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',   '0.0',     'EASE_OUT_CUBIC',  
+Stopping    -->                                           '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '300',    '255',    '1.0',    '1.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',   '0.0',     'EASE_OUT_CUBIC'   
                                                         
 When window movement starts driveOtherEffects function is called with temporarily initializing C = 2/2 = 1, only executes first half of Effect Array. 
 When window movement stops  driveOtherEffects function is called with subEffectNo = C/2, only executes second half of Effect Array

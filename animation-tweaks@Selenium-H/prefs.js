@@ -1,6 +1,6 @@
 /*
 
-Version 12.14
+Version 12.15
 =============
 
 Effect Format  [  |  S    Name     C       PPX       PPY       CX        CY        DL        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN  ]
@@ -29,7 +29,6 @@ const Lang              = imports.lang;
 const _                 = Gettext.domain("animation-tweaks").gettext;
 
 const TWEEN_PARAMETERS_LENGTH = 16;
-const POSITION_PROFILE_LENGTH = 5;
 
 const PROFILE_FILE_NAME = "animationTweaksExtensionProfiles.js"; 
 const SETTINGS_APPLY_DELAY_TIME = 500;   
@@ -72,6 +71,7 @@ function reloadExtension () {
  
   reloadExtensionAfterSomeTime = GLib.timeout_add(GLib.PRIORITY_DEFAULT, SETTINGS_APPLY_DELAY_TIME, ()=> {
     settings.set_boolean("reload-signal", (settings.get_boolean("reload-signal")) ? false : true ); 
+    settings.set_boolean("current-profile-modified", true);
     reloadExtensionAfterSomeTime = null;
   });
     
@@ -86,6 +86,7 @@ function reloadApplicationProfiles() {
 
   reloadApplicationProfileAfterSomeTime = GLib.timeout_add(GLib.PRIORITY_DEFAULT, SETTINGS_APPLY_DELAY_TIME, ()=> {
     settings.set_boolean("reload-profiles-signal", (settings.get_boolean("reload-profiles-signal")) ? false : true );
+    settings.set_boolean("current-profile-modified", true);
     reloadApplicationProfileAfterSomeTime = null;
   });
 
@@ -710,9 +711,7 @@ const EffectsList_AnimationTweaksExtension = new GObject.Class({
 
   getTotalDelayOf: function(eStr) {
 
-    let cIndex = 8;
-
-    for (cIndex;cIndex<eStr.length;cIndex=cIndex+TWEEN_PARAMETERS_LENGTH) {
+    for (cIndex = 8; cIndex<eStr.length; cIndex = cIndex + TWEEN_PARAMETERS_LENGTH) {
       if(eStr[cIndex]>"10") {
         return parseFloat(eStr[cIndex-1]);
       }   
@@ -724,7 +723,7 @@ const EffectsList_AnimationTweaksExtension = new GObject.Class({
 
     let totalTime = 0; 
     for (let cIndex = 8;cIndex<eStr.length;cIndex=cIndex+TWEEN_PARAMETERS_LENGTH) {
-      totalTime += (eStr[cIndex]>"10") ? parseFloat(eStr[cIndex]) : 0;
+      totalTime += (eStr[cIndex]>"15") ? parseFloat(eStr[cIndex]) : 0;
     }
     return totalTime;
 
@@ -888,7 +887,7 @@ const EffectsList_AnimationTweaksExtension = new GObject.Class({
     let totalTime = this.getTotalTimeOf(eStr); 
 
     for (let pIndex = 8; pIndex < eStr.length; pIndex = pIndex+TWEEN_PARAMETERS_LENGTH) {
-      if(eStr[pIndex] > "10") {
+      if(eStr[pIndex] > "15") {
         eStr[pIndex] = (((parseInt(eStr[pIndex])*value)/totalTime)>= 20) ? ((parseInt(eStr[pIndex])*value)/totalTime).toString() : "20";
       }
     }    
@@ -935,10 +934,11 @@ const EffectsTweaks_AnimationTweaksExtension =  new GObject.Class({
        
       this.tweakParameter(         ++i, _("Pivot Point X")+"\t\t\t"+"["+"\t"+_("-500  -  500")+"\t%\t\t"+"]",                 ++pos, -500,  500,     100                            );
       this.tweakParameter(         ++i, _("Pivot Point Y")+"\t\t\t"+"["+"\t"+_("-500  -  500")+"\t%\t\t"+"]",                 ++pos, -500,  500,     100                            );
-      this.tweakParameter(         ++i, _("Rotation Center X")+"\t\t"+"["+"\t"+_("0  -  100")+"\t%\t\t"+"]",                  ++pos, 0,     100,     100                            );
-      this.tweakParameter(         ++i, _("Rotation Center Y")+"\t\t"+"["+"\t"+_("0  -  100")+"\t%\t\t"+"]",                  ++pos, 0,     100,     100                            );
-      this.tweakParameter(         ++i, _("Delay")+"\t\t\t\t\t"+"["+"\t"+_("in milliseconds")+"\t"+"]",                       ++pos, 0,     10000,   1                              ); 
-      this.tweakParameter(         ++i, _("Time")+"\t\t\t\t\t"+"["+"\t"+_("in milliseconds")+"\t"+"]",                        ++pos, 1,     10000,   1                              ); 
+      //this.tweakParameter(         ++i, _("Rotation Center X")+"\t\t"+"["+"\t"+_("0  -  100")+"\t%\t\t"+"]",                  ++pos, 0,     100,     100                            );
+      //this.tweakParameter(         ++i, _("Rotation Center Y")+"\t\t"+"["+"\t"+_("0  -  100")+"\t%\t\t"+"]",                  ++pos, 0,     100,     100                            );
+      //this.tweakParameter(         ++i, _("Delay")+"\t\t\t\t\t"+"["+"\t"+_("in milliseconds")+"\t"+"]",                       ++pos, 0,     10000,   1                              ); 
+      i+=3;
+      this.tweakParameter(         ++i, _("Time")+"\t\t\t\t\t"+"["+"\t"+_("in milliseconds")+"\t"+"]",                        ++pos, 1,     10000,   1, false                       ); 
       this.tweakParameter(         ++i, _("Ending Opacity")+"\t\t"+"["+"\t"+_("0  -  255")+"\t\t\t"+"]",                      ++pos, 0,     255,     1                              );
       this.tweakParameterDim(      ++i, _("Ending Width")+"\t\t\t"+"["+"\t"+_("0  -  200")+"\t%\t\t"+"]",                     ++pos, 0,     200,     100, ["MW"]                    );
       this.tweakParameterDim(      ++i, _("Ending Height")+"\t\t\t"+"["+"\t"+_("0  -  200")+"\t%\t\t"+"]",                    ++pos, 0,     200,     100, ["MH"]                    );
@@ -995,12 +995,25 @@ const EffectsTweaks_AnimationTweaksExtension =  new GObject.Class({
     
   },
 
-  tweakParameter : function(pNo,INFO,pos,minPV,maxPV,multiplier) {
+  tweakParameter : function(pNo,INFO,pos,minPV,maxPV,multiplier, sensitive = true) {
   
     let SettingLabel    = new Gtk.Label({ xalign:  1, label: INFO,halign: Gtk.Align.START });  
     let effectParameter = Gtk.SpinButton.new_with_range(minPV,maxPV,1);
     
     effectParameter.set_value(parseFloat(this.eStr[pNo])*multiplier);
+
+    if(sensitive == true) {
+      effectParameter.sensitive = true;
+    }
+    else {
+      if(effectParameter.get_value_as_int()/multiplier <= 15) {
+        effectParameter.sensitive = false;
+      }
+      else {
+        effectParameter.sensitive = true;
+      }
+    }
+
     effectParameter.connect('notify::value', (spin)=> {     
       this.eStr[pNo]=(spin.get_value_as_int()/multiplier).toString();
       this.appProfile.modifyEffectForWindowAction(this.appIndex,this.eStr);
@@ -1713,6 +1726,12 @@ const PrefsWindowForExtensionProfiles_AnimationTweaksExtension = new GObject.Cla
   _init: function() {  
   
     this.parent();
+    this.valign = Gtk.Align.CENTER;
+    const cssProvider = new Gtk.CssProvider();
+    cssProvider.load_from_data('grid { padding-left: 80px; padding-top: 60px; }');
+    this.get_style_context().add_provider(cssProvider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);    
+    this.get_style_context().add_class("frame");
+    this.get_style_context().add_class("view");
     this.setPath();   
    
   },
@@ -1976,9 +1995,12 @@ const PrefsWindowForExtensionProfiles_AnimationTweaksExtension = new GObject.Cla
   
     let settingLabel = new Gtk.Label({xalign: 1, label: _(settings.settings_schema.get_key(KEY).get_summary()), halign: Gtk.Align.START});  
     let SettingCombo = new Gtk.ComboBoxText();
-    let saveExtensionProfilesButton   = new Gtk.Button({label: _("Save"),    halign:Gtk.Align.START});
+    let saveExtensionProfilesButton = new Gtk.Button({label: _("Save"), halign:Gtk.Align.START, sensitive: settings.get_boolean("current-profile-modified") });
     
-    saveExtensionProfilesButton.connect('clicked',    ()=> this.saveCurrentProfile());
+    saveExtensionProfilesButton.connect('clicked', ()=> this.saveCurrentProfile());
+    settings.connect("changed::current-profile-modified", ()=> {
+      saveExtensionProfilesButton.sensitive = settings.get_boolean("current-profile-modified");
+    });
     
     for (let i = 0; i < options.length; i++) {
       SettingCombo.append(options[i],  items[i]);
@@ -1998,6 +2020,7 @@ const PrefsWindowForExtensionProfiles_AnimationTweaksExtension = new GObject.Cla
   
   saveCurrentProfile: function() {
   
+    settings.set_boolean("current-profile-modified", false);
     this.loadExtensionProfiles();
     let oldProfileFileData = String( GLib.file_get_contents(this.PROFILE_PATH+PROFILE_FILE_NAME) [1]);
      

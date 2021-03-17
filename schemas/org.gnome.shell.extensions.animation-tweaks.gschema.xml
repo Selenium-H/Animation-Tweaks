@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- 
-Version 12.14
+Version 12.15
 =============
 
 Effect Format  [  |  S    Name     C       PPX       PPY       CX        CY        DL        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN  ]
@@ -31,7 +31,7 @@ Read the effectParameters.txt File for details.
     <key name="normal-open" type="as">
     <!-- |  S    Name                    C       PPX       PPY       CX        CY        DL        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN -->
       <default>[                         
-        '|','F', 'Scale Down',           '2',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '1',      '0',      '1.0',    '0.5',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_CUBIC',
+        '|','F', 'Scale Down',           '2',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '1',      '0',      '1.0',    '0.7',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_CUBIC',
                                                  '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '300',    '255',    '1.0',    '1.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_CUBIC'  
       ]</default>
       <summary>Normal Windows</summary>
@@ -61,7 +61,7 @@ Read the effectParameters.txt File for details.
     <key name="dropdownmenu-open" type="as">
     <!-- |  S    Name                    C       PPX       PPY       CX        CY        DL        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN -->
       <default>[
-        '|','T', 'Scale Down',           '2',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '1',      '0',      '1.0',    '0.5',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_CUBIC',
+        '|','T', 'Scale Down',           '2',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '1',      '0',      '1.0',    '0.7',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_CUBIC',
                                                  '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '250',    '255',    '1.0',    '1.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_CUBIC'  
       ]</default>
       <summary>Dropdown Menu</summary>
@@ -71,7 +71,7 @@ Read the effectParameters.txt File for details.
     <key name="popupmenu-open" type="as">
     <!-- |  S    Name                    C       PPX       PPY       CX        CY        DL        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN -->
       <default>[
-        '|','T', 'Scale Down',           '2',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '1',      '0',      '1.0',    '0.5',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_CUBIC',
+        '|','T', 'Scale Down',           '2',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '1',      '0',      '1.0',    '0.7',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_CUBIC',
                                                  '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '250',    '255',    '1.0',    '1.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_CUBIC'  
       ]</default>
       <summary>Pop Up Menu</summary>
@@ -81,7 +81,7 @@ Read the effectParameters.txt File for details.
     <key name="combo-open" type="as">
     <!-- |  S    Name                    C       PPX       PPY       CX        CY        DL        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN -->
       <default>[
-        '|','T', 'Scale Down',           '2',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '1',      '0',      '1.0',    '0.5',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_CUBIC',
+        '|','T', 'Scale Down',           '2',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '1',      '0',      '1.0',    '0.7',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_CUBIC',
                                                  '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '250',    '255',    '1.0',    '1.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_CUBIC'  
       ]</default>
       <summary>Combo Box</summary>
@@ -111,7 +111,7 @@ Read the effectParameters.txt File for details.
     <key name="overrideother-open" type="as">
     <!-- |  S    Name                    C       PPX       PPY       CX        CY        DL        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN -->
       <default>[
-        '|','T', 'Scale Down',           '2',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '1',      '0',      '1.0',    '0.5',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_CUBIC',
+        '|','T', 'Scale Down',           '2',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '1',      '0',      '1.0',    '0.7',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_CUBIC',
                                                  '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '250',    '255',    '1.0',    '1.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_CUBIC'  
       ]</default>
       <summary>Overrides Others</summary>
@@ -121,7 +121,7 @@ Read the effectParameters.txt File for details.
     <key name="notificationbanner-open" type="as">
     <!-- |  S    Name                    C       PPX       PPY       CX        CY        DL        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN -->
       <default>[
-        '|','F', 'Fade In',              '2',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '1',      '0',      '1.0',    '1.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_CUBIC',
+        '|','F', 'Fade In',              '2',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '1',      '128',      '1.0',    '1.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_CUBIC',
                                                  '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '300',    '255',    '1.0',    '1.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_CUBIC'  
       ]</default>
       <summary>Notification Banner</summary>
@@ -142,7 +142,7 @@ Read the effectParameters.txt File for details.
     <key name="toppanelpopupmenu-open" type="as">
     <!-- |  S    Name                    C       PPX       PPY       CX        CY        DL        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN -->
       <default>[
-        '|','F', 'Scale Down',           '2',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '1',      '0',      '1.0',    '0.5',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_CUBIC',
+        '|','F', 'Scale Down',           '2',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '1',      '0',      '1.0',    '0.7',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_CUBIC',
                                                  '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '250',    '255',    '1.0',    '1.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_CUBIC'  
       ]</default>
       <summary>Top Panel Pop Up Menu</summary>
@@ -152,7 +152,7 @@ Read the effectParameters.txt File for details.
     <key name="desktoppopupmenu-open" type="as">
     <!-- |  S    Name                    C       PPX       PPY       CX        CY        DL        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN -->
       <default>[
-        '|','F', 'Scale Down',           '2',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '1',      '0',      '1.0',    '0.5',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_CUBIC',
+        '|','F', 'Scale Down',           '2',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '1',      '0',      '1.0',    '0.7',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_CUBIC',
                                                  '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '250',    '255',    '1.0',    '1.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_CUBIC'  
       ]</default>
       <summary>Desktop Pop Up Menu</summary>
@@ -162,7 +162,7 @@ Read the effectParameters.txt File for details.
     <key name="windowmenu-open" type="as">
     <!-- |  S    Name                    C       PPX       PPY       CX        CY        DL        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN -->
       <default>[
-        '|','F', 'Scale Down',           '2',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '1',      '0',      '1.0',    '0.5',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_CUBIC',
+        '|','F', 'Scale Down',           '2',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '1',      '0',      '1.0',    '0.7',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_CUBIC',
                                                  '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '250',    '255',    '1.0',    '1.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_CUBIC'  
       ]</default>
       <summary>Window Menu</summary>
@@ -172,7 +172,7 @@ Read the effectParameters.txt File for details.
     <key name="endsessiondialog-open" type="as">
     <!-- |  S    Name                    C       PPX       PPY       CX        CY        DL        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN -->
       <default>[
-        '|','F', 'Scale Down',           '2',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '1',      '0',      '1.0',    '0.5',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_CUBIC',
+        '|','F', 'Scale Down',           '2',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '1',      '0',      '1.0',    '0.7',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_CUBIC',
                                                  '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '250',    '255',    '1.0',    '1.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_CUBIC'  
       ]</default>
       <summary>Session Ending Dialogs</summary>
@@ -190,7 +190,7 @@ Read the effectParameters.txt File for details.
     <key name="normal-close" type="as">
     <!-- |  S    Name                    C       PPX       PPY       CX        CY        DL        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN -->
       <default>[
-        '|','F', 'Scale Up',             '1',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '300',    '0',      '1.0',    '0.5',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_IN_CUBIC'
+        '|','F', 'Scale Up',             '1',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '300',    '0',      '1.0',    '0.7',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_IN_CUBIC'
       ]</default>
       <summary>Normal Windows</summary>
       <description>Animation settings for Normal Windows closing</description>
@@ -208,7 +208,7 @@ Read the effectParameters.txt File for details.
     <key name="modaldialog-close" type="as">
     <!-- |  S    Name                    C       PPX       PPY       CX        CY        DL        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN -->
       <default>[
-        '|','F', 'Slide Up',             '1',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '300',    '0',      '1.0',    '1.0',    '0.0',    '-0.2',   '0.0',    '0.0',    '0.0',    '0.0',    'EASE_IN_CUBIC'
+        '|','F', 'Slide Up',             '1',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '300',    '0',      '1.0',    '1.0',    '0.0',    '-0.1',   '0.0',    '0.0',    '0.0',    '0.0',    'EASE_IN_CUBIC'
       ]</default>
       <summary>Modal Dialog</summary>
       <description>Animation settings for Modal Dialog Windows closing</description>
@@ -226,7 +226,7 @@ Read the effectParameters.txt File for details.
     <key name="padosd-close" type="as">
     <!-- |  S    Name                    C       PPX       PPY       CX        CY        DL        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN -->
       <default>[
-        '|','F', 'Scale Up',             '1',    '0.0',    '1.0',    '0.0',    '0.0',    '0.0',    '300',    '255',    '1.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_CUBIC'
+        '|','F', 'Scale Up',             '1',    '0.0',    '1.0',    '0.0',    '0.0',    '0.0',    '300',    '255',    '1.5',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_CUBIC'
       ]</default>
       <summary>Pad OSD</summary>
       <description>Animation settings for Pad OSD closing</description>
@@ -235,7 +235,7 @@ Read the effectParameters.txt File for details.
     <key name="toppanelpopupmenu-close" type="as">
     <!-- |  S    Name                    C       PPX       PPY       CX        CY        DL        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN -->
       <default>[
-        '|','F', 'Scale Up',             '1',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '300',    '0',      '1.0',    '0.5',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_IN_CUBIC'
+        '|','F', 'Scale Up',             '1',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '300',    '0',      '1.0',    '0.7',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_IN_CUBIC'
       ]</default>
       <summary>Top Panel Pop Up Menu</summary>
       <description>Animation settings for Top Panel Pop Up Menu closing</description>
@@ -244,7 +244,7 @@ Read the effectParameters.txt File for details.
     <key name="desktoppopupmenu-close" type="as">
     <!-- |  S    Name                    C       PPX       PPY       CX        CY        DL        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN -->
       <default>[
-        '|','F', 'Scale Up',             '1',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '300',    '0',      '1.0',    '0.5',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_IN_CUBIC'
+        '|','F', 'Scale Up',             '1',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '300',    '0',      '1.0',    '0.7',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_IN_CUBIC'
       ]</default>
       <summary>Desktop Pop Up Menu</summary>
       <description>Animation settings for Desktop Pop Up Menu closing</description>
@@ -253,7 +253,7 @@ Read the effectParameters.txt File for details.
     <key name="windowmenu-close" type="as">
     <!-- |  S    Name                    C       PPX       PPY       CX        CY        DL        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN -->
       <default>[
-        '|','F', 'Scale Up',             '1',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '300',    '0',      '1.0',    '0.5',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_IN_CUBIC'
+        '|','F', 'Scale Up',             '1',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '300',    '0',      '1.0',    '0.7',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_IN_CUBIC'
       ]</default>
       <summary>Window Menu</summary>
       <description>Animation settings for Window Menu closing</description>
@@ -262,7 +262,7 @@ Read the effectParameters.txt File for details.
     <key name="endsessiondialog-close" type="as">
     <!-- |  S    Name                    C       PPX       PPY       CX        CY        DL        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN -->
       <default>[
-        '|','F', 'Scale Up',             '1',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '300',    '0',      '1.0',    '0.5',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_IN_CUBIC'
+        '|','F', 'Scale Up',             '1',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '300',    '0',      '1.0',    '0.7',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_IN_CUBIC'
       ]</default>
       <summary>Session Ending Dialogs</summary>
       <description>Animation settings for Session Ending Dialogs closing</description>
@@ -279,7 +279,7 @@ Read the effectParameters.txt File for details.
     <key name="normal-minimize" type="as">
     <!-- |  S    Name                    C       PPX       PPY       CX        CY        DL        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN -->
       <default>[
-        '|','F', 'Slide Down',           '1',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '300',    '0',      '1.0',    '1.0',    '0.0',    '0.2',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_IN_CUBIC'
+        '|','F', 'Slide Down',           '1',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '300',    '0',      '1.0',    '1.0',    '0.0',    '0.1',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_IN_CUBIC'
       ]</default>
       <summary>Normal Windows</summary>
       <description>Animation settings for Normal Windows minimizing</description>
@@ -288,7 +288,7 @@ Read the effectParameters.txt File for details.
     <key name="dialog-minimize" type="as">
     <!-- |  S    Name                    C       PPX       PPY       CX        CY        DL        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN -->
       <default>[
-        '|','F', 'Slide Down',           '1',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '300',    '0',      '1.0',    '1.0',    '0.0',    '0.2',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_IN_CUBIC'
+        '|','F', 'Slide Down',           '1',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '300',    '0',      '1.0',    '1.0',    '0.0',    '0.1',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_IN_CUBIC'
       ]</default>
       <summary>Dialog Windows</summary>
       <description>Animation settings for Dialog Windows minimizing</description>
@@ -297,7 +297,7 @@ Read the effectParameters.txt File for details.
     <key name="modaldialog-minimize" type="as">
     <!-- |  S    Name                    C       PPX       PPY       CX        CY        DL        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN -->
       <default>[
-        '|','F', 'Slide Down',           '1',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '300',    '0',      '1.0',    '1.0',    '0.0',    '0.2',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_IN_CUBIC'
+        '|','F', 'Slide Down',           '1',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '300',    '0',      '1.0',    '1.0',    '0.0',    '0.1',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_IN_CUBIC'
       ]</default>
       <summary>Modal Dialog</summary>
       <description>Only provided so that shell does not crash if for any reason Modal Dialog Windows is minimzing</description>
@@ -314,8 +314,8 @@ Read the effectParameters.txt File for details.
     <key name="normal-unminimize" type="as">
     <!-- |  S    Name                    C       PPX       PPY       CX        CY        DL        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN -->
       <default>[
-        '|','F', 'Slide Up',             '2',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '1',      '0',      '1.0',    '1.0',    '0.0',    '0.2',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_CUBIC',
-                                                 '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '300',    '255',    '1.0',    '1.0',    '0.0',    '-0.2',   '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_CUBIC'  
+        '|','F', 'Slide Up',             '2',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '1',      '0',      '1.0',    '1.0',    '0.0',    '0.1',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_CUBIC',
+                                                 '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '300',    '255',    '1.0',    '1.0',    '0.0',    '-0.1',   '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_CUBIC'  
       ]</default>
       <summary>Normal Windows</summary>
       <description>Animation settings for Normal Windows unminimizing</description>
@@ -324,8 +324,8 @@ Read the effectParameters.txt File for details.
     <key name="dialog-unminimize" type="as">
     <!-- |  S    Name                    C       PPX       PPY       CX        CY        DL        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN -->
       <default>[
-        '|','F', 'Slide Up',             '2',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '1',      '0',      '1.0',    '1.0',    '0.0',    '0.2',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_CUBIC',
-                                                 '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '300',    '255',    '1.0',    '1.0',    '0.0',    '-0.2',   '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_CUBIC'  
+        '|','F', 'Slide Up',             '2',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '1',      '0',      '1.0',    '1.0',    '0.0',    '0.1',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_CUBIC',
+                                                 '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '300',    '255',    '1.0',    '1.0',    '0.0',    '-0.1',   '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_CUBIC'  
       ]</default>
       <summary>Dialog Windows</summary>
       <description>Animation settings for Dialog Windows unminimzing</description>
@@ -334,8 +334,8 @@ Read the effectParameters.txt File for details.
     <key name="modaldialog-unminimize" type="as">
     <!-- |  S    Name                    C       PPX       PPY       CX        CY        DL        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN -->
       <default>[
-        '|','F', 'Slide Up',             '2',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '1',      '0',      '1.0',    '1.0',    '0.0',    '0.2',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_CUBIC',
-                                                 '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '300',    '255',    '1.0',    '1.0',    '0.0',    '-0.2',   '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_CUBIC' 
+        '|','F', 'Slide Up',             '2',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '1',      '0',      '1.0',    '1.0',    '0.0',    '0.1',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_CUBIC',
+                                                 '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '300',    '255',    '1.0',    '1.0',    '0.0',    '-0.1',   '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_CUBIC' 
       ]</default>
       <summary>Modal Dialog</summary>
       <description>Only provided so that shell does not crash if for any reason Modal Dialog Windows is unminimzing</description>
@@ -522,9 +522,15 @@ Read the effectParameters.txt File for details.
     <!--  =============================================================================   Extension Variables  =========================================================================================== -->
 
     <key name="current-version" type="d">
-      <default>12.14</default>
+      <default>12.15</default>
       <summary>Version of Current Extension</summary>
       <description>Provided to ensure that extension is stopped incase of autoupdate from previous version to prevent unwanted effects</description>
+    </key>
+
+    <key name="current-profile-modified" type="b">
+      <default>false</default>
+      <summary>Signals the preferences to unlock save button</summary>
+      <description>Signals the preferences to unlock save button</description>
     </key>
 
     <key name="reload-signal" type="b">

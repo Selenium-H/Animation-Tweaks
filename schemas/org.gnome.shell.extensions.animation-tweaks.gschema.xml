@@ -226,7 +226,7 @@ Read the effectParameters.txt File for details.
     <key name="padosd-close" type="as">
     <!-- |  S    Name                    C       PPX       PPY       CX        CY        DL        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN -->
       <default>[
-        '|','F', 'Scale Up',             '1',    '0.0',    '1.0',    '0.0',    '0.0',    '0.0',    '300',    '255',    '1.5',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_CUBIC'
+        '|','F', 'Scale Up',             '1',    '0.0',    '1.0',    '0.0',    '0.0',    '0.0',    '300',    '255',    '1.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_CUBIC'
       ]</default>
       <summary>Pad OSD</summary>
       <description>Animation settings for Pad OSD closing</description>

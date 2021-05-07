@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- 
-Version 12.15
+Version 12.16
 =============
 
 Effect Format  [  |  S    Name     C       PPX       PPY       CX        CY        DL        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN  ]
@@ -114,7 +114,7 @@ Read the effectParameters.txt File for details.
         '|','T', 'Scale Down',           '2',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '1',      '0',      '1.0',    '0.7',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_CUBIC',
                                                  '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '250',    '255',    '1.0',    '1.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_CUBIC'  
       ]</default>
-      <summary>Overrides Others</summary>
+      <summary>Override Other</summary>
       <description>Animation settings for Overrides Others opening</description>
     </key>
     
@@ -522,7 +522,7 @@ Read the effectParameters.txt File for details.
     <!--  =============================================================================   Extension Variables  =========================================================================================== -->
 
     <key name="current-version" type="d">
-      <default>12.15</default>
+      <default>12.16</default>
       <summary>Version of Current Extension</summary>
       <description>Provided to ensure that extension is stopped incase of autoupdate from previous version to prevent unwanted effects</description>
     </key>

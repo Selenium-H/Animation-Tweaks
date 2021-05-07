@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-03-17 18:19+0530\n"
+"POT-Creation-Date: 2021-05-08 04:34+0530\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,46 +17,57 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: animation-tweaks@Selenium-H/prefs.js:123
-#: animation-tweaks@Selenium-H/prefs.js:133
+#: animation-tweaks@Selenium-H/prefsGtk3.js:110
+#: animation-tweaks@Selenium-H/prefsGtk3.js:120
+#: animation-tweaks@Selenium-H/prefsGtk4.js:106
+#: animation-tweaks@Selenium-H/prefsGtk4.js:118
 msgid "Preferences"
 msgstr ""
 
-#: animation-tweaks@Selenium-H/prefs.js:124
-#: animation-tweaks@Selenium-H/prefs.js:142
+#: animation-tweaks@Selenium-H/prefsGtk3.js:111
+#: animation-tweaks@Selenium-H/prefsGtk3.js:129
+#: animation-tweaks@Selenium-H/prefsGtk4.js:107
+#: animation-tweaks@Selenium-H/prefsGtk4.js:127
 msgid "Help"
 msgstr ""
 
-#: animation-tweaks@Selenium-H/prefs.js:125
+#: animation-tweaks@Selenium-H/prefsGtk3.js:112
+#: animation-tweaks@Selenium-H/prefsGtk4.js:108
 msgid "About"
 msgstr ""
 
-#: animation-tweaks@Selenium-H/prefs.js:180
+#: animation-tweaks@Selenium-H/prefsGtk3.js:167
+#: animation-tweaks@Selenium-H/prefsGtk4.js:161
 msgid "Reset Animation Tweaks Extension"
 msgstr ""
 
-#: animation-tweaks@Selenium-H/prefs.js:192
+#: animation-tweaks@Selenium-H/prefsGtk3.js:179
+#: animation-tweaks@Selenium-H/prefsGtk4.js:173
 msgid "Reset Animation Tweaks to defaults?"
 msgstr ""
 
-#: animation-tweaks@Selenium-H/prefs.js:193
+#: animation-tweaks@Selenium-H/prefsGtk3.js:180
+#: animation-tweaks@Selenium-H/prefsGtk4.js:174
 msgid ""
 "Resetting the extension will discard the current preferences configuration "
 "and restore default one."
 msgstr ""
 
-#: animation-tweaks@Selenium-H/prefs.js:353
+#: animation-tweaks@Selenium-H/prefsGtk3.js:340
+#: animation-tweaks@Selenium-H/prefsGtk4.js:334
 msgid "Extension is upgraded to Version  "
 msgstr ""
 
-#: animation-tweaks@Selenium-H/prefs.js:353
+#: animation-tweaks@Selenium-H/prefsGtk3.js:340
+#: animation-tweaks@Selenium-H/prefsGtk4.js:334
 msgid ""
 "A Reset to default preferences is needed if upgrading from a version older "
 "than version 10 or unable to reset during previous upgrade to version 10. "
 "Please Reset the extension by clicking the button below."
 msgstr ""
 
-#: animation-tweaks@Selenium-H/prefs.js:362
+#: animation-tweaks@Selenium-H/prefsGtk3.js:349
+#: animation-tweaks@Selenium-H/prefsGtk4.js:343
 msgid ""
 "If already upgraded to Version 10 or higher and it's working fine, you can "
 "keep the preferences as it is.\n"
@@ -64,19 +75,23 @@ msgid ""
 "reset."
 msgstr ""
 
-#: animation-tweaks@Selenium-H/prefs.js:363
+#: animation-tweaks@Selenium-H/prefsGtk3.js:350
+#: animation-tweaks@Selenium-H/prefsGtk4.js:344
 msgid "Upgrade From Version 10 or newer."
 msgstr ""
 
-#: animation-tweaks@Selenium-H/prefs.js:377
+#: animation-tweaks@Selenium-H/prefsGtk3.js:364
+#: animation-tweaks@Selenium-H/prefsGtk4.js:358
 msgid "Keep Preferences and Upgrade?"
 msgstr ""
 
-#: animation-tweaks@Selenium-H/prefs.js:378
+#: animation-tweaks@Selenium-H/prefsGtk3.js:365
+#: animation-tweaks@Selenium-H/prefsGtk4.js:359
 msgid "Otherwise click Cancel to go back and reset."
 msgstr ""
 
-#: animation-tweaks@Selenium-H/prefs.js:378
+#: animation-tweaks@Selenium-H/prefsGtk3.js:365
+#: animation-tweaks@Selenium-H/prefsGtk4.js:359
 msgid ""
 "\n"
 "Please make sure that\n"
@@ -88,296 +103,378 @@ msgid ""
 "\n"
 msgstr ""
 
-#: animation-tweaks@Selenium-H/prefs.js:400
+#: animation-tweaks@Selenium-H/prefsGtk3.js:387
+#: animation-tweaks@Selenium-H/prefsGtk4.js:381
 msgid "Version  "
 msgstr ""
 
-#: animation-tweaks@Selenium-H/prefs.js:400
+#: animation-tweaks@Selenium-H/prefsGtk3.js:387
+#: animation-tweaks@Selenium-H/prefsGtk4.js:381
 msgid "Upgraded Successfully"
 msgstr ""
 
-#: animation-tweaks@Selenium-H/prefs.js:501
+#: animation-tweaks@Selenium-H/prefsGtk3.js:488
+#: animation-tweaks@Selenium-H/prefsGtk4.js:482
 msgid "Customize Animation"
 msgstr ""
 
-#: animation-tweaks@Selenium-H/prefs.js:505
+#: animation-tweaks@Selenium-H/prefsGtk3.js:492
+#: animation-tweaks@Selenium-H/prefsGtk4.js:486
 msgid "Restore Default"
 msgstr ""
 
-#: animation-tweaks@Selenium-H/prefs.js:606
+#: animation-tweaks@Selenium-H/prefsGtk3.js:593
+#: animation-tweaks@Selenium-H/prefsGtk4.js:587
 msgid "Update"
 msgstr ""
 
-#: animation-tweaks@Selenium-H/prefs.js:609
+#: animation-tweaks@Selenium-H/prefsGtk3.js:596
+#: animation-tweaks@Selenium-H/prefsGtk4.js:590
 msgid "Actions"
 msgstr ""
 
-#: animation-tweaks@Selenium-H/prefs.js:610
+#: animation-tweaks@Selenium-H/prefsGtk3.js:597
+#: animation-tweaks@Selenium-H/prefsGtk4.js:591
 msgid "Profiles"
 msgstr ""
 
-#: animation-tweaks@Selenium-H/prefs.js:611
+#: animation-tweaks@Selenium-H/prefsGtk3.js:598
+#: animation-tweaks@Selenium-H/prefsGtk4.js:592
 msgid "Tweaks"
 msgstr ""
 
-#: animation-tweaks@Selenium-H/prefs.js:911
+#: animation-tweaks@Selenium-H/prefsGtk3.js:898
+#: animation-tweaks@Selenium-H/prefsGtk4.js:892
 msgid "Any  Changes  done  here  are  Applied  immediately"
 msgstr ""
 
-#: animation-tweaks@Selenium-H/prefs.js:912
+#: animation-tweaks@Selenium-H/prefsGtk3.js:899
+#: animation-tweaks@Selenium-H/prefsGtk4.js:893
 msgid "Details of parameter values are described in"
 msgstr ""
 
-#: animation-tweaks@Selenium-H/prefs.js:912
+#: animation-tweaks@Selenium-H/prefsGtk3.js:899
+#: animation-tweaks@Selenium-H/prefsGtk4.js:893
 msgid "file  in  extension folder."
 msgstr ""
 
-#: animation-tweaks@Selenium-H/prefs.js:925
+#: animation-tweaks@Selenium-H/prefsGtk3.js:912
+#: animation-tweaks@Selenium-H/prefsGtk4.js:906
 msgid "Parameters for Starting Effect"
 msgstr ""
 
-#: animation-tweaks@Selenium-H/prefs.js:932
+#: animation-tweaks@Selenium-H/prefsGtk3.js:919
+#: animation-tweaks@Selenium-H/prefsGtk4.js:913
 msgid "Tween Parameters - "
 msgstr ""
 
-#: animation-tweaks@Selenium-H/prefs.js:935
+#: animation-tweaks@Selenium-H/prefsGtk3.js:922
+#: animation-tweaks@Selenium-H/prefsGtk4.js:916
 msgid "Pivot Point X"
 msgstr ""
 
-#: animation-tweaks@Selenium-H/prefs.js:935
-#: animation-tweaks@Selenium-H/prefs.js:936
+#: animation-tweaks@Selenium-H/prefsGtk3.js:922
+#: animation-tweaks@Selenium-H/prefsGtk3.js:923
+#: animation-tweaks@Selenium-H/prefsGtk4.js:916
+#: animation-tweaks@Selenium-H/prefsGtk4.js:917
 msgid "-500  -  500"
 msgstr ""
 
-#: animation-tweaks@Selenium-H/prefs.js:936
+#: animation-tweaks@Selenium-H/prefsGtk3.js:923
+#: animation-tweaks@Selenium-H/prefsGtk4.js:917
 msgid "Pivot Point Y"
 msgstr ""
 
-#: animation-tweaks@Selenium-H/prefs.js:941
+#: animation-tweaks@Selenium-H/prefsGtk3.js:928
+#: animation-tweaks@Selenium-H/prefsGtk4.js:919
 msgid "Time"
 msgstr ""
 
-#: animation-tweaks@Selenium-H/prefs.js:941
+#: animation-tweaks@Selenium-H/prefsGtk3.js:928
+#: animation-tweaks@Selenium-H/prefsGtk4.js:919
 msgid "in milliseconds"
 msgstr ""
 
-#: animation-tweaks@Selenium-H/prefs.js:942
+#: animation-tweaks@Selenium-H/prefsGtk3.js:929
+#: animation-tweaks@Selenium-H/prefsGtk4.js:920
 msgid "Ending Opacity"
 msgstr ""
 
-#: animation-tweaks@Selenium-H/prefs.js:942
+#: animation-tweaks@Selenium-H/prefsGtk3.js:929
+#: animation-tweaks@Selenium-H/prefsGtk4.js:920
 msgid "0  -  255"
 msgstr ""
 
-#: animation-tweaks@Selenium-H/prefs.js:943
+#: animation-tweaks@Selenium-H/prefsGtk3.js:930
+#: animation-tweaks@Selenium-H/prefsGtk4.js:921
 msgid "Ending Width"
 msgstr ""
 
-#: animation-tweaks@Selenium-H/prefs.js:943
-#: animation-tweaks@Selenium-H/prefs.js:944
+#: animation-tweaks@Selenium-H/prefsGtk3.js:930
+#: animation-tweaks@Selenium-H/prefsGtk3.js:931
+#: animation-tweaks@Selenium-H/prefsGtk4.js:921
+#: animation-tweaks@Selenium-H/prefsGtk4.js:922
 msgid "0  -  200"
 msgstr ""
 
-#: animation-tweaks@Selenium-H/prefs.js:944
+#: animation-tweaks@Selenium-H/prefsGtk3.js:931
+#: animation-tweaks@Selenium-H/prefsGtk4.js:922
 msgid "Ending Height"
 msgstr ""
 
-#: animation-tweaks@Selenium-H/prefs.js:945
+#: animation-tweaks@Selenium-H/prefsGtk3.js:932
+#: animation-tweaks@Selenium-H/prefsGtk4.js:923
 msgid "Movement along X"
 msgstr ""
 
-#: animation-tweaks@Selenium-H/prefs.js:945
+#: animation-tweaks@Selenium-H/prefsGtk3.js:932
+#: animation-tweaks@Selenium-H/prefsGtk4.js:923
 msgid "0 ± % Screen width from current X→"
 msgstr ""
 
-#: animation-tweaks@Selenium-H/prefs.js:946
+#: animation-tweaks@Selenium-H/prefsGtk3.js:933
+#: animation-tweaks@Selenium-H/prefsGtk4.js:924
 msgid "Movement along Y"
 msgstr ""
 
-#: animation-tweaks@Selenium-H/prefs.js:946
+#: animation-tweaks@Selenium-H/prefsGtk3.js:933
+#: animation-tweaks@Selenium-H/prefsGtk4.js:924
 msgid "0 ± % Screen height from current Y↓"
 msgstr ""
 
-#: animation-tweaks@Selenium-H/prefs.js:947
+#: animation-tweaks@Selenium-H/prefsGtk3.js:934
+#: animation-tweaks@Selenium-H/prefsGtk4.js:925
 msgid "Movement along Z"
 msgstr ""
 
-#: animation-tweaks@Selenium-H/prefs.js:947
+#: animation-tweaks@Selenium-H/prefsGtk3.js:934
+#: animation-tweaks@Selenium-H/prefsGtk4.js:925
 msgid "0 ± % Screen height from current Z"
 msgstr ""
 
-#: animation-tweaks@Selenium-H/prefs.js:948
+#: animation-tweaks@Selenium-H/prefsGtk3.js:935
+#: animation-tweaks@Selenium-H/prefsGtk4.js:926
 msgid "Rotation about X"
 msgstr ""
 
-#: animation-tweaks@Selenium-H/prefs.js:948
-#: animation-tweaks@Selenium-H/prefs.js:949
-#: animation-tweaks@Selenium-H/prefs.js:950
+#: animation-tweaks@Selenium-H/prefsGtk3.js:935
+#: animation-tweaks@Selenium-H/prefsGtk3.js:936
+#: animation-tweaks@Selenium-H/prefsGtk3.js:937
+#: animation-tweaks@Selenium-H/prefsGtk4.js:926
+#: animation-tweaks@Selenium-H/prefsGtk4.js:927
+#: animation-tweaks@Selenium-H/prefsGtk4.js:928
 msgid "in Degree"
 msgstr ""
 
-#: animation-tweaks@Selenium-H/prefs.js:949
+#: animation-tweaks@Selenium-H/prefsGtk3.js:936
+#: animation-tweaks@Selenium-H/prefsGtk4.js:927
 msgid "Rotation about Y"
 msgstr ""
 
-#: animation-tweaks@Selenium-H/prefs.js:950
+#: animation-tweaks@Selenium-H/prefsGtk3.js:937
+#: animation-tweaks@Selenium-H/prefsGtk4.js:928
 msgid "Rotation about Z"
 msgstr ""
 
-#: animation-tweaks@Selenium-H/prefs.js:951
+#: animation-tweaks@Selenium-H/prefsGtk3.js:938
+#: animation-tweaks@Selenium-H/prefsGtk4.js:929
 msgid "Transition Type"
 msgstr ""
 
-#: animation-tweaks@Selenium-H/prefs.js:956
+#: animation-tweaks@Selenium-H/prefsGtk3.js:943
+#: animation-tweaks@Selenium-H/prefsGtk4.js:934
 msgid "Parameters for Ending Effect"
 msgstr ""
 
-#: animation-tweaks@Selenium-H/prefs.js:1148
+#: animation-tweaks@Selenium-H/prefsGtk3.js:1135
+#: animation-tweaks@Selenium-H/prefsGtk4.js:1126
 msgid "Items"
 msgstr ""
 
-#: animation-tweaks@Selenium-H/prefs.js:1149
-#: animation-tweaks@Selenium-H/prefs.js:1389
+#: animation-tweaks@Selenium-H/prefsGtk3.js:1136
+#: animation-tweaks@Selenium-H/prefsGtk3.js:1376
+#: animation-tweaks@Selenium-H/prefsGtk4.js:1127
+#: animation-tweaks@Selenium-H/prefsGtk4.js:1361
 msgid "Effect"
 msgstr ""
 
-#: animation-tweaks@Selenium-H/prefs.js:1151
-#: animation-tweaks@Selenium-H/prefs.js:1391
+#: animation-tweaks@Selenium-H/prefsGtk3.js:1138
+#: animation-tweaks@Selenium-H/prefsGtk3.js:1378
+#: animation-tweaks@Selenium-H/prefsGtk4.js:1129
+#: animation-tweaks@Selenium-H/prefsGtk4.js:1363
 msgid "Delay [ in ms ]"
 msgstr ""
 
-#: animation-tweaks@Selenium-H/prefs.js:1153
-#: animation-tweaks@Selenium-H/prefs.js:1393
+#: animation-tweaks@Selenium-H/prefsGtk3.js:1140
+#: animation-tweaks@Selenium-H/prefsGtk3.js:1380
+#: animation-tweaks@Selenium-H/prefsGtk4.js:1131
+#: animation-tweaks@Selenium-H/prefsGtk4.js:1365
 msgid "Time [ in ms ]"
 msgstr ""
 
-#: animation-tweaks@Selenium-H/prefs.js:1154
-#: animation-tweaks@Selenium-H/prefs.js:1394
+#: animation-tweaks@Selenium-H/prefsGtk3.js:1141
+#: animation-tweaks@Selenium-H/prefsGtk3.js:1381
+#: animation-tweaks@Selenium-H/prefsGtk4.js:1132
+#: animation-tweaks@Selenium-H/prefsGtk4.js:1366
 msgid "Status"
 msgstr ""
 
-#: animation-tweaks@Selenium-H/prefs.js:1216
+#: animation-tweaks@Selenium-H/prefsGtk3.js:1203
+#: animation-tweaks@Selenium-H/prefsGtk4.js:1194
 msgid "Open"
 msgstr ""
 
-#: animation-tweaks@Selenium-H/prefs.js:1217
+#: animation-tweaks@Selenium-H/prefsGtk3.js:1204
+#: animation-tweaks@Selenium-H/prefsGtk4.js:1195
 msgid "Close"
 msgstr ""
 
-#: animation-tweaks@Selenium-H/prefs.js:1218
+#: animation-tweaks@Selenium-H/prefsGtk3.js:1205
+#: animation-tweaks@Selenium-H/prefsGtk4.js:1196
 msgid "Minimize"
 msgstr ""
 
-#: animation-tweaks@Selenium-H/prefs.js:1218
+#: animation-tweaks@Selenium-H/prefsGtk3.js:1205
+#: animation-tweaks@Selenium-H/prefsGtk4.js:1196
 msgid "Unminimize"
 msgstr ""
 
-#: animation-tweaks@Selenium-H/prefs.js:1219
+#: animation-tweaks@Selenium-H/prefsGtk3.js:1206
+#: animation-tweaks@Selenium-H/prefsGtk4.js:1197
 msgid "Focus"
 msgstr ""
 
-#: animation-tweaks@Selenium-H/prefs.js:1219
+#: animation-tweaks@Selenium-H/prefsGtk3.js:1206
+#: animation-tweaks@Selenium-H/prefsGtk4.js:1197
 msgid "Defocus"
 msgstr ""
 
-#: animation-tweaks@Selenium-H/prefs.js:1220
+#: animation-tweaks@Selenium-H/prefsGtk3.js:1207
+#: animation-tweaks@Selenium-H/prefsGtk4.js:1198
 msgid "Drag"
 msgstr ""
 
-#: animation-tweaks@Selenium-H/prefs.js:1251
+#: animation-tweaks@Selenium-H/prefsGtk3.js:1238
+#: animation-tweaks@Selenium-H/prefsGtk4.js:1223
 msgid "Choose an application"
 msgstr ""
 
-#: animation-tweaks@Selenium-H/prefs.js:1255
-#: animation-tweaks@Selenium-H/prefs.js:1419
+#: animation-tweaks@Selenium-H/prefsGtk3.js:1242
+#: animation-tweaks@Selenium-H/prefsGtk3.js:1406
+#: animation-tweaks@Selenium-H/prefsGtk4.js:1227
+#: animation-tweaks@Selenium-H/prefsGtk4.js:1391
 msgid "Add"
 msgstr ""
 
-#: animation-tweaks@Selenium-H/prefs.js:1344
-#: animation-tweaks@Selenium-H/prefs.js:1507
+#: animation-tweaks@Selenium-H/prefsGtk3.js:1331
+#: animation-tweaks@Selenium-H/prefsGtk3.js:1494
+#: animation-tweaks@Selenium-H/prefsGtk4.js:1316
+#: animation-tweaks@Selenium-H/prefsGtk4.js:1479
 msgid "No Application Selected"
 msgstr ""
 
-#: animation-tweaks@Selenium-H/prefs.js:1370
+#: animation-tweaks@Selenium-H/prefsGtk3.js:1357
+#: animation-tweaks@Selenium-H/prefsGtk4.js:1342
 msgid "Window Preferences"
 msgstr ""
 
-#: animation-tweaks@Selenium-H/prefs.js:1388
+#: animation-tweaks@Selenium-H/prefsGtk3.js:1375
+#: animation-tweaks@Selenium-H/prefsGtk4.js:1360
 msgid "Action"
 msgstr ""
 
-#: animation-tweaks@Selenium-H/prefs.js:1406
+#: animation-tweaks@Selenium-H/prefsGtk3.js:1393
+#: animation-tweaks@Selenium-H/prefsGtk4.js:1378
 msgid "Application List"
 msgstr ""
 
-#: animation-tweaks@Selenium-H/prefs.js:1422
+#: animation-tweaks@Selenium-H/prefsGtk3.js:1409
+#: animation-tweaks@Selenium-H/prefsGtk4.js:1394
 msgid "Remove"
 msgstr ""
 
-#: animation-tweaks@Selenium-H/prefs.js:1708
+#: animation-tweaks@Selenium-H/prefsGtk3.js:1695
+#: animation-tweaks@Selenium-H/prefsGtk4.js:1680
 #: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:462
 msgid "Application Profiles"
 msgstr ""
 
-#: animation-tweaks@Selenium-H/prefs.js:1709
+#: animation-tweaks@Selenium-H/prefsGtk3.js:1696
+#: animation-tweaks@Selenium-H/prefsGtk4.js:1681
 msgid "Extension Profiles"
 msgstr ""
 
-#: animation-tweaks@Selenium-H/prefs.js:1741
+#: animation-tweaks@Selenium-H/prefsGtk3.js:1728
+#: animation-tweaks@Selenium-H/prefsGtk4.js:1710
 msgid "Export Profiles"
 msgstr ""
 
-#: animation-tweaks@Selenium-H/prefs.js:1742
+#: animation-tweaks@Selenium-H/prefsGtk3.js:1729
+#: animation-tweaks@Selenium-H/prefsGtk4.js:1711
 msgid "Import Profiles"
 msgstr ""
 
-#: animation-tweaks@Selenium-H/prefs.js:1843
-#: animation-tweaks@Selenium-H/prefs.js:1844
+#: animation-tweaks@Selenium-H/prefsGtk3.js:1830
+#: animation-tweaks@Selenium-H/prefsGtk3.js:1831
+#: animation-tweaks@Selenium-H/prefsGtk4.js:1812
+#: animation-tweaks@Selenium-H/prefsGtk4.js:1813
 msgid "Import"
 msgstr ""
 
-#: animation-tweaks@Selenium-H/prefs.js:1843
-#: animation-tweaks@Selenium-H/prefs.js:1844
+#: animation-tweaks@Selenium-H/prefsGtk3.js:1830
+#: animation-tweaks@Selenium-H/prefsGtk3.js:1831
+#: animation-tweaks@Selenium-H/prefsGtk4.js:1812
+#: animation-tweaks@Selenium-H/prefsGtk4.js:1813
 msgid "Export"
 msgstr ""
 
-#: animation-tweaks@Selenium-H/prefs.js:1843
+#: animation-tweaks@Selenium-H/prefsGtk3.js:1830
+#: animation-tweaks@Selenium-H/prefsGtk4.js:1812
 msgid " Animation Tweaks Profile"
 msgstr ""
 
-#: animation-tweaks@Selenium-H/prefs.js:1998
+#: animation-tweaks@Selenium-H/prefsGtk3.js:1985
+#: animation-tweaks@Selenium-H/prefsGtk4.js:1967
 msgid "Save"
 msgstr ""
 
-#: animation-tweaks@Selenium-H/prefs.js:2168
+#: animation-tweaks@Selenium-H/prefsGtk3.js:2155
+#: animation-tweaks@Selenium-H/prefsGtk4.js:2137
 msgid "Autodetect"
 msgstr ""
 
-#: animation-tweaks@Selenium-H/prefs.js:2168
+#: animation-tweaks@Selenium-H/prefsGtk3.js:2155
+#: animation-tweaks@Selenium-H/prefsGtk4.js:2137
 msgid "Left"
 msgstr ""
 
-#: animation-tweaks@Selenium-H/prefs.js:2168
+#: animation-tweaks@Selenium-H/prefsGtk3.js:2155
+#: animation-tweaks@Selenium-H/prefsGtk4.js:2137
 msgid "Center"
 msgstr ""
 
-#: animation-tweaks@Selenium-H/prefs.js:2168
+#: animation-tweaks@Selenium-H/prefsGtk3.js:2155
+#: animation-tweaks@Selenium-H/prefsGtk4.js:2137
 msgid "Right"
 msgstr ""
 
-#: animation-tweaks@Selenium-H/prefs.js:2169
+#: animation-tweaks@Selenium-H/prefsGtk3.js:2156
+#: animation-tweaks@Selenium-H/prefsGtk4.js:2138
 msgid "Alt Key"
 msgstr ""
 
-#: animation-tweaks@Selenium-H/prefs.js:2169
+#: animation-tweaks@Selenium-H/prefsGtk3.js:2156
+#: animation-tweaks@Selenium-H/prefsGtk4.js:2138
 msgid "Ctrl Key"
 msgstr ""
 
-#: animation-tweaks@Selenium-H/prefs.js:2169
+#: animation-tweaks@Selenium-H/prefsGtk3.js:2156
+#: animation-tweaks@Selenium-H/prefsGtk4.js:2138
 msgid "Shift Key"
 msgstr ""
 
-#: animation-tweaks@Selenium-H/prefs.js:2169
+#: animation-tweaks@Selenium-H/prefsGtk3.js:2156
+#: animation-tweaks@Selenium-H/prefsGtk4.js:2138
 msgid "Super Key"
 msgstr ""
 
@@ -472,7 +569,7 @@ msgid "Animation settings for Tooltips opening"
 msgstr ""
 
 #: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:117
-msgid "Overrides Others"
+msgid "Override Other"
 msgstr ""
 
 #: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:118

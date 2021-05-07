@@ -4,9 +4,10 @@
 "comment": "Add animations to different items and customize them.",
 "uuid": "animation-tweaks@Selenium-H", 
 "shell-version": [
-	"3.38"
+	"3.38",
+	"40"
 ],
 "status" : " (Beta)",
 "url": "https://github.com/Selenium-H/Animation-Tweaks", 
-"version": 12.15
+"version": 12.16
 }

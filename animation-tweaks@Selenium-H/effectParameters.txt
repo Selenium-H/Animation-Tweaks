@@ -1,7 +1,7 @@
-Version 12.00
+Version 12.16
 =============
 
-Effect Format  [  |  S    Name     C       PPX       PPY       CX        CY        CZ        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN  ]
+Effect Format  [  |  S    Name     C       PPX       PPY       CX        CY        DL        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN  ]
 
 =========================================================================================================================================================================
 Parameters                 | Values it take                                                 | Values displayed in preferences                                           |
@@ -17,13 +17,13 @@ PPX - Pivot point X        | Can take values -5 - 5.                            
                            |                                                                |                                                                           |
 PPY - Pivot Point Y        | Can take values -5 - 5.                                        | Can be changed from -500 - 500.  Displayed in percentage in preferences.  |
                            |                                                                |                                                                           |
-CX  - Rotation center X    | Can take values 0 - 1.                                         | Can be changed from 0 - 100.     Displayed in percentage in preferences.  | 
+CX  - Rotation center X    | ( Depricated. Not Used any more. Kept for compatiblity issue ) | Not Shown in preferences.                                                 | 
                            |                                                                |                                                                           |
-CY  - Rotation center Z    | Can take values 0 - 1.                                         | Can be changed from 0 - 100.     Displayed in percentage in preferences.  |
+CY  - Rotation center Z    | ( Depricated. Not Used any more. Kept for compatiblity issue ) | Not Shown in preferences.                                                 |
                            |                                                                |                                                                           |
-CZ  - Rotation center Y    | Can take values 0 - 1.                                         | Can be changed from 0 - 100.     Displayed in percentage in preferences.  |
+DL  - Delay                | Can take values 0 - 10000 in millisecond.                      | Can be changed from 0 - 10000.   Displayed in millisecond in preferences. |
                            |                                                                |                                                                           |               
-T   - Time                 | Can take values 0 - 10 in seconds.                             | Can be changed from 0 - 10000.   Displayed in milisecond in preferences.  |
+T   - Time                 | Can take values 0 - 10000 in millisecond.                      | Can be changed from 0 - 10000.   Displayed in millisecond in preferences. |
                            |                                                                |                                                                           |
 OP  - Opacity              | Can take values 0 - 255.                                       | Can be changed from 0 - 255.     Displayed same in preferences.           |
                            |                                                                |                                                                           |
@@ -49,11 +49,11 @@ TZ  - Movement along Z     | Can take the values -1 - 1                         
                            |           Moves window by 0.3*height foreward from             |           Moves window by 30 % its height foreward from current position. |
                            |           current position.                                    | Displayed in percentage in preferences.                                   |
                            |                                                                |                                                                           |
-RX  - Rotation center X    | Can take values -3600 - 3600 [ In Degrees (°) ]                | Can be changed from -3600° - 3600°. Displayed in degree in preferences.   |
+RX  - Rotation about X     | Can take values -3600 - 3600 [ In Degrees (°) ]                | Can be changed from -3600° - 3600°. Displayed in degree in preferences.   |
                            |                                                                |                                                                           |
-RY  - Rotation center Z    | Can take values -3600 - 3600 [ In Degrees (°) ]                | Can be changed from -3600° - 3600°. Displayed in degree in preferences.   |  
+RY  - Rotation about Z     | Can take values -3600 - 3600 [ In Degrees (°) ]                | Can be changed from -3600° - 3600°. Displayed in degree in preferences.   |  
                            |                                                                |                                                                           |
-RZ  - Rotation center Y    | Can take values -3600 - 3600 [ In Degrees (°) ]                | Can be changed from -3600° - 3600°. Displayed in degree in preferences.   |
+RZ  - Rotation about Y     | Can take values -3600 - 3600 [ In Degrees (°) ]                | Can be changed from -3600° - 3600°. Displayed in degree in preferences.   |
                            |                                                                |                                                                           |
 TRN - Transiion Type       | Can take the following values                                  | Can be selected form Dropdown List.                                       |
                            |                                                                |                                                                           |
@@ -70,18 +70,47 @@ TRN - Transiion Type       | Can take the following values                      
                            |                                                                |                                                                           |
 =========================================================================================================================================================================
 
-
 Example of parameter stored and displayed in preferences -
 
-Effect Format  [  |  S    Name                    C       PPX       PPY       CX        CY        CZ        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN  ]
+Effect Format  [  |  S    Name                    C       PPX       PPY       CX        CY        DL        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN  ]
 
-Values stored    '|','F', 'Slide Down',           '1',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.250',  '0',      '1.0',    '1.0',    '1.0',    '1.2',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_CUBIC'
+Values stored    '|','F', 'Slide Down',           '1',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '250',    '0',      '1.0',    '1.0',    '1.0',    '1.2',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_CUBIC'
 
-Values displayed in preferences                            0         0         0         0         0         250       0         100       100       100       120       0         0         0         0         EASE_OUT_CUBIC
+Values displayed in preferences                            0         0                             0         250       0         100       100       100       120       0         0         0         0         EASE_OUT_CUBIC
+
+
+Changed Parameters
+------------------
+
+CZ parameter is replaced by DL ( Delay )
+
+Delay Parameter ( DL )
+----------------------
+
+The DL parameter before the first T parameter that is greater than 10, is considered the delay of the effect. 
+The preferences ignore T values less than 15. Hence, the first T parameter that is greater than 10 and less than 16 can be used to set a dedicated delay parameter set.    
+For Example - 
+Effect Format  [  |  S    Name                    C       PPX       PPY       CX        CY        DL        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN  ]
+
+                 '|','Scale Down',                '2',    '0.0',    '0.0',    '0.0',    '0.0',    '200',    '1',      '0',      '1.0',    '0.5',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_CUBIC',
+                                                          '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '300',    '255',    '1.0',    '1.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_CUBIC',  
+
+Delay of the above effect is 200. Time of the effect shown is 300ms 
+
+                 '|','Compressed Slide Down',     '4',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '1',      '0',      'MW',     'MH',     'MX',     'UY',     '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_CUBIC',
+                                            Second Set -> '0.0',    '0.0',    '0.0',    '0.0',    '400',    '15',     '255',    'MW',     'MH',     'MX',     'UY',     '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_CUBIC',
+                                            Third Set  -> '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '250',    '255',    'MW',     'MH',     'MX',     'IY',     '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_CUBIC', 
+                                            Forth Set  -> '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '250',    '255',    '1.0',    '1.0',    'IX',     'IY',     '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_CUBIC',                                           
+
+Delay of the above effect is 400. Time of the effect shown is 500ms. Actually, its 515ms.
+The second set is used as a dedicated delay parameter set. This is needed sometimes to properly set the initial parameters and apply delay accordingly. 
+Any DL parameter before or after that should be made zero unless needed.  
+Changing DL parameter at improper places in Effect Array may cause instabilities in animation. 
+
+A Delay entry is avialable in Preferences. To manage effect Delay time enable "Show delay time in preferences" option from Preferences -> Tweaks Tab.
  
- 
-Parameter Values - non-float ( window animations only ) 
-=======================================================
+Parameter Values - non-float ( Normal window, Dialogs and Modal Dialogs animations only ) 
+=========================================================================================
 
 MW  =  Width of Minimized window 
 MH  =  Height of Minimized window
@@ -101,21 +130,28 @@ SY  =  Same Y Coordinate as previous
 IX  =  Initial X Coordinate during start
 IY  =  Initial Y Coordinate during start
 
+Non-float values that extension uses to correct position
+--------------------------------------------------------
 
-All non float values are overridden by actual values obtained from setNextParametersWindow function at run time.
-
+C_  =  Position that is modified by a prefix 'C' tells the extension to correct the position during the start of animation.
+       This is done automatically when the extension detects misposition of widgets. 
+       For example - Original value of parameter PX = -0.2 could be changed to C-0.2. 
+                     This will make the extension save the corrected positions coordinates in eParams[0] and eParams[1].
+                     Which will corrected the initial position during animation.
+      
+       This is done only for initial position correction and automatically.
 
 Moving Effects
 ==============
 
 Moving effect Array stores two animations in a single array as follows
 
-Effect Array   [  |  S    Name                    C       PPX       PPY       CX        CY        CZ        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN  ]
+Effect Array   [  |  S    Name                    C       PPX       PPY       CX        CY        DL        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN  ]
 
-Starting    -->  '|','F'  'Fade',                 '2',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.300',  '220',    '1.0',    '1.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',   '0.0',     'EASE_OUT_CUBIC',  
-Stopping    -->                                           '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.300',  '255',    '1.0',    '1.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',   '0.0',     'EASE_OUT_CUBIC'   
+Starting    -->  '|','F'  'Fade',                 '2',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '300',    '220',    '1.0',    '1.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',   '0.0',     'EASE_OUT_CUBIC',  
+Stopping    -->                                           '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '300',    '255',    '1.0',    '1.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',   '0.0',     'EASE_OUT_CUBIC'   
                                                         
-When window movement starts driveOtherEffects function is called with temporarily initializing C = 2/2 = 1, only executes first half of Effect Array 
+When window movement starts driveOtherEffects function is called with temporarily initializing C = 2/2 = 1, only executes first half of Effect Array. 
 When window movement stops  driveOtherEffects function is called with subEffectNo = C/2, only executes second half of Effect Array
 
   

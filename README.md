@@ -7,18 +7,14 @@
 </h1>
 
 <p align="center">
-Version 12.01 
+Version 13
 </p>
 
 <p align="center">
 A GNOME Shell Extension to Tweak animations of different items and Customize them.
 </p>
 <p align="left">
-Please reset the extension after updating. The Extension will stop when upgraded to an incompatible version. In that case an Update tab is created to easily reset the extension. A Reset button is also always present in preferences -> About Tab.
-A Default shortcut combination of Super Key + t is provided to disable the extension. 
-  
-Some effects might not work properly on wayland, for which a workaround is provided on preferences -> Tweaks tab.
-However, some animations might not work properly.
+Please reset the extension after updating. The Extension will stop when upgraded to an incompatible version. In that case an Update tab is created to easily reset the extension. A Reset button is also always present in Preferences option in the Application menu of the extension preferences window. A Default shortcut combination of Super Key + t is provided to disable the extension. Some effects might not work properly on wayland, for which a workaround is provided on preferences -> Tweaks tab. However, some animations might not work properly.", 
 </p>
 
 <h1 align="center">
@@ -57,20 +53,12 @@ However, some animations might not work properly.
 <img src = /Screenshots/Image_08.png >
 </p>
 
-<p align="center">
-<img src = /Screenshots/Image_09.png >
-</p>
-
-<p align="center">
-<img src = /Screenshots/Image_10.png >
-</p>
-
 <h1 align="center">
   Animation Customizations
 </h1>
 
 <p align="center">
-<img src = /Screenshots/Image_11.png >
+<img src = /Screenshots/Image_09.png >
 </p>
 
 <h1 align="center">

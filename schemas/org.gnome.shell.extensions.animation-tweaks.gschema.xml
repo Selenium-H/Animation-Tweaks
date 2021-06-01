@@ -11,13 +11,6 @@ Read the effectParameters.txt File for details.
 
 <schemalist gettext-domain="gnome-shell-extensions">
 
-  <enum id="org.gnome.shell.extensions.animation-tweaks.notificationbanner-pos">
-    <value nick="auto" value="0"/>
-    <value nick="left" value="1"/>
-    <value nick="center" value="2"/>
-    <value nick="right" value="3"/>
-  </enum>
-
   <schema path="/org/gnome/shell/extensions/animation-tweaks/" id="org.gnome.shell.extensions.animation-tweaks">
   
     <!--  ====================================================================================   Actions - Open   ================================================================================================== -->
@@ -114,14 +107,14 @@ Read the effectParameters.txt File for details.
         '|','T', 'Scale Down',           '2',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '1',      '0',      '1.0',    '0.7',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_CUBIC',
                                                  '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '250',    '255',    '1.0',    '1.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_CUBIC'  
       ]</default>
-      <summary>Override Other</summary>
+      <summary>Overrides Others</summary>
       <description>Animation settings for Overrides Others opening</description>
     </key>
     
     <key name="notificationbanner-open" type="as">
     <!-- |  S    Name                    C       PPX       PPY       CX        CY        DL        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN -->
       <default>[
-        '|','F', 'Fade In',              '2',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '1',      '128',      '1.0',    '1.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_CUBIC',
+        '|','F', 'Fade In',              '2',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '1',      '128',    '1.0',    '1.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_CUBIC',
                                                  '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '300',    '255',    '1.0',    '1.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_CUBIC'  
       ]</default>
       <summary>Notification Banner</summary>
@@ -131,9 +124,8 @@ Read the effectParameters.txt File for details.
     <key name="padosd-open" type="as">
     <!-- |  S    Name                    C       PPX       PPY       CX        CY        DL        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN -->
       <default>[
-        '|','F', 'Slide Up',             '3',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '1',      '0',      '1.0',    '1.0',    '0.0',    '0.2',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_CUBIC',
-                                                 '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '300',    '255',    '1.0',    '1.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_CUBIC',
-                                                 '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '300',    '255',    '1.0',    '1.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_CUBIC'    
+        '|','F', 'Slide Up',             '2',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '1',      '0',      '1.0',    '1.0',    '0.0',    '0.1',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_CUBIC',
+                                                 '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '300',    '255',    '1.0',    '1.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_CUBIC'
       ]</default>
       <summary>Pad OSD</summary>
       <description>Animation settings for Pad OSD opening</description>
@@ -226,7 +218,7 @@ Read the effectParameters.txt File for details.
     <key name="padosd-close" type="as">
     <!-- |  S    Name                    C       PPX       PPY       CX        CY        DL        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN -->
       <default>[
-        '|','F', 'Scale Up',             '1',    '0.0',    '1.0',    '0.0',    '0.0',    '0.0',    '300',    '255',    '1.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_CUBIC'
+        '|','F', 'Scale Up',             '1',    '0.0',    '1.0',    '0.0',    '0.0',    '0.0',    '300',    '255',    '1.0',    '0.7',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_CUBIC'
       ]</default>
       <summary>Pad OSD</summary>
       <description>Animation settings for Pad OSD closing</description>
@@ -492,12 +484,6 @@ Read the effectParameters.txt File for details.
       <summary>Use the workaround for Wayland</summary>
       <description>Settings If used under wayland</description>
     </key> 
-
-    <key enum="org.gnome.shell.extensions.animation-tweaks.notificationbanner-pos" name="notificationbanner-pos">
-      <default>'auto'</default>
-      <summary>Notification Banner position</summary>
-      <description>Notification Banner position</description>
-    </key>
 
     <key name="padosd-hide-timeout" type="i">
       <default>1500</default>

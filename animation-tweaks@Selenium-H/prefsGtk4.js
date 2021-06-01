@@ -228,7 +228,6 @@ const ExtensionResetButton_AnimationTweaksExtension =  new GObject.Class({
       settings.reset("name-list");
       settings.reset('wayland');
       settings.reset("padosd-hide-timeout");
-      settings.reset("notificationbanner-pos");
       settings.reset('current-version');
       dialog.destroy();
       if(object[functionToBeCalledAtTheEnd]) {
@@ -344,7 +343,7 @@ const UpdatePage_AnimationTweaksExtension =  new GObject.Class({
     this.upgradeFormVersion10 = new Gtk.Button({label: _("Upgrade From Version 10 or newer."),halign:Gtk.Align.CENTER});
     this.upgradeFormVersion10.connect('clicked', ()=> this.showVersion10Options());
       
-    this.vbox.append(this.secondInfo,         );
+    this.vbox.append(this.secondInfo);
     this.vbox.append(this.upgradeFormVersion10);   
  
   },
@@ -913,20 +912,20 @@ const EffectsTweaks_AnimationTweaksExtension =  new GObject.Class({
       this.gridWin.attach(new Gtk.Label({ use_markup:true,label:"<big><b><u>"+(_("Tween Parameters - ")+((i-2)/TWEEN_PARAMETERS_LENGTH+1))+"</u></b></big>", halign: Gtk.Align.CENTER }) ,0  ,++pos ,3  ,1);
       this.gridWin.attach(new Gtk.Label({ use_markup:true,label:" ",halign: Gtk.Align.CENTER }) ,0  ,++pos ,1  ,1);
        
-      this.tweakParameter(         ++i, _("Pivot Point X")+"\t\t\t"+"["+"\t"+_("-500  -  500")+"\t%\t"+"]",                 ++pos, -500,  500,     100                            );
-      this.tweakParameter(         ++i, _("Pivot Point Y")+"\t\t\t"+"["+"\t"+_("-500  -  500")+"\t%\t"+"]",                 ++pos, -500,  500,     100                            );
+      this.tweakParameter(         ++i, _("Pivot Point X")+"\t\t\t"+"["+"\t"+_("-500  -  500")+"\t%\t"+"]",                     ++pos, -500,  500,     100                            );
+      this.tweakParameter(         ++i, _("Pivot Point Y")+"\t\t\t"+"["+"\t"+_("-500  -  500")+"\t%\t"+"]",                     ++pos, -500,  500,     100                            );
       i+=3;
-      this.tweakParameter(         ++i, _("Time")+"\t\t\t\t\t"+"["+"\t"+_("in milliseconds")+"\t"+"]",                        ++pos, 1,     10000,   1, false                       ); 
-      this.tweakParameter(         ++i, _("Ending Opacity")+"\t\t\t"+"["+"\t"+_("0  -  255")+"\t"+"]",                    ++pos, 0,     255,     1                              );
-      this.tweakParameterDim(      ++i, _("Ending Width")+"\t\t\t"+"["+"\t"+_("0  -  200")+"\t%\t\t"+"]",                     ++pos, 0,     200,     100, ["MW"]                    );
-      this.tweakParameterDim(      ++i, _("Ending Height")+"\t\t\t"+"["+"\t"+_("0  -  200")+"\t%\t\t"+"]",                    ++pos, 0,     200,     100, ["MH"]                    );
+      this.tweakParameter(         ++i, _("Time")+"\t\t\t\t\t"+"["+"\t"+_("in milliseconds")+"\t"+"]",                          ++pos, 1,     10000,   1, false                       ); 
+      this.tweakParameter(         ++i, _("Ending Opacity")+"\t\t\t"+"["+"\t"+_("0  -  255")+"\t"+"]",                          ++pos, 0,     255,     1                              );
+      this.tweakParameterDim(      ++i, _("Ending Width")+"\t\t\t"+"["+"\t"+_("0  -  200")+"\t%\t\t"+"]",                       ++pos, 0,     200,     100, ["MW"]                    );
+      this.tweakParameterDim(      ++i, _("Ending Height")+"\t\t\t"+"["+"\t"+_("0  -  200")+"\t%\t\t"+"]",                      ++pos, 0,     200,     100, ["MH"]                    );
       this.tweakParameterPosition( ++i, _("Movement along X")+"\t\t"+"["+"\t"+_("0 ± % Screen width from current X→")+"\t"+"]", ++pos, -100,  100,     100, ["MX","LX","RX","SX","IX"]);
       this.tweakParameterPosition( ++i, _("Movement along Y")+"\t\t[\t"+_("0 ± % Screen height from current Y↓")+"\t]",         ++pos, -100,  100,     100, ["MY","DY","UY","SY","IY"]);
       this.tweakParameter(         ++i, _("Movement along Z")+"\t\t[\t"+_("0 ± % Screen height from current Z")+"\t]",          ++pos, -100,  100,     100,                           );
-      this.tweakParameter(         ++i, _("Rotation about X")+"\t\t[\t"+_("in Degree")+"\t%\t]",                            ++pos, -3600, 3600,    1                              );
-      this.tweakParameter(         ++i, _("Rotation about Y")+"\t\t[\t"+_("in Degree")+"\t%\t]",                            ++pos, -3600, 3600,    1                              );
-      this.tweakParameter(         ++i, _("Rotation about Z")+"\t\t[\t"+_("in Degree")+"\t%\t]",                            ++pos, -3600, 3600,    1                              );
-      this.tweakTransitionType(    ++i, _("Transition Type")+"\t\t",                                                          ++pos                                                 );
+      this.tweakParameter(         ++i, _("Rotation about X")+"\t\t[\t"+_("in Degree")+"\t%\t]",                                ++pos, -3600, 3600,    1                              );
+      this.tweakParameter(         ++i, _("Rotation about Y")+"\t\t[\t"+_("in Degree")+"\t%\t]",                                ++pos, -3600, 3600,    1                              );
+      this.tweakParameter(         ++i, _("Rotation about Z")+"\t\t[\t"+_("in Degree")+"\t%\t]",                                ++pos, -3600, 3600,    1                              );
+      this.tweakTransitionType(    ++i, _("Transition Type")+"\t\t",                                                            ++pos                                                 );
 
       if(messageForPairedEffects==true && i == (TWEEN_PARAMETERS_LENGTH*this.eStr[2]*0.5)+2) {
       
@@ -1189,7 +1188,7 @@ const PrefsWindowForAction_AnimationTweaksExtension = new GObject.Class({
     
     const cssProvider = new Gtk.CssProvider();
     cssProvider.load_from_data('notebook > stack { background: rgba(0,0,0,0.0); }');
-    this.get_style_context().add_provider(cssProvider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);    
+    this.get_style_context().add_provider(cssProvider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION); 
 
     this.append_page(this.prefsWindowOpening, new Gtk.Label({ hexpand:true, label: _("Open")                         }));
     this.append_page(this.closingPrefs,       new Gtk.Label({ hexpand:true, label: _("Close")                        }));    
@@ -1221,7 +1220,7 @@ const PrefsWindowForApps_AnimationTweaksExtension = new GObject.Class({
   addApp: function()  {
   
     let dialog = new Gtk.Dialog({ title: _('Choose an application'),transient_for: this.get_native(),use_header_bar: true,modal: true });
-    dialog._appChooser = new Gtk.AppChooserWidget({  margin_top: 5, margin_end: 5, margin_bottom: 5, margin_start: 5, show_all: true, vexpand: true });
+    dialog._appChooser = new Gtk.AppChooserWidget({ show_all: true, vexpand: true });
     dialog.set_default_response(Gtk.ResponseType.OK);
     dialog.add_button("Cancel", Gtk.ResponseType.CANCEL);
     let addButton = dialog.add_button(_("Add"), Gtk.ResponseType.OK);
@@ -1772,7 +1771,6 @@ const PrefsWindowForExtensionProfiles_AnimationTweaksExtension = new GObject.Cla
 
     settings.set_strv("notificationbanner-open",  profileClass.notificationbannerWindowopenProfile);
     settings.set_strv("notificationbanner-close", profileClass.notificationbannerWindowcloseProfile);
-    settings.set_enum("notificationbanner-pos",   profileClass.notificationBannerAlignment);  
     
     settings.set_strv("padosd-open",  profileClass.padosdWindowopenProfile);
     settings.set_strv("padosd-close", profileClass.padosdWindowcloseProfile); 
@@ -1909,7 +1907,6 @@ const PrefsWindowForExtensionProfiles_AnimationTweaksExtension = new GObject.Cla
 
     this.notificationbannerWindowopenProfile  = settings.get_strv("notificationbanner-open");
     this.notificationbannerWindowcloseProfile = settings.get_strv("notificationbanner-close");
-    this.notificationBannerAlignment          = settings.get_enum("notificationbanner-pos");  
     
     this.padosdWindowopenProfile  = settings.get_strv("padosd-open");
     this.padosdWindowcloseProfile = settings.get_strv("padosd-close"); 
@@ -2134,7 +2131,6 @@ const PrefsWindowForTweaks_AnimationTweaksExtension = new GObject.Class({
     let pos=0;
     this.prefsWA("wayland",                  0, pos++, this, 7);
     this.prefInt("padosd-hide-timeout",      0, pos++,       7);
-    this.prefCombo("notificationbanner-pos", 0, pos++, ["auto", "left", "center", "right"], [_("Autodetect"), _("Left"), _("Center"), _("Right")], 7);
     this.prefStr("disable-shortcut",         0, pos++, ['<Alt>', '<Ctrl>', '<Shift>', '<Super>'], [_('Alt Key'), _('Ctrl Key'), _('Shift Key'), _('Super Key')], 7);
     this.prefsWA("show-delay",               0, pos++, this, 7);
     
@@ -2154,24 +2150,6 @@ const PrefsWindowForTweaks_AnimationTweaksExtension = new GObject.Class({
     
   },
 
-  prefCombo: function(KEY, posX, posY, options, items,space) {
-  
-    let settingLabel = new Gtk.Label({xalign: 1, label: _(settings.settings_schema.get_key(KEY).get_summary()), halign: Gtk.Align.START});  
-    let SettingCombo = new Gtk.ComboBoxText();
-    for (let i = 0; i < options.length; i++) {
-      SettingCombo.append(options[i],  items[i]);
-    }
-    SettingCombo.set_active(options.indexOf(settings.get_string(KEY)));
-    SettingCombo.connect('changed', Lang.bind(this, function(widget) {
-      settings.set_string(KEY, options[widget.get_active()]);
-      reloadApplicationProfiles();
-    }));
-    
-    this.attach(settingLabel, posX,       posY, space, 1);
-    this.attach(SettingCombo, posX+space, posY, 1,     1);
-    
-  },
-  
   prefStr: function(KEY, posX, posY, options, items,space) {
   
     let SettingCombo = new Gtk.ComboBoxText();

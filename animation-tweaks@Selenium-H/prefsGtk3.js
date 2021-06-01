@@ -234,7 +234,6 @@ const ExtensionResetButton_AnimationTweaksExtension =  new GObject.Class({
       settings.reset("name-list");
       settings.reset('wayland');
       settings.reset("padosd-hide-timeout");
-      settings.reset("notificationbanner-pos");
       settings.reset('current-version');
       dialog.destroy();
       if(object[functionToBeCalledAtTheEnd]) {
@@ -1192,7 +1191,7 @@ const PrefsWindowForAction_AnimationTweaksExtension = new GObject.Class({
     this.focusPrefs    = new PrefsWindowForFocus_AnimationTweaksExtension("focus");
     this.morePrefs     = new PrefsWindowForMore_AnimationTweaksExtension("more");
 
-    this.prefsWindowOpening = new Gtk.ScrolledWindow({hexpand: true,shadow_type: Gtk.ShadowType.IN});
+    this.prefsWindowOpening = new Gtk.ScrolledWindow({hexpand: true });
     this.prefsWindowOpening.add(this.openingPrefs);
     this.prefsWindowOpening.set_min_content_height(700);
 
@@ -1790,7 +1789,6 @@ const PrefsWindowForExtensionProfiles_AnimationTweaksExtension = new GObject.Cla
 
     settings.set_strv("notificationbanner-open",  profileClass.notificationbannerWindowopenProfile);
     settings.set_strv("notificationbanner-close", profileClass.notificationbannerWindowcloseProfile);
-    settings.set_enum("notificationbanner-pos",   profileClass.notificationBannerAlignment);  
     
     settings.set_strv("padosd-open",  profileClass.padosdWindowopenProfile);
     settings.set_strv("padosd-close", profileClass.padosdWindowcloseProfile); 
@@ -1927,7 +1925,6 @@ const PrefsWindowForExtensionProfiles_AnimationTweaksExtension = new GObject.Cla
 
     this.notificationbannerWindowopenProfile  = settings.get_strv("notificationbanner-open");
     this.notificationbannerWindowcloseProfile = settings.get_strv("notificationbanner-close");
-    this.notificationBannerAlignment          = settings.get_enum("notificationbanner-pos");  
     
     this.padosdWindowopenProfile  = settings.get_strv("padosd-open");
     this.padosdWindowcloseProfile = settings.get_strv("padosd-close"); 
@@ -2152,7 +2149,6 @@ const PrefsWindowForTweaks_AnimationTweaksExtension = new GObject.Class({
     let pos=0;
     this.prefsWA("wayland",                  0, pos++, this, 7);
     this.prefInt("padosd-hide-timeout",      0, pos++,       7);
-    this.prefCombo("notificationbanner-pos", 0, pos++, ["auto", "left", "center", "right"], [_("Autodetect"), _("Left"), _("Center"), _("Right")], 7);
     this.prefStr("disable-shortcut",         0, pos++, ['<Alt>', '<Ctrl>', '<Shift>', '<Super>'], [_('Alt Key'), _('Ctrl Key'), _('Shift Key'), _('Super Key')], 7);
     this.prefsWA("show-delay",               0, pos++, this, 7);
     
@@ -2169,24 +2165,6 @@ const PrefsWindowForTweaks_AnimationTweaksExtension = new GObject.Class({
 
     this.attach(settingLabel, posX,       posY, space, 1);
     this.attach(timeSetting,  posX+space, posY, 1,     1);
-    
-  },
-
-  prefCombo: function(KEY, posX, posY, options, items,space) {
-  
-    let settingLabel = new Gtk.Label({xalign: 1, label: _(settings.settings_schema.get_key(KEY).get_summary()), halign: Gtk.Align.START});  
-    let SettingCombo = new Gtk.ComboBoxText();
-    for (let i = 0; i < options.length; i++) {
-      SettingCombo.append(options[i],  items[i]);
-    }
-    SettingCombo.set_active(options.indexOf(settings.get_string(KEY)));
-    SettingCombo.connect('changed', Lang.bind(this, function(widget) {
-      settings.set_string(KEY, options[widget.get_active()]);
-      reloadApplicationProfiles();
-    }));
-    
-    this.attach(settingLabel, posX,       posY, space, 1);
-    this.attach(SettingCombo, posX+space, posY, 1,     1);
     
   },
   

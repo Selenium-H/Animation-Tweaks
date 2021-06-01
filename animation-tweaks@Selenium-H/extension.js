@@ -1,6 +1,6 @@
 /*
 
-Version 12.14
+Version 12.16
 =============
 
 Credits:
@@ -1266,7 +1266,7 @@ const EffectsManager_AnimationTweaksExtension = class EffectsManager_AnimationTw
     this.overrideotherWindowopenProfile       = [extensionSettings.get_strv("overrideother-open")];    
     this.notificationbannerWindowopenProfile  = [extensionSettings.get_strv("notificationbanner-open")];
     this.notificationbannerWindowcloseProfile = [extensionSettings.get_strv("notificationbanner-close")];
-    this.notificationBannerAlignment          = extensionSettings.get_enum("notificationbanner-pos");  
+    this.notificationBannerAlignment          = Main.messageTray.bannerAlignment;  
     this.padosdWindowopenProfile              = [extensionSettings.get_strv("padosd-open")];
     this.padosdWindowcloseProfile             = [extensionSettings.get_strv("padosd-close")];
     this.toppanelpopupmenuWindowopenProfile   = [extensionSettings.get_strv("toppanelpopupmenu-open")]; 

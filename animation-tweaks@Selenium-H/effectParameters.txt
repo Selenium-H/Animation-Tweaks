@@ -1,4 +1,4 @@
-Version 12.15
+Version 12.16
 =============
 
 Effect Format  [  |  S    Name     C       PPX       PPY       CX        CY        DL        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN  ]
@@ -140,8 +140,6 @@ C_  =  Position that is modified by a prefix 'C' tells the extension to correct 
                      Which will corrected the initial position during animation.
       
        This is done only for initial position correction and automatically.
-
-All non float values are overridden by actual values obtained from setNextParametersWindow function at run time.
 
 Moving Effects
 ==============

@@ -12,7 +12,7 @@ var AnimationTweaksExtensionProfileDefault=class AnimationTweaksExtensionProfile
 constructor(){
 this.animationTweaksExtensionProfileName="Default";
 this.firstUse=false;
-this.version=12.16;
+this.version=13;
 this.openingEffectEnabled=true;
 this.closingingEffectEnabled=false;
 this.minimizingEffectEnabled=false;

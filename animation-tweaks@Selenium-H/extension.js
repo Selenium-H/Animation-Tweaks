@@ -1,6 +1,6 @@
 /*
 
-Version 12.16
+Version 13.01
 =============
 
 Credits:
@@ -1564,6 +1564,11 @@ const EffectsManager_AnimationTweaksExtension = class EffectsManager_AnimationTw
  
   startEffectsManager () {
 
+    if(extensionSettings.get_double("current-version") < 13.01) {    
+      Main.notify("Animation Tweaks","Extension is updated. Please Complete the update process in the extension preferences.");
+      return;
+    }
+    
     Main.wm.addKeybinding(  //this.extensionDisableShortcut(); START
       'disable-shortcut',
       extensionSettings,
@@ -1577,12 +1582,7 @@ const EffectsManager_AnimationTweaksExtension = class EffectsManager_AnimationTw
         Main.notify("Animation Tweaks Extension Disabled ... ", "Extension is disabled by Keyboard Shortcut. To use it again, manually enable it using GNOME Tweak Tool or the Extensions app.");
       }
     );  //this.extensionDisableShortcut(); END
-    
-    if(extensionSettings.get_double("current-version") < 12.14) {    
-      Main.notify("Animation Tweaks","Extension is updated. Please Complete the update process in the extension preferences.");
-      return;
-    }
-            
+                
     this.focussingEffectEnabled   = extensionSettings.get_boolean("focussing-effect");
     this.defocussingEffectEnabled = extensionSettings.get_boolean("defocussing-effect");    
     this.doFocusAndDefocus = true;
@@ -1622,14 +1622,7 @@ const EffectsManager_AnimationTweaksExtension = class EffectsManager_AnimationTw
 
   updateAddNotificationBannerEffects ( openStatus = "F", closeStatus = "F" ) {
   
-    if(this.notificationBannerAlignment != 0) {
-      Main.messageTray.bannerAlignment = this.notificationBannerAlignment;
-    }
-    else {
-      this.notificationBannerAlignment = Main.messageTray.bannerAlignment;
-      extensionSettings.set_enum("notificationbanner-pos",Main.messageTray.bannerAlignment);
-    }
-
+    Main.messageTray.bannerAlignment = this.notificationBannerAlignment;
     Main.messageTray._updateShowingNotification = (openStatus  =="T") ? this.overriddenUpdateShowingNotification : defaultUpdateShowingNotification;  
     Main.messageTray._hideNotification          = (closeStatus =="T") ? this.overriddenHideNotification          : defaultHideNotification;
 
@@ -1664,6 +1657,10 @@ const EffectsManager_AnimationTweaksExtension = class EffectsManager_AnimationTw
   }
   
   undoChanges () {
+
+    if(extensionSettings.get_double("current-version") < 13.01) {    
+      return;
+    }
 
     (this.onOpeningSig)      ? global.window_manager.disconnect(this.onOpeningSig)      : null;
     (this.onClosingSig)      ? global.window_manager.disconnect(this.onClosingSig)      : null;

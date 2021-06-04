@@ -1,6 +1,6 @@
 /*
 
-Version 12.16
+Version 13.01
 =============
 
 Effect Format  [  |  S    Name     C       PPX       PPY       CX        CY        DL        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN  ]
@@ -228,7 +228,7 @@ const ExtensionResetButton_AnimationTweaksExtension =  new GObject.Class({
       settings.reset("name-list");
       settings.reset('wayland');
       settings.reset("padosd-hide-timeout");
-      settings.reset('current-version');
+      //settings.reset('current-version');
       dialog.destroy();
       if(object[functionToBeCalledAtTheEnd]) {
         object[functionToBeCalledAtTheEnd]( parameter );
@@ -293,7 +293,14 @@ const UpdatePage_AnimationTweaksExtension =  new GObject.Class({
     this.convertTimeToIntegerFor("windowmenu-open");
     this.convertTimeToIntegerFor("windowmenu-close");        
     this.convertTimeToIntegerFor("endsessiondialog-open");
-    this.convertTimeToIntegerFor("endsessiondialog-close");                  
+    this.convertTimeToIntegerFor("endsessiondialog-close"); 
+    settings.reset('modaldialog-open');
+    settings.reset('modaldialog-close');
+    settings.reset('modaldialog-minimize');
+    settings.reset('modaldialog-unminimize');
+    settings.reset('modaldialog-movestart');
+    settings.reset('modaldialog-focus');    
+    settings.reset('modaldialog-defocus');                       
   
   },
   
@@ -317,7 +324,7 @@ const UpdatePage_AnimationTweaksExtension =  new GObject.Class({
   
     this.convertTimeToInteger();
     this.profilesObject.extensionProfilesPrefs.saveCurrentProfile();
-    settings.reset('current-version');
+    settings.set_double('current-version', Metadata.version);//settings.reset('current-version');
     reloadExtension();
     this.updateDone();
     dialog.destroy();
@@ -339,7 +346,7 @@ const UpdatePage_AnimationTweaksExtension =  new GObject.Class({
     this.vbox.append(this.resetExtensionButton);
     this.set_child(this.vbox);
     
-    this.secondInfo = new Gtk.Label({ wrap: true, justify: 2, use_markup: true, label: "\n\n"+_("If already upgraded to Version 10 or higher and it's working fine, you can keep the preferences as it is.\nIn that case click on the button below. Otherwise click the above button to reset.")+"\n\n"});
+    this.secondInfo = new Gtk.Label({ wrap: true, justify: 2, use_markup: true, label: "\n\n"+_("If already upgraded to Version 10 or higher and it's working fine, you can keep some of the preferences as it is. Incompatible preferences will be reset.\nIn that case click on the button below. Otherwise click the above button to reset.")+"\n\n"});
     this.upgradeFormVersion10 = new Gtk.Button({label: _("Upgrade From Version 10 or newer."),halign:Gtk.Align.CENTER});
     this.upgradeFormVersion10.connect('clicked', ()=> this.showVersion10Options());
       
@@ -355,7 +362,7 @@ const UpdatePage_AnimationTweaksExtension =  new GObject.Class({
     dialog.add_button("Cancel", Gtk.ResponseType.CANCEL);
     dialog.add_button("OK", Gtk.ResponseType.OK);
     dialog.set_markup("<big><b>"+_("Keep Preferences and Upgrade?")+"</b></big>");
-    dialog.get_message_area().append(new Gtk.Label({ wrap: true, justify: 3, use_markup: true, label: _("\nPlease make sure that\n\nYou are upgrading from version 10 or newer of this extension to current version.\nAlready Reset the extension during previous upgrade.\nThe extension is working fine.\n\n"+_("Otherwise click Cancel to go back and reset."))}));
+    dialog.get_message_area().append(new Gtk.Label({ wrap: true, justify: 3, use_markup: true, label: _("\nPlease make sure that\n\nYou are upgrading from version 10 or newer of this extension to current version.\nAlready Reset the extension during previous upgrade.\nThe extension is working fine.")+"\n\n"+_("Otherwise click Cancel to go back and reset.")+"\n\n"+_("Note: Incompatible preferences will be reset anyway.")}));
     dialog.connect('response', Lang.bind(this, function(dialog, id) {
       if(id != Gtk.ResponseType.OK) {
         dialog.destroy();  
@@ -378,7 +385,7 @@ const UpdatePage_AnimationTweaksExtension =  new GObject.Class({
     this.upgradeFormVersion10.hide();
     
     this.firstInfo.label =_("Version  ")+ Metadata.version+"\n\n <big><b> "+_("Upgraded Successfully")+"</b></big>";
-    settings.reset('current-version');
+    settings.set_double('current-version', Metadata.version);//settings.reset('current-version');
   
   },
   
@@ -470,7 +477,7 @@ const AnimationSettingsForItem_AnimationTweaksExtension = new GObject.Class({
     if(this.updatingProfiles==true || this.appIndex ==-1 ) {
       return;
     }
-
+    
     this.eStr = this.appProfile.getEffectAt(this.appIndex);
     this.appProfile.modifyEffectForWindowAction(this.appIndex, this.allEffectsList.setEffectTime(value, this.eStr));
    

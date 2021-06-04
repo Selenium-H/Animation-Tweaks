@@ -1,6 +1,6 @@
 /*
 
-Version 13.01
+Version 13.02
 =============
 
 Credits:
@@ -1565,10 +1565,11 @@ const EffectsManager_AnimationTweaksExtension = class EffectsManager_AnimationTw
   startEffectsManager () {
 
     if(extensionSettings.get_double("current-version") < 13.01) {    
+      this.extensionStarted = false;
       Main.notify("Animation Tweaks","Extension is updated. Please Complete the update process in the extension preferences.");
       return;
     }
-    
+    this.extensionStarted = true;
     Main.wm.addKeybinding(  //this.extensionDisableShortcut(); START
       'disable-shortcut',
       extensionSettings,
@@ -1658,7 +1659,7 @@ const EffectsManager_AnimationTweaksExtension = class EffectsManager_AnimationTw
   
   undoChanges () {
 
-    if(extensionSettings.get_double("current-version") < 13.01) {    
+    if(!this.extensionStarted) {    
       return;
     }
 

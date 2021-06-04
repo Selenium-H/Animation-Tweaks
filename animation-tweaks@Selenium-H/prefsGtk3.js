@@ -1,6 +1,6 @@
 /*
 
-Version 13.01
+Version 13.02
 =============
 
 Effect Format  [  |  S    Name     C       PPX       PPY       CX        CY        DL        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN  ]
@@ -698,7 +698,7 @@ const EffectsList_AnimationTweaksExtension = new GObject.Class({
   getTotalDelayOf: function(eStr) {
 
     for (cIndex = 8; cIndex<eStr.length; cIndex = cIndex + TWEEN_PARAMETERS_LENGTH) {
-      if(eStr[cIndex]>"10") {
+      if(parseFloat(eStr[cIndex])>10) {
         return parseFloat(eStr[cIndex-1]);
       }   
     }
@@ -709,7 +709,7 @@ const EffectsList_AnimationTweaksExtension = new GObject.Class({
 
     let totalTime = 0; 
     for (let cIndex = 8;cIndex<eStr.length;cIndex=cIndex+TWEEN_PARAMETERS_LENGTH) {
-      totalTime += (eStr[cIndex]>"15") ? parseFloat(eStr[cIndex]) : 0;
+      totalTime += (parseFloat(eStr[cIndex])>15) ? parseFloat(eStr[cIndex]) : 0;
     }
     return totalTime;
 
@@ -860,7 +860,7 @@ const EffectsList_AnimationTweaksExtension = new GObject.Class({
   setEffectDelay: function(value, eStr) {
 
     for (let pIndex = 8; pIndex < eStr.length; pIndex = pIndex+TWEEN_PARAMETERS_LENGTH) {
-      if(eStr[pIndex] > "10") {
+      if(parseInt(eStr[pIndex]) > 10) {
         eStr[pIndex-1] = value.toString();
         return eStr;    
       }
@@ -873,7 +873,7 @@ const EffectsList_AnimationTweaksExtension = new GObject.Class({
     let totalTime = this.getTotalTimeOf(eStr); 
 
     for (let pIndex = 8; pIndex < eStr.length; pIndex = pIndex+TWEEN_PARAMETERS_LENGTH) {
-      if(eStr[pIndex] > "15") {
+      if(parseInt(eStr[pIndex]) > 15) {
         eStr[pIndex] = (((parseInt(eStr[pIndex])*value)/totalTime)>= 20) ? ((parseInt(eStr[pIndex])*value)/totalTime).toString() : "20";
       }
     }    
@@ -2089,11 +2089,11 @@ const PrefsWindowForExtensionProfiles_AnimationTweaksExtension = new GObject.Cla
   
   setPath: function() {
  
-    this.PROFILE_PATH = "/home/"+GLib.spawn_command_line_sync("whoami")[1]+"/.config/gnome-shell-extension-animation-tweaks@Selenium-H";
-    this.PROFILE_PATH = this.PROFILE_PATH.replace("\n","");
-    if(GLib.spawn_command_line_sync("ls "+this.PROFILE_PATH)[1] != "profiles\n") {
-      GLib.spawn_command_line_sync("mkdir "+this.PROFILE_PATH);
-      GLib.spawn_command_line_sync("cp -r "+Extension.path+"/profiles/ "+this.PROFILE_PATH);
+    this.PROFILE_PATH = Extension.path+"/../../../../../.config/gnome-shell-extension-animation-tweaks@Selenium-H";
+    let pathManager = Gio.File.new_for_path(this.PROFILE_PATH+"/profiles");
+    if(!pathManager.query_exists(null)) {
+      pathManager.make_directory_with_parents(null);
+      Gio.File.new_for_path(Extension.path+"/profiles").get_child("animationTweaksExtensionProfiles.js").copy(pathManager.get_child("animationTweaksExtensionProfiles.js"), 1, null, null);
     }
  
     Extension.imports.searchPath = [this.PROFILE_PATH];

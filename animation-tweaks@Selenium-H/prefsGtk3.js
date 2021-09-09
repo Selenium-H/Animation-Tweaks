@@ -1,6 +1,6 @@
 /*
 
-Version 13.02
+Version 14.02
 =============
 
 Effect Format  [  |  S    Name     C       PPX       PPY       CX        CY        DL        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN  ]
@@ -2089,7 +2089,7 @@ const PrefsWindowForExtensionProfiles_AnimationTweaksExtension = new GObject.Cla
   
   setPath: function() {
  
-    this.PROFILE_PATH = Extension.path+"/../../../../../.config/gnome-shell-extension-animation-tweaks@Selenium-H";
+    this.PROFILE_PATH = GLib.get_home_dir()+"/.config/gnome-shell-extension-animation-tweaks@Selenium-H";
     let pathManager = Gio.File.new_for_path(this.PROFILE_PATH+"/profiles");
     if(!pathManager.query_exists(null)) {
       pathManager.make_directory_with_parents(null);

@@ -1,6 +1,6 @@
 /*
 
-Version 13.02
+Version 14.01
 =============
 
 Effect Format  [  |  S    Name     C       PPX       PPY       CX        CY        DL        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN  ]
@@ -409,13 +409,14 @@ const AnimationSettingsForItem_AnimationTweaksExtension = new GObject.Class({
     this.grid           = grid;
     this.visible        = false;
     
-    this.prefsLabel     =  new Gtk.Label({vexpand: false, label:_(settings.settings_schema.get_key(this.KEY).get_summary()), halign: Gtk.Align.START});
-    this.prefsCombo     =  new Gtk.ComboBoxText({hexpand: false,vexpand:false});
-    this.tweakButton    =  new Gtk.Button({ icon_name: "emblem-system-symbolic", halign:Gtk.Align.START});
-    this.delaySetting   =      Gtk.SpinButton.new_with_range(0,10000,10);
-    this.timeSetting    =      Gtk.SpinButton.new_with_range(10,10000,10);
-    this.prefsSwitch    =  new Gtk.Switch({hexpand: false,vexpand:false,active: (this.eStr[0]=='T') ? true : false,halign:Gtk.Align.CENTER});
-    this.prefsSwitchBox =  new Gtk.Box({ orientation: Gtk.Orientation.VERTICAL, hexpand:true, vexpand:false, valign:Gtk.Align.CENTER});    
+    this.prefsLabel         = new Gtk.Label({vexpand: false, label:_(settings.settings_schema.get_key(this.KEY).get_summary()), halign: Gtk.Align.START});
+    this.animationListModel = new Gtk.StringList();
+    this.prefsCombo         = new Gtk.DropDown({ model: this.animationListModel});
+    this.tweakButton        = new Gtk.Button({ icon_name: "emblem-system-symbolic", halign:Gtk.Align.START});
+    this.delaySetting       =     Gtk.SpinButton.new_with_range(0,10000,10);
+    this.timeSetting        =     Gtk.SpinButton.new_with_range(10,10000,10);
+    this.prefsSwitch        = new Gtk.Switch({hexpand: false,vexpand:false,active: (this.eStr[0]=='T') ? true : false,halign:Gtk.Align.CENTER});
+    this.prefsSwitchBox     = new Gtk.Box({ orientation: Gtk.Orientation.VERTICAL, hexpand:true, vexpand:false, valign:Gtk.Align.CENTER});    
     this.prefsSwitchBox.append(this.prefsSwitch);
     
     let pos = 0;      
@@ -428,15 +429,15 @@ const AnimationSettingsForItem_AnimationTweaksExtension = new GObject.Class({
     }
     this.grid.attach(this.timeSetting,    pos++, this.posY, 1, 1);
     this.grid.attach(this.prefsSwitchBox, pos++, this.posY, 1, 1);
-    this.allEffectsList.loadEffectsListToComboBox(this.prefsCombo);
+    this.allEffectsList.loadEffectsListToComboBox(this.animationListModel);
     
-    this.prefsCombo.connect('changed',         (widget) => this.selectEffectFromList(widget.get_active()));
-    this.timeSetting.connect('notify::value',  (spin  ) => this.changeEffectTime(spin.get_value_as_int()));
-    this.delaySetting.connect('notify::value', (spin  ) => this.changeEffectDelay(spin.get_value_as_int()));
-    this.prefsSwitch.connect('notify::active', (      ) => this.toggleItemStatus(this.prefsSwitch.active));  
-    this.tweakButton.connect('clicked',        (      ) => this.effectsTweaks(topLevel, thisIsPairedEffect));  
+    this.prefsCombo.connect('notify::selected-item', (widget) => this.selectEffectFromList(widget.get_selected()));
+    this.timeSetting.connect('notify::value',        (spin  ) => this.changeEffectTime(spin.get_value_as_int()));
+    this.delaySetting.connect('notify::value',       (spin  ) => this.changeEffectDelay(spin.get_value_as_int()));
+    this.prefsSwitch.connect('notify::active',       (      ) => this.toggleItemStatus(this.prefsSwitch.active));  
+    this.tweakButton.connect('clicked',              (      ) => this.effectsTweaks(topLevel, thisIsPairedEffect));  
     
-    settings.connect("changed::"+this.KEY,     (      ) => this.updateValues(this.appIndex));
+    settings.connect("changed::"+this.KEY,           (      ) => this.updateValues(this.appIndex));
     this.updateValues(this.appIndex);
     
     switch(keysSensitiveTo.length) {
@@ -493,7 +494,7 @@ const AnimationSettingsForItem_AnimationTweaksExtension = new GObject.Class({
     dialog.connect('response', Lang.bind(this, function(dialog, id) { 
 
       if(id == Gtk.ResponseType.OK) {
-        this.selectEffectFromList(this.prefsCombo.get_active());
+        this.selectEffectFromList(this.prefsCombo.get_selected());
       }
       dialog.destroy();
 
@@ -550,7 +551,7 @@ const AnimationSettingsForItem_AnimationTweaksExtension = new GObject.Class({
     this.grid.sensitive = (this.appIndex == -1)? false:true;
 
     this.prefsSwitch.active = (this.eStr[0]=="T")? true:false;
-    this.prefsCombo.set_active(this.allEffectsList.getIndexOf(this.eStr[1]));
+    this.prefsCombo.set_selected(this.allEffectsList.getIndexOf(this.eStr[1]));
     this.timeSetting.set_value(this.allEffectsList.getTotalTimeOf(this.eStr));
     this.delaySetting.set_value(this.allEffectsList.getTotalDelayOf(this.eStr));
     
@@ -721,7 +722,7 @@ const EffectsList_AnimationTweaksExtension = new GObject.Class({
     let cIndex = 0;
 
      while(cIndex!=-1) {
-       effectsCombo.append(this.effectsList[cIndex+1],_(this.effectsList[cIndex+1]));
+       effectsCombo.append(_(this.effectsList[cIndex+1]));
        cIndex = this.effectsList.indexOf('|',cIndex+1);
      } 
      

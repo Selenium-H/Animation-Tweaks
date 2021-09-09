@@ -1,6 +1,6 @@
 /*
 
-Version 13.02
+Version 14.01
 =============
 
 Credits:
@@ -939,15 +939,10 @@ const EffectsManager_AnimationTweaksExtension = class EffectsManager_AnimationTw
  
     let startIndex = subEffectNo*16 + 3;   // TWEEN_PARAMETERS_LENGTH
     let onCompleteF = (eParams[2] == subEffectNo+1) ? ()=> {effectsManager.animationDone({ actor: Main.messageTray._bannerBin, action: action, appName: "", profileIndex: 0, effectName: eParams[1], itemType:"notificationbanner", listType:"other"});} :()=> {effectsManager.driveNotificationBannerAnimation(action, subEffectNo+1,eParams,xRes,yRes);}
-    
-    if(action == "open" && Main.messageTray._bannerBin.x != 0 ) {
-      Main.messageTray.bannerAlignment = 1;
-    }
-
+ 
     Main.messageTray._bannerBin.set_pivot_point( eParams[startIndex++] ,eParams[startIndex++] );
     startIndex += 2;
     Main.messageTray._bannerBin.remove_all_transitions();
-    Main.messageTray.bannerAlignment = effectsManager.notificationBannerAlignment;
     Main.messageTray._bannerBin.ease({
       delay:            eParams[startIndex++],
       duration:         eParams[startIndex++],
@@ -1266,7 +1261,6 @@ const EffectsManager_AnimationTweaksExtension = class EffectsManager_AnimationTw
     this.overrideotherWindowopenProfile       = [extensionSettings.get_strv("overrideother-open")];    
     this.notificationbannerWindowopenProfile  = [extensionSettings.get_strv("notificationbanner-open")];
     this.notificationbannerWindowcloseProfile = [extensionSettings.get_strv("notificationbanner-close")];
-    this.notificationBannerAlignment          = Main.messageTray.bannerAlignment;  
     this.padosdWindowopenProfile              = [extensionSettings.get_strv("padosd-open")];
     this.padosdWindowcloseProfile             = [extensionSettings.get_strv("padosd-close")];
     this.toppanelpopupmenuWindowopenProfile   = [extensionSettings.get_strv("toppanelpopupmenu-open")]; 
@@ -1351,7 +1345,7 @@ const EffectsManager_AnimationTweaksExtension = class EffectsManager_AnimationTw
   }
 
   overriddenHideNotification ( animate, currentMonitorIndex = global.display.get_current_monitor() ) {
-
+  
     Main.messageTray._notificationFocusGrabber.ungrabFocus();
 
     if(Main.messageTray._bannerClickedId) {
@@ -1570,6 +1564,7 @@ const EffectsManager_AnimationTweaksExtension = class EffectsManager_AnimationTw
       return;
     }
     this.extensionStarted = true;
+    
     Main.wm.addKeybinding(  //this.extensionDisableShortcut(); START
       'disable-shortcut',
       extensionSettings,
@@ -1623,7 +1618,6 @@ const EffectsManager_AnimationTweaksExtension = class EffectsManager_AnimationTw
 
   updateAddNotificationBannerEffects ( openStatus = "F", closeStatus = "F" ) {
   
-    Main.messageTray.bannerAlignment = this.notificationBannerAlignment;
     Main.messageTray._updateShowingNotification = (openStatus  =="T") ? this.overriddenUpdateShowingNotification : defaultUpdateShowingNotification;  
     Main.messageTray._hideNotification          = (closeStatus =="T") ? this.overriddenHideNotification          : defaultHideNotification;
 

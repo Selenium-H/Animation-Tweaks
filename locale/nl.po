@@ -1,0 +1,1124 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-06-04 19:21+0530\n"
+"PO-Revision-Date: 2021-09-17 17:33+0200\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 3.0\n"
+"Last-Translator: Heimen Stoffels <vistausss@fastmail.com>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: nl\n"
+
+#: animation-tweaks@Selenium-H/prefsGtk3.js:110
+#: animation-tweaks@Selenium-H/prefsGtk3.js:120
+#: animation-tweaks@Selenium-H/prefsGtk4.js:106
+#: animation-tweaks@Selenium-H/prefsGtk4.js:118
+msgid "Preferences"
+msgstr "Voorkeuren"
+
+#: animation-tweaks@Selenium-H/prefsGtk3.js:111
+#: animation-tweaks@Selenium-H/prefsGtk3.js:129
+#: animation-tweaks@Selenium-H/prefsGtk4.js:107
+#: animation-tweaks@Selenium-H/prefsGtk4.js:127
+msgid "Help"
+msgstr "Hulp"
+
+#: animation-tweaks@Selenium-H/prefsGtk3.js:112
+#: animation-tweaks@Selenium-H/prefsGtk4.js:108
+msgid "About"
+msgstr "Over"
+
+#: animation-tweaks@Selenium-H/prefsGtk3.js:167
+#: animation-tweaks@Selenium-H/prefsGtk4.js:161
+msgid "Reset Animation Tweaks Extension"
+msgstr "Standaardwaarden herstellen"
+
+#: animation-tweaks@Selenium-H/prefsGtk3.js:179
+#: animation-tweaks@Selenium-H/prefsGtk4.js:173
+msgid "Reset Animation Tweaks to defaults?"
+msgstr "Wilt u alle standaardwaarden herstellen?"
+
+#: animation-tweaks@Selenium-H/prefsGtk3.js:180
+#: animation-tweaks@Selenium-H/prefsGtk4.js:174
+msgid ""
+"Resetting the extension will discard the current preferences configuration "
+"and restore default one."
+msgstr ""
+"Hierdoor worden de huidige voorkeuren vervangen door de standaard "
+"voorkeuren."
+
+#: animation-tweaks@Selenium-H/prefsGtk3.js:339
+#: animation-tweaks@Selenium-H/prefsGtk4.js:340
+msgid "Extension is upgraded to Version  "
+msgstr "De uitbreiding is bijgewerkt naar versie  "
+
+#: animation-tweaks@Selenium-H/prefsGtk3.js:339
+#: animation-tweaks@Selenium-H/prefsGtk4.js:340
+msgid ""
+"A Reset to default preferences is needed if upgrading from a version older "
+"than version 10 or unable to reset during previous upgrade to version 10. "
+"Please Reset the extension by clicking the button below."
+msgstr ""
+"Als u momenteel een versie lager dan 10 gebruikt, dan dienen alle "
+"voorkeuren te worden teruggezet op de standaardwaarden. Klik op "
+"onderstaande knop om dit te doen."
+
+#: animation-tweaks@Selenium-H/prefsGtk3.js:348
+#: animation-tweaks@Selenium-H/prefsGtk4.js:349
+msgid ""
+"If already upgraded to Version 10 or higher and it's working fine, you can "
+"keep some of the preferences as it is. Incompatible preferences will be "
+"reset.\n"
+"In that case click on the button below. Otherwise click the above button to "
+"reset."
+msgstr ""
+"Als u reeds versie 10 of hoger gebruikt en alles naar behoren werkt, dan "
+"kunt er voor kiezen om alleen de incompatibele voorkeuren terug te zetten.\n"
+"Klik op onderstaande knop om dit te doen of op bovenstaande knop om álles "
+"terug te zetten."
+
+#: animation-tweaks@Selenium-H/prefsGtk3.js:349
+#: animation-tweaks@Selenium-H/prefsGtk4.js:350
+msgid "Upgrade From Version 10 or newer."
+msgstr "Bijwerken vanaf versie 10 of hoger."
+
+#: animation-tweaks@Selenium-H/prefsGtk3.js:363
+#: animation-tweaks@Selenium-H/prefsGtk4.js:364
+msgid "Keep Preferences and Upgrade?"
+msgstr "Wilt u de voorkeuren behouden en bijwerken?"
+
+#: animation-tweaks@Selenium-H/prefsGtk3.js:364
+#: animation-tweaks@Selenium-H/prefsGtk4.js:365
+msgid "Otherwise click Cancel to go back and reset."
+msgstr "Anders dient u te annuleren en alles terug te zetten."
+
+#: animation-tweaks@Selenium-H/prefsGtk3.js:364
+#: animation-tweaks@Selenium-H/prefsGtk4.js:365
+msgid "Note: Incompatible preferences will be reset anyway."
+msgstr "Let op: incompatibele voorkeuren worden hoe dan ook teruggezet."
+
+#: animation-tweaks@Selenium-H/prefsGtk3.js:364
+msgid ""
+"\n"
+"Please make sure that\n"
+"\n"
+"You are upgrading from version 10 or newer of this extension to current "
+"version.\n"
+"Already Reset the extension during previous upgrade.\n"
+"The extension is working fine.\n"
+"\n"
+msgstr ""
+"\n"
+"Let op:\n"
+"\n"
+"u werkt versie 10 of hoger bij naar de huidige versie.\n"
+"Tijdens de vorige bijwerking zijn alle voorkeuren reeds teruggezet.\n"
+"De uitbreiding werkt naar behoren.\n"
+"\n"
+
+#: animation-tweaks@Selenium-H/prefsGtk3.js:386
+#: animation-tweaks@Selenium-H/prefsGtk4.js:387
+msgid "Version  "
+msgstr "Versie  "
+
+#: animation-tweaks@Selenium-H/prefsGtk3.js:386
+#: animation-tweaks@Selenium-H/prefsGtk4.js:387
+msgid "Upgraded Successfully"
+msgstr "Het bijwerken is voltooid"
+
+#: animation-tweaks@Selenium-H/prefsGtk3.js:487
+#: animation-tweaks@Selenium-H/prefsGtk4.js:488
+msgid "Customize Animation"
+msgstr "Animatie afstellen"
+
+#: animation-tweaks@Selenium-H/prefsGtk3.js:491
+#: animation-tweaks@Selenium-H/prefsGtk4.js:492
+msgid "Restore Default"
+msgstr "Standaardwaarden herstellen"
+
+#: animation-tweaks@Selenium-H/prefsGtk3.js:592
+#: animation-tweaks@Selenium-H/prefsGtk4.js:593
+msgid "Update"
+msgstr "Bijwerken"
+
+#: animation-tweaks@Selenium-H/prefsGtk3.js:595
+#: animation-tweaks@Selenium-H/prefsGtk4.js:596
+msgid "Actions"
+msgstr "Acties"
+
+#: animation-tweaks@Selenium-H/prefsGtk3.js:596
+#: animation-tweaks@Selenium-H/prefsGtk4.js:597
+msgid "Profiles"
+msgstr "Profielen"
+
+#: animation-tweaks@Selenium-H/prefsGtk3.js:597
+#: animation-tweaks@Selenium-H/prefsGtk4.js:598
+msgid "Tweaks"
+msgstr "Afstellingen"
+
+#: animation-tweaks@Selenium-H/prefsGtk3.js:897
+#: animation-tweaks@Selenium-H/prefsGtk4.js:898
+msgid "Any  Changes  done  here  are  Applied  immediately"
+msgstr "Aanpassingen  op  deze  pagina  worden  onmiddelijk  toegepast"
+
+#: animation-tweaks@Selenium-H/prefsGtk3.js:898
+#: animation-tweaks@Selenium-H/prefsGtk4.js:899
+msgid "Details of parameter values are described in"
+msgstr "Details van optiewaarden worden omschreven als"
+
+#: animation-tweaks@Selenium-H/prefsGtk3.js:898
+#: animation-tweaks@Selenium-H/prefsGtk4.js:899
+msgid "file  in  extension folder."
+msgstr "bestand  in  de  uitbreidingsmap."
+
+#: animation-tweaks@Selenium-H/prefsGtk3.js:911
+#: animation-tweaks@Selenium-H/prefsGtk4.js:912
+msgid "Parameters for Starting Effect"
+msgstr "Opties voor de opstartanimatie"
+
+#: animation-tweaks@Selenium-H/prefsGtk3.js:918
+#: animation-tweaks@Selenium-H/prefsGtk4.js:919
+msgid "Tween Parameters - "
+msgstr "Tween-opties - "
+
+#: animation-tweaks@Selenium-H/prefsGtk3.js:921
+#: animation-tweaks@Selenium-H/prefsGtk4.js:922
+msgid "Pivot Point X"
+msgstr "Draaipunt X"
+
+#: animation-tweaks@Selenium-H/prefsGtk3.js:921
+#: animation-tweaks@Selenium-H/prefsGtk3.js:922
+#: animation-tweaks@Selenium-H/prefsGtk4.js:922
+#: animation-tweaks@Selenium-H/prefsGtk4.js:923
+msgid "-500  -  500"
+msgstr "-500  -  500"
+
+#: animation-tweaks@Selenium-H/prefsGtk3.js:922
+#: animation-tweaks@Selenium-H/prefsGtk4.js:923
+msgid "Pivot Point Y"
+msgstr "Draaipunt Y"
+
+#: animation-tweaks@Selenium-H/prefsGtk3.js:927
+#: animation-tweaks@Selenium-H/prefsGtk4.js:925
+msgid "Time"
+msgstr "Duur"
+
+#: animation-tweaks@Selenium-H/prefsGtk3.js:927
+#: animation-tweaks@Selenium-H/prefsGtk4.js:925
+msgid "in milliseconds"
+msgstr "in milliseconden"
+
+#: animation-tweaks@Selenium-H/prefsGtk3.js:928
+#: animation-tweaks@Selenium-H/prefsGtk4.js:926
+msgid "Ending Opacity"
+msgstr "Doorzichtigheid tijdens einde"
+
+#: animation-tweaks@Selenium-H/prefsGtk3.js:928
+#: animation-tweaks@Selenium-H/prefsGtk4.js:926
+msgid "0  -  255"
+msgstr "0  -  255"
+
+#: animation-tweaks@Selenium-H/prefsGtk3.js:929
+#: animation-tweaks@Selenium-H/prefsGtk4.js:927
+msgid "Ending Width"
+msgstr "Breedte tijdens einde"
+
+#: animation-tweaks@Selenium-H/prefsGtk3.js:929
+#: animation-tweaks@Selenium-H/prefsGtk3.js:930
+#: animation-tweaks@Selenium-H/prefsGtk4.js:927
+#: animation-tweaks@Selenium-H/prefsGtk4.js:928
+msgid "0  -  200"
+msgstr "0  -  200"
+
+#: animation-tweaks@Selenium-H/prefsGtk3.js:930
+#: animation-tweaks@Selenium-H/prefsGtk4.js:928
+msgid "Ending Height"
+msgstr "Hoogte tijdens einde"
+
+#: animation-tweaks@Selenium-H/prefsGtk3.js:931
+#: animation-tweaks@Selenium-H/prefsGtk4.js:929
+msgid "Movement along X"
+msgstr "Verplaatsing langs X-as"
+
+#: animation-tweaks@Selenium-H/prefsGtk3.js:931
+#: animation-tweaks@Selenium-H/prefsGtk4.js:929
+msgid "0 ± % Screen width from current X→"
+msgstr "0 ± % schermbreedte van huidige X-as→"
+
+#: animation-tweaks@Selenium-H/prefsGtk3.js:932
+#: animation-tweaks@Selenium-H/prefsGtk4.js:930
+msgid "Movement along Y"
+msgstr "Verplaatsing langs Y-as"
+
+#: animation-tweaks@Selenium-H/prefsGtk3.js:932
+#: animation-tweaks@Selenium-H/prefsGtk4.js:930
+msgid "0 ± % Screen height from current Y↓"
+msgstr "0 ± % schermbreedte van huidige Y-as↓"
+
+#: animation-tweaks@Selenium-H/prefsGtk3.js:933
+#: animation-tweaks@Selenium-H/prefsGtk4.js:931
+msgid "Movement along Z"
+msgstr "Verplaatsing langs Z-as"
+
+#: animation-tweaks@Selenium-H/prefsGtk3.js:933
+#: animation-tweaks@Selenium-H/prefsGtk4.js:931
+msgid "0 ± % Screen height from current Z"
+msgstr "0 ± % schermhoogte van huidige Z-as"
+
+#: animation-tweaks@Selenium-H/prefsGtk3.js:934
+#: animation-tweaks@Selenium-H/prefsGtk4.js:932
+msgid "Rotation about X"
+msgstr "Draaiing langs X-as"
+
+#: animation-tweaks@Selenium-H/prefsGtk3.js:934
+#: animation-tweaks@Selenium-H/prefsGtk3.js:935
+#: animation-tweaks@Selenium-H/prefsGtk3.js:936
+#: animation-tweaks@Selenium-H/prefsGtk4.js:932
+#: animation-tweaks@Selenium-H/prefsGtk4.js:933
+#: animation-tweaks@Selenium-H/prefsGtk4.js:934
+msgid "in Degree"
+msgstr "in graden"
+
+#: animation-tweaks@Selenium-H/prefsGtk3.js:935
+#: animation-tweaks@Selenium-H/prefsGtk4.js:933
+msgid "Rotation about Y"
+msgstr "Draaiing langs Y-as"
+
+#: animation-tweaks@Selenium-H/prefsGtk3.js:936
+#: animation-tweaks@Selenium-H/prefsGtk4.js:934
+msgid "Rotation about Z"
+msgstr "Draaiing langs Z-as"
+
+#: animation-tweaks@Selenium-H/prefsGtk3.js:937
+#: animation-tweaks@Selenium-H/prefsGtk4.js:935
+msgid "Transition Type"
+msgstr "Soort overgang"
+
+#: animation-tweaks@Selenium-H/prefsGtk3.js:942
+#: animation-tweaks@Selenium-H/prefsGtk4.js:940
+msgid "Parameters for Ending Effect"
+msgstr "Opties voor de sluitanimatie"
+
+#: animation-tweaks@Selenium-H/prefsGtk3.js:1134
+#: animation-tweaks@Selenium-H/prefsGtk4.js:1132
+msgid "Items"
+msgstr "Items"
+
+#: animation-tweaks@Selenium-H/prefsGtk3.js:1135
+#: animation-tweaks@Selenium-H/prefsGtk3.js:1375
+#: animation-tweaks@Selenium-H/prefsGtk4.js:1133
+#: animation-tweaks@Selenium-H/prefsGtk4.js:1367
+msgid "Effect"
+msgstr "Animatie"
+
+#: animation-tweaks@Selenium-H/prefsGtk3.js:1137
+#: animation-tweaks@Selenium-H/prefsGtk3.js:1377
+#: animation-tweaks@Selenium-H/prefsGtk4.js:1135
+#: animation-tweaks@Selenium-H/prefsGtk4.js:1369
+msgid "Delay [ in ms ]"
+msgstr "Wachttijd [in ms]"
+
+#: animation-tweaks@Selenium-H/prefsGtk3.js:1139
+#: animation-tweaks@Selenium-H/prefsGtk3.js:1379
+#: animation-tweaks@Selenium-H/prefsGtk4.js:1137
+#: animation-tweaks@Selenium-H/prefsGtk4.js:1371
+msgid "Time [ in ms ]"
+msgstr "Duur [in ms]"
+
+#: animation-tweaks@Selenium-H/prefsGtk3.js:1140
+#: animation-tweaks@Selenium-H/prefsGtk3.js:1380
+#: animation-tweaks@Selenium-H/prefsGtk4.js:1138
+#: animation-tweaks@Selenium-H/prefsGtk4.js:1372
+msgid "Status"
+msgstr "Status"
+
+#: animation-tweaks@Selenium-H/prefsGtk3.js:1202
+#: animation-tweaks@Selenium-H/prefsGtk4.js:1200
+msgid "Open"
+msgstr "Openen"
+
+#: animation-tweaks@Selenium-H/prefsGtk3.js:1203
+#: animation-tweaks@Selenium-H/prefsGtk4.js:1201
+msgid "Close"
+msgstr "Sluiten"
+
+#: animation-tweaks@Selenium-H/prefsGtk3.js:1204
+#: animation-tweaks@Selenium-H/prefsGtk4.js:1202
+msgid "Minimize"
+msgstr "Minimaliseren"
+
+#: animation-tweaks@Selenium-H/prefsGtk3.js:1204
+#: animation-tweaks@Selenium-H/prefsGtk4.js:1202
+msgid "Unminimize"
+msgstr "Herstellen"
+
+#: animation-tweaks@Selenium-H/prefsGtk3.js:1205
+#: animation-tweaks@Selenium-H/prefsGtk4.js:1203
+msgid "Focus"
+msgstr "Focussen"
+
+#: animation-tweaks@Selenium-H/prefsGtk3.js:1205
+#: animation-tweaks@Selenium-H/prefsGtk4.js:1203
+msgid "Defocus"
+msgstr "Ontfocussen"
+
+#: animation-tweaks@Selenium-H/prefsGtk3.js:1206
+#: animation-tweaks@Selenium-H/prefsGtk4.js:1204
+msgid "Drag"
+msgstr "Verslepen"
+
+#: animation-tweaks@Selenium-H/prefsGtk3.js:1237
+#: animation-tweaks@Selenium-H/prefsGtk4.js:1229
+msgid "Choose an application"
+msgstr "Kies een toepassing"
+
+#: animation-tweaks@Selenium-H/prefsGtk3.js:1241
+#: animation-tweaks@Selenium-H/prefsGtk3.js:1405
+#: animation-tweaks@Selenium-H/prefsGtk4.js:1233
+#: animation-tweaks@Selenium-H/prefsGtk4.js:1397
+msgid "Add"
+msgstr "Toevoegen"
+
+#: animation-tweaks@Selenium-H/prefsGtk3.js:1330
+#: animation-tweaks@Selenium-H/prefsGtk3.js:1493
+#: animation-tweaks@Selenium-H/prefsGtk4.js:1322
+#: animation-tweaks@Selenium-H/prefsGtk4.js:1485
+msgid "No Application Selected"
+msgstr "Geen toepassing gekozen"
+
+#: animation-tweaks@Selenium-H/prefsGtk3.js:1356
+#: animation-tweaks@Selenium-H/prefsGtk4.js:1348
+msgid "Window Preferences"
+msgstr "Venstervoorkeuren"
+
+#: animation-tweaks@Selenium-H/prefsGtk3.js:1374
+#: animation-tweaks@Selenium-H/prefsGtk4.js:1366
+msgid "Action"
+msgstr "Actie"
+
+#: animation-tweaks@Selenium-H/prefsGtk3.js:1392
+#: animation-tweaks@Selenium-H/prefsGtk4.js:1384
+msgid "Application List"
+msgstr "Toepassingenlijst"
+
+#: animation-tweaks@Selenium-H/prefsGtk3.js:1408
+#: animation-tweaks@Selenium-H/prefsGtk4.js:1400
+msgid "Remove"
+msgstr "Verwijderen"
+
+#: animation-tweaks@Selenium-H/prefsGtk3.js:1694
+#: animation-tweaks@Selenium-H/prefsGtk4.js:1686
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:454
+msgid "Application Profiles"
+msgstr "Toepassingsprofielen"
+
+#: animation-tweaks@Selenium-H/prefsGtk3.js:1695
+#: animation-tweaks@Selenium-H/prefsGtk4.js:1687
+msgid "Extension Profiles"
+msgstr "Uitbreidingsprofielen"
+
+#: animation-tweaks@Selenium-H/prefsGtk3.js:1727
+#: animation-tweaks@Selenium-H/prefsGtk4.js:1716
+msgid "Export Profiles"
+msgstr "Profielen exporteren"
+
+#: animation-tweaks@Selenium-H/prefsGtk3.js:1728
+#: animation-tweaks@Selenium-H/prefsGtk4.js:1717
+msgid "Import Profiles"
+msgstr "Profielen importeren"
+
+#: animation-tweaks@Selenium-H/prefsGtk3.js:1828
+#: animation-tweaks@Selenium-H/prefsGtk3.js:1829
+#: animation-tweaks@Selenium-H/prefsGtk4.js:1817
+#: animation-tweaks@Selenium-H/prefsGtk4.js:1818
+msgid "Import"
+msgstr "Importeren"
+
+#: animation-tweaks@Selenium-H/prefsGtk3.js:1828
+#: animation-tweaks@Selenium-H/prefsGtk3.js:1829
+#: animation-tweaks@Selenium-H/prefsGtk4.js:1817
+#: animation-tweaks@Selenium-H/prefsGtk4.js:1818
+msgid "Export"
+msgstr "Exporteren"
+
+#: animation-tweaks@Selenium-H/prefsGtk3.js:1828
+#: animation-tweaks@Selenium-H/prefsGtk4.js:1817
+msgid " Animation Tweaks Profile"
+msgstr " Animatie-afstellingsprofiel"
+
+#: animation-tweaks@Selenium-H/prefsGtk3.js:1982
+#: animation-tweaks@Selenium-H/prefsGtk4.js:1971
+msgid "Save"
+msgstr "Opslaan"
+
+#: animation-tweaks@Selenium-H/prefsGtk3.js:2152
+#: animation-tweaks@Selenium-H/prefsGtk4.js:2141
+msgid "Alt Key"
+msgstr "Alt-toets"
+
+#: animation-tweaks@Selenium-H/prefsGtk3.js:2152
+#: animation-tweaks@Selenium-H/prefsGtk4.js:2141
+msgid "Ctrl Key"
+msgstr "Ctrl-toets"
+
+#: animation-tweaks@Selenium-H/prefsGtk3.js:2152
+#: animation-tweaks@Selenium-H/prefsGtk4.js:2141
+msgid "Shift Key"
+msgstr "Shift-toets"
+
+#: animation-tweaks@Selenium-H/prefsGtk3.js:2152
+#: animation-tweaks@Selenium-H/prefsGtk4.js:2141
+msgid "Super Key"
+msgstr "Super-toets"
+
+#: animation-tweaks@Selenium-H/prefsGtk4.js:365
+msgid ""
+"\n"
+"Please make sure that\n"
+"\n"
+"You are upgrading from version 10 or newer of this extension to current "
+"version.\n"
+"Already Reset the extension during previous upgrade.\n"
+"The extension is working fine."
+msgstr ""
+"\n"
+"Let op:\n"
+"\n"
+"u werkt versie 10 of hoger bij naar de huidige versie.\n"
+"Tijdens de vorige bijwerking zijn alle voorkeuren reeds teruggezet.\n"
+"De uitbreiding werkt naar behoren."
+
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:20
+msgid "Opening Effects [ for windows ]"
+msgstr "Animatie tijdens openen van vensters"
+
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:21
+msgid "Opening effect animation switch"
+msgstr "Animatie tijdens het openen van vensters"
+
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:30
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:187
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:276
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:312
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:350
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:388
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:426
+msgid "Normal Windows"
+msgstr "Normale vensters"
+
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:31
+msgid "Animation settings for Normal Windows opening"
+msgstr "Animatievoorkeuren omtrent het openen van normale vensters"
+
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:40
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:196
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:285
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:322
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:360
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:398
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:436
+msgid "Dialog Windows"
+msgstr "Dialoogvensters"
+
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:41
+msgid "Animation settings for Dialog Windows opening"
+msgstr "Animatievoorkeuren omtrent het openen van dialoogvensters"
+
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:50
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:205
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:294
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:332
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:370
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:408
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:446
+msgid "Modal Dialog"
+msgstr "Modale vensters"
+
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:51
+msgid "Animation settings for Modal Dialog Windows opening"
+msgstr "Animatievoorkeuren omtrent het openen van modale dialoogvensters"
+
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:60
+msgid "Dropdown Menu"
+msgstr "Uitrolmenu's"
+
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:61
+msgid "Animation settings for Dropdown Menu opening"
+msgstr "Animatievoorkeuren omtrent het uitklappen van uitrolmenu's"
+
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:70
+msgid "Pop Up Menu"
+msgstr "Pop-upmenu's"
+
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:71
+msgid "Animation settings for Pop Up Menu opening"
+msgstr "Animatievoorkeuren omtrent het openen van pop-upmenu's"
+
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:80
+msgid "Combo Box"
+msgstr "Keuzelijsten"
+
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:81
+msgid "Animation settings for Combo Box opening"
+msgstr "Animatievoorkeuren omtrent het uitklappen van keuzelijsten"
+
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:90
+msgid "Splash Screen"
+msgstr "Opstartschermen"
+
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:91
+msgid "Animation settings for Splash Screen opening"
+msgstr "Animatievoorkeuren omtrent het tonen van opstartschermen"
+
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:100
+msgid "Tooltips"
+msgstr "Hulpballonnen"
+
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:101
+msgid "Animation settings for Tooltips opening"
+msgstr "Animatievoorkeuren omtrent het tonen van hulpballonnen"
+
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:110
+msgid "Overrides Others"
+msgstr "Afgedwongen elementen"
+
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:111
+msgid "Animation settings for Overrides Others opening"
+msgstr "Animatievoorkeuren omtrent het openen afgedwongen elementen"
+
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:120
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:214
+msgid "Notification Banner"
+msgstr "Meldingen"
+
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:121
+msgid "Animation settings for Notification Banner opening"
+msgstr "Animatievoorkeuren omtrent het tonen van meldingen"
+
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:130
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:223
+msgid "Pad OSD"
+msgstr "Pad-meldingen"
+
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:131
+msgid "Animation settings for Pad OSD opening"
+msgstr "Animatievoorkeuren omtrent het tonen van Pad-meldingen"
+
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:140
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:232
+msgid "Top Panel Pop Up Menu"
+msgstr "Pop-upmenu's op bovenbalk"
+
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:141
+msgid "Animation settings for Top Panel Pop up Menu opening"
+msgstr ""
+"Animatievoorkeuren omtrent het openen van pop-upmenu's op de bovenbalk"
+
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:150
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:241
+msgid "Desktop Pop Up Menu"
+msgstr "Rechtermuisknopmenu op bureaublad"
+
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:151
+msgid "Animation settings for Desktop Pop up Menu opening"
+msgstr ""
+"Animatievoorkeuren omtrent het openen van het rechtermuisknopmenu op het "
+"bureaublad"
+
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:160
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:250
+msgid "Window Menu"
+msgstr "Venstermenu"
+
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:161
+msgid "Animation settings for Window Menu opening"
+msgstr "Animatievoorkeuren omtrent het openen van het venstermenu"
+
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:170
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:259
+msgid "Session Ending Dialogs"
+msgstr "Sessie-afsluitvenster"
+
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:171
+msgid "Animation settings for Session Ending Dialogs opening"
+msgstr "Animatievoorkeuren omtrent het openen van het sessie-afsluitvenster"
+
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:178
+msgid "Closing Effects [ for windows ]"
+msgstr "Animatie tijdens sluiten van vensters"
+
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:179
+msgid "Closing effect for windows animation switch"
+msgstr "Animatie tijdens het sluiten van vensters"
+
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:188
+msgid "Animation settings for Normal Windows closing"
+msgstr "Animatievoorkeuren omtrent het sluiten van normale vensters"
+
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:197
+msgid "Animation settings for Dialog Windows closing"
+msgstr "Animatievoorkeuren omtrent het sluiten van dialoogvensters"
+
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:206
+msgid "Animation settings for Modal Dialog Windows closing"
+msgstr "Animatievoorkeuren omtrent het sluiten van modale dialoogvensters"
+
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:215
+msgid "Animation settings for Notification Banner closing"
+msgstr "Animatievoorkeuren omtrent het verdwijnen van meldingen"
+
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:224
+msgid "Animation settings for Pad OSD closing"
+msgstr "Animatievoorkeuren omtrent het verdwijnen van Pad-meldingen"
+
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:233
+msgid "Animation settings for Top Panel Pop Up Menu closing"
+msgstr ""
+"Animatievoorkeuren omtrent het sluiten van pop-upmenu's op de bovenbalk"
+
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:242
+msgid "Animation settings for Desktop Pop Up Menu closing"
+msgstr ""
+"Animatievoorkeuren omtrent het sluiten van het rechtermuisknopmenu op het "
+"bureaublad"
+
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:251
+msgid "Animation settings for Window Menu closing"
+msgstr "Animatievoorkeuren omtrent het sluiten van het venstermenu"
+
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:260
+msgid "Animation settings for Session Ending Dialogs closing"
+msgstr "Animatievoorkeuren omtrent het sluiten van het sessie-afsluitvenster"
+
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:267
+msgid "Minimizing Effects"
+msgstr "Minimaliseeranimaties"
+
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:268
+msgid "Minimizing effect animation switch"
+msgstr "Animatie tijdens het minimaliseren van vensters"
+
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:277
+msgid "Animation settings for Normal Windows minimizing"
+msgstr "Animatievoorkeuren omtrent het minimaliseren van normale vensters"
+
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:286
+msgid "Animation settings for Dialog Windows minimizing"
+msgstr "Animatievoorkeuren omtrent het minimaliseren van dialoogvensters"
+
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:295
+msgid ""
+"Only provided so that shell does not crash if for any reason Modal Dialog "
+"Windows is minimzing"
+msgstr ""
+"Dit wordt alleen aangeboden om Shell niet te laten crashen als modale "
+"dialoogvensters geminimaliseerd worden"
+
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:302
+msgid "Unminimizing Effects"
+msgstr "Herstelanimaties"
+
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:303
+msgid "Unminimizing effect animation switch"
+msgstr "Animatie tijdens het herstellen van vensters"
+
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:313
+msgid "Animation settings for Normal Windows unminimizing"
+msgstr "Animatievoorkeuren omtrent het herstellen van normale vensters"
+
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:323
+msgid "Animation settings for Dialog Windows unminimzing"
+msgstr "Animatievoorkeuren omtrent het herstellen van dialoogvensters"
+
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:333
+msgid ""
+"Only provided so that shell does not crash if for any reason Modal Dialog "
+"Windows is unminimzing"
+msgstr ""
+"Dit wordt alleen aangeboden om Shell niet te laten crashen als modale "
+"dialoogvensters hersteld worden"
+
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:340
+msgid "Focussing Effects"
+msgstr "Focusanimaties"
+
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:341
+msgid "Focussing effect animation switch"
+msgstr "Animatie tijdens het focussen van vensters"
+
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:351
+msgid "Animation settings for Normal Windows focus"
+msgstr "Animatievoorkeuren omtrent het focussen van normale vensters"
+
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:361
+msgid "Animation settings for Dialog Windows focus"
+msgstr "Animatievoorkeuren omtrent het focussen van dialoogvensters"
+
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:371
+msgid "Animation settings for Modal Dialog Windows focus"
+msgstr "Animatievoorkeuren omtrent het focussen van modale dialoogvensters"
+
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:378
+msgid "Defocussing Effects"
+msgstr "Ontfocuseffecten"
+
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:379
+msgid "Defocussing effect animation switch"
+msgstr "Animatie tijdens het ontfocussen van vensters"
+
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:389
+msgid "Animation settings for Normal Windows defocus"
+msgstr "Animatievoorkeuren omtrent het ontfocussen van normale vensters"
+
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:399
+msgid "Animation settings for Dialog Windows defocus"
+msgstr "Animatievoorkeuren omtrent het ontfocussen van dialoogvensters"
+
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:409
+msgid "Animation settings for Modal Dialog Windows defocus"
+msgstr "Animatievoorkeuren omtrent het ontfocussen van modale dialoogvensters"
+
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:416
+msgid "Dragging Effects"
+msgstr "Versleepanimaties"
+
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:417
+msgid "Starting to move effect animation switch"
+msgstr "Animatie tijdens het verslepen van vensters"
+
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:427
+msgid "Animation settings for Normal Windows start to move"
+msgstr "Animatievoorkeuren omtrent het verslepen van normale vensters"
+
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:437
+msgid "Animation settings for Dialog Windows start to move"
+msgstr "Animatievoorkeuren omtrent het verslepen van dialoogvensters"
+
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:447
+msgid "Animation settings for Modal Dialog Windows start to move"
+msgstr "Animatievoorkeuren omtrent het verslepen van modale dialoogvensters"
+
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:455
+msgid "Application profiles status switch"
+msgstr "Schakelen tussen toepassingsprofielen"
+
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:461
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:462
+msgid "List of Applicaions for custom profiles"
+msgstr "Toepassingslijst met aangepaste profielen"
+
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:468
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:469
+msgid "List of Applicaions names for custom profiles"
+msgstr "De toepassingslijst met aangepaste profielen"
+
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:476
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:477
+msgid "Extension Profile Currently In Use"
+msgstr "Dit profiel is al in gebruik"
+
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:484
+msgid "Use the workaround for Wayland"
+msgstr "Wayland-tussenoplossing gebruiken"
+
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:485
+msgid "Settings If used under wayland"
+msgstr "Voorkeuren voor gebruik onder Wayland"
+
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:490
+msgid "Pad OSD hide timeout [ in ms ]"
+msgstr "Wachttijd alvorens Pad te verbergen (in ms)"
+
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:491
+msgid "Time for which Pad OSD is Shown"
+msgstr "Hoelang een Pad OSD wordt getoond"
+
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:498
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:499
+msgid "Shortcut key combiation to disable extension"
+msgstr "De sneltoets waarmee de uitbreiding wordt uitgeschakeld"
+
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:504
+msgid "Show delay time in preferences"
+msgstr "Wachttijd tonen in voorkeuren"
+
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:505
+msgid "Show Delay Time in preferences"
+msgstr "Toon de wachttijd in de voorkeuren"
+
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:512
+msgid "Version of Current Extension"
+msgstr "De huidige uitbreidingsversie"
+
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:513
+msgid ""
+"Provided to ensure that extension is stopped incase of autoupdate from "
+"previous version to prevent unwanted effects"
+msgstr ""
+"Dit wordt aangeboden zodat de uitbreiding kan worden onderbroken in geval "
+"van updates om ongewenst gedrag te voorkomen"
+
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:518
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:519
+msgid "Signals the preferences to unlock save button"
+msgstr "Ontgrendel de knop ‘Opslaan’ in de voorkeuren"
+
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:524
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:525
+msgid "Signals the extension to reload"
+msgstr "Herlaad de uitbreiding"
+
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:530
+#: schemas/org.gnome.shell.extensions.animation-tweaks.gschema.xml:531
+msgid "Signals the extension to reload Application Profiles"
+msgstr "Herlaad de toepassingsprofielen"
+
+#: Generated by update_pot.sh
+msgid "Compressed Slide Down"
+msgstr "Omlaag duwen"
+
+#: Generated by update_pot.sh
+msgid "Compressed Slide Left"
+msgstr "Naar links duwen"
+
+#: Generated by update_pot.sh
+msgid "Compressed Slide Right"
+msgstr "Naar rechts duwen"
+
+#: Generated by update_pot.sh
+msgid "Compressed Slide Up"
+msgstr "Omhoog duwen"
+
+#: Generated by update_pot.sh
+msgid "Deflate"
+msgstr "Leeglopen"
+
+#: Generated by update_pot.sh
+msgid "Fade"
+msgstr "Vervagen"
+
+#: Generated by update_pot.sh
+msgid "Fade In"
+msgstr "Naar voren vervagen"
+
+#: Generated by update_pot.sh
+msgid "Fade Out"
+msgstr "Naar achteren vervagen"
+
+#: Generated by update_pot.sh
+msgid "Fall and Bounce"
+msgstr "Wegvallen en -stuiteren"
+
+#: Generated by update_pot.sh
+msgid "Fall Behind"
+msgstr "Naar achteren vallen"
+
+#: Generated by update_pot.sh
+msgid "Flip Horizontally"
+msgstr "Horizontaal omdraaien"
+
+#: Generated by update_pot.sh
+msgid "Flip Over"
+msgstr "Omdraaien"
+
+#: Generated by update_pot.sh
+msgid "Flipped Slide Down"
+msgstr "Omgedraaide zijde omlaag"
+
+#: Generated by update_pot.sh
+msgid "Flipped Slide Up"
+msgstr "Omgedraaide zijde omhoog"
+
+#: Generated by update_pot.sh
+msgid "Flip Vertically"
+msgstr "Verticaal omdraaien"
+
+#: Generated by update_pot.sh
+msgid "Float Up"
+msgstr "Omhoog zweven"
+
+#: Generated by update_pot.sh
+msgid "Fold In Sideways"
+msgstr "Zijwaarts naar binnen vouwen"
+
+#: Generated by update_pot.sh
+msgid "Fold In Vertically"
+msgstr "Verticaal naar binnen vouwen"
+
+#: Generated by update_pot.sh
+msgid "Fold Out Sideways"
+msgstr "Zijwaarts naar buiten vouwen"
+
+#: Generated by update_pot.sh
+msgid "Fold Out Vertically"
+msgstr "Verticaal naar buiten vouwen"
+
+#: Generated by update_pot.sh
+msgid "Inflate"
+msgstr "Opblazen"
+
+#: Generated by update_pot.sh
+msgid "Magnify"
+msgstr "Vergroten"
+
+#: Generated by update_pot.sh
+msgid "None"
+msgstr "Niets doen"
+
+#: Generated by update_pot.sh
+msgid "Random"
+msgstr "Willekeurig"
+
+#: Generated by update_pot.sh
+msgid "Rotate In Down"
+msgstr "Omlaag naar binnen draaien"
+
+#: Generated by update_pot.sh
+msgid "Rotate In Left"
+msgstr "Links naar binnen draaien"
+
+#: Generated by update_pot.sh
+msgid "Rotate In Right"
+msgstr "Rechts naar binnen draaien"
+
+#: Generated by update_pot.sh
+msgid "Rotate In Up"
+msgstr "Omhoog naar binnen draaien"
+
+#: Generated by update_pot.sh
+msgid "Rotate Out Down"
+msgstr "Omlaag naar buiten draaien"
+
+#: Generated by update_pot.sh
+msgid "Rotate Out Left"
+msgstr "Links naar buiten draaien"
+
+#: Generated by update_pot.sh
+msgid "Rotate Out Right"
+msgstr "Rechts naar buiten draaien"
+
+#: Generated by update_pot.sh
+msgid "Rotate Out Up"
+msgstr "Omhoog naar buiten draaien"
+
+#: Generated by update_pot.sh
+msgid "Scale Auto In"
+msgstr "Naar binnen schalen"
+
+#: Generated by update_pot.sh
+msgid "Scale Auto Out"
+msgstr "Naar buiten schalen"
+
+#: Generated by update_pot.sh
+msgid "Scale Down"
+msgstr "Omlaag schalen"
+
+#: Generated by update_pot.sh
+msgid "Scale Left"
+msgstr "Naar links schalen"
+
+#: Generated by update_pot.sh
+msgid "Scale Right"
+msgstr "Naar rechts schalen"
+
+#: Generated by update_pot.sh
+msgid "Scale Up"
+msgstr "Omhoog schalen"
+
+#: Generated by update_pot.sh
+msgid "Slide Down"
+msgstr "Omlaag schuiven"
+
+#: Generated by update_pot.sh
+msgid "Slide Left"
+msgstr "Naar links schuiven"
+
+#: Generated by update_pot.sh
+msgid "Slide Right"
+msgstr "Naar rechts schuiven"
+
+#: Generated by update_pot.sh
+msgid "Slide Up"
+msgstr "Omhoog schuiven"
+
+#: Generated by update_pot.sh
+msgid "Squeezed Slide Down"
+msgstr "Ingeklapt omlaag schuiven"
+
+#: Generated by update_pot.sh
+msgid "Squeezed Slide Left"
+msgstr "Ingeklapt naar links schuiven"
+
+#: Generated by update_pot.sh
+msgid "Squeezed Slide Right"
+msgstr "Ingeklapt naar rechts schuiven"
+
+#: Generated by update_pot.sh
+msgid "Squeezed Slide Up"
+msgstr "Ingeklapt omhoog schuiven"
+
+#: Generated by update_pot.sh
+msgid "Unmagnify"
+msgstr "Verkleinen"
+
+#: Generated by update_pot.sh
+msgid "Wiggle"
+msgstr "Wiebelen"
+
+#: Generated by update_pot.sh
+msgid "Zoom In"
+msgstr "Inzoomen"
+
+#: Generated by update_pot.sh
+msgid "Zoom Out"
+msgstr "Uitzoomen"
+
+#: Generated by update_pot.sh
+msgid ""
+"Add animations to different items and customize them.\n"
+"\n"
+"Please reset the extension after updating.\n"
+"The Extension will stop when upgraded to an incompatible version.\n"
+"In that case an Update tab is created to easily reset the extension.\n"
+"A Reset button is also always present in Preferences option in the "
+"Application menu of the extension preferences window.\n"
+"A Default shortcut combination of Super Key + t is provided to disable the "
+"extension.\n"
+"\n"
+"Some effects might not work properly on wayland, for which a workaround is "
+"provided on preferences -> Tweaks tab.\n"
+"However, some animations might not work properly.\n"
+"\n"
+"To manage effect Delay time enable Show delay time in preferences option "
+"from Preferences -> Tweaks Tab\n"
+"and reopen preferences."
+msgstr ""
+"Voorzie allerlei items van effecten en zet ze naar eigen hand.\n"
+"\n"
+"Herstel alle voorkeuren na het installeren van een update.\n"
+"De uitbreiding stopt met werken als er een incompatibele versie wordt "
+"aangetroffen.\n"
+"Om die reden kunt u de uitbreidingsvoorkeuren te allen tijde herstellen.\n"
+"De herstelknop is ook te allen tijde beschikbaar in het toepassingsmenu.\n"
+"De standaard sneltoets om de uitbreiding uit te schakelen is Super + T.\n"
+"\n"
+"Enkele animaties werken mogelijk niet goed onder Wayland - hiervoor wordt "
+"een tussenoplossing geboden in de voorkeuren.\n"
+"Het kan echter nog steeds voorkomen dat enkele animaties niet goed werken.\n"
+"\n"
+"De wachttijd kan worden aangepast door de optie ‘Wachttijd tonen in "
+"voorkeuren’ in te schakelen\n"
+"en de voorkeuren opnieuw te openen."
+
+#: Generated by update_pot.sh
+msgid "Add animations to different items and customize them."
+msgstr "Voorzie allerlei items van effecten en zet ze naar eigen hand."

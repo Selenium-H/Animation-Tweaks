@@ -1,6 +1,6 @@
 /*
 
-Version 14.01
+Version 14.02
 =============
 
 Credits:
@@ -371,14 +371,19 @@ const EffectsManager_AnimationTweaksExtension = class EffectsManager_AnimationTw
           parameters.actor.remove_all_transitions();
           [ parameters.sucess, parameters.geom ] = window.get_icon_geometry();    
           [ parameters.effectName, parameters.itemType, parameters.listType ] = [ eParams[1], "normal", "window" ];
-          if(window.is_monitor_sized()) {
-            [eParams[0], eParams[12], eParams[1], eParams[13]] = [0, "C"+eParams[12], 0, "C"+eParams[13]];
+          if(!window.decorated) { 
+            if(window.is_monitor_sized()) {
+              [eParams[0], eParams[12], eParams[1], eParams[13]] = [0, "C"+eParams[12], 0, "C"+eParams[13]];
+            }
+            else {
+              let rect = window.get_frame_rect();
+              [ eParams[0], eParams[12] ] = (window.maximized_horizontally) ? [ rect.x, "C"+eParams[12]]: [ parameters.actor.x, eParams[12]]; 
+              [ eParams[1], eParams[13] ] = (window.maximized_vertically)   ? [ rect.y, "C"+eParams[13]]: [ parameters.actor.y, eParams[13]];
+            }
           }
           else {
-            let rect = window.get_frame_rect();
-            [ eParams[0], eParams[12] ] = (window.maximized_horizontally) ? [ rect.x, "C"+eParams[12]]: [ parameters.actor.x, eParams[12]]; 
-            [ eParams[1], eParams[13] ] = (window.maximized_vertically)   ? [ rect.y, "C"+eParams[13]]: [ parameters.actor.y, eParams[13]];
-          } 
+            [ eParams[0], eParams[1] ] = [ parameters.actor.x, parameters.actor.y ];
+          }
           this.driveWindowAnimation( eParams, parameters );  
         }
         return;

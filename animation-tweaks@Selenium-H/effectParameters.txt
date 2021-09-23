@@ -1,4 +1,4 @@
-Version 12.16
+Version 14.03
 =============
 
 Effect Format  [  |  S    Name     C       PPX       PPY       CX        CY        DL        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN  ]
@@ -11,7 +11,7 @@ S   - Status               | T if enabled else F                                
                            |                                                                |                                                                           |
 Name                       | Effect name                                                    | Displayed in dropdown list                                                |
                            |                                                                |                                                                           |
-C   - Tween Counts         | Number of effcts cascaded                                      | -                                                                         |
+C   - Tween Counts         | Number of effcts cascaded.                                     | Not Shown in preferences.                                                 |
                            |                                                                |                                                                           |
 PPX - Pivot point X        | Can take values -5 - 5.                                        | Can be changed from -500 - 500.  Displayed in percentage in preferences.  |
                            |                                                                |                                                                           |
@@ -107,10 +107,10 @@ The second set is used as a dedicated delay parameter set. This is needed someti
 Any DL parameter before or after that should be made zero unless needed.  
 Changing DL parameter at improper places in Effect Array may cause instabilities in animation. 
 
-A Delay entry is avialable in Preferences. To manage effect Delay time enable "Show delay time in preferences" option from Preferences -> Tweaks Tab.
+A Delay entry is avialable in Preferences. To manage effect Delay time enable "Show delay time in preferences" option from Top Right Menu -> Preferences.
  
-Parameter Values - non-float ( Normal window, Dialogs and Modal Dialogs animations only ) 
-=========================================================================================
+Parameter Values - non-float ( Normal window, and Dialog Window animations only ) 
+=================================================================================
 
 MW  =  Width of Minimized window 
 MH  =  Height of Minimized window
@@ -134,7 +134,7 @@ Non-float values that extension uses to correct position
 --------------------------------------------------------
 
 C_  =  Position that is modified by a prefix 'C' tells the extension to correct the position during the start of animation.
-       This is done automatically when the extension detects misposition of widgets. 
+       This is done automatically when the extension detects misposition of windows. 
        For example - Original value of parameter PX = -0.2 could be changed to C-0.2. 
                      This will make the extension save the corrected positions coordinates in eParams[0] and eParams[1].
                      Which will corrected the initial position during animation.

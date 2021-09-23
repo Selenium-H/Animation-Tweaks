@@ -85,10 +85,10 @@ Enable it using GNOME Tweak Tool.
   Credits
 </h1>
 
-This extension is inspired from 
+This project is inspired from 
 [Compiz](http://www.compiz.org/) ,
 [Window Slide In Extension](https://extensions.gnome.org/extension/367/window-slide-in/) by mengzhuo, 
 [Files View Extension](https://extensions.gnome.org/extension/1395/files-view/) by abakkk.
 [Coverflow Alt-Tab Extension](https://extensions.gnome.org/extension/97/coverflow-alt-tab/) by p91paul.
 
-Thanks to @JasonLG1979, @vantu5z.
+Thanks to @JasonLG1979, @vantu5z, @Vistaus.

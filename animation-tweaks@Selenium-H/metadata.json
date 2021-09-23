@@ -1,6 +1,6 @@
 {
 "name": "Animation Tweaks", 
-"description": "Add animations to different items and customize them.\n\nPlease reset the extension after updating.\nThe Extension will stop when upgraded to an incompatible version.\nIn that case an Update tab is created to easily reset the extension.\nA Reset button is also always present in Preferences option in the Application menu of the extension preferences window.\nA Default shortcut combination of Super Key + t is provided to disable the extension.\n\nSome effects might not work properly on wayland, for which a workaround is provided on preferences -> Tweaks tab.\nHowever, some animations might not work properly.\n\nTo manage effect Delay time enable Show delay time in preferences option from Preferences -> Tweaks Tab\nand reopen preferences.", 
+"description": "Add animations to different items and customize them.\n\nPlease reset the extension after updating.\nThe Extension will stop when upgraded to an incompatible version.\nIn that case an Update tab is created to easily reset the extension.\nA Reset menu entry is also always present in in the Top Right Application menu of the extension preferences window.\nA Default shortcut combination of Super Key + t is provided to disable the extension.\n\nSome effects might not work properly on wayland, for which an option to integrate with wayland is provided on Integrations tab.\nHowever, some animations might not work properly.\n\nTo manage effect Delay time enable Show delay time in preferences Window from Top Right Application menu -> Preferences\nand reopen preferences.", 
 "comment": "Add animations to different items and customize them.",
 "uuid": "animation-tweaks@Selenium-H", 
 "shell-version": [
@@ -9,5 +9,5 @@
 ],
 "status" : " [experimental]",
 "url": "https://github.com/Selenium-H/Animation-Tweaks", 
-"version": 14.01
+"version": 14.03
 }

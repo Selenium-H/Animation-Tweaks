@@ -1,6 +1,6 @@
 /*
 
-Version 14.03
+Version 14.04
 =============
 
 Effect Format  [  |  S    Name     C       PPX       PPY       CX        CY        DL        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN  ]
@@ -79,7 +79,7 @@ function reloadApplicationProfiles() {
 
 }
 
-const ExtensionPreferencesWindow_AnimationTweaksExtension = new GObject.Class({
+var ExtensionPreferencesWindow_AnimationTweaksExtension = new GObject.Class({
 
   Name: 'ExtensionPreferencesWindow_AnimationTweaksExtension',
 
@@ -631,7 +631,7 @@ const AnimationSettingsForItemWithAction_AnimationTweaksExtension = new GObject.
   
 });
 
-const Prefs_AnimationTweaksExtension = new GObject.Class({
+var Prefs_AnimationTweaksExtension = new GObject.Class({
 
   Name: 'Prefs_AnimationTweaksExtension',
   Extends: Gtk.Stack,
@@ -2252,13 +2252,7 @@ const PrefsWindowForExtensionProfiles_AnimationTweaksExtension = new GObject.Cla
   prefCombo: function(KEY, posX, posY, options, items) {
   
     let settingLabel = new Gtk.Label({xalign: 1, label: _(settings.settings_schema.get_key(KEY).get_summary()), halign: Gtk.Align.START});  
-    let SettingCombo = new Gtk.ComboBoxText();
-    let saveExtensionProfilesButton = new Gtk.Button({label: _("Save"), halign:Gtk.Align.END, sensitive: settings.get_boolean("current-profile-modified") });
-    
-    saveExtensionProfilesButton.connect('clicked', ()=> this.saveCurrentProfile());
-    settings.connect("changed::current-profile-modified", ()=> {
-      saveExtensionProfilesButton.sensitive = settings.get_boolean("current-profile-modified");
-    });
+    let SettingCombo = new Gtk.ComboBoxText({halign: Gtk.Align.END});
     
     for (let i = 0; i < options.length; i++) {
       SettingCombo.append(options[i],  items[i]);
@@ -2272,7 +2266,6 @@ const PrefsWindowForExtensionProfiles_AnimationTweaksExtension = new GObject.Cla
     
     this.attach(settingLabel,                posX,   posY, 1, 1);
     this.attach(SettingCombo,                posX+1, posY, 1, 1);
-    this.attach(saveExtensionProfilesButton, posX+2, posY, 1, 1);
       
   },
   
@@ -2332,7 +2325,6 @@ const PrefsWindowForExtensionProfiles_AnimationTweaksExtension = new GObject.Cla
 
                        + "this.notificationbannerWindowopenProfile="+this.stringifyParameters(this.notificationbannerWindowopenProfile)
                        + "this.notificationbannerWindowcloseProfile="+this.stringifyParameters(this.notificationbannerWindowcloseProfile)
-                       + "this.notificationBannerAlignment=\""+this.notificationBannerAlignment+"\";\n"
    
                        + "this.padosdWindowopenProfile="+this.stringifyParameters(this.padosdWindowopenProfile)
                        + "this.padosdWindowcloseProfile="+this.stringifyParameters(this.padosdWindowcloseProfile)

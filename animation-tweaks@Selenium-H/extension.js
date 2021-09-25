@@ -1,6 +1,6 @@
 /*
 
-Version 14.03
+Version 14.04
 =============
 
 Credits:
@@ -64,6 +64,8 @@ function enable() {
 
 function disable() {
 
+  extensionSettings.run_dispose();
+  
   if(extensionDelayTimeoutId_extensionState == "n") {
     return;
   }
@@ -382,7 +384,7 @@ const EffectsManager_AnimationTweaksExtension = class EffectsManager_AnimationTw
         eParams = this.normalWindowopenProfile[parameters.profileIndex].slice(0); 
         if(eParams[0] == "T" ) {
           parameters.actor.set_opacity(0);
-          parameters.actor.remove_all_transitions();
+          parameters.actor.remove_all_transitions(); 
           [ parameters.sucess, parameters.geom ] = window.get_icon_geometry();    
           [ parameters.effectName, parameters.itemType, parameters.listType ] = [ eParams[1], "normal", "window" ];
           if(!window.decorated) { 
@@ -398,6 +400,7 @@ const EffectsManager_AnimationTweaksExtension = class EffectsManager_AnimationTw
           else {
             [ eParams[0], eParams[1] ] = [ parameters.actor.x, parameters.actor.y ];
           }
+          await Main.wm._mapWindow;
           this.driveWindowAnimation( eParams, parameters );  
         }
         return;
@@ -411,6 +414,7 @@ const EffectsManager_AnimationTweaksExtension = class EffectsManager_AnimationTw
           parameters.actor.remove_all_transitions();
           [ parameters.sucess, parameters.geom ] = window.get_icon_geometry(); 
           [ parameters.effectName, parameters.itemType, parameters.listType ] = [ eParams[1], "dialog", "window" ];
+          await Main.wm._mapWindow;
           this.driveWindowAnimation( eParams, parameters );  
         }
         return;
@@ -423,6 +427,7 @@ const EffectsManager_AnimationTweaksExtension = class EffectsManager_AnimationTw
           parameters.actor.set_opacity(0);
           parameters.actor.remove_all_transitions();
           [ parameters.effectName, parameters.itemType ] = [ eParams[1], "modaldialog"];
+          await Main.wm._mapWindow;
           this.driveOtherAnimation( eParams, parameters );  
         }
         return;
@@ -1241,7 +1246,7 @@ const EffectsManager_AnimationTweaksExtension = class EffectsManager_AnimationTw
       rotation_angle_y:  eParams[startIndex++],           
       rotation_angle_z:  eParams[startIndex++],
       mode:              Clutter.AnimationMode[eParams[startIndex++]],
-      onComplete:        ()=> this.driveWindowAnimation ( eParams, parameters )
+      onStopped:         ()=> this.driveWindowAnimation ( eParams, parameters )
     }); 
  
   }

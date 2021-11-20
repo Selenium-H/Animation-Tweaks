@@ -65,21 +65,37 @@ Please reset the extension after updating. The Extension will stop when upgraded
   Installations
 </h1>
 
-<h2 align="center"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GitHub&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GNOME Shell Extension Website
-</h2>
-
-Download or clone the repository and extract the zip file.
-
-Open terminal in extracted folder and run
-
-`chmod +x INSTALL.sh && ./INSTALL.sh` 
-
-<p align="right"><a href="https://extensions.gnome.org/extension/1680/animation-tweaks/">Get this extension from here</a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-</p>
-
-Restart Gnome Shell ( Alt + F2 , Press r , Press Enter ) .
-
-Enable it using GNOME Tweak Tool.
+<div align="center">
+  <table>
+    <tr>
+      <th>
+        <h2>GitHub</h2>
+      </th>
+      <th>
+        <h2>GNOME Shell Extension Website</h2>
+      </th>
+    </tr>
+    <tr>
+      <td align="left">
+        <br>Download/clone this repository and extract <code>.zip</code> file.<br>
+        <br>Open <code>Terminal</code> in extracted folder and run<br>
+        <ul>
+          <code>chmod +x INSTALL.sh && ./INSTALL.sh</code>
+        </ul>
+        <br>Restart <code>GNOME Shell</code>.</br>
+        <ul>
+          <li>In <code>Xorg</code>, press <kbd>Alt</kbd>+<kbd>F2</kbd>, press <kbd>r</kbd>, press <kbd>Enter</kbd>.</li>
+          <li>In <code>Wayland</code>, log out and log in back.</li>
+        </ul>
+        <br>Enable it in <code>GNOME Tweaks</code> or <code>Extensions</code> application.<br>
+      </td>
+      <td>
+        <a href="https://extensions.gnome.org/extension/1680/animation-tweaks/">Get this extension from here</a> 
+      </td>
+    </tr>
+  </table>
+  <br>Also, please check the <a href="https://github.com/Selenium-H/Animation-Tweaks/tree/experimental">experimental</a> <code>branch</code> of this project for most recently updated version.<br><br>
+</div>
 
 <h1 align="center">
   Credits

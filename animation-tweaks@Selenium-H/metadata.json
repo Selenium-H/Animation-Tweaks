@@ -5,7 +5,8 @@
 "uuid": "animation-tweaks@Selenium-H", 
 "shell-version": [
 	"3.38",
-	"40"
+	"40",
+	"41"
 ],
 "status" : " [experimental]",
 "url": "https://github.com/Selenium-H/Animation-Tweaks", 

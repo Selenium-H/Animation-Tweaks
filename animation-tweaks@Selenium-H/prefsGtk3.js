@@ -1,6 +1,6 @@
 /*
 
-Version 14.04
+Version 14.05
 =============
 
 Effect Format  [  |  S    Name     C       PPX       PPY       CX        CY        DL        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN  ]
@@ -10,7 +10,8 @@ Read the effectParameters.txt File for details.
 Credits:
 
 This file is based on https://extensions.gnome.org/extension/1395/files-view/ by abakkk.
-Application List is based on code from https://extensions.gnome.org/extension/258/notifications-alert-on-user-menu/ by hackedbellini
+Application List is based on code from https://extensions.gnome.org/extension/258/notifications-alert-on-user-menu/ by hackedbellini.
+Extension Profiles list is based on https://extensions.gnome.org/extension/19/user-themes/ by fmuellner.
 
 Some code was also adapted from the upstream Gnome Shell source code.   
 
@@ -58,7 +59,6 @@ function reloadExtension () {
  
   reloadExtensionAfterSomeTime = GLib.timeout_add(GLib.PRIORITY_DEFAULT, SETTINGS_APPLY_DELAY_TIME, ()=> {
     settings.set_boolean("reload-signal", (settings.get_boolean("reload-signal")) ? false : true ); 
-    settings.set_boolean("current-profile-modified", true);
     reloadExtensionAfterSomeTime = null;
   });
     
@@ -73,7 +73,6 @@ function reloadApplicationProfiles() {
 
   reloadApplicationProfileAfterSomeTime = GLib.timeout_add(GLib.PRIORITY_DEFAULT, SETTINGS_APPLY_DELAY_TIME, ()=> {
     settings.set_boolean("reload-profiles-signal", (settings.get_boolean("reload-profiles-signal")) ? false : true );
-    settings.set_boolean("current-profile-modified", true);
     reloadApplicationProfileAfterSomeTime = null;
   });
 
@@ -171,9 +170,10 @@ var ExtensionPreferencesWindow_AnimationTweaksExtension = new GObject.Class({
     let saveToProfileButton = new Gtk.Button({ image: new Gtk.Image({ gicon: new Gio.ThemedIcon({ name: "document-save-symbolic" }), icon_size: Gtk.IconSize.BUTTON, visible: true, }), visible:true, sensitive: settings.get_boolean("current-profile-modified")}); 
     settings.connect("changed::current-profile-modified", ()=> {
       saveToProfileButton.sensitive = settings.get_boolean("current-profile-modified");
+      widget.profilePrefs.extensionProfilesPrefs.selectedRow.setProfileModifiedState(saveToProfileButton.sensitive);
     });
     saveToProfileButton.connect('clicked', ()=> {
-      widget.profilePrefs.extensionProfilesPrefs.saveCurrentProfile();
+      widget.profilePrefs.extensionProfilesPrefs.saveCurrentProfile(widget.profilePrefs.extensionProfilesPrefs.selectedRow._name.get_string()[0]);
     });
     this.headerBar.pack_end(saveToProfileButton);
 
@@ -356,7 +356,7 @@ const UpdatePage_AnimationTweaksExtension =  new GObject.Class({
   keepPreferences: function(dialog) {
   
     this.convertTimeToInteger();
-    this.profilesObject.extensionProfilesPrefs.saveCurrentProfile();
+    this.profilesObject.extensionProfilesPrefs.saveCurrentProfile(settings.get_string("profile-name"));
     settings.set_double('current-version', Metadata.version);//settings.reset('current-version');
     reloadExtension();
     this.updateDone();
@@ -516,6 +516,7 @@ const AnimationSettingsForItem_AnimationTweaksExtension = new GObject.Class({
       return;
     }
 
+    settings.set_boolean("current-profile-modified", true);
     this.eStr = this.appProfile.getEffectAt(this.appIndex);
     this.appProfile.modifyEffectForWindowAction(this.appIndex,this.allEffectsList.setEffectDelay(value, this.eStr));
    
@@ -527,6 +528,7 @@ const AnimationSettingsForItem_AnimationTweaksExtension = new GObject.Class({
       return;
     }
 
+    settings.set_boolean("current-profile-modified", true);
     this.eStr = this.appProfile.getEffectAt(this.appIndex);
     this.appProfile.modifyEffectForWindowAction(this.appIndex, this.allEffectsList.setEffectTime(value, this.eStr));
    
@@ -557,6 +559,7 @@ const AnimationSettingsForItem_AnimationTweaksExtension = new GObject.Class({
       return;
     }
 
+    settings.set_boolean("current-profile-modified", true);
     this.eStr    = this.appProfile.getEffectAt(this.appIndex);
     let state    = this.eStr[0];
     this.eStr    = [];
@@ -580,7 +583,8 @@ const AnimationSettingsForItem_AnimationTweaksExtension = new GObject.Class({
     if(this.updatingProfiles==true || this.appIndex ==-1 ) {
       return;
     }
-      
+    
+    settings.set_boolean("current-profile-modified", true);  
     this.eStr = this.appProfile.getEffectAt(this.appIndex);
     this.eStr[0] = (state)? "T":"F";
     this.appProfile.modifyEffectForWindowAction(this.appIndex,this.eStr);
@@ -1073,6 +1077,7 @@ const EffectsTweaks_AnimationTweaksExtension =  new GObject.Class({
     effectParameter.connect('notify::value', (spin)=> {     
       this.eStr[pNo]=(spin.get_value_as_int()/multiplier).toString();
       this.appProfile.modifyEffectForWindowAction(this.appIndex,this.eStr);
+      settings.set_boolean("current-profile-modified", true);
       reloadApplicationProfiles();
     });
     this.gridWin.attach(SettingLabel    ,0    ,pos  ,1   ,1);
@@ -1092,6 +1097,7 @@ const EffectsTweaks_AnimationTweaksExtension =  new GObject.Class({
       
       this.eStr[pNo]=DefaultEffectList.transitionOptions[widget.get_active()];
       this.appProfile.modifyEffectForWindowAction(this.appIndex,this.eStr);
+      settings.set_boolean("current-profile-modified", true);
       reloadApplicationProfiles();
             
     }));
@@ -1127,6 +1133,7 @@ const EffectsTweaks_AnimationTweaksExtension =  new GObject.Class({
         
       if(shouldCommit == true){
         this.appProfile.modifyEffectForWindowAction(this.appIndex,this.eStr);
+        settings.set_boolean("current-profile-modified", true);
         reloadApplicationProfiles();
       }
      
@@ -1163,6 +1170,7 @@ const EffectsTweaks_AnimationTweaksExtension =  new GObject.Class({
         
       if(shouldCommit == true){
         this.appProfile.modifyEffectForWindowAction(this.appIndex,this.eStr);
+        settings.set_boolean("current-profile-modified", true);
         reloadApplicationProfiles();
       }
      
@@ -1244,6 +1252,7 @@ const PrefsWindow_AnimationTweaksExtension = new GObject.Class({
         
     SettingSwitch0.connect("notify::active", Lang.bind(this, function(button) {
       settings.set_boolean(KEY, button.active);
+      settings.set_boolean("current-profile-modified", true);
       reloadExtension();
     }));
 
@@ -1955,15 +1964,17 @@ const PrefsWindowForProfiles_AnimationTweaksExtension = new GObject.Class({
   
     this.parent({});
           
-    this.appProfilesPrefs       = new PrefsWindowForApps_AnimationTweaksExtension();
-    this.extensionProfilesPrefs = new PrefsWindowForExtensionProfiles_AnimationTweaksExtension();
-
+    this.appProfilesPrefs             = new PrefsWindowForApps_AnimationTweaksExtension();
+    this.extensionProfilesPrefs       = new PrefsWindowForExtensionProfiles_AnimationTweaksExtension();
+    this.extensionProfilesPrefsWindow = new Gtk.ScrolledWindow({hexpand: true });
+  
     const cssProvider = new Gtk.CssProvider();
     cssProvider.load_from_data('notebook > stack { background: rgba(0,0,0,0.0); }');
     this.get_style_context().add_provider(cssProvider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
 
-    this.append_page(this.appProfilesPrefs,         new Gtk.Label({ hexpand:true, label: _("Application")}) );
-    this.append_page(this.extensionProfilesPrefs,   new Gtk.Label({ hexpand:true, label: _("Animation Tweaks")})   );
+    this.extensionProfilesPrefsWindow.add(this.extensionProfilesPrefs);
+    this.append_page(this.appProfilesPrefs,             new Gtk.Label({ hexpand:true, label: _("Applications")}) );
+    this.append_page(this.extensionProfilesPrefsWindow, new Gtk.Label({ hexpand:true, label: _("Animation Tweaks")})   );
 
     this.appProfilesPrefs.displayPrefs();
     this.extensionProfilesPrefs.displayPrefs();
@@ -1981,115 +1992,219 @@ const PrefsWindowForExtensionProfiles_AnimationTweaksExtension = new GObject.Cla
   
     this.parent();
     this.valign = Gtk.Align.CENTER;
-    const cssProvider = new Gtk.CssProvider();
-    cssProvider.load_from_data('grid { padding: 40px 40px 40px 40px; }');
-    this.get_style_context().add_provider(cssProvider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);    
-    this.get_style_context().add_class("frame");
-    this.get_style_context().add_class("view");
-    this.setPath();   
+    this.setPath();  
+    this.previousProfile = settings.get_string("profile-name");  
+   
+  },
+  
+  makeProfilesList: function() {
+  
+    this._list = new Gtk.ListBox({ halign: Gtk.Align.CENTER, valign: Gtk.Align.CENTER, hexpand: true, margin: 20 });
+    this._list.get_style_context().add_class('frame');
+    this._list.set_header_func(function(row, before){
+      if(!before || row.get_header()) {
+        return;
+      }
+      row.set_header(new Gtk.Separator());    
+    }.bind(this));
+
+    this._actionGroup = new Gio.SimpleActionGroup();
+    this._list.insert_action_group('animation-tweaks-profiles', this._actionGroup);
+
+    this._actionGroup.add_action(settings.create_action('profile-name'));
+
+    let action = new Gio.SimpleAction({ name: 'import' });
+    action.connect('activate', () => {
+      this.fileManagementDialogWindow(0);
+    });
+    this._actionGroup.add_action(action);
+    this._rows = new Map();
+        
+    this.updateProfilesList();
+    this.selectedRow = this._list.get_selected_row();
+    this.selectedRow.setProfileModifiedState(settings.get_boolean("current-profile-modified"));
+    this.selectedRow._checkmark.opacity = 1;
+    
+    this._list.connect("selected-rows-changed", () => {
+  
+      if(this.selectedRow == this._list.get_selected_row()) {
+        this.selectedRow._checkmark.opacity = 1;
+        return;
+      }
+      
+      this.selectedRow._checkmark.opacity = 0;
+        
+      if( settings.get_boolean("current-profile-modified") ) {
+  
+        let dialog = new Gtk.MessageDialog({ transient_for: this.get_toplevel(), modal: true });  
+        dialog.set_default_response(Gtk.ResponseType.OK);
+        dialog.add_button(_("Discard"),      Gtk.ResponseType.NO    );
+        dialog.add_button(_("Don't switch"), Gtk.ResponseType.CANCEL);
+        dialog.add_button(_("Save"),         Gtk.ResponseType.YES   );
+        dialog.set_markup("<big><b>"+_("Save Profile Changes?")+"</b></big>");
+        dialog.get_message_area().pack_start(new Gtk.Label({ wrap: true, justify: 3, use_markup: true, label: _("\nSome changes to the current profile are not saved. Switching to another profile without saving them will discard them permanently\n\nWould you like to save the changes to current profile?.")}), true, true, 0);
+        dialog.connect('response', (dialog, id) => {
+          if(id == Gtk.ResponseType.CANCEL) {
+            this._list.select_row(this.selectedRow);
+            settings.set_string("profile-name", this.selectedRow._name.get_string()[0]);
+            dialog.destroy();
+            return;
+          }
+          else if(id == Gtk.ResponseType.YES) {
+            this.saveCurrentProfile(this.selectedRow._name.get_string()[0]);
+          }
+          this.selectedRow.label.label = this.selectedRow._name.get_string()[0];
+          this.selectedRow = this._list.get_selected_row();
+          this.selectedRow._checkmark.opacity = 1;      
+          this.applyProfile(this.selectedRow._name.get_string()[0]);
+          dialog.destroy();
+          return;
+        });    
+        dialog.show_all();
+        
+      }
+      else {
+        this.selectedRow = this._list.get_selected_row();
+        this.selectedRow._checkmark.opacity = 1;
+        this.applyProfile(this.selectedRow._name.get_string()[0]);
+      }    
+    
+    });
    
   },
   
   addImportExportPrefs: function() {
 
-    let exportExtensionProfilesButton  = new Gtk.Button({label: _("Export Profiles"),halign:Gtk.Align.START});  
-    let importExtensionProfilesButton  = new Gtk.Button({label: _("Import Profiles"),halign:Gtk.Align.END});
+    let exportExtensionProfilesButton = new Gtk.Button({label: _("Export Profiles"),halign:Gtk.Align.CENTER, expand:true});
+    let importExtensionProfilesButton = new Gtk.ListBoxRow ({ action_name: 'animation-tweaks-profiles.import', selectable:false });
     
+    importExtensionProfilesButton.add( new Gtk.Image({ icon_name: 'list-add-symbolic', pixel_size: 16, margin_top: 12, margin_bottom: 12, margin_start: 12, margin_end: 12 }) );
     exportExtensionProfilesButton.connect('clicked', ()=>  this.fileManagementDialogWindow(1));
-    importExtensionProfilesButton.connect('clicked',  ()=> this.fileManagementDialogWindow(0));
-
+    
     this.existingProfiles = this.listProfiles(this.PROFILE_PATH+PROFILE_FILE_NAME);  
-    this.prefCombo("profile-name", 0, 0, this.existingProfiles, this.existingProfiles);
 
+    this.makeProfilesList();
+    this._list.add( importExtensionProfilesButton );
+        
+    this.attach(this._list, 0,0,1,1);
     this.attach(exportExtensionProfilesButton,0,1,1,1);
-    this.attach(importExtensionProfilesButton,1,1,2,1);
     
   },
   
-  applyProfile: function(profileName) {
-  
-    let profileClass = new Extension.imports.profiles.animationTweaksExtensionProfiles["AnimationTweaksExtensionProfile"+profileName]();
+  updateProfilesList: function() {
+
+    let len = this.existingProfiles.length; 
+    let row = null;
+    let rowSelected = false;
     
-    settings.set_string("profile-name", profileClass.animationTweaksExtensionProfileName);
+    while(len-- > 0) {
+      if(!this._rows.has(this.existingProfiles[len])) {
+        row = new ExtensionProfilesListRow_AnimationTweaksExtension(this.existingProfiles[len]);
+        this._rows.set(this.existingProfiles[len], row);
+        this._list.insert(row, 0);
+        if(this.previousProfile == this.existingProfiles[len]) {
+          this._list.select_row(row);
+          rowSelected = true;
+        }        
+      }
+    }
+    if(!rowSelected) {
+      this._list.select_row(row);
+    }
+
+  },
   
-    settings.set_boolean("opening-effect",      profileClass.openingEffectEnabled);
-    settings.set_boolean("closing-effect",      profileClass.closingingEffectEnabled);
-    settings.set_boolean("minimizing-effect",   profileClass.minimizingEffectEnabled);
-    settings.set_boolean("unminimizing-effect", profileClass.unMinimizingEffectEnabled);
-    settings.set_boolean("moving-effect",       profileClass.movingEffectEnabled);
-    settings.set_boolean("focussing-effect",    profileClass.focussingEffectEnabled);
-    settings.set_boolean("defocussing-effect",  profileClass.defocussingEffectEnabled);
+  applyProfile: function( profileName ) {
+    
+    this.previousProfile = profileName;
+    
+    // Done in this way because the import functionaity does not update if the file is changed.
+    let fileData = this.getFileDataAsString(this.PROFILE_PATH+PROFILE_FILE_NAME);
+    let startIndex = fileData.indexOf("var AnimationTweaksExtensionProfile"+profileName+"=class AnimationTweaksExtensionProfile"+profileName+"{\nconstructor(){\n");
+    let endIndex   = fileData.indexOf("}}//EndOfAnimationTweaksExtensionProfile"+profileName);
+    eval( fileData.substring(startIndex+2*profileName.length+90, endIndex) );
+
+    settings.set_boolean("opening-effect",      this.openingEffectEnabled);
+    settings.set_boolean("closing-effect",      this.closingingEffectEnabled);
+    settings.set_boolean("minimizing-effect",   this.minimizingEffectEnabled);
+    settings.set_boolean("unminimizing-effect", this.unMinimizingEffectEnabled);
+    settings.set_boolean("moving-effect",       this.movingEffectEnabled);
+    settings.set_boolean("focussing-effect",    this.focussingEffectEnabled);
+    settings.set_boolean("defocussing-effect",  this.defocussingEffectEnabled);
   
-    settings.set_boolean("use-application-profiles", profileClass.useApplicationProfiles);
-    settings.set_strv("name-list",                   profileClass.nameList);
-    settings.set_strv("application-list",            profileClass.appList);
+    settings.set_boolean("use-application-profiles", this.useApplicationProfiles);
+    settings.set_strv("name-list",                   this.nameList);
+    settings.set_strv("application-list",            this.appList);
         
-    settings.set_strv("normal-open",       profileClass.normalWindowopenProfileRaw); 
-    settings.set_strv("normal-close",      profileClass.normalWindowcloseProfileRaw);
-    settings.set_strv("normal-minimize",   profileClass.normalWindowminimizeProfileRaw);
-    settings.set_strv("normal-unminimize", profileClass.normalWindowunminimizeProfileRaw);    
-    settings.set_strv("normal-movestart",  profileClass.normalWindowmovestartProfileRaw);   
-    settings.set_strv("normal-focus",      profileClass.normalWindowfocusProfileRaw);    
-    settings.set_strv("normal-defocus",    profileClass.normalWindowdefocusProfileRaw);    
+    settings.set_strv("normal-open",       this.normalWindowopenProfileRaw); 
+    settings.set_strv("normal-close",      this.normalWindowcloseProfileRaw);
+    settings.set_strv("normal-minimize",   this.normalWindowminimizeProfileRaw);
+    settings.set_strv("normal-unminimize", this.normalWindowunminimizeProfileRaw);    
+    settings.set_strv("normal-movestart",  this.normalWindowmovestartProfileRaw);   
+    settings.set_strv("normal-focus",      this.normalWindowfocusProfileRaw);    
+    settings.set_strv("normal-defocus",    this.normalWindowdefocusProfileRaw);    
      
-    settings.set_strv("dialog-open",       profileClass.dialogWindowopenProfileRaw);
-    settings.set_strv("dialog-close",      profileClass.dialogWindowcloseProfileRaw);
-    settings.set_strv("dialog-minimize",   profileClass.dialogWindowminimizeProfileRaw);
-    settings.set_strv("dialog-unminimize", profileClass.dialogWindowunminimizeProfileRaw);  
-    settings.set_strv("dialog-movestart",  profileClass.dialogWindowmovestartProfileRaw);
-    settings.set_strv("dialog-focus",      profileClass.dialogWindowfocusProfileRaw);    
-    settings.set_strv("dialog-defocus",    profileClass.dialogWindowdefocusProfileRaw);    
+    settings.set_strv("dialog-open",       this.dialogWindowopenProfileRaw);
+    settings.set_strv("dialog-close",      this.dialogWindowcloseProfileRaw);
+    settings.set_strv("dialog-minimize",   this.dialogWindowminimizeProfileRaw);
+    settings.set_strv("dialog-unminimize", this.dialogWindowunminimizeProfileRaw);  
+    settings.set_strv("dialog-movestart",  this.dialogWindowmovestartProfileRaw);
+    settings.set_strv("dialog-focus",      this.dialogWindowfocusProfileRaw);    
+    settings.set_strv("dialog-defocus",    this.dialogWindowdefocusProfileRaw);    
 
-    settings.set_strv("modaldialog-open",       profileClass.modaldialogWindowopenProfileRaw);
-    settings.set_strv("modaldialog-close",      profileClass.modaldialogWindowcloseProfileRaw);
-    settings.set_strv("modaldialog-minimize",   profileClass.modaldialogWindowminimizeProfileRaw);
-    settings.set_strv("modaldialog-unminimize", profileClass.modaldialogWindowunminimizeProfileRaw);  
-    settings.set_strv("modaldialog-movestart",  profileClass.modaldialogWindowmovestartProfileRaw);
-    settings.set_strv("modaldialog-focus",      profileClass.modaldialogWindowfocusProfileRaw);    
-    settings.set_strv("modaldialog-defocus",    profileClass.modaldialogWindowdefocusProfileRaw);    
+    settings.set_strv("modaldialog-open",       this.modaldialogWindowopenProfileRaw);
+    settings.set_strv("modaldialog-close",      this.modaldialogWindowcloseProfileRaw);
+    settings.set_strv("modaldialog-minimize",   this.modaldialogWindowminimizeProfileRaw);
+    settings.set_strv("modaldialog-unminimize", this.modaldialogWindowunminimizeProfileRaw);  
+    settings.set_strv("modaldialog-movestart",  this.modaldialogWindowmovestartProfileRaw);
+    settings.set_strv("modaldialog-focus",      this.modaldialogWindowfocusProfileRaw);    
+    settings.set_strv("modaldialog-defocus",    this.modaldialogWindowdefocusProfileRaw);    
     
-    settings.set_strv("dropdownmenu-open",  profileClass.dropdownmenuWindowopenProfile);
-    settings.set_strv("popupmenu-open",     profileClass.popupmenuWindowopenProfile);
-    settings.set_strv("combo-open",         profileClass.comboWindowopenProfile);
-    settings.set_strv("splashscreen-open",  profileClass.splashscreenWindowopenProfile);
-    settings.set_strv("tooltip-open",       profileClass.tooltipWindowopenProfile);
-    settings.set_strv("overrideother-open", profileClass.overrideotherWindowopenProfile);    
+    settings.set_strv("dropdownmenu-open",  this.dropdownmenuWindowopenProfile);
+    settings.set_strv("popupmenu-open",     this.popupmenuWindowopenProfile);
+    settings.set_strv("combo-open",         this.comboWindowopenProfile);
+    settings.set_strv("splashscreen-open",  this.splashscreenWindowopenProfile);
+    settings.set_strv("tooltip-open",       this.tooltipWindowopenProfile);
+    settings.set_strv("overrideother-open", this.overrideotherWindowopenProfile);    
 
-    settings.set_strv("notificationbanner-open",  profileClass.notificationbannerWindowopenProfile);
-    settings.set_strv("notificationbanner-close", profileClass.notificationbannerWindowcloseProfile);
+    settings.set_strv("notificationbanner-open",  this.notificationbannerWindowopenProfile);
+    settings.set_strv("notificationbanner-close", this.notificationbannerWindowcloseProfile);
     
-    settings.set_strv("padosd-open",  profileClass.padosdWindowopenProfile);
-    settings.set_strv("padosd-close", profileClass.padosdWindowcloseProfile); 
+    settings.set_strv("padosd-open",  this.padosdWindowopenProfile);
+    settings.set_strv("padosd-close", this.padosdWindowcloseProfile); 
     
-    settings.set_strv("toppanelpopupmenu-open",  profileClass.toppanelpopupmenuWindowopenProfile);
-    settings.set_strv("toppanelpopupmenu-close", profileClass.toppanelpopupmenuWindowcloseProfile);     
+    settings.set_strv("toppanelpopupmenu-open",  this.toppanelpopupmenuWindowopenProfile);
+    settings.set_strv("toppanelpopupmenu-close", this.toppanelpopupmenuWindowcloseProfile);     
       
-    settings.set_strv("desktoppopupmenu-open",  profileClass.desktoppopupmenuWindowopenProfile);
-    settings.set_strv("desktoppopupmenu-close", profileClass.desktoppopupmenuWindowcloseProfile);     
+    settings.set_strv("desktoppopupmenu-open",  this.desktoppopupmenuWindowopenProfile);
+    settings.set_strv("desktoppopupmenu-close", this.desktoppopupmenuWindowcloseProfile);     
 
-    if(profileClass.windowmenuWindowcloseProfile) {
-      settings.set_strv("windowmenu-open",  profileClass.windowmenuWindowcloseProfile);
-      settings.set_strv("windowmenu-close", profileClass.windowmenuWindowopenProfile);     
+    if(this.windowmenuWindowcloseProfile) {
+      settings.set_strv("windowmenu-open",  this.windowmenuWindowcloseProfile);
+      settings.set_strv("windowmenu-close", this.windowmenuWindowopenProfile);     
     }
 
-    if(profileClass.endsessiondialogWindowopenProfile) {
-      settings.set_strv("endsessiondialog-open",  profileClass.endsessiondialogWindowopenProfile);
-      settings.set_strv("endsessiondialog-close", profileClass.endsessiondialogWindowcloseProfile);     
+    if(this.endsessiondialogWindowopenProfile) {
+      settings.set_strv("endsessiondialog-open",  this.endsessiondialogWindowopenProfile);
+      settings.set_strv("endsessiondialog-close", this.endsessiondialogWindowcloseProfile);     
     }
 
-    if(profileClass.dashappiconpopupmenuWindowopenProfile) {
-      settings.set_strv("dashappiconpopupmenu-open",  profileClass.dashappiconpopupmenuWindowopenProfile);
-      settings.set_strv("dashappiconpopupmenu-close", profileClass.dashappiconpopupmenuWindowcloseProfile);     
+    if(this.dashappiconpopupmenuWindowopenProfile) {
+      settings.set_strv("dashappiconpopupmenu-open",  this.dashappiconpopupmenuWindowopenProfile);
+      settings.set_strv("dashappiconpopupmenu-close", this.dashappiconpopupmenuWindowcloseProfile);     
     }
 
-    if(profileClass.dashappiconWindownewwindowProfile) {
-      settings.set_strv("dashappicon-newwindow",  profileClass.dashappiconpopupmenuWindowopenProfile);
+    if(this.dashappiconWindownewwindowProfile) {
+      settings.set_strv("dashappicon-newwindow",  this.dashappiconWindownewwindowProfile);
     }
 
-    settings.set_boolean("wayland",         profileClass.waylandWorkaroundEnabled);
-    settings.set_int("padosd-hide-timeout", profileClass.padOSDHideTime);    
+    settings.set_boolean("wayland",         this.waylandWorkaroundEnabled);
+    settings.set_int("padosd-hide-timeout", this.padOSDHideTime);    
     
-    ( profileClass.showDelay ) ? settings.set_boolean("show-delay", profileClass.showDelay ) : null;
+    ( this.showDelay ) ? settings.set_boolean("show-delay", this.showDelay ) : null;
+    
+    settings.set_boolean("current-profile-modified", false);
+    reloadApplicationProfiles();
     
   },
   
@@ -2104,7 +2219,7 @@ const PrefsWindowForExtensionProfiles_AnimationTweaksExtension = new GObject.Cla
     let fileFormats  = new Gtk.FileFilter();        
     let dialog       = new Gtk.FileChooserDialog({ title: (( action == 0 ) ? _("Import") : _("Export"))+_(" Animation Tweaks Profile") ,action: action, filter: fileFormats, do_overwrite_confirmation: true, transient_for: this.get_toplevel(),use_header_bar: true,modal: true });
     let exportButton = dialog.add_button(( action == 0 ) ? _("Import") : _("Export"), Gtk.ResponseType.OK);
-        
+
     fileFormats.add_pattern("*.js");    
     dialog.add_button(Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL);
     ( action != 0 ) ? dialog.set_current_name (PROFILE_FILE_NAME): null;
@@ -2113,7 +2228,7 @@ const PrefsWindowForExtensionProfiles_AnimationTweaksExtension = new GObject.Cla
     dialog.connect('response', Lang.bind(this, function(dialog, id) {
     
       if(id == Gtk.ResponseType.OK) {
-        ( action == 0 ) ? this.importProfiles(dialog.get_filename()) : GLib.file_set_contents( dialog.get_filename(), String( GLib.file_get_contents(this.PROFILE_PATH+PROFILE_FILE_NAME) [1]) );      
+        ( action == 0 ) ? this.importProfiles(dialog.get_filename()) : GLib.file_set_contents( dialog.get_filename(), this.getFileDataAsString(this.PROFILE_PATH+PROFILE_FILE_NAME) );      
       }
       
       dialog.destroy();
@@ -2123,10 +2238,21 @@ const PrefsWindowForExtensionProfiles_AnimationTweaksExtension = new GObject.Cla
     
   },
   
+  getFileDataAsString: function( fileName ) {
+    
+    let fileData = GLib.file_get_contents(fileName)[1];
+    let fileDataAsString = "";
+    for (let i=0; i<fileData.byteLength; i++) {
+      fileDataAsString += String.fromCharCode(fileData[i]);
+    }  
+    return fileDataAsString;
+    
+  },
+  
   importProfiles: function(location) {
   
-    let importedFileData = String( GLib.file_get_contents(location) [1]);
-    let profileFileData  = String( GLib.file_get_contents(this.PROFILE_PATH+PROFILE_FILE_NAME) [1]);
+    let importedFileData = this.getFileDataAsString(location);
+    let profileFileData  = this.getFileDataAsString(this.PROFILE_PATH+PROFILE_FILE_NAME);
     let profilesClassList = this.listProfiles(this.PROFILE_PATH+PROFILE_FILE_NAME);  
     let importedClassList = this.listProfiles(location);  
     
@@ -2137,7 +2263,7 @@ const PrefsWindowForExtensionProfiles_AnimationTweaksExtension = new GObject.Cla
   
   listProfiles: function(fileName) {
   
-    let profileFileData = String( GLib.file_get_contents(fileName)[1]);
+    let profileFileData = this.getFileDataAsString(fileName);  
     let profilesList = []; 
     let indexOfVar = profileFileData.indexOf("var AnimationTweaksExtensionProfile");
     
@@ -2257,35 +2383,15 @@ const PrefsWindowForExtensionProfiles_AnimationTweaksExtension = new GObject.Cla
     
   },
   
-  prefCombo: function(KEY, posX, posY, options, items) {
-  
-    let settingLabel = new Gtk.Label({xalign: 1, label: _(settings.settings_schema.get_key(KEY).get_summary()), halign: Gtk.Align.START});  
-    let SettingCombo = new Gtk.ComboBoxText({halign: Gtk.Align.END, hexpand:true});
-    
-    for (let i = 0; i < options.length; i++) {
-      SettingCombo.append(options[i],  items[i]);
-    }
-    SettingCombo.set_active(options.indexOf(settings.get_string(KEY)));
-    SettingCombo.connect('changed', Lang.bind(this, function(widget) {
-      settings.set_string(KEY, options[widget.get_active()]);
-      this.applyProfile(options[widget.get_active()]);
-      reloadApplicationProfiles();
-    }));
-    
-    this.attach(settingLabel,                posX,   posY, 1, 1);
-    this.attach(SettingCombo,                posX+1, posY, 1, 1);
-      
-  },
-  
-  saveCurrentProfile: function() {
+  saveCurrentProfile: function( profileName ) {
   
     settings.set_boolean("current-profile-modified", false);
     this.loadExtensionProfiles();
-    let oldProfileFileData = String( GLib.file_get_contents(this.PROFILE_PATH+PROFILE_FILE_NAME) [1]);
+    let oldProfileFileData = this.getFileDataAsString(this.PROFILE_PATH+PROFILE_FILE_NAME);
      
-    let newProfileData = "var AnimationTweaksExtensionProfile"+this.profileName+"=class AnimationTweaksExtensionProfile"+this.profileName+"{\n"
+    let newProfileData = "var AnimationTweaksExtensionProfile"+profileName+"=class AnimationTweaksExtensionProfile"+profileName+"{\n"
                        + "constructor(){\n"     
-                       + "this.animationTweaksExtensionProfileName=\""+this.profileName+"\";\n"
+                       + "this.animationTweaksExtensionProfileName=\""+profileName+"\";\n"
                        + "this.firstUse=false;\n"
                        + "this.version="+this.version+";\n"
                        + "this.openingEffectEnabled="+this.openingEffectEnabled+";\n"
@@ -2357,11 +2463,11 @@ const PrefsWindowForExtensionProfiles_AnimationTweaksExtension = new GObject.Cla
                        + "this.waylandWorkaroundEnabled="+this.waylandWorkaroundEnabled+";\n"
                        + "this.padOSDHideTime="+this.padOSDHideTime+";\n"
                        + "this.showDelay="+this.showDelay+";\n"
-                       + "}}//EndOfAnimationTweaksExtensionProfile"+this.profileName;     
+                       + "}}//EndOfAnimationTweaksExtensionProfile"+profileName;     
     
-    let indexOfVar = oldProfileFileData.indexOf("var AnimationTweaksExtensionProfile"+this.profileName+"=class AnimationTweaksExtensionProfile"+this.profileName+"{");
-    let indexOfEndOfProfile = oldProfileFileData.indexOf("}}//EndOfAnimationTweaksExtensionProfile"+this.profileName, indexOfVar);
-    oldProfileFileData = oldProfileFileData.replace(oldProfileFileData.substring(indexOfVar,indexOfEndOfProfile+40+this.profileName.length),newProfileData);
+    let indexOfVar = oldProfileFileData.indexOf("var AnimationTweaksExtensionProfile"+profileName+"=class AnimationTweaksExtensionProfile"+profileName+"{");
+    let indexOfEndOfProfile = oldProfileFileData.indexOf("}}//EndOfAnimationTweaksExtensionProfile"+profileName, indexOfVar);
+    oldProfileFileData = oldProfileFileData.replace(oldProfileFileData.substring(indexOfVar,indexOfEndOfProfile+40+profileName.length),newProfileData);
     GLib.file_set_contents(this.PROFILE_PATH+PROFILE_FILE_NAME, oldProfileFileData);
     
   }, 
@@ -2410,6 +2516,34 @@ const PrefsWindowForExtensionProfiles_AnimationTweaksExtension = new GObject.Cla
 
 });
 
+const ExtensionProfilesListRow_AnimationTweaksExtension = new GObject.Class({
 
+  Name: 'ExtensionProfilesListRow_AnimationTweaksExtension',
+  Extends: Gtk.ListBoxRow,
 
+  _init: function(name) {
+  
+    this._name = new GLib.Variant('s', name);
+    this.parent({ action_name: 'animation-tweaks-profiles.profile-name', action_target: this._name });        
+    let box = new Gtk.Box({ spacing: 12, margin: 12 });
+    this._checkmark = new Gtk.Image({ icon_name: 'emblem-ok-symbolic', pixel_size: 16, opacity: 0 });
 
+    this.label = new Gtk.Label({ label: name, hexpand: true, xalign: 0, max_width_chars: 25, width_chars: 25 })     
+    box.add(this.label);
+    box.add(this._checkmark);
+    this.add(box);
+    
+  },
+
+  setProfileModifiedState: function(state) {
+  
+    if(state == true) {
+      this.label.label = "*"+this._name.get_string()[0];  
+    }
+    else {
+      this.label.label = this._name.get_string()[0];  
+    }
+    
+  }
+    
+});

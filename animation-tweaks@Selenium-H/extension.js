@@ -1,6 +1,6 @@
 /*
 
-Version 14.04
+Version 14.05
 =============
 
 Credits:
@@ -180,9 +180,8 @@ const EffectsManager_AnimationTweaksExtension = class EffectsManager_AnimationTw
       itemObject   : null      
     };
    
-    if(this.focusWindow != null && global.display.focus_window != null && this.doFocusAndDefocus == true && this.defocussingEffectEnabled == true && !Main.overview._shown ) {
+    if(this.focusWindow != null && (parameters.actor = this.focusWindow.get_compositor_private()) != null && global.display.focus_window != null && this.doFocusAndDefocus == true && this.defocussingEffectEnabled == true && !Main.overview._shown ) {
      
-      parameters.actor        = this.focusWindow.get_compositor_private();
       let window              = parameters.actor.meta_window;
       parameters.appName      = Shell.WindowTracker.get_default().get_window_app(window).get_name();
       parameters.profileIndex = (this.useApplicationProfiles && useApplicationProfilesForThisAction)*(this.nameList.indexOf(parameters.appName)+1);
@@ -303,7 +302,7 @@ const EffectsManager_AnimationTweaksExtension = class EffectsManager_AnimationTw
       itemObject   : null      
     };
 
-    [ this.doFocusAndDefocus, window ] = [ false, window.meta_window ];
+    window = window.meta_window;
     
     switch(window.window_type) {
     
@@ -312,6 +311,7 @@ const EffectsManager_AnimationTweaksExtension = class EffectsManager_AnimationTw
         parameters.profileIndex = (this.useApplicationProfiles && useApplicationProfilesForThisAction)*(this.nameList.indexOf(parameters.appName)+1); 
         eParams                 = this.normalWindowminimizeProfile[parameters.profileIndex].slice(0);
         if(eParams[0] == "T" ) {
+          this.doFocusAndDefocus = false;
           Main.wm._minimizing.delete( parameters.actor );
           this.pendingMinimize.add(parameters.actor);
           parameters.actor.remove_all_transitions();   
@@ -326,6 +326,7 @@ const EffectsManager_AnimationTweaksExtension = class EffectsManager_AnimationTw
         parameters.profileIndex = (this.useApplicationProfiles && useApplicationProfilesForThisAction)*(this.nameList.indexOf(parameters.appName)+1);
         eParams                 = this.dialogWindowminimizeProfile[parameters.profileIndex].slice(0);
         if(eParams[0] == "T" ) {
+          this.doFocusAndDefocus = false;
           Main.wm._minimizing.delete( parameters.actor );
           this.pendingMinimize.add(parameters.actor);
           parameters.actor.remove_all_transitions();   
@@ -340,6 +341,7 @@ const EffectsManager_AnimationTweaksExtension = class EffectsManager_AnimationTw
         parameters.profileIndex = (this.useApplicationProfiles && useApplicationProfilesForThisAction)*(this.nameList.indexOf(parameters.appName)+1);
         eParams                 = this.modaldialogWindowminimizeProfile[parameters.profileIndex].slice(0);
         if(eParams[0] == "T" ) {
+          this.doFocusAndDefocus = false;
           Main.wm._minimizing.delete( parameters.actor );
           this.pendingMinimize.add(parameters.actor);
           parameters.actor.remove_all_transitions();   
@@ -647,14 +649,14 @@ const EffectsManager_AnimationTweaksExtension = class EffectsManager_AnimationTw
       itemObject   : null 
     };
 
-    this.doFocusAndDefocus = false;
-    window                 = window.meta_window;
+    window = window.meta_window;
     
     switch(window.window_type) {
     
       case Meta.WindowType.NORMAL:
         eParams = this.normalWindowunminimizeProfile[parameters.profileIndex].slice(0);
         if(eParams[0] == "T"  && !Main.overview._shown) {
+          this.doFocusAndDefocus = false;
           if(this.pendingMinimize.delete(parameters.actor)) {
             Main.wm._shellwm.completed_minimize(parameters.actor);
           }
@@ -668,6 +670,7 @@ const EffectsManager_AnimationTweaksExtension = class EffectsManager_AnimationTw
 
       case Meta.WindowType.DIALOG:
         eParams = this.dialogWindowunminimizeProfile[parameters.profileIndex].slice(0);
+        this.doFocusAndDefocus = false;
         if(eParams[0] == "T"  && !Main.overview._shown) {
           if(this.pendingMinimize.delete(parameters.actor)) {
             Main.wm._shellwm.completed_minimize(parameters.actor);
@@ -683,6 +686,7 @@ const EffectsManager_AnimationTweaksExtension = class EffectsManager_AnimationTw
       case Meta.WindowType.MODAL_DIALOG:
         eParams = this.modaldialogWindowunminimizeProfile[parameters.profileIndex].slice(0);
         if(eParams[0] == "T"  && !Main.overview._shown) {
+          this.doFocusAndDefocus = false;
           if(this.pendingMinimize.delete(parameters.actor)) {
             Main.wm._shellwm.completed_minimize(parameters.actor);
           }        
@@ -725,7 +729,9 @@ const EffectsManager_AnimationTweaksExtension = class EffectsManager_AnimationTw
 
       case "opendesktoppopupmenu":
       case "opentoppanelpopupmenu":
-      case "openwindowmenu":            
+      case "openwindowmenu":   
+      case "opendashappiconpopupmenu":
+        [this.shellPopUpMenuPositionX, this.shellPopUpMenuPositionY] = parameters.actor.get_position();
         parameters.actor._muteInput = false; 
         if(parameters.itemObject) {
           parameters.itemObject();
@@ -736,6 +742,7 @@ const EffectsManager_AnimationTweaksExtension = class EffectsManager_AnimationTw
       case "closedesktoppopupmenu":
       case "closetoppanelpopupmenu":
       case "closewindowmenu":
+      case "closedashappiconpopupmenu":
       case "closeendsessiondialog": // refreshItemActor doesn't work properly.
         this.refreshItemActor(parameters.actor, "hide", "hide");         
         if(parameters.itemObject) {
@@ -890,7 +897,7 @@ const EffectsManager_AnimationTweaksExtension = class EffectsManager_AnimationTw
       sucess:       false, 
       geom:         null,
       effectName:   eParams[1],
-      itemType:     "toppanelpopupmenu", 
+      itemType:     "dashappiconpopupmenu", 
       listType:     "other",
       subeffectNo:  0, 
       xRes:         Main.layoutManager.monitors[currentMonitorIndex].width, 
@@ -913,7 +920,7 @@ const EffectsManager_AnimationTweaksExtension = class EffectsManager_AnimationTw
       sucess:       false, 
       geom:         null,
       effectName:   eParams[1],
-      itemType:     "toppanelpopupmenu", 
+      itemType:     "dashappiconpopupmenu", 
       listType:     "other",
       subeffectNo:  0, 
       xRes:         Main.layoutManager.monitors[currentMonitorIndex].width, 
@@ -977,9 +984,10 @@ const EffectsManager_AnimationTweaksExtension = class EffectsManager_AnimationTw
     
     if (!this.visible)
       return;
-     
+    
     this._muteInput = true;
     this.remove_all_transitions();    
+    this.set_position(effectsManager.shellPopUpMenuPositionX, effectsManager.shellPopUpMenuPositionY);   
     let eParams = effectsManager.windowmenuWindowcloseProfile[0];
     effectsManager.driveOtherAnimation( eParams, {
       actor:        this,
@@ -995,7 +1003,7 @@ const EffectsManager_AnimationTweaksExtension = class EffectsManager_AnimationTw
       xRes:         Main.layoutManager.monitors[currentMonitorIndex].width, 
       yRes:         Main.layoutManager.monitors[currentMonitorIndex].height,  
       itemObject:   onComplete      
-    });
+    });   
 
   }
 
@@ -1687,24 +1695,24 @@ const EffectsManager_AnimationTweaksExtension = class EffectsManager_AnimationTw
             window.check_alive(global.get_current_time());
         });
         let destroyId = window.connect('unmanaged', () => {
-            menu.close();
+            menu.close(false);
         });
 
         this._sourceActor.set_size(Math.max(1, rect.width), Math.max(1, rect.height));
         this._sourceActor.set_position(rect.x, rect.y);
         this._sourceActor.show();
-
+        
         menu.open(2/*BoxPointer.PopupAnimation.FADE*/);
         menu.actor.navigate_focus(null, 0/*St.DirectionType.TAB_FORWARD*/, false);
         menu.connect('open-state-changed', (menu_, isOpen) => {
+             
             if (isOpen)
                 return;
 
-            this._sourceActor.hide();
-            
+            this._sourceActor.hide();                    
             if(effectsManager.windowmenuWindowcloseProfile[0][0] == "T") {
-              menu.close(true);
               menu.connect("menu-closed", ()=>menu.destroy());
+              menu.close(true);            
             }
             else {
               menu.destroy();
@@ -1712,7 +1720,7 @@ const EffectsManager_AnimationTweaksExtension = class EffectsManager_AnimationTw
             window.disconnect(destroyId);
         });
 
-    }  
+  }  
 
   overriddenUpdateShowingNotification ( currentMonitorIndex = global.display.get_current_monitor() ) {
   

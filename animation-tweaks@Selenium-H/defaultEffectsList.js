@@ -1,6 +1,6 @@
 /*
 
-Version 14.03
+Version 14.05
 =============
 
 Effect Format  [  |  S    Name     C       PPX       PPY       CX        CY        DL        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN  ]
@@ -637,7 +637,7 @@ var windowdefocusEffectsList = [
                                            
 ];
      
-dashappiconnewwindowEffectsListLastIndex = 11;    
+var dashappiconnewwindowEffectsListLastIndex = 11;    
 var dashappiconnewwindowEffectsList = [
 
 /* |       Name                    C       PPX       PPY       CX        CY        DL        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN        /**/

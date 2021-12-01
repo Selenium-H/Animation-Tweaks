@@ -7,14 +7,15 @@
 </h1>
 
 <p align="center">
-Version 14.03
+Version 15
 </p>
 
 <p align="center">
 A GNOME Shell Extension to Tweak animations of different items and Customize them.
 </p>
-<p align="left">
-Please reset the extension after updating. The Extension will stop when upgraded to an incompatible version. In that case an Update tab is created to easily reset the extension. A Reset options is also always present in in the Top Right Application menu of the extension preferences window. A Default shortcut combination of Super Key + t is provided to disable the extension. Some effects might not work properly on wayland, for which an integrate with wayland option is provided on preferences -> Integrations tab. However, some animations might not work properly.", 
+
+<p align="justify">
+Please reset the extension after updating. The Extension will stop when upgraded to an incompatible version. In that case an Update tab is created to easily reset the extension. A Reset button is also always present in Preferences option in the Application menu of the extension preferences window. A Default shortcut combination of <kbd>Super</kbd> + <kbd>t</kbd> is provided to disable the extension. Some effects might not work properly on <code>Wayland</code>, for which a workaround is provided on <code>preferences</code> -> <code>Tweaks</code> tab. However, some animations might not work properly.
 </p>
 
 <h1 align="center">
@@ -69,24 +70,37 @@ Please reset the extension after updating. The Extension will stop when upgraded
   Installations
 </h1>
 
-<h2 align="center"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GitHub&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GNOME Shell Extension Website
-</h2>
-
-Download or clone the repository and extract the zip file.
-
-Open terminal in extracted folder and run
-
-`chmod +x INSTALL.sh && ./INSTALL.sh` 
-
-<p align="right"><a href="https://extensions.gnome.org/extension/1680/animation-tweaks/">Get this extension from here</a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-</p>
-
-Restart Gnome Shell 
-
-For Xorg Press `Alt` + `F2` -> Press `r` -> Press `Enter`.
-For Wayland log out and log in back.
-
-Enable it using `GNOME Tweak Tool` or the `Extensions` Application. 
+<div align="center">
+  <table>
+    <tr>
+      <th>
+        <h2>GitHub</h2>
+      </th>
+      <th>
+        <h2>GNOME Shell Extension Website</h2>
+      </th>
+    </tr>
+    <tr>
+      <td align="left">
+        <br>Download/clone this repository and extract <code>.zip</code> file.<br>
+        <br>Open <code>Terminal</code> in extracted folder and run<br>
+        <ul>
+          <code>chmod +x INSTALL.sh && ./INSTALL.sh</code>
+        </ul>
+        <br>Restart <code>GNOME Shell</code>.</br>
+        <ul>
+          <li>In <code>Xorg</code>, press <kbd>Alt</kbd>+<kbd>F2</kbd>, press <kbd>r</kbd>, press <kbd>Enter</kbd>.</li>
+          <li>In <code>Wayland</code>, log out and log in back.</li>
+        </ul>
+        <br>Enable it in <code>GNOME Tweaks</code> or <code>Extensions</code> application.<br>
+      </td>
+      <td>
+        <a href="https://extensions.gnome.org/extension/1680/animation-tweaks/">Get this extension from here</a> 
+      </td>
+    </tr>
+  </table>
+  <br>Also, please check the <a href="https://github.com/Selenium-H/Animation-Tweaks/tree/experimental">experimental</a> <code>branch</code> of this project for most recently updated version.<br><br>
+</div>
 
 <h1 align="center">
   Credits

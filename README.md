@@ -7,12 +7,13 @@
 </h1>
 
 <p align="center">
-Version 14
+Version 15
 </p>
 
 <p align="center">
 A GNOME Shell Extension to Tweak animations of different items and Customize them.
 </p>
+
 <p align="justify">
 Please reset the extension after updating. The Extension will stop when upgraded to an incompatible version. In that case an Update tab is created to easily reset the extension. A Reset button is also always present in Preferences option in the Application menu of the extension preferences window. A Default shortcut combination of <kbd>Super</kbd> + <kbd>t</kbd> is provided to disable the extension. Some effects might not work properly on <code>Wayland</code>, for which a workaround is provided on <code>preferences</code> -> <code>Tweaks</code> tab. However, some animations might not work properly.
 </p>
@@ -53,12 +54,16 @@ Please reset the extension after updating. The Extension will stop when upgraded
 <img src = /Screenshots/Image_08.png >
 </p>
 
+<p align="center">
+<img src = /Screenshots/Image_09.png >
+</p>
+
 <h1 align="center">
   Animation Customizations
 </h1>
 
 <p align="center">
-<img src = /Screenshots/Image_09.png >
+<img src = /Screenshots/Image_10.png >
 </p>
 
 <h1 align="center">

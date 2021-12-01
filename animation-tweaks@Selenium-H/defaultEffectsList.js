@@ -1,6 +1,6 @@
 /*
 
-Version 12.15
+Version 14.05
 =============
 
 Effect Format  [  |  S    Name     C       PPX       PPY       CX        CY        DL        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN  ]
@@ -13,15 +13,15 @@ This file is used by update_pot.sh to translate effects names.
 
 */
 
-var windowopenEffectsListLastIndex = 32;
+var windowopenEffectsListLastIndex = 31;
 var windowopenEffectsList = [
 
 /* |       Name                    C       PPX       PPY       CX        CY        DL        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN        /**/
                          
-  '|','Compressed Slide Down',     '4',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '1',      '0',      'MW',     'MH',     'MX',     'UY',     '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_CUBIC',
-                                           '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '15',     '255',    'MW',     'MH',     'MX',     'UY',     '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_CUBIC',
-                                           '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '250',    '255',    'MW',     'MH',     'MX',     'IY',     '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_CUBIC', 
-                                           '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '250',    '255',    '1.0',    '1.0',    'IX',     'IY',     '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_CUBIC',                                           
+  '|','Compressed Slide Down',     '4',    '0.0',    '0.8',    '0.0',    '0.0',    '0.0',    '1',      '0',      'MW',     'MH',     'MX',     'UY',     '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_CUBIC',
+                                           '0.0',    '0.8',    '0.0',    '0.0',    '0.0',    '15',     '255',    'MW',     'MH',     'MX',     'UY',     '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_CUBIC',
+                                           '0.0',    '0.8',    '0.0',    '0.0',    '0.0',    '250',    '255',    'MW',     'MH',     'MX',     'IY',     '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_CUBIC', 
+                                           '0.0',    '0.8',    '0.0',    '0.0',    '0.0',    '250',    '255',    '1.0',    '1.0',    'IX',     'IY',     '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_CUBIC',                                           
 
   '|','Compressed Slide Left',     '4',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '1',      '0',      'MW',     'MH',     'RX',     'MY',     '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_CUBIC',
                                            '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '15',     '255',    'MW',     'MH',     'RX',     'MY',     '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_CUBIC',
@@ -42,9 +42,10 @@ var windowopenEffectsList = [
                                            '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '15',     '0',      '1.0',    '1.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_CUBIC',
                                            '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '300',    '255',    '1.0',    '1.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_CUBIC',  
 
-  '|','Fall and Bounce',           '3',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '1',      '0',      '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_CUBIC',
+  '|','Fall and Bounce',           '4',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '1',      '0',      '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_CUBIC',
                                            '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '15',     '0',      '1.0',    '1.0',    '0.0',    '-0.1',   '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_CUBIC',
-                                           '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '500',    '255',    '1.0',    '1.0',    '0.0',    '0.1',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_BOUNCE',  
+                                           '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '25',     '255',    '1.0',    '1.0',    '0.0',    '0.01',   '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_CUBIC',  
+                                           '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '475',    '255',    '1.0',    '1.0',    '0.0',    '0.09',   '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_BOUNCE',  
 
   '|','Flip Horizontally',         '2',    '0.5',    '0.5',    '0.0',    '0.5',    '0.0',    '1',      '0',      '1.0',    '1.0',    '0.0',    '0.0',    '0.0',    '0.0',    '90',     '0.0',    'EASE_OUT_CUBIC',
                                            '0.5',    '0.5',    '0.0',    '0.5',    '0.0',    '250',    '255',    '1.0',    '1.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_CUBIC',  
@@ -141,7 +142,7 @@ var windowopenEffectsList = [
   
 ];
 
-var otheropenEffectsListLastIndex = 24;
+var otheropenEffectsListLastIndex = 23;
 var otheropenEffectsList = [
 
 /* |       Name                    C       PPX       PPY       CX        CY        DL        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN        /**/
@@ -223,8 +224,8 @@ var otheropenEffectsList = [
                                            '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '250',    '255',    '1.0',    '1.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_CUBIC' 
   
 ];
-    
-var notificationbanneropenEffectsListLastIndex = 16;     
+
+var notificationbanneropenEffectsListLastIndex = 15;          
 var notificationbanneropenEffectsList = [
 
 /* |       Name                    C       PPX       PPY       CX        CY        DL        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN        /**/
@@ -283,7 +284,7 @@ var notificationbanneropenEffectsList = [
 
 ];
 
-var padosdopenEffectsListLastIndex = 18; 
+var padosdopenEffectsListLastIndex = 17;
 var padosdopenEffectsList = [
 
 /* |       Name                    C       PPX       PPY       CX        CY        DL        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN        /**/
@@ -346,7 +347,7 @@ var padosdopenEffectsList = [
 
 ];
    
-var windowcloseEffectsListLastIndex = 34;
+var windowcloseEffectsListLastIndex = 33;   
 var windowcloseEffectsList = [ 
 
 /* |       Name                    C       PPX       PPY       CX        CY        DL        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN        /**/
@@ -373,11 +374,11 @@ var windowcloseEffectsList = [
 
   '|','Flip Vertically',           '1',    '0.5',    '0.5',    '0.5',    '0.5',    '0.0',    '250',    '0',      '1.0',    '1.0',    '0.0',    '0.0',    '0.0',    '90',     '0.0',    '0.0',    'EASE_OUT_CUBIC',  
                                            
-  '|','Flipped Slide Up',          '1',    '0.5',    '0.5',    '0.0',    '0.5',    '0.0',    '450',    '0',      '1.0',    '1.0',    '0.0',    '-0.1',   '0.0',    '0.0',    '90',    '0.0',    'EASE_OUT_CUBIC',
+  '|','Flipped Slide Up',          '1',    '0.5',    '0.5',    '0.0',    '0.5',    '0.0',    '450',    '0',      '1.0',    '1.0',    '0.0',    '-0.1',   '0.0',    '0.0',    '90',     '0.0',    'EASE_OUT_CUBIC',
                                                 
-  '|','Flipped Slide Down',        '1',    '0.5',    '0.5',    '0.0',    '0.5',    '0.0',    '450',    '0',      '1.0',    '1.0',    '0.0',    '0.1',    '0.0',    '0.0',    '90',    '0.0',    'EASE_OUT_CUBIC',
+  '|','Flipped Slide Down',        '1',    '0.5',    '0.5',    '0.0',    '0.5',    '0.0',    '450',    '0',      '1.0',    '1.0',    '0.0',    '0.1',    '0.0',    '0.0',    '90',     '0.0',    'EASE_OUT_CUBIC',
         
-  '|','Float Up',                  '1',    '0.0',    '0.5',    '0.0',    '0.0',    '0.0',    '300',    '0',      '1.0',    '1.0',    '0.0',    '-0.4',   '0.0',    '60',    '0.0',    '0.0',    'EASE_OUT_CUBIC', 
+  '|','Float Up',                  '1',    '0.0',    '0.5',    '0.0',    '0.0',    '0.0',    '300',    '0',      '1.0',    '1.0',    '0.0',    '-0.4',   '0.0',    '60',     '0.0',    '0.0',    'EASE_OUT_CUBIC', 
 
   '|','Fold In Sideways',          '1',    '0.5',    '0.0',    '0.0',    '0.0',    '0.0',    '300',    '255',    '0.0',    '1.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_CUBIC',
 
@@ -431,7 +432,7 @@ var windowcloseEffectsList = [
 
 ];
    
-var notificationbannercloseEffectsListLastIndex = 16;
+var notificationbannercloseEffectsListLastIndex = 15;   
 var notificationbannercloseEffectsList = [
 
 /* |       Name                    C       PPX       PPY       CX        CY        DL        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN        /**/
@@ -471,8 +472,8 @@ var notificationbannercloseEffectsList = [
   '|','Random',                    '1',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '300',    '0',      '1.0',    '1.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_CUBIC'
 
 ];
-
-var othercloseEffectsListLastIndex = 25;      
+     
+var othercloseEffectsListLastIndex = 24;        
 var othercloseEffectsList = [ 
 
 /* |       Name                    C       PPX       PPY       CX        CY        DL        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN        /**/
@@ -530,8 +531,8 @@ var othercloseEffectsList = [
   '|','Random',                    '1',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '300',    '0',      '.9999',  '.9999',  '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_CUBIC'
 
 ];
-      
-var padosdcloseEffectsListLastIndex = 18;   
+        
+var padosdcloseEffectsListLastIndex = 17;         
 var padosdcloseEffectsList = [
 
 /* |       Name                    C       PPX       PPY       CX        CY        DL        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN        /**/
@@ -575,24 +576,31 @@ var padosdcloseEffectsList = [
   '|','Random',                    '1',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '300',    '0',      '1.0',    '1.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_CUBIC'
 
 ];
-      
-var windowminimizeEffectsList          = windowcloseEffectsList; 
-var windowminimizeEffectsListLastIndex = windowcloseEffectsListLastIndex; 
-      
-var windowunminimizeEffectsList          = windowopenEffectsList; 
-var windowunminimizeEffectsListLastIndex = windowopenEffectsListLastIndex; 
 
-var windowmovestartEffectsListLastIndex = 0;
+var windowminimizeEffectsListLastIndex = windowcloseEffectsListLastIndex;       
+var windowminimizeEffectsList          = windowcloseEffectsList; 
+
+var windowunminimizeEffectsListLastIndex = windowopenEffectsListLastIndex;      
+var windowunminimizeEffectsList = windowopenEffectsList; 
+
+var windowmovestartEffectsListLastIndex = 1;
 var windowmovestartEffectsList = [
 
 /* |       Name                    C       PPX       PPY       CX        CY        DL        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN        /**/
       
   '|','Fade',                      '2',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '300',    '220',    '.9999',  '.9999',  '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_CUBIC',
-                                           '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '300',    '255',    '1.0',    '1.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_CUBIC'           
+                                           '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '300',    '255',    '1.0',    '1.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_CUBIC',           
+
+  '|','None',                      '2',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '1',      '220',    '.9999',  '.9999',  '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_CUBIC',
+                                           '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '1',      '255',    '1.0',    '1.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_CUBIC',           
+
+  '|','Random',                    '2',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '300',    '220',    '.9999',  '.9999',  '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_CUBIC',
+                                           '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '300',    '255',    '1.0',    '1.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_CUBIC',           
                                            
+
 ];
 
-var windowfocusEffectsListLastIndex = 2;            
+var windowfocusEffectsListLastIndex = 2;          
 var windowfocusEffectsList = [
 
 /* |       Name                    C       PPX       PPY       CX        CY        DL        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN        /**/
@@ -605,25 +613,91 @@ var windowfocusEffectsList = [
                                            '0.5',    '0.5',    '0.0',    '0.0',    '0.0',    '25',     '255',    '1.0',    '1.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '1',      'EASE_IN_CUBIC',
                                            '0.5',    '0.5',    '0.0',    '0.0',    '0.0',    '25',     '255',    '1.0',    '1.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0',      'EASE_IN_CUBIC',
 
+  '|','None',                      '2',    '0.5',    '0.5',    '0.0',    '0.0',    '0.0',    '1',      '255',    '1.02',   '1.02',   '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_CUBIC',
+                                           '0.5',    '0.5',    '0.0',    '0.0',    '0.0',    '1',      '255',    '1.0',    '1.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_IN_CUBIC',
+
   '|','Random',                    '2',    '0.5',    '0.5',    '0.0',    '0.0',    '0.0',    '25',     '255',    '1.02',   '1.02',   '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_CUBIC',
                                            '0.5',    '0.5',    '0.0',    '0.0',    '0.0',    '25',     '255',    '1.0',    '1.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_IN_CUBIC'
                  
 ];
 
-var windowdefocusEffectsListLastIndex = 0;       
+var windowdefocusEffectsListLastIndex = 1;      
 var windowdefocusEffectsList = [
 
 /* |       Name                    C       PPX       PPY       CX        CY        DL        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN        /**/
       
   '|','Deflate',                   '2',    '0.5',    '0.5',    '0.0',    '0.0',    '0.0',    '25',     '255',    '0.97',   '0.97',   '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_CUBIC',
+                                           '0.5',    '0.5',    '0.0',    '0.0',    '0.0',    '25',     '255',    '1.0',    '1.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_IN_CUBIC',
+
+  '|','None',                      '2',    '0.5',    '0.5',    '0.0',    '0.0',    '0.0',    '1',      '255',    '0.97',   '0.97',   '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_CUBIC',
+                                           '0.5',    '0.5',    '0.0',    '0.0',    '0.0',    '1',      '255',    '1.0',    '1.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_IN_CUBIC',
+
+  '|','Random',                    '2',    '0.5',    '0.5',    '0.0',    '0.0',    '0.0',    '25',     '255',    '0.97',   '0.97',   '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_CUBIC',
                                            '0.5',    '0.5',    '0.0',    '0.0',    '0.0',    '25',     '255',    '1.0',    '1.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_IN_CUBIC'
                                            
+];
+     
+var dashappiconnewwindowEffectsListLastIndex = 11;    
+var dashappiconnewwindowEffectsList = [
+
+/* |       Name                    C       PPX       PPY       CX        CY        DL        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN        /**/
+      
+  '|','Bounce Down',               '4',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '125',    '255',    '1.0',    '1.0',    '0.0',    '0.03',   '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_QUAD',
+                                           '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '100',    '255',    '1.0',    '1.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_QUAD',
+                                           '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '75',     '255',    '1.0',    '1.0',    '0.0',    '0.01',   '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_QUAD', 
+                                           '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '50',     '255',    '1.0',    '1.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_QUAD', 
+
+  '|','Bounce Left',               '4',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '125',    '255',    '1.0',    '1.0',    '-0.03',  '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_QUAD',
+                                           '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '100',    '255',    '1.0',    '1.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_QUAD',
+                                           '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '75',     '255',    '1.0',    '1.0',    '-0.01',  '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_QUAD', 
+                                           '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '50',     '255',    '1.0',    '1.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_QUAD', 
+
+  '|','Bounce Right',              '4',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '125',    '255',    '1.0',    '1.0',    '0.03',   '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_QUAD',
+                                           '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '100',    '255',    '1.0',    '1.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_QUAD',
+                                           '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '75',     '255',    '1.0',    '1.0',    '0.01',   '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_QUAD', 
+                                           '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '50',     '255',    '1.0',    '1.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_QUAD', 
+
+  '|','Bounce Up',                 '4',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '125',    '255',    '1.0',    '1.0',    '0.0',    '-0.03',  '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_QUAD',
+                                           '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '100',    '255',    '1.0',    '1.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_QUAD',
+                                           '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '75',     '255',    '1.0',    '1.0',    '0.0',    '-0.01',  '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_QUAD', 
+                                           '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '50',     '255',    '1.0',    '1.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_QUAD', 
+
+  '|','Flip Horizontally',         '1',    '0.5',    '0.5',    '0.0',    '0.0',    '0.0',    '250',    '255',    '1.0',    '1.0',    '0.0',    '0.00',   '0.0',    '0.0',    '360',    '0.0',    'EASE_OUT_QUAD',
+
+  '|','Flip Vertically',           '1',    '0.5',    '0.5',    '0.0',    '0.0',    '0.0',    '250',    '255',    '1.0',    '1.0',    '0.0',    '0.00',   '0.0',    '360',    '0.0',    '0.0',    'EASE_OUT_QUAD',
+
+  '|','Spinning Slide Down',       '2',    '0.5',    '0.5',    '0.0',    '0.0',    '0.0',    '175',    '255',    '1.0',    '1.0',    '0.0',    '0.03',   '0.0',    '0.0',    '0.0',    '180',    'LINEAR',
+                                           '0.5',    '0.5',    '0.0',    '0.0',    '0.0',    '175',    '255',    '1.0',    '1.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '360',    'LINEAR',
+
+  '|','Spinning Slide Left',       '2',    '0.5',    '0.5',    '0.0',    '0.0',    '0.0',    '175',    '255',    '1.0',    '1.0',    '0.03',   '0.00',   '0.0',    '0.0',    '0.0',    '180',    'LINEAR',
+                                           '0.5',    '0.5',    '0.0',    '0.0',    '0.0',    '175',    '255',    '1.0',    '1.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '360',    'LINEAR',
+
+  '|','Spinning Slide Right',      '2',    '0.5',    '0.5',    '0.0',    '0.0',    '0.0',    '175',    '255',    '1.0',    '1.0',    '-0.03',  '0.00',   '0.0',    '0.0',    '0.0',    '180',    'LINEAR',
+                                           '0.5',    '0.5',    '0.0',    '0.0',    '0.0',    '175',    '255',    '1.0',    '1.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '360',    'LINEAR',
+
+  '|','Spinning Slide Up',         '2',    '0.5',    '0.5',    '0.0',    '0.0',    '0.0',    '175',    '255',    '1.0',    '1.0',    '0.0',    '-0.03',  '0.0',    '0.0',    '0.0',    '180',    'LINEAR',
+                                           '0.5',    '0.5',    '0.0',    '0.0',    '0.0',    '175',    '255',    '1.0',    '1.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '360',    'LINEAR',
+
+
+  '|','Wiggle',                    '4',    '0.5',    '0.5',    '0.0',    '0.0',    '0.0',    '25',     '255',    '1.0',    '1.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '10',     'EASE_OUT_CUBIC',
+                                           '0.5',    '0.5',    '0.0',    '0.0',    '0.0',    '25',     '255',    '1.0',    '1.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '-10',    'EASE_IN_CUBIC',
+                                           '0.5',    '0.5',    '0.0',    '0.0',    '0.0',    '25',     '255',    '1.0',    '1.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '10',     'EASE_IN_CUBIC',
+                                           '0.5',    '0.5',    '0.0',    '0.0',    '0.0',    '25',     '255',    '1.0',    '1.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_IN_CUBIC',
+
+  '|','None',                      '1',    '0.5',    '0.5',    '0.0',    '0.0',    '0.0',    '1',      '255',    '1.0',    '1.0',    '0.0',    '0.00',   '0.0',    '0.0',    '360',    '0.0',    'EASE_OUT_QUAD',
+
+  '|','Random',                    '4',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '125',    '255',    '1.0',    '1.0',    '0.0',    '-0.03',  '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_QUAD',
+                                           '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '100',    '255',    '1.0',    '1.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_QUAD',
+                                           '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '75',     '255',    '1.0',    '1.0',    '0.0',    '-0.01',  '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_QUAD', 
+                                           '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '50',     '255',    '1.0',    '1.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_QUAD'
+  
 ];
 
 var transitionOptions = [
 
-  "EASE_IN_BACK","EASE_IN_BOUNCE","EASE_IN_CIRC","EASE_IN_CUBIC","EASE_IN_ELASTIC","EASE_IN_EXPO","EASE_IN_QUAD","EASE_IN_QUART","EASE_IN_QUINT","EASE_IN_SINE",
-  "EASE_IN_OUT_BACK","EASE_IN_OUT_BOUNCE","EASE_IN_OUT_CIRC","EASE_IN_OUT_CUBIC","EASE_IN_OUT_ELASTIC","EASE_IN_OUT_EXPO","EASE_IN_OUT_QUAD","EASE_IN_OUT_QUART","EASE_IN_OUT_QUINT","EASE_IN_OUT_SINE",
-  "EASE_OUT_BACK","EASE_OUT_BOUNCE","EASE_OUT_CIRC","EASE_OUT_CUBIC","EASE_OUT_ELASTIC","EASE_OUT_EXPO","EASE_OUT_QUAD","EASE_OUT_QUART","EASE_OUT_QUINT","EASE_OUT_SINE"
+  "EASE","EASE_IN","EASE_IN_BACK","EASE_IN_BOUNCE","EASE_IN_CIRC","EASE_IN_CUBIC","EASE_IN_ELASTIC","EASE_IN_EXPO","EASE_IN_QUAD","EASE_IN_QUART","EASE_IN_QUINT","EASE_IN_SINE",
+  "EASE_IN_OUT","EASE_IN_OUT_BACK","EASE_IN_OUT_BOUNCE","EASE_IN_OUT_CIRC","EASE_IN_OUT_CUBIC","EASE_IN_OUT_ELASTIC","EASE_IN_OUT_EXPO","EASE_IN_OUT_QUAD","EASE_IN_OUT_QUART","EASE_IN_OUT_QUINT","EASE_IN_OUT_SINE",
+  "EASE_OUT","EASE_OUT_BACK","EASE_OUT_BOUNCE","EASE_OUT_CIRC","EASE_OUT_CUBIC","EASE_OUT_ELASTIC","EASE_OUT_EXPO","EASE_OUT_QUAD","EASE_OUT_QUART","EASE_OUT_QUINT","EASE_OUT_SINE", 
+  "LINEAR" 
   
 ];

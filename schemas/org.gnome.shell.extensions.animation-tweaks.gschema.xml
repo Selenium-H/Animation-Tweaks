@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- 
-Version 13.01
+Version 14.03
 =============
 
 Effect Format  [  |  S    Name     C       PPX       PPY       CX        CY        DL        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN  ]
@@ -171,7 +171,17 @@ Read the effectParameters.txt File for details.
       <description>Animation settings for Session Ending Dialogs opening</description>
     </key>    
 
-    <!--  ==================================================================================  Actions - Close   =================================================================================================== -->
+    <key name="dashappiconpopupmenu-open" type="as">
+    <!-- |  S    Name                    C       PPX       PPY       CX        CY        DL        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN -->
+      <default>[
+        '|','F', 'Scale Down',           '2',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '1',      '0',      '1.0',    '0.7',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_CUBIC',
+                                                 '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '250',    '255',    '1.0',    '1.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_CUBIC'  
+      ]</default>
+      <summary>Dash App Icon Pop Up Menu</summary>
+      <description>Dash App Icon Pop Up Menu</description>
+    </key>    
+
+    <!--  ==================================================================================  Actions - Close   ==================================================================================================== -->
     
     <key name="closing-effect" type="b">
       <default>false</default>
@@ -260,6 +270,15 @@ Read the effectParameters.txt File for details.
       <description>Animation settings for Session Ending Dialogs closing</description>
     </key>     
 
+    <key name="dashappiconpopupmenu-close" type="as">
+    <!-- |  S    Name                    C       PPX       PPY       CX        CY        DL        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN -->
+      <default>[
+        '|','F', 'Scale Up',             '1',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '300',    '0',      '1.0',    '0.7',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_IN_CUBIC'
+      ]</default>
+      <summary>Dash App Icon Pop Up Menu</summary>
+      <description>Dash App Icon Pop Up Menu</description>
+    </key>     
+
     <!--  ==================================================================================  Actions - Minimize  ================================================================================================== -->
     
     <key name="minimizing-effect" type="b">
@@ -295,7 +314,7 @@ Read the effectParameters.txt File for details.
       <description>Only provided so that shell does not crash if for any reason Modal Dialog Windows is minimzing</description>
     </key>
 
-    <!--  ===========================================================================  Actions -  Uninimize  ======================================================================================================== -->
+    <!--  ===========================================================================  Actions -  Uninimize  ======================================================================================================= -->
     
     <key name="unminimizing-effect" type="b">
       <default>false</default>
@@ -333,7 +352,7 @@ Read the effectParameters.txt File for details.
       <description>Only provided so that shell does not crash if for any reason Modal Dialog Windows is unminimzing</description>
     </key>
 
-    <!--  ============================================================================== Actions - Focus Window  ================================================================================================== -->
+    <!--  ==============================================================================  Actions - Focus Window  ================================================================================================== -->
 
     <key name="focussing-effect" type="b">
       <default>false</default>
@@ -430,7 +449,7 @@ Read the effectParameters.txt File for details.
     <key name="dialog-movestart" type="as">
     <!-- |  S    Name                    C       PPX       PPY       CX        CY        DL        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN -->
       <default>[
-        '|','F', 'Fade',                 '2',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '300',    '220',    '1.0',    '1.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_CUBIC',
+        '|','F', 'Fade',                 '2',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '300',    '220',    '0.9999', '0.9999', '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_CUBIC',
                                                  '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '300',    '255',    '1.0',    '1.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_CUBIC'   
       ]</default>
       <summary>Dialog Windows</summary>
@@ -440,14 +459,28 @@ Read the effectParameters.txt File for details.
     <key name="modaldialog-movestart" type="as">
     <!-- |  S    Name                    C       PPX       PPY       CX        CY        DL        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN -->
       <default>[
-        '|','F', 'Fade',                 '2',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '300',    '220',    '1.0',    '1.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_CUBIC',
+        '|','F', 'Fade',                 '2',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '300',    '220',    '0.9999', '0.9999', '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_CUBIC',
                                                  '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '300',    '255',    '1.0',    '1.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_CUBIC'      
       ]</default>
       <summary>Modal Dialog</summary>
       <description>Animation settings for Modal Dialog Windows start to move</description>
     </key>
 
-    <!--  ===================================================================================    Profiles - Apps    ================================================================================================= -->
+    <!--  =============================================================================================   Items   ================================================================================================== -->
+
+    <key name="dashappicon-newwindow" type="as">
+    <!-- |  S    Name                    C       PPX       PPY       CX        CY        DL        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN -->
+      <default>[
+        '|','F', 'Bounce Up',            '4',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '125',    '255',    '1.0',    '1.0',    '0.0',    '-0.03',  '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_QUAD',
+                                                 '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '100',    '255',    '1.0',    '1.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_QUAD',
+                                                 '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '75',     '255',    '1.0',    '1.0',    '0.0',    '-0.01',  '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_QUAD', 
+                                                 '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '50',     '255',    '1.0',    '1.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    '0.0',    'EASE_OUT_QUAD' 
+      ]</default>
+      <summary>Dash App Icon</summary>
+      <description>Dash App Icon</description>
+    </key>
+
+    <!--  ===================================================================================    Profiles - Application    ========================================================================================= -->
 
     <key name="use-application-profiles" type="b">
       <default>false</default>
@@ -469,7 +502,7 @@ Read the effectParameters.txt File for details.
       <description>List of Applicaions names for custom profiles</description>
     </key>
 
-    <!--  ===================================================================================    Profiles - Extension   ============================================================================================= -->
+    <!--  ===================================================================================    Profiles - Animation Tweaks   ===================================================================================== -->
 
     <key name="profile-name" type="s">
       <default>"Default"</default>
@@ -477,12 +510,18 @@ Read the effectParameters.txt File for details.
       <description>Extension Profile Currently In Use</description>
     </key>
 
-    <!--  ==========================================================================================  Tweaks  ======================================================================================================= -->
+    <!--  =============================================================================================  Integration  ============================================================================================== -->
 
     <key name="wayland"   type="b">
       <default>false</default>
-      <summary>Use the workaround for Wayland</summary>
-      <description>Settings If used under wayland</description>
+      <summary>Integrate with Wayland</summary>
+      <description>Integrate with Wayland</description>
+    </key> 
+
+    <key name="extension-integration"   type="b">
+      <default>true</default>
+      <summary>Integrate with other extensions</summary>
+      <description>Integrate with Other extensions</description>
     </key> 
 
     <key name="padosd-hide-timeout" type="i">
@@ -490,7 +529,13 @@ Read the effectParameters.txt File for details.
       <summary>Pad OSD hide timeout [ in ms ] </summary>
       <description>Time for which Pad OSD is Shown</description>
     </key>    
-        
+
+    <key name="extension-start-delay"   type="i">
+      <default>0</default>
+      <summary>Extension startup delay in [ in ms ]</summary>
+      <description>Extension startup delay</description>
+    </key> 
+
     <key name="disable-shortcut" type="as">
       <default>
         <![CDATA[['<Super>t']]]>
@@ -499,13 +544,21 @@ Read the effectParameters.txt File for details.
       <description>Shortcut key combiation to disable extension</description>
     </key>
 
+    <!--  =================================================================================   Preferences  ========================================================================================================= -->
+
+    <key name="group-actions"   type="b">
+      <default>false</default>
+      <summary>Show opposite actions preferences side by side</summary>
+      <description>Show opposite actions preferences side by side</description>
+    </key> 
+
     <key name="show-delay"   type="b">
       <default>false</default>
       <summary>Show delay time in preferences</summary>
       <description>Show Delay Time in preferences</description>
     </key>
 
-    <!--  =============================================================================   Extension Variables  =========================================================================================== -->
+    <!--  =============================================================================   Extension Variables  ===================================================================================================== -->
 
     <key name="current-version" type="d">
       <default>13</default>

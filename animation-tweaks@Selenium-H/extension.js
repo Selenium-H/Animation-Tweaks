@@ -1,6 +1,6 @@
 /*
 
-Version 14.05
+Version 15.01
 =============
 
 Credits:
@@ -1680,7 +1680,7 @@ const EffectsManager_AnimationTweaksExtension = class EffectsManager_AnimationTw
   
   overriddenShowWindowMenuForWindow(window, type, rect) {
         
-        if (!Main.sessionMode.hasWmMenus)
+        if (this._manager._menus.length || !Main.sessionMode.hasWmMenus)
             return;
 
         if (type != Meta.WindowMenuType.WM)

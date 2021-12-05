@@ -1,6 +1,6 @@
 /*
 
-Version 14.05
+Version 16.01
 =============
 
 Effect Format  [  |  S    Name     C       PPX       PPY       CX        CY        DL        T         OP        SX        SY        PX        PY        TZ        RX        RY        RZ        TRN  ]
@@ -26,7 +26,6 @@ const Gio               = imports.gi.Gio;
 const GLib              = imports.gi.GLib;
 const GObject           = imports.gi.GObject;
 const Gtk               = imports.gi.Gtk;
-const Lang              = imports.lang;
 const _                 = Gettext.domain("animation-tweaks").gettext;
 
 const TWEEN_PARAMETERS_LENGTH = 16;
@@ -202,7 +201,7 @@ const ExtensionResetButton_AnimationTweaksExtension =  new GObject.Class({
     dialog.add_button("OK", Gtk.ResponseType.OK);
     dialog.set_markup("<big><b>"+_("Reset Animation Tweaks to defaults?")+"</b></big>");
     dialog.get_message_area().append(new Gtk.Label({ wrap: true, justify: 3, use_markup: true, label: _("Resetting the extension will discard the current preferences configuration and restore default one.")}));
-    dialog.connect('response', Lang.bind(this, function(dialog, id) {
+    dialog.connect('response', (dialog, id) => {
       if(id != Gtk.ResponseType.OK) {
         dialog.destroy();  
         return;
@@ -270,7 +269,7 @@ const ExtensionResetButton_AnimationTweaksExtension =  new GObject.Class({
         object[functionToBeCalledAtTheEnd]( parameter );
       }
       reloadExtension();
-    }));
+    });
     dialog.present();
    
   },
@@ -399,13 +398,13 @@ const UpdatePage_AnimationTweaksExtension =  new GObject.Class({
     dialog.add_button("OK", Gtk.ResponseType.OK);
     dialog.set_markup("<big><b>"+_("Keep Preferences and Upgrade?")+"</b></big>");
     dialog.get_message_area().append(new Gtk.Label({ wrap: true, justify: 3, use_markup: true, label: _("\nPlease make sure that\n\nYou are upgrading from version 10 or newer of this extension to current version.\nAlready Reset the extension during previous upgrade.\nThe extension is working fine.")+"\n\n"+_("Otherwise click Cancel to go back and reset.")+"\n\n"+_("Note: Incompatible preferences will be reset anyway.")}));
-    dialog.connect('response', Lang.bind(this, function(dialog, id) {
+    dialog.connect('response', (dialog, id) => {
       if(id != Gtk.ResponseType.OK) {
         dialog.destroy();  
         return;
       }
       this.keepPreferences(dialog);
-    }));    
+    });    
     dialog.present();
     
   },
@@ -544,14 +543,14 @@ const AnimationSettingsForItem_AnimationTweaksExtension = new GObject.Class({
 
     dialog.set_default_response(Gtk.ResponseType.CANCEL);
     let addButton = dialog.add_button(_("Restore Default"), Gtk.ResponseType.OK);
-    dialog.connect('response', Lang.bind(this, function(dialog, id) { 
+    dialog.connect('response', (dialog, id) => { 
 
       if(id == Gtk.ResponseType.OK) {
         this.selectEffectFromList(this.prefsCombo.get_selected());
       }
       dialog.destroy();
 
-    }));
+    });
     dialog.present();
 
   },
@@ -1093,14 +1092,14 @@ const EffectsTweaks_AnimationTweaksExtension =  new GObject.Class({
       effectParameter.append(DefaultEffectList.transitionOptions[i],  DefaultEffectList.transitionOptions[i]);
     }
     effectParameter.set_active(DefaultEffectList.transitionOptions.indexOf(this.eStr[pNo]));
-    effectParameter.connect('changed', Lang.bind(this, function(widget) {
+    effectParameter.connect('changed', (widget) => {
       
       this.eStr[pNo]=DefaultEffectList.transitionOptions[widget.get_active()];
       this.appProfile.modifyEffectForWindowAction(this.appIndex,this.eStr);
       settings.set_boolean("current-profile-modified", true);
       reloadApplicationProfiles();
             
-    }));
+    });
     
     this.gridWin.attach(SettingLabel,    0, pos, 1, 1);
     this.gridWin.attach(effectParameter, 2, pos, 1, 1);
@@ -1250,11 +1249,11 @@ const PrefsWindow_AnimationTweaksExtension = new GObject.Class({
     let SettingSwitch0 = new Gtk.Switch({hexpand: false, active: settings.get_boolean(KEY), halign: Gtk.Align.START});
     let prefsSwitchBox = new Gtk.Box({ orientation: Gtk.Orientation.VERTICAL, hexpand:true});
         
-    SettingSwitch0.connect("notify::active", Lang.bind(this, function(button) {
+    SettingSwitch0.connect("notify::active", (button) => {
       settings.set_boolean(KEY, button.active);
       settings.set_boolean("current-profile-modified", true);
       reloadExtension();
-    }));
+    });
 
     settings.connect("changed::"+KEY, () => {
       SettingSwitch0.set_active(settings.get_boolean(KEY));
@@ -1362,7 +1361,7 @@ const PrefsWindowForApps_AnimationTweaksExtension = new GObject.Class({
     let hbox = new Gtk.Box({orientation: Gtk.Orientation.VERTICAL, hexpand:true, vexpand:true});
     hbox.append(dialog._appChooser);
     dialog.get_content_area().append(hbox);
-    dialog.connect('response', Lang.bind(this, function(dialog, id) {
+    dialog.connect('response', (dialog, id) => {
       if (id != Gtk.ResponseType.OK) {
         dialog.destroy();
         return;
@@ -1388,7 +1387,7 @@ const PrefsWindowForApps_AnimationTweaksExtension = new GObject.Class({
       this._store.set(this._store.append(),[0, 2, 1],[appInfo, appInfo.get_icon(), appInfo.get_name()]);
 
       dialog.destroy();
-    }));
+    });
     
     dialog.present();
     
@@ -1523,10 +1522,10 @@ const PrefsWindowForApps_AnimationTweaksExtension = new GObject.Class({
     listBox.set_min_content_width(200); 
     
     let addButton = new Gtk.Button({label: "     "+_("Add")+"    ", halign:Gtk.Align.START});
-    addButton.connect('clicked', Lang.bind(this, this.addApp));
+    addButton.connect('clicked', this.addApp.bind(this));
 
     let delButton = new Gtk.Button({label: " "+_("Remove")+" ", halign:Gtk.Align.END});
-    delButton.connect('clicked', Lang.bind(this, this.removeApp));
+    delButton.connect('clicked', this.removeApp.bind(this));
 
     this.profilesOptionTopGrid = new Gtk.Grid({ hexpand: true, vexpand: true, halign: Gtk.Align.CENTER, column_spacing: 40, margin_top: 20, row_spacing: 20 });
     this.gridWin               = new Gtk.Grid({ hexpand: true, vexpand: true, halign: Gtk.Align.CENTER, valign: Gtk.Align.CENTER, column_spacing: 20, row_spacing: 20});
@@ -1761,17 +1760,17 @@ const PrefsWindowForIntegration_AnimationTweaksExtension = new GObject.Class({
     
     strSetting.set_width_chars(1);
     SettingCombo.set_active(options.indexOf(keyVal[0].substring(0,1+keyVal[0].indexOf('>'))));
-    SettingCombo.connect('changed', Lang.bind (this, function(widget) {  
+    SettingCombo.connect('changed', (widget) => {  
       keyVal.pop(); 
       keyVal.push(options[widget.get_active()]+strSetting.text);
       settings.set_strv(KEY,keyVal);
-    }));
+    });
     
-    strSetting.connect('changed'  , Lang.bind (this, function()  {  
+    strSetting.connect('changed'  , () => {  
       keyVal.pop(); 
       keyVal.push(options[SettingCombo.get_active()]+strSetting.text);
       settings.set_strv(KEY,keyVal);
-    }));
+    });
     
     box.append(SettingCombo);
     box.append(new Gtk.Label({label: "  +  "}));
@@ -2226,7 +2225,7 @@ const PrefsWindowForExtensionProfiles_AnimationTweaksExtension = new GObject.Cla
     ( action != 0 ) ? dialog.set_current_name (PROFILE_FILE_NAME): null;
     dialog.present();
     
-    dialog.connect('response', Lang.bind(this, function(dialog, id) {
+    dialog.connect('response', (dialog, id) => {
     
       if(id == Gtk.ResponseType.OK) {
         ( action == 0 ) ? this.importProfiles(dialog.get_file().get_path()) : GLib.file_set_contents( dialog.get_file().get_path(), this.getFileDataAsString( this.PROFILE_PATH+PROFILE_FILE_NAME ));      
@@ -2235,7 +2234,7 @@ const PrefsWindowForExtensionProfiles_AnimationTweaksExtension = new GObject.Cla
       dialog.destroy();
       return;
         
-    }));
+    });
     
   },
 

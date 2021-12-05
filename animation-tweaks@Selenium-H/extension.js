@@ -1,6 +1,6 @@
 /*
 
-Version 15.01
+Version 17.01
 =============
 
 Credits:
@@ -46,14 +46,15 @@ const defaultPadOSDShow = Main.osdWindowManager._showOsdWindow;
 let defaultShellModalDialogOpenAnimationFunction  = null;
 let defaultShellModalDialogCloseAnimationFunction = null;
 
-let effectsManager                         = null;
-let extensionSettings                      = null;
-let extensionDelayTimeoutId_extensionState = null;
+let effectsManager          = null;
+let extensionSettings       = null;
+let extensionDelayTimeoutId = null;
+let extensionState          = null;
 
 function enable() {
 
   effectsManager = new EffectsManager_AnimationTweaksExtension();
-  extensionDelayTimeoutId_extensionState = GLib.timeout_add(GLib.PRIORITY_DEFAULT, extensionSettings.get_int("extension-start-delay"), ()=> effectsManager.startEffectsManager()); 
+  extensionDelayTimeoutId = GLib.timeout_add(GLib.PRIORITY_DEFAULT, extensionSettings.get_int("extension-start-delay"), ()=> effectsManager.startEffectsManager()); 
   extensionSettings.connect("changed::reload-profiles-signal", () => effectsManager.loadProfilePrefs()); // Reloads Application Profiles when preferences are changed.
     extensionSettings.connect("changed::reload-signal", () => { // Reloads the Extension when preferences are changed.
     effectsManager.undoChanges();
@@ -65,17 +66,16 @@ function enable() {
 function disable() {
 
   extensionSettings.run_dispose();
+  if(extensionDelayTimeoutId) {
+    GLib.source_remove(extensionDelayTimeoutId);    
+    extensionDelayTimeoutId = null;
+  }
   
-  if(extensionDelayTimeoutId_extensionState == "n") {
+  if(extensionState == "n") { // Extension is not started.
     return;
   }
-  else if(extensionDelayTimeoutId_extensionState == "s" || extensionDelayTimeoutId_extensionState == "k") {
+  else if(extensionState == "s" || extensionState == "k") { // Extension is started. 
     effectsManager.undoChanges();
-    return;
-  }
-  else if(extensionDelayTimeoutId_extensionState != null) { // If Extensiom is not started at all.
-    GLib.source_remove(extensionDelayTimeoutId_extensionState);    
-    extensionDelayTimeoutId_extensionState = null;
     return;
   }
   
@@ -618,7 +618,10 @@ const EffectsManager_AnimationTweaksExtension = class EffectsManager_AnimationTw
 
       if(eParams[0] == "T" ) {
         if((window.maximized_horizontally || window.maximized_vertically)) {
-          GLib.timeout_add(GLib.PRIORITY_DEFAULT, 300, ()=> this.driveOtherAnimation( eParams, parameters )); 
+          this.windowStopMovingEffectsTimeoutID = GLib.timeout_add(GLib.PRIORITY_DEFAULT, 300, ()=> {
+            this.driveOtherAnimation( eParams, parameters );
+            return GLib.SOURCE_REMOVE;
+          }); 
         }
         else {
           parameters.actor.remove_all_transitions();
@@ -1770,14 +1773,14 @@ const EffectsManager_AnimationTweaksExtension = class EffectsManager_AnimationTw
   startEffectsManager () {
 
     if(extensionSettings.get_double("current-version") < 13.01) {    
-      extensionDelayTimeoutId_extensionState = "n";
+      extensionState = "n"; // Extension is not started
       Main.notify("Animation Tweaks","Extension is updated. Please complete the update process in the extension preferences.");
       return;
     }
       
     if(extensionSettings.get_strv("disable-shortcut")[0].indexOf("Disabled") < 0) {
-      extensionDelayTimeoutId_extensionState = "k";
-      Main.wm.addKeybinding(  //this.extensionDisableShortcut(); START
+      extensionState = "k";  // Extension is started and Keyboard shortcut is enabled.
+      Main.wm.addKeybinding( //this.extensionDisableShortcut(); START
         'disable-shortcut',
         extensionSettings,
         Meta.KeyBindingFlags.NONE,
@@ -1791,7 +1794,7 @@ const EffectsManager_AnimationTweaksExtension = class EffectsManager_AnimationTw
       );
     } 
     else {
-      extensionDelayTimeoutId_extensionState = "s";
+      extensionState = "s"; //Extension is started but keyboard shortcut is not enabled.
     } //this.extensionDisableShortcut(); END
                 
     this.focussingEffectEnabled   = extensionSettings.get_boolean("focussing-effect");
@@ -1960,7 +1963,11 @@ const EffectsManager_AnimationTweaksExtension = class EffectsManager_AnimationTw
       GLib.source_remove(this.dashAppIconUpdateTimeoutID[1]);
       this.dashAppIconUpdateTimeoutID[1] = null;
     }
-
+    
+    if(this.windowStopMovingEffectsTimeoutID != null) {
+      GLib.source_remove(this.windowStopMovingEffectsTimeoutID);
+      this.windowStopMovingEffectsTimeoutID = null;
+    }
 
     (this.onOpeningSig)      ? global.window_manager.disconnect(this.onOpeningSig)      : null;
     (this.onClosingSig)      ? global.window_manager.disconnect(this.onClosingSig)      : null;
@@ -1996,7 +2003,7 @@ const EffectsManager_AnimationTweaksExtension = class EffectsManager_AnimationTw
       } 
       this.eitherDashToDockOrDashToPanelSignalHandler = null; 
     }    
-    if(extensionDelayTimeoutId_extensionState == "k") {
+    if(extensionState == "k") { // Only run if keyboard shortcut is enabled.
       Main.wm.removeKeybinding('disable-shortcut');
     }
     
